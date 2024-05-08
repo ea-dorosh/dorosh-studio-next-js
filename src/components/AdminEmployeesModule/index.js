@@ -11,7 +11,6 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
 import CreateEmployeeForm from "@/components/CreateEmployeeForm";
-import adminService from "@/services/admin.service";
 import employeesService from "@/services/employees.service";
 
 export default function AdminEmployeesModule({ 
@@ -26,8 +25,8 @@ export default function AdminEmployeesModule({
 
   useEffect(() => {
     const fetchDaysOfWeek = async () => {
-      const data = await adminService.getDaysOfWeek();
-      return setDaysOfWeek(data);
+      // const data = await adminService.getDaysOfWeek();
+      // return setDaysOfWeek(data);
     };
 
     fetchDaysOfWeek();

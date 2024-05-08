@@ -2,7 +2,7 @@ import ERRORS from "@/constants/errors";
 
 const getEmployees = async () => {
   const response = await fetch(
-    `${process.env.REACT_APP_API_URL}api/employees`
+    `${process.env.REACT_APP_API_URL}api/public/employees`
   );
   const data = await response.json();
   return data;
