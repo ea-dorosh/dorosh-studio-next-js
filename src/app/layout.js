@@ -1,12 +1,13 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
+import Link from "@mui/material/Link";
 import { ThemeProvider } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import * as React from "react";
-import Logo from "@/components/Logo/Logo";
+import LogoLink from "@/components/LogoLink/LogoLink";
 import Menu from "@/components/Menu/Menu";
 import theme from "@/theme";
 
@@ -18,13 +19,13 @@ export const metadata = {
 const LINKS = [
   { text: "Home", href: "/" },
   { text: "Unsere Services", href: "/services" },
-  { text: "Online Termin", href: "/appointment" },
+  { text: "Online Termin", href: "/booking" },
 ];
 
 export default function RootLayout({ children }) {
 
   return (
-    <html lang="en">
+    <html lang="de">
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
@@ -34,14 +35,13 @@ export default function RootLayout({ children }) {
             <AppBar 
               position="static" sx={{ 
                 zIndex: 2000,
-                bgcolor: "background.main",
               }}>
               <Box sx={{
                 textAlign: `center`,
-                p: 1.2,
-                bgcolor: "primary.main",
+                padding: `1.6px`,
+                bgcolor: `background.secondary`,
               }}>
-                <Typography variant="caption" noWrap component="div" color="primary.contrastText">
+                <Typography variant="caption" noWrap component="div" color="primary">
                   kostenlose Beratung
                 </Typography>
               </Box>
@@ -52,11 +52,11 @@ export default function RootLayout({ children }) {
                 <Box sx={{
                   width: `250px`,
                   maxWidth: `90%`,
-                  padding: `18px 0`,
+                  height: `90px`,
+                  position: `relative`,
                 }}
                 >
-
-                  <Logo sx={{margin: `auto`}}/>
+                  <LogoLink />
                 </Box>
 
                 <Box sx={{
@@ -72,11 +72,32 @@ export default function RootLayout({ children }) {
               component="main"
               sx={{
                 flexGrow: 1,
-                p: 3,
-                padding: `0 24px 24px 24px`,
               }}
             >
               {children}
+            </Box>
+
+            <Box
+              component="footer"
+              sx={{
+                py: 3,
+                px: 2,
+                mt: 'auto',
+                textAlign: 'center',
+                bgcolor: "background.main",
+              }}
+            >
+              <Typography variant="body2" color="secondary">
+                {new Date().getFullYear()} Dorosh Studio.
+              </Typography>
+
+              <Link
+                href="/privacy-policy"
+                variant="body2"
+                color="secondary"
+              >
+                Privacy Policy
+              </Link>
             </Box>
           </ThemeProvider>
         </AppRouterCacheProvider>
