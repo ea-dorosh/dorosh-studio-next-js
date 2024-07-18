@@ -1,380 +1,342 @@
-"use client";
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import Container from "@mui/material/Container";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Typography from "@mui/material/Typography";
-import { useState, useEffect } from "react";
-import BookServiceForm from '@/components/BookServiceForm';
-import MonthCalendar from "@/components/MonthCalendar";
-import appointmentsService from '@/services/appointments.service';
-import employeesService from "@/services/employees.service";
-import servicesService from "@/services/services.service";
-import { formattedTime } from '@/utils/formatters';
-
-const FORM_STEPS = {
-  SERVICES: 1,
-  EMPLOYEES: 2,
-  CALENDAR: 3,
-  EMPLOYEES_FOR_CURRENT_SLOT: 4,
-  CUSTOMER_FORM: 5,
-  FINISH: 6,
-};
+import Image from 'next/image';
+import Link from "next/link";
 
 export default function ServicesPage() {
-  const [services, setServices] = useState(null);
-  const [employees, setEmployees] = useState(null);
-  const [filteredEmployees, setFilteredEmployees] = useState(null);
 
-  const [selectedService, setSelectedService] = useState(null);
-  const [selectedEmployeeIds, setSelectedEmployeeIds] = useState([]);
-  const [selectedEmployeeFromTimeSlotAvailability, setSelectedEmployeeFromTimeSlotAvailability] = useState(null);
-
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-  const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
-
-  const [generalError, setGeneralError] = useState(null);
-
-  const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
-
-  const shouldShowServices = formStep === FORM_STEPS.SERVICES;
-  const shouldShowServiceDetails = formStep > FORM_STEPS.SERVICES && formStep < FORM_STEPS.FINISH;
-  const shouldShowEmployees = formStep === FORM_STEPS.EMPLOYEES;
-  const shouldShowEmployeeDetails = formStep > FORM_STEPS.EMPLOYEES && formStep < FORM_STEPS.FINISH;
-  const shouldShowCalendar = formStep === FORM_STEPS.CALENDAR;
-  const shouldShowCalendarDetails = formStep > FORM_STEPS.CALENDAR && formStep < FORM_STEPS.FINISH;
-  const shouldShowEmployeesForCurrentSlot = formStep === FORM_STEPS.EMPLOYEES_FOR_CURRENT_SLOT;
-  const shouldShowCustomerForm = formStep === FORM_STEPS.CUSTOMER_FORM;
-  const shouldShowApproveMessage = formStep === FORM_STEPS.FINISH;
-
-  useEffect(() => {
-    if (selectedService) {
-      const filtered = employees.filter((employee) => {
-        return selectedService.employeeIds.includes(employee.employeeId);
-      });
-
-      setFilteredEmployees(filtered);
-    } else {
-      setFilteredEmployees(null);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedService]);
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      const data = await servicesService.getServices();
-      return setServices(data);
-    };
-
-    const fetchEmployess = async () => {
-      const data = await employeesService.getEmployees();
-      return setEmployees(data);
-    };
-
-    fetchServices();
-    fetchEmployess();
-  }, []);
-
-  const onSelectServiceClick = (service) => {
-    setSelectedService(service);
-
-    setFormStep(FORM_STEPS.EMPLOYEES);
-  }
-
-  const onChangeServiceClick = () => {
-    setSelectedService(null);
-    setSelectedEmployeeFromTimeSlotAvailability(null);
-    setSelectedEmployeeIds([]);
-
-    setFormStep(FORM_STEPS.SERVICES);
-  }
-
-  const onSelectEmployeeClick = () => {
-    if (selectedEmployeeIds.length) {
-      setFormStep(FORM_STEPS.CALENDAR)
-    }
-  }
-
-  const handleEmployeeChange = (event) => {
-    const { value, checked } = event.target;
-    
-    setSelectedEmployeeIds((prevData) => (
-      checked ? // eslint-disable-next-line no-undef
-        [...new Set([...prevData, Number(value)])]
-        : prevData.filter(
-          (id) => Number(id) !== Number(value)
-        )
-    ));
+  const imageStyles = {
+    position: 'absolute',
+    width: '100%',
+    height: 'auto',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   };
 
-  const onChangeEmployeeClick = () => {
-    setSelectedTimeSlot(null);
-    setSelectedEmployeeFromTimeSlotAvailability(null);
-    setFormStep(FORM_STEPS.EMPLOYEES);
-  }
-
-  const onSelectTimeSlotClick = (slot) => {
-    setSelectedTimeSlot(slot);
-
-    if (slot.employeeId.length > 1) {
-      setFormStep(FORM_STEPS.EMPLOYEES_FOR_CURRENT_SLOT);
-    } else {
-      setSelectedEmployeeFromTimeSlotAvailability(slot.employeeId[0]);
-      setFormStep(FORM_STEPS.CUSTOMER_FORM);
-    }
-  }
-
-  const onChangeDateAndTimeClick = () => {
-    setFormStep(FORM_STEPS.CALENDAR);
-    setSelectedTimeSlot(null)
-    setSelectedEmployeeFromTimeSlotAvailability(null);
-  }
-
-  const createAppointmentHadler = async (formData) => {
-    const appointmentData = {
-      ...formData,
-      date: selectedDay.day,
-      time: selectedTimeSlot.startTime,
-      serviceId: selectedService.id,
-      serviceDuration: selectedService.duration,
-      employeeId: selectedEmployeeFromTimeSlotAvailability,
-    };
-
-    try {
-      await appointmentsService.createAppointment(appointmentData);
-      
-      // reset form after successful submission
-      setFormStep(FORM_STEPS.FINISH);
-      setSelectedService(null);
-      setSelectedEmployeeIds([]);
-      setSelectedDay(null);
-      setSelectedTimeSlot(null);
-      setCreateAppointmentErrors(null);
-      setSelectedEmployeeFromTimeSlotAvailability(null);
-    } catch (error) {
-      const parsedErrors = await JSON.parse(error.message);
-
-      if (typeof parsedErrors === `string`) {
-        setGeneralError(parsedErrors);
-      } else {
-        setCreateAppointmentErrors(parsedErrors);
-      }
-    }
-  }
-
   return (
-    <Container>
-      <Box
+    <Box 
+      bgcolor="background.paper"
+    >
+      <Typography
+        color="primary"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          padding: `30px 20px 10px 20px`,
+          textAlign: `center`,
+
+          '@media (max-width: 440px)': {
+            fontSize: `2.4rem`,
+          },
         }}
+        variant="h1"
       >
-        <Typography variant="body1" gutterBottom>
-          Services Page
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          selectedService: {selectedService?.toString()}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-        selectedEmployeeIds: {selectedEmployeeIds?.toString()}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-        selectedEmployeeFromTimeSlotAvailability: {selectedEmployeeFromTimeSlotAvailability?.toString()}
-        </Typography>
-      </Box>
+        Unsere Services
+      </Typography>
+      
+      <Box>
+        <Box
+          id="powder-brows"
+          sx={{
+            padding: `20px 0`,
+          }}
+        >
+          <Typography
+            variant="h2"
+            color={"primary"}
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Powder Brows
+          </Typography>
 
-      <div>
-        {shouldShowServices && services?.map((service) => (
-          <Box key={service.id} sx={{marginBottom: 2}}>
-            <Typography variant="h6" sx={{width: '200px'}}>{service.name}</Typography>
+          <Typography
+            variant="subtitle2"
+            color="primary"
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Preis: 290€
+          </Typography>
 
-            <Typography variant="body1">Duration Time: {service.durationTime}</Typography>
-
-            <Typography variant="body1">Buffer Time: {service.bufferTime ?? '-'}</Typography>
-
-            <Button
-              sx={{marginLeft: 2}}
-              variant="contained"
-              onClick={() => onSelectServiceClick(service)}
-            >Book an appointment</Button>
+          <Box sx={{
+            padding: `0 24px`,
+            margin: `10px 0 0 0`,
+          }}>
+            Powder Brows, Pudertechnik, Ombre Brows. Hochwertiges Permanent Make-Up hält 1,5-2 Jahre & die Augenbrauen wirken sehr natürlich, sehen dicht und voll aus.
           </Box>
-        ))}
 
-        {shouldShowServiceDetails && 
-          <Box sx={{display: `flex`}}>
-            <Typography>
-              You chose: {selectedService.name}
-            </Typography>
-
-            <Button
-              sx={{marginLeft: 2}}
-              onClick={onChangeServiceClick}
-            >Change service</Button>
-          </Box>
-        }
-      </div>
-
-      <div>
-        <Box sx={{display: `flex`, flexDirection: `column`}}>
-          {shouldShowEmployees && filteredEmployees?.map((employee) => (
-            <FormControlLabel
-              key={employee.employeeId}
-              control={
-                <Checkbox
-                  name="employeeName"
-                  checked={selectedEmployeeIds.includes(employee.employeeId)}
-                  onChange={handleEmployeeChange}
-                  value={employee.employeeId}
-                />
-              }
-              label={`${employee.firstName} ${employee.lastName}`}
-            />
-          ))}
-        </Box>
-
-        {shouldShowEmployees && <Button
-          sx={{marginLeft: 2}}
-          variant="contained"
-          disabled={selectedEmployeeIds.length === 0}
-          onClick={onSelectEmployeeClick}
-        >Choose date</Button>}
-
-        {shouldShowEmployeeDetails && 
-          <Box sx={{display: `flex`}}>
-            <Box sx={{display: `flex`, flexDirection: `column`}}>
-              {selectedEmployeeIds.map((employeeId) => {
-                const employee = employees.find((emp) => emp.employeeId === employeeId);
-
-                return (
-                  <Typography key={employeeId}>
-                    {employee.firstName} {employee.lastName}
-                  </Typography>
-                );
-              })}
+          <Box
+            sx={{
+              padding: `10px 24px 0 24px`,
+              overflow: `hidden`,
+            }}
+          >
+            <Box 
+              sx={{
+                position: 'relative',
+                width: '100%',
+                paddingTop: '90%',
+                overflow: 'hidden',
+              }}
+            >
+              <Image 
+                src="/images/services-page/service-brows.jpg"
+                alt="Permanent Make-up Powder Brows"
+                width="300"
+                height="200"
+                style={imageStyles}
+              />
             </Box>
 
             <Button
-              sx={{marginLeft: 2}}
-              onClick={onChangeEmployeeClick}
-            >Change master</Button>
-          </Box>
-        }
-      </div>
-
-      {shouldShowCalendar && 
-        <MonthCalendar 
-          service={selectedService}
-          employees={selectedEmployeeIds}
-          setSelectedDay={setSelectedDay}
-          selectedTimeSlot={selectedTimeSlot}
-          setSelectedTimeSlot={onSelectTimeSlotClick}
-        />
-      }
-
-      {shouldShowCalendarDetails && 
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          gap: '30px',
-          marginTop: '30px',
-        }}>
-          <Box>
-            <Typography>
-              Selected day: {selectedDay.day}
-            </Typography>
-
-            <Typography>
-              Selected time slot: {formattedTime(selectedTimeSlot.startTime)}
-            </Typography>
-          </Box>
-
-          <Button
-            onClick={onChangeDateAndTimeClick}
-          >
-            Change date and time
-          </Button>
-        </Box>
-      }
-
-      {shouldShowEmployeesForCurrentSlot && 
-        <Box sx={{
-          marginTop: '30px',
-        }}>
-          <Typography>
-            At this time the following masters are available:
-          </Typography>
-
-          {selectedTimeSlot.employeeId.map((employeeId) => {
-            const employee = employees.find((emp) => emp.employeeId === employeeId);
-
-            return (
-              <Box 
-                key={employeeId} 
-                sx={{
-                  display: 'flex',
-                  gap: '30px',
-                }}
-              >
-                <Typography>
-                  {employee.firstName} {employee.lastName}
-                </Typography>
-
-                <Button onClick={()=>{
-                  setSelectedEmployeeFromTimeSlotAvailability(employeeId);
-                  setFormStep(FORM_STEPS.CUSTOMER_FORM);
-                }}>Choose</Button>
-              </Box>
-            );
-          })}
-
-          <Button onClick={()=>{
-            setSelectedEmployeeFromTimeSlotAvailability(selectedTimeSlot.employeeId[0]);
-            setFormStep(FORM_STEPS.CUSTOMER_FORM)
-          }}>Continue with any Master</Button>
-        </Box>
-      }
-
-      {shouldShowCustomerForm && 
-        <Box>
-          <Box sx={{
-            marginTop: '20px',
-          }}>
-            <BookServiceForm 
-              createAppointment={createAppointmentHadler}
-              formErrors={createAppointmentErrors}
-            />
+              component={Link}
+              variant="contained"
+              color="primary"
+              href="/booking?powder-brows"
+              sx={{
+                marginTop: `20px`,
+                width: `100%`,
+              }}
+            >
+              Online Termine
+            </Button>
           </Box>
         </Box>
-      }
 
-      {shouldShowApproveMessage && 
-        <Box>
-          <Typography>
-            Your appointment has been created!
-          </Typography>
-
-          <Button
-            onClick={()=> setFormStep(FORM_STEPS.SERVICES)}
-          >
-            Choose next service
-          </Button>
-        </Box>
-      }
-
-      {generalError && 
-        <Typography
-          variant="subtitle1"
-          mt={2}
-          color={`error`}
+        <Box
+          id="hairstroke"
+          sx={{
+            padding: `20px 0`,
+          }}
         >
-          {generalError}
-        </Typography>
-      }
-    </Container>
+          <Typography
+            variant="h2"
+            color={"primary"}
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Hairstroke
+          </Typography>
+
+          <Typography
+            variant="subtitle2"
+            color="primary"
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Preis: 350€
+          </Typography>
+
+          <Box
+            component="p"
+            sx={{
+              padding: `0 24px`,
+              margin: `10px 0 0 0`,
+            }}
+          >
+            Permanent Augenbrauen Make-Up in Haar Technik.
+            <br/>
+            Die natürlichste und realistischste Technik.
+            <br/>
+            Nicht zu verwechseln mit Microblading! Hairstroke - eine leichte, oberflächliche Technik ohne Hauttrauma
+          </Box>
+
+          <Box
+            sx={{
+              padding: `10px 24px 0 24px`,
+              overflow: 'hidden',
+            }}
+          >
+            <Box 
+              sx={{
+                position: 'relative',
+                width: '100%',
+                paddingTop: '90%',
+                overflow: 'hidden',
+              }}
+            >
+              <Image 
+                src="/images/services-page/service-hairstroke.webp"
+                alt="Permanent Make-up Hairstroke Brows"
+                width="300"
+                height="200"
+                style={imageStyles}
+              />
+            </Box>
+
+            <Button
+              component={Link}
+              variant="contained"
+              color="primary"
+              href="/booking?powder-brows"
+              sx={{
+                marginTop: `20px`,
+                width: `100%`,
+              }}
+            >
+              Online Termine
+            </Button>
+          </Box>
+        </Box>
+
+        <Box
+          id="velvet-lips"
+          sx={{
+            padding: `20px 0`,
+          }}
+        >
+          <Typography
+            variant="h2"
+            color="primary"
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Velvet Lips
+          </Typography>
+
+          <Typography
+            variant="subtitle2"
+            color="primary"
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Preis: 290€
+          </Typography>
+
+          <Box
+            component="p"
+            sx={{
+              padding: `0 24px`,
+              margin: `10px 0 0 0`,
+            }}
+          >
+            Lippenpigmentierung.Velvet Lips, Nude Lips, Lipstick Effect Es sieht sehr harmonisch & natürlich aus. 
+            <br/>
+            Schmerzfreie Behandlung. Auf jede Kundin tüchtig abgestimmte Pigmentfarbe & Formkorrektur.
+          </Box>
+
+          <Box
+            sx={{
+              padding: `10px 24px 0 24px`,
+              overflow: `hidden`,
+            }}
+          >
+            <Box 
+              sx={{
+                position: 'relative',
+                width: '100%',
+                paddingTop: '90%',
+                overflow: 'hidden',
+              }}
+            >
+              <Image 
+                src="/images/services-page/service-lips.webp"
+                alt="Permanent Make-up Velvet Lips"
+                width="300"
+                height="200"
+                style={imageStyles}
+              />
+            </Box>
+
+            <Button
+              component={Link}
+              variant="contained"
+              color="primary"
+              href="/booking?powder-brows"
+              sx={{
+                marginTop: `20px`,
+                width: `100%`,
+              }}
+            >
+              Online Termine
+            </Button>
+          </Box>
+        </Box>
+
+        <Box
+          id="wimpernkranz"
+          sx={{
+            padding: `20px 0`,
+          }}
+        >
+          <Typography
+            variant="h2"
+            color="primary"
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Wimpernkranz
+          </Typography>
+
+          <Typography
+            variant="subtitle2"
+            color="primary"
+            sx={{
+              padding: `0 24px`,
+            }}
+          >
+            Preis: 240€
+          </Typography>
+
+          <Box
+            component="p"
+            sx={{
+              padding: `0 24px`,
+              margin: `10px 0 0 0`,
+            }}
+          >
+            Der Effekt eines frisch geöffneten Looks Schmerlos und sicher Bechandlung.
+            <br/>
+            <br/>
+            Sterilisation, Qualität & Komfort.
+          </Box>
+
+          <Box
+            sx={{
+              padding: `10px 24px 0 24px`,
+              overflow: `hidden`,
+            }}
+          >
+            <Box 
+              sx={{
+                position: 'relative',
+                width: '100%',
+                paddingTop: '90%',
+                overflow: 'hidden',
+              }}
+            >
+              <Image 
+                src="/images/services-page/service-wimpernkranz.webp"
+                alt="Permanent Make-up Wimpernkranzverdichtung"
+                width="300"
+                height="200"
+                style={imageStyles}
+              />
+            </Box>
+
+            <Button
+              component={Link}
+              variant="contained"
+              color="primary"
+              href="/booking?powder-brows"
+              sx={{
+                marginTop: `20px`,
+                width: `100%`,
+              }}
+            >
+              Online Termine
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }
