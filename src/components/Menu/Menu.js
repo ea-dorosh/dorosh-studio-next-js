@@ -15,12 +15,16 @@ import * as React from "react";
 export default function Menu({ links }) {
   const [open, setOpen] = React.useState(false);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
       <IconButton onClick={()=>setOpen(true)}>
         <MenuIcon 
           fontSize='large'
-          color="primary" 
+          color="secondary" 
         />
       </IconButton>
 
@@ -30,7 +34,7 @@ export default function Menu({ links }) {
           width: `100%`,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            bgcolor: `primary.main`,
+            bgcolor: `background.secondary`,
             width: `100%`,
             height: `auto`,
             bottom: 0,
@@ -45,10 +49,10 @@ export default function Menu({ links }) {
           justifyContent: `flex-end`,
           paddingTop: `68px`,
         }}>
-          <IconButton onClick={()=>setOpen(false)}>
+          <IconButton onClick={handleClose}>
             <CloseIcon
               fontSize='large'
-              color="secondary.contrastText"
+              color="primary"
             />
           </IconButton>
         </Box>
@@ -58,11 +62,15 @@ export default function Menu({ links }) {
             <ListItem 
               key={href} 
               disablePadding
+              onClick={handleClose}
             >
-              <ListItemButton component={Link} href={href}>
+              <ListItemButton 
+                component={Link}
+                href={href}
+              >
                 <ListItemText 
                   primary={text} 
-                  color="secondary.contrastText"
+                  color="primary"
                   sx={{
                     "& .MuiTypography-root": {
                       fontSize: `2rem`,
