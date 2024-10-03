@@ -95,7 +95,7 @@ export default function ServicesPage() {
               component={Link}
               variant="contained"
               color="primary"
-              href="/booking?powder-brows"
+              href="/booking/powder-brows"
               sx={{
                 marginTop: `20px`,
                 width: `100%`,
@@ -173,7 +173,7 @@ export default function ServicesPage() {
               component={Link}
               variant="contained"
               color="primary"
-              href="/booking?powder-brows"
+              href="/booking/hairstroke"
               sx={{
                 marginTop: `20px`,
                 width: `100%`,
@@ -249,7 +249,7 @@ export default function ServicesPage() {
               component={Link}
               variant="contained"
               color="primary"
-              href="/booking?powder-brows"
+              href="/booking/velvet-lippen"
               sx={{
                 marginTop: `20px`,
                 width: `100%`,
@@ -326,7 +326,7 @@ export default function ServicesPage() {
               component={Link}
               variant="contained"
               color="primary"
-              href="/booking?powder-brows"
+              href="/booking/wimpernkranz"
               sx={{
                 marginTop: `20px`,
                 width: `100%`,
