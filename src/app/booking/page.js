@@ -1,7 +1,9 @@
-// app/booking/page.jsx
-
-import { Box, Container, Typography } from "@mui/material";
-import CategoryList from "@/components/Booking/CategoriesList/CategoriesList";
+import { 
+  Box, 
+  Container, 
+  Typography, 
+} from "@mui/material";
+import CategoriesList from "@/components/Booking/CategoriesList/CategoriesList";
 import servicesService from "@/services/services.service";
 
 export default async function BookingPage() {
@@ -25,27 +27,29 @@ export default async function BookingPage() {
   const categories = getUniqueCategories(services);
 
   return (
-    <Container>
-      <Box
-        sx={{
-          display: `flex`,
-          flexDirection: `column`,
-          padding: `30px 0 10px 0`,
-        }}
-      >
-        <Typography
-          color="primary"
+    <Box bgcolor="background.white">
+      <Container>
+        <Box
           sx={{
-            textAlign: `center`,
-            fontSize: `1.2rem`,
+            display: `flex`,
+            flexDirection: `column`,
+            padding: `30px 0 10px 0`,
           }}
-          variant="h2"
         >
+          <Typography
+            color="primary"
+            sx={{
+              textAlign: `center`,
+              fontSize: `1.2rem !important`,
+            }}
+            variant="h2"
+          >
           Für welche Prozedur möchten Sie sich anmelden?
-        </Typography>
+          </Typography>
 
-        <CategoryList categories={categories} services={services} />
-      </Box>
-    </Container>
+          <CategoriesList categories={categories} services={services} />
+        </Box>
+      </Container>
+    </Box>
   );
 }

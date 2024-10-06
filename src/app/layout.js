@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
                   sx={{
                     textAlign: `center`,
                     padding: `1.6px`,
-                    bgcolor: `background.secondary`,
+                    bgcolor: `background.paper`,
                   }}
                 >
                   <Typography variant="caption" noWrap component="div" color="primary">

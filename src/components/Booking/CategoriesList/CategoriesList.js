@@ -38,35 +38,42 @@ export default function CategoryList({ categories, services }) {
           <Card
             key={category.id}
             sx={{
-              position: "relative",
-              overflow: "hidden",
-              transition: "transform 0.3s",
-              cursor: "pointer",
-              "&:hover": {
-                transform: "scale(1.02)",
+              backgroundColor: `background.secondary`,
+              position: `relative`,
+              overflow: `hidden`,
+              transition: `transform 0.3s`,
+              cursor: `pointer`,
+              '&:hover': {
+                transform: `scale(1.02)`,
               },
             }}
             onClick={() => handleCardClick(category)}
           >
             <CardMedia
-              component={"img"}
+              component="img"
               height="200"
               image={category.image}
               alt={category.name}
               sx={{
-                objectFit: "cover",
+                objectFit: `cover`,
               }}
             />
             <CardContent>
               <Typography
                 variant="h3"
-                sx={{ textAlign: "left", fontSize: "1.2rem" }}
+                sx={{ 
+                  textAlign: `left`, 
+                  fontSize: `1.2rem`,
+                }}
               >
                 {category.name}
               </Typography>
               <Typography
                 variant="subtitle1"
-                sx={{ textAlign: "left", fontSize: "1rem" }}
+                sx={{ 
+                  textAlign: `left`, 
+                  fontSize: `1rem`,
+                }}
               >
                 Permanent Make-up
               </Typography>
