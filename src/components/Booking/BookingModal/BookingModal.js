@@ -10,25 +10,46 @@ import {
   IconButton,
   CardMedia,
   Typography,
-  Button,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { forwardRef } from "react";
-import { 
-  formatTimeToString,
-  formatPrice,
-} from "@/utils/formatters";
+import { useState, useMemo } from "react";
+import FORM_STEPS from "./formSteps";
+import ServiceOverview from "./Services/ServiceOverview";
+import ServicesList from "./Services/ServicesList";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function BookingModal({ open, handleClose, category, services }) {
+  const theme = useTheme();
+
+  // state
+  const [selectedService, setSelectedService] = useState(null);
+  const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
+
+  //computed
   const filteredServices = services.filter(
     (service) => service.categoryId === category.id
   );
 
-  const theme = useTheme();
+  const hasServices = useMemo(() => formStep === FORM_STEPS.SERVICES, [formStep]);
+  const hasServiceOverview = useMemo(() => formStep > FORM_STEPS.SERVICES && formStep < FORM_STEPS.FINISH, [formStep]);
+
+  // methods
+  const onSelectServiceClick = (service) => {
+    setSelectedService(service);
+    setFormStep(FORM_STEPS.EMPLOYEES);
+  }
+
+  const onChangeServiceClick = () => {
+    setSelectedService(null);
+    // setSelectedEmployeeFromTimeSlotAvailability(null);
+    // setSelectedEmployeeIds([]);
+
+    setFormStep(FORM_STEPS.SERVICES);
+  }
 
   return (
     <Dialog
@@ -48,9 +69,7 @@ export default function BookingModal({ open, handleClose, category, services }) 
           backgroundColor: `transparent`,
         }}
       >
-        <Toolbar sx={{
-          justifyContent: `flex-start`,
-        }}>
+        <Toolbar sx={{ justifyContent: `flex-start`}}>
           <IconButton
             edge="start"
             color="primary"
@@ -83,55 +102,17 @@ export default function BookingModal({ open, handleClose, category, services }) 
           {category.name}
         </Typography>
 
-        {filteredServices.map((service, index) => (
-          <Box 
-            key={service.id} 
-            sx={{ 
-              pb: 3,
-              pt: 3,
-              backgroundColor: `background.white`,
-              borderBottom: index !== filteredServices.length - 1 && `1px solid ${theme.palette.primary.main}`,
-              borderTop: index === 0 && `1px solid ${theme.palette.primary.main}`,
-            }}
-          >
-            <Typography 
-              variant="h3"
-              sx={{ 
-                fontSize: `1.3rem`,
-                textAlign: `left`,
-              }}
-            >
-              {service.name}
-            </Typography>
+        {hasServices && <ServicesList 
+          services={filteredServices}
+          theme={theme}
+          selectService={onSelectServiceClick}
+        />}
 
-            <Typography variant="body1" mt={1}>
-              {service.bookingNote}
-            </Typography>
+        {hasServiceOverview && <ServiceOverview
+          service={selectedService}
+          changeService={onChangeServiceClick}
+        />}
 
-            <Typography variant="body1" mt={1}>
-              {formatTimeToString(service.durationTime)}
-            </Typography>
-
-            <Typography 
-              variant="caption" 
-              mt={1} 
-              sx={{display: `block`}}
-            >
-              {formatPrice(service.employeePrices[0].price)}
-            </Typography>
-
-            <Button
-              variant="contained"
-              color="info"
-              sx={{
-                width: `200px`,
-                mt: 2,
-              }}
-            >
-              Buchen
-            </Button>
-          </Box>
-        ))}
       </Box>
     </Dialog>
   );

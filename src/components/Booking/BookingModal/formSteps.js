@@ -1,0 +1,10 @@
+const FORM_STEPS = {
+  SERVICES: 1,
+  EMPLOYEES: 2,
+  CALENDAR: 3,
+  EMPLOYEES_FOR_CURRENT_SLOT: 4,
+  CUSTOMER_FORM: 5,
+  FINISH: 6,
+};
+
+export default FORM_STEPS;

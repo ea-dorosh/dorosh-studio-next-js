@@ -58,12 +58,6 @@ const theme = createTheme({
       fontSize: '2.2rem',
       fontFamily: cinzel.style.fontFamily,
     },
-    // h4: {
-    //   color: COLOR_VERY_SOFT_RED,
-    // },
-    // body1: {
-    //   color: COLOR_VERY_SOFT_RED,
-    // },
     caption: {
       fontSize: `1.2rem`,
       letterSpacing: `3px`,
@@ -77,7 +71,11 @@ const theme = createTheme({
       fontSize: `1.4rem`,
       fontWeight: `400`,
       fontFamily: cinzel.style.fontFamily,
-    }
+    },
+    formOverview: {
+      fontSize: `1.2rem`,
+      fontFamily: raleway.style.fontFamily,
+    },
   },
   components: {
     MuiButton: {
@@ -98,6 +96,11 @@ const theme = createTheme({
           backgroundColor: `transparent`,
           padding: 0,
           fontFamily: cinzel.style.fontFamily,
+          textTransform: `lowercase`,
+        },
+        sizeSmall: {
+          fontSize: `.8rem`,
+          padding: `5px 20px`,
           textTransform: `lowercase`,
         },
       },
