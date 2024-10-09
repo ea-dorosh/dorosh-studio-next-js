@@ -8,7 +8,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import { useState } from "react";
-import BookingModal from "@/components/Booking/BookingModal/BookingModal";
+import BookingModal from "@/components/BookingForm/BookingModal/BookingModal";
 
 export default function CategoryList({ 
   categories,

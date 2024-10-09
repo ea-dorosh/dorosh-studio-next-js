@@ -3,7 +3,7 @@ import {
   Container, 
   Typography, 
 } from "@mui/material";
-import CategoriesList from "@/components/Booking/CategoriesList/CategoriesList";
+import CategoriesList from "@/components/BookingForm/CategoriesList/CategoriesList";
 // import employeesService from "@/services/employees.service";
 import servicesService from "@/services/services.service";
 
