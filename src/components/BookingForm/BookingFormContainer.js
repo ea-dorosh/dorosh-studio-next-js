@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { useState, useMemo } from "react";
+import CalendarForm from "@/components/BookingForm/Calendar/CalendarForm";
 import EmployeesForm from "@/components/BookingForm/Employees/EmployeesForm";
 import EmployeesOverview from "@/components/BookingForm/Employees/EmployeesOverview";
 import FORM_STEPS from "@/components/BookingForm/formSteps";
@@ -23,6 +24,10 @@ export default function BookingFormContainer({
   const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedEmployeesIds, setSelectedEmployeesIds] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+  const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
+  const [selectedEmployeeFromTimeSlotAvailability, setSelectedEmployeeFromTimeSlotAvailability] = useState(null);
 
   /** computed */
   const filteredServices = services.filter(
@@ -57,7 +62,7 @@ export default function BookingFormContainer({
   const onChangeServiceFormClick = () => {
     setSelectedService(null);
     setSelectedEmployeesIds([]);
-    // setSelectedEmployeeFromTimeSlotAvailability(null);
+    setSelectedEmployeeFromTimeSlotAvailability(null);
 
     setFormStep(FORM_STEPS.SERVICES);
   }
@@ -95,6 +100,17 @@ export default function BookingFormContainer({
   const onChangeEmployeeFormClick = () => {   
     setFormStep(FORM_STEPS.EMPLOYEES);
   };
+
+  const onSelectTimeSlotClick = (slot) => {
+    setSelectedTimeSlot(slot);
+
+    if (slot.employeeId.length > 1) {
+      setFormStep(FORM_STEPS.EMPLOYEES_FOR_CURRENT_SLOT);
+    } else {
+      setSelectedEmployeeFromTimeSlotAvailability(slot.employeeId[0]);
+      setFormStep(FORM_STEPS.CUSTOMER_FORM);
+    }
+  }
 
   return (<>
     <Box sx={{ mt: `-56px` }}>
@@ -140,14 +156,13 @@ export default function BookingFormContainer({
         changeEmployees={onChangeEmployeeFormClick}
       />}
 
-      {/* {hasCalendarForm && <MonthCalendar 
-          service={selectedService}
-          employees={selectedEmployeeIds}
-          setSelectedDay={setSelectedDay}
-          selectedTimeSlot={selectedTimeSlot}
-          setSelectedTimeSlot={onSelectTimeSlotClick}
-        />} */}
-
+      {hasCalendarForm && <CalendarForm
+        service={selectedService}
+        employees={selectedEmployeesIds}
+        setSelectedDay={setSelectedDay}
+        selectedTimeSlot={selectedTimeSlot}
+        setSelectedTimeSlot={onSelectTimeSlotClick}
+      />}
     </Box>
   </>
   );
