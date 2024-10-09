@@ -8,7 +8,8 @@ import {
   CardMedia,
 } from "@mui/material";
 import { useState } from "react";
-import BookingModal from "@/components/BookingForm/BookingModal/BookingModal";
+import BookingFormContainer from "@/components/BookingForm/BookingFormContainer";
+import ModalFullScreen from "@/components/ModalFullScreen/ModalFullScreen";
 
 export default function CategoryList({ 
   categories,
@@ -85,14 +86,17 @@ export default function CategoryList({
         ))}
       </Box>
 
-      {selectedCategory && (
-        <BookingModal
+      {selectedCategory &&
+        <ModalFullScreen 
           open={open}
           handleClose={handleClose}
-          category={selectedCategory}
-          services={services}
-        />
-      )}
+        >
+          <BookingFormContainer
+            category={selectedCategory}
+            services={services}
+          />
+        </ModalFullScreen>
+      }
     </>
   );
 }

@@ -1,32 +1,19 @@
 "use client";
 
-import { Close } from "@mui/icons-material";
 import {
   Box,
-  Dialog,
-  AppBar,
-  Toolbar,
-  Slide,
-  IconButton,
   CardMedia,
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
-import { forwardRef } from "react";
 import { useState, useMemo } from "react";
-import EmployeesForm from "./Employees/EmployeesForm";
-import EmployeesOverview from "./Employees/EmployeesOverview";
-import FORM_STEPS from "./formSteps";
-import ServiceOverview from "./Services/ServiceOverview";
-import ServicesList from "./Services/ServicesList";
+import EmployeesForm from "@/components/BookingForm/Employees/EmployeesForm";
+import EmployeesOverview from "@/components/BookingForm/Employees/EmployeesOverview";
+import FORM_STEPS from "@/components/BookingForm/formSteps";
+import ServiceOverview from "@/components/BookingForm/Services/ServiceOverview";
+import ServicesList from "@/components/BookingForm/Services/ServicesList";
 
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
-export default function BookingModal({ 
-  open, 
-  handleClose,
+export default function BookingFormContainer({ 
   category, 
   services,
 }) {
@@ -109,83 +96,51 @@ export default function BookingModal({
     setFormStep(FORM_STEPS.EMPLOYEES);
   };
 
-  return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={handleClose}
-      TransitionComponent={Transition}
-      sx={{
-        '& .MuiDialog-paper': {
-          backgroundColor: `background.white`,
-        }
-      }}
-    >
-      <AppBar
+  return (<>
+    <Box sx={{ mt: `-56px` }}>
+      <CardMedia
+        component="img"
+        image={category.image}
+        alt={category.name}
         sx={{
-          position: `relative`,
-          backgroundColor: `transparent`,
+          width: `100%`,
+          height: `250px`,
+          objectFit: `cover`,
         }}
-      >
-        <Toolbar sx={{ justifyContent: `flex-start`}}>
-          <IconButton
-            edge="start"
-            color="primary"
-            bgcolor="background.main"
-            onClick={handleClose}
-            aria-label="close"
-            size="large"
-            sx={{ backgroundColor: theme.palette.primary.contrastText }}
-          >
-            <Close />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      />
+    </Box>
 
-      <Box sx={{ mt: `-56px` }}>
-        <CardMedia
-          component="img"
-          image={category.image}
-          alt={category.name}
-          sx={{
-            width: `100%`,
-            height: `250px`,
-            objectFit: `cover`,
-          }}
-        />
-      </Box>
+    <Box sx={{ p: 2 }}>
+      <Typography variant="h2" gutterBottom mb={4}>
+        {category.name}
+      </Typography>
 
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h2" gutterBottom mb={4}>
-          {category.name}
-        </Typography>
+      {hasServicesForm && <ServicesList 
+        services={filteredServices}
+        theme={theme}
+        selectService={onSubmitServiceFormClick}
+      />}
 
-        {hasServicesForm && <ServicesList 
-          services={filteredServices}
-          theme={theme}
-          selectService={onSubmitServiceFormClick}
-        />}
+      {hasServiceOverview && <ServiceOverview
+        service={selectedService}
+        changeService={onChangeServiceFormClick}
+      />}
 
-        {hasServiceOverview && <ServiceOverview
-          service={selectedService}
-          changeService={onChangeServiceFormClick}
-        />}
+      {hasEmployeesForm && <EmployeesForm 
+        availableEmployees={selectedService.employees}
+        selectedEmployeesIds={selectedEmployeesIds}
+        changeEmployees={onChangeSelectedEmployeeClick}
+        selectAllEmployees={onSelectAllClick}
+        onNextStepClick={onSubmitEmployeeFormClick}
+      />}
 
-        {hasEmployeesForm && <EmployeesForm 
-          availableEmployees={selectedService.employees}
-          selectedEmployeesIds={selectedEmployeesIds}
-          changeEmployees={onChangeSelectedEmployeeClick}
-          selectAllEmployees={onSelectAllClick}
-          onNextStepClick={onSubmitEmployeeFormClick}
-        />}
+      {hasEmployeesOverview && <EmployeesOverview
+        selectedEmployees={selectedEmployees}
+        hasOnlyOneEmployee={selectedService?.employees.length === 1}
+        changeEmployees={onChangeEmployeeFormClick}
+      />}
 
-        {hasEmployeesOverview && <EmployeesOverview
-          selectedEmployees={selectedEmployees}
-          hasOnlyOneEmployee={selectedService?.employees.length === 1}
-          changeEmployees={onChangeEmployeeFormClick}
-        />}
-
-        {/* {hasCalendarForm && <MonthCalendar 
+      {/* {hasCalendarForm && <MonthCalendar 
           service={selectedService}
           employees={selectedEmployeeIds}
           setSelectedDay={setSelectedDay}
@@ -193,7 +148,7 @@ export default function BookingModal({
           setSelectedTimeSlot={onSelectTimeSlotClick}
         />} */}
 
-      </Box>
-    </Dialog>
+    </Box>
+  </>
   );
 }
