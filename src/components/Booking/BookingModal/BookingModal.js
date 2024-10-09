@@ -35,14 +35,15 @@ export default function BookingModal({
   /** state */
   const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
   const [selectedService, setSelectedService] = useState(null);
-  const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const [selectedEmployeesIds, setSelectedEmployeesIds] = useState([]);
 
   /** computed */
   const filteredServices = services.filter(
     (service) => service.categoryId === category.id
   );
 
-  console.log(`selectedEmployees`, selectedEmployees);
+  const selectedEmployees = useMemo(() => selectedService?.employees.filter(employee => selectedEmployeesIds.includes(employee.id)), 
+    [selectedService?.employees, selectedEmployeesIds]);
   
   const hasServicesForm = useMemo(() => formStep === FORM_STEPS.SERVICES, [formStep]);
   const hasServiceOverview = useMemo(() => formStep > FORM_STEPS.SERVICES && formStep < FORM_STEPS.FINISH, [formStep]);
@@ -59,7 +60,7 @@ export default function BookingModal({
     setSelectedService(service);
 
     if (service.employees.length === 1) {      
-      setSelectedEmployees([service.employees[0].id]);
+      setSelectedEmployeesIds([service.employees[0].id]);
       setFormStep(FORM_STEPS.CALENDAR);
     } else {
       setFormStep(FORM_STEPS.EMPLOYEES);    
@@ -68,7 +69,7 @@ export default function BookingModal({
 
   const onChangeServiceFormClick = () => {
     setSelectedService(null);
-    setSelectedEmployees([]);
+    setSelectedEmployeesIds([]);
     // setSelectedEmployeeFromTimeSlotAvailability(null);
 
     setFormStep(FORM_STEPS.SERVICES);
@@ -77,7 +78,7 @@ export default function BookingModal({
   const onChangeSelectedEmployeeClick = (event) => {
     const { value, checked } = event.target;
 
-    setSelectedEmployees((prevData) => (
+    setSelectedEmployeesIds((prevData) => (
       checked ? // eslint-disable-next-line no-undef
         [...new Set([...prevData, Number(value)])]
         : prevData.filter(
@@ -87,26 +88,24 @@ export default function BookingModal({
   };
 
   const onSelectAllClick = () => {
-    if (selectedEmployees.length === selectedService.employees.length) {
-      setSelectedEmployees([]);
+    if (selectedEmployeesIds.length === selectedService.employees.length) {
+      setSelectedEmployeesIds([]);
     } else {
-      setSelectedEmployees(()=>(
+      setSelectedEmployeesIds(()=>(
         selectedService.employees.map(employee => employee.id)
       ));
     }
   };
 
   const onSubmitEmployeeFormClick = () => {
-    if (selectedEmployees.length === 0) {
+    if (selectedEmployeesIds.length === 0) {
       alert(`Bitte wählen Sie mindestens einen Mitarbeiter aus.`);
     } else {
       setFormStep(FORM_STEPS.CALENDAR);
     }
   };
 
-  const onChangeEmployeeFormClick = () => {
-    console.log(`onChangeEmployeeFormClick`);
-    
+  const onChangeEmployeeFormClick = () => {   
     setFormStep(FORM_STEPS.EMPLOYEES);
   };
 
@@ -174,17 +173,25 @@ export default function BookingModal({
 
         {hasEmployeesForm && <EmployeesForm 
           availableEmployees={selectedService.employees}
-          selectedEmployees={selectedEmployees}
+          selectedEmployeesIds={selectedEmployeesIds}
           changeEmployees={onChangeSelectedEmployeeClick}
           selectAllEmployees={onSelectAllClick}
           onNextStepClick={onSubmitEmployeeFormClick}
         />}
 
         {hasEmployeesOverview && <EmployeesOverview
-          availableEmployees={selectedService.employees}
           selectedEmployees={selectedEmployees}
+          hasOnlyOneEmployee={selectedService?.employees.length === 1}
           changeEmployees={onChangeEmployeeFormClick}
         />}
+
+        {/* {hasCalendarForm && <MonthCalendar 
+          service={selectedService}
+          employees={selectedEmployeeIds}
+          setSelectedDay={setSelectedDay}
+          selectedTimeSlot={selectedTimeSlot}
+          setSelectedTimeSlot={onSelectTimeSlotClick}
+        />} */}
 
       </Box>
     </Dialog>

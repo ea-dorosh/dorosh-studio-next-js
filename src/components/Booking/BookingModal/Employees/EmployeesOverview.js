@@ -7,16 +7,13 @@ import {
   Divider,
   Avatar,
 } from "@mui/material";
-import { useMemo } from "react";
-import { 
-  formatPrice,
-} from "@/utils/formatters";
+import { formatPrice } from "@/utils/formatters";
 
-export default function ServiceOverview({ selectedEmployees, availableEmployees, changeEmployees }) {
-
-  const filteredEmployees = useMemo(() => availableEmployees.filter(employee => selectedEmployees.includes(employee.id)), [availableEmployees, selectedEmployees]);
-  console.log(`filteredEmployees`, filteredEmployees);
-
+export default function ServiceOverview({ 
+  selectedEmployees, 
+  hasOnlyOneEmployee, 
+  changeEmployees,
+}) {
   return (<>
     <Box sx={{
       display: `flex`,
@@ -30,7 +27,7 @@ export default function ServiceOverview({ selectedEmployees, availableEmployees,
         {selectedEmployees.length === 1 ? `Ihr Spezialist und Preis` : `Ihre Spezialisten`}
       </Typography>
 
-      {availableEmployees.length !== 1 &&       <Button
+      {!hasOnlyOneEmployee && <Button
         onClick={changeEmployees}
         variant="text"
         size="small"
@@ -43,7 +40,7 @@ export default function ServiceOverview({ selectedEmployees, availableEmployees,
       </Button>}
     </Box>
 
-    {filteredEmployees.map((employee) => <Box key={employee.id}
+    {selectedEmployees.map((employee) => <Box key={employee.id}
       sx={{
         display: `flex`,
         alignItems: `center`,

@@ -14,7 +14,7 @@ import {
 
 export default function ServiceOverview({ 
   availableEmployees,
-  selectedEmployees,
+  selectedEmployeesIds,
   changeEmployees,
   selectAllEmployees,
   onNextStepClick,
@@ -51,7 +51,7 @@ export default function ServiceOverview({
       control={<>
         <Checkbox
           name="employeeName"
-          checked={selectedEmployees.includes(employee.id)}
+          checked={selectedEmployeesIds.includes(employee.id)}
           onChange={changeEmployees}
           value={employee.id}
         />
@@ -91,7 +91,7 @@ export default function ServiceOverview({
       control={<>
         <Checkbox
           name="employeeName"
-          checked={selectedEmployees.length === availableEmployees.length}
+          checked={selectedEmployeesIds.length === availableEmployees.length}
           onChange={selectAllEmployees}
         />
 
