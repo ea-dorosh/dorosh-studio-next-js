@@ -10,7 +10,10 @@ import {
 import { useState } from "react";
 import BookingModal from "@/components/Booking/BookingModal/BookingModal";
 
-export default function CategoryList({ categories, services }) {
+export default function CategoryList({ 
+  categories,
+  services,
+}) {
   const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 

@@ -1,10 +1,10 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
-import { Cinzel, Raleway } from 'next/font/google';
+import { Cinzel, Poppins } from 'next/font/google';
 
-const raleway = Raleway({
+const poppins = Poppins({
   subsets: ['latin'],
-  weight: '400',
+  weight: '300',
 });
 
 export const cinzel = Cinzel({
@@ -41,7 +41,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: raleway.style.fontFamily,
+    fontFamily: poppins.style.fontFamily,
     h1: {
       color: COLOR_VERY_SOFT_RED,
       fontSize: '3rem',
@@ -73,8 +73,10 @@ const theme = createTheme({
       fontFamily: cinzel.style.fontFamily,
     },
     formOverview: {
-      fontSize: `1.2rem`,
-      fontFamily: raleway.style.fontFamily,
+      fontSize: `1.3rem`,
+    },
+    formSubtitle: {
+      fontSize: `1rem`,
     },
   },
   components: {
@@ -84,7 +86,7 @@ const theme = createTheme({
           borderRadius: '4px',
           padding: '10px 30px',
           fontSize: '1.2rem',
-          fontFamily: raleway.style.fontFamily,
+          fontFamily: poppins.style.fontFamily,
         },
         contained: {
           textTransform: `capitalize`,

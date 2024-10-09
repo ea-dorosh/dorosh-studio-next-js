@@ -15,22 +15,33 @@ export default function ServiceOverview({ service, changeService }) {
       alignItems: `flex-start`,
       justifyContent: `space-between`,
     }}>
-      <Typography 
-        variant="formOverview"
-        mr={1}
+      <Typography
+        variant="formSubtitle"
+        color="textSecondary"
       >
-        {service.name}
+        Behandlung
       </Typography>
 
       <Button
         onClick={changeService}
-        variant="outlined"
+        variant="text"
         size="small"
         color="info"
+        sx={{ minHeight: 0, minWidth: 0, padding: 0,
+          fontWeight: `bold`,
+        }}
       >
         ändern
       </Button>
     </Box>
+
+    <Typography 
+      variant="formOverview"
+      component="div"
+      mt={1}
+    >
+      {service.name}
+    </Typography>
 
     <Divider sx={{mt: 2, mb: 1}} />
   </>

@@ -48,7 +48,7 @@ export default function ServicesList({ services, theme, selectService }) {
             mt={1} 
             sx={{display: `block`}}
           >
-            {formatPrice(service.employeePrices[0].price)}
+            {formatPrice(service.employees[0].price)}
           </Typography>
 
           <Button

@@ -4,10 +4,12 @@ import {
   Typography, 
 } from "@mui/material";
 import CategoriesList from "@/components/Booking/CategoriesList/CategoriesList";
+// import employeesService from "@/services/employees.service";
 import servicesService from "@/services/services.service";
 
 export default async function BookingPage() {
   const services = await servicesService.getServices();
+  // const employees = await employeesService.getEmployees();
 
   const getUniqueCategories = (services) => {
     const categoriesMap = new Map(); // eslint-disable-line no-undef
@@ -44,10 +46,13 @@ export default async function BookingPage() {
             }}
             variant="h2"
           >
-          Für welche Prozedur möchten Sie sich anmelden?
+            Für welche Prozedur möchten Sie sich anmelden?
           </Typography>
 
-          <CategoriesList categories={categories} services={services} />
+          <CategoriesList 
+            categories={categories} 
+            services={services} 
+          />
         </Box>
       </Container>
     </Box>

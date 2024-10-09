@@ -14,6 +14,8 @@ import {
 import { useTheme } from "@mui/material";
 import { forwardRef } from "react";
 import { useState, useMemo } from "react";
+import EmployeesForm from "./Employees/EmployeesForm";
+import EmployeesOverview from "./Employees/EmployeesOverview";
 import FORM_STEPS from "./formSteps";
 import ServiceOverview from "./Services/ServiceOverview";
 import ServicesList from "./Services/ServicesList";
@@ -22,34 +24,91 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function BookingModal({ open, handleClose, category, services }) {
+export default function BookingModal({ 
+  open, 
+  handleClose,
+  category, 
+  services,
+}) {
   const theme = useTheme();
 
-  // state
-  const [selectedService, setSelectedService] = useState(null);
+  /** state */
   const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
+  const [selectedService, setSelectedService] = useState(null);
+  const [selectedEmployees, setSelectedEmployees] = useState([]);
 
-  //computed
+  /** computed */
   const filteredServices = services.filter(
     (service) => service.categoryId === category.id
   );
 
-  const hasServices = useMemo(() => formStep === FORM_STEPS.SERVICES, [formStep]);
+  console.log(`selectedEmployees`, selectedEmployees);
+  
+  const hasServicesForm = useMemo(() => formStep === FORM_STEPS.SERVICES, [formStep]);
   const hasServiceOverview = useMemo(() => formStep > FORM_STEPS.SERVICES && formStep < FORM_STEPS.FINISH, [formStep]);
+  
+  const hasEmployeesForm = useMemo(() => formStep === FORM_STEPS.EMPLOYEES, [formStep]);
+  const hasEmployeesOverview = useMemo(() => formStep > FORM_STEPS.EMPLOYEES && formStep < FORM_STEPS.FINISH, [formStep]);
 
-  // methods
-  const onSelectServiceClick = (service) => {
+  const hasCalendarForm = useMemo(() => formStep === FORM_STEPS.CALENDAR, [formStep]);
+  const hasCalendarOverview = useMemo(() => formStep > FORM_STEPS.CALENDAR && formStep < FORM_STEPS.FINISH, [formStep]);
+
+
+  /* methods */
+  const onSubmitServiceFormClick = (service) => {
     setSelectedService(service);
-    setFormStep(FORM_STEPS.EMPLOYEES);
+
+    if (service.employees.length === 1) {      
+      setSelectedEmployees([service.employees[0].id]);
+      setFormStep(FORM_STEPS.CALENDAR);
+    } else {
+      setFormStep(FORM_STEPS.EMPLOYEES);    
+    }
   }
 
-  const onChangeServiceClick = () => {
+  const onChangeServiceFormClick = () => {
     setSelectedService(null);
+    setSelectedEmployees([]);
     // setSelectedEmployeeFromTimeSlotAvailability(null);
-    // setSelectedEmployeeIds([]);
 
     setFormStep(FORM_STEPS.SERVICES);
   }
+
+  const onChangeSelectedEmployeeClick = (event) => {
+    const { value, checked } = event.target;
+
+    setSelectedEmployees((prevData) => (
+      checked ? // eslint-disable-next-line no-undef
+        [...new Set([...prevData, Number(value)])]
+        : prevData.filter(
+          (id) => Number(id) !== Number(value)
+        )
+    ));
+  };
+
+  const onSelectAllClick = () => {
+    if (selectedEmployees.length === selectedService.employees.length) {
+      setSelectedEmployees([]);
+    } else {
+      setSelectedEmployees(()=>(
+        selectedService.employees.map(employee => employee.id)
+      ));
+    }
+  };
+
+  const onSubmitEmployeeFormClick = () => {
+    if (selectedEmployees.length === 0) {
+      alert(`Bitte wählen Sie mindestens einen Mitarbeiter aus.`);
+    } else {
+      setFormStep(FORM_STEPS.CALENDAR);
+    }
+  };
+
+  const onChangeEmployeeFormClick = () => {
+    console.log(`onChangeEmployeeFormClick`);
+    
+    setFormStep(FORM_STEPS.EMPLOYEES);
+  };
 
   return (
     <Dialog
@@ -102,15 +161,29 @@ export default function BookingModal({ open, handleClose, category, services }) 
           {category.name}
         </Typography>
 
-        {hasServices && <ServicesList 
+        {hasServicesForm && <ServicesList 
           services={filteredServices}
           theme={theme}
-          selectService={onSelectServiceClick}
+          selectService={onSubmitServiceFormClick}
         />}
 
         {hasServiceOverview && <ServiceOverview
           service={selectedService}
-          changeService={onChangeServiceClick}
+          changeService={onChangeServiceFormClick}
+        />}
+
+        {hasEmployeesForm && <EmployeesForm 
+          availableEmployees={selectedService.employees}
+          selectedEmployees={selectedEmployees}
+          changeEmployees={onChangeSelectedEmployeeClick}
+          selectAllEmployees={onSelectAllClick}
+          onNextStepClick={onSubmitEmployeeFormClick}
+        />}
+
+        {hasEmployeesOverview && <EmployeesOverview
+          availableEmployees={selectedService.employees}
+          selectedEmployees={selectedEmployees}
+          changeEmployees={onChangeEmployeeFormClick}
         />}
 
       </Box>
