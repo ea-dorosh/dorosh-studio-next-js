@@ -148,7 +148,6 @@ export default function CalendarForm({
     const newStart = currentWeekStart.add(direction, 'week');
     setCurrentWeekStart(newStart);
     setHighlightedDays([]);
-    // setSelectedDay(null);
     fetchHighlightedDays(newStart);
   };
   
