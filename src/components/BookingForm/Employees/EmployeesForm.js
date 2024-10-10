@@ -33,7 +33,6 @@ export default function ServiceOverview({
     }}>
       <Typography
         variant="formSubtitle"
-        color="textSecondary"
       >
         Wählen Sie Ihren Spezialisten
       </Typography>

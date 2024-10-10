@@ -6,8 +6,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import CalendarForm from "@/components/BookingForm/Calendar/CalendarForm";
+import CalendarOverview from "@/components/BookingForm/Calendar/CalendarOverview";
 import EmployeesForm from "@/components/BookingForm/Employees/EmployeesForm";
 import EmployeesOverview from "@/components/BookingForm/Employees/EmployeesOverview";
 import FORM_STEPS from "@/components/BookingForm/formSteps";
@@ -19,6 +20,8 @@ export default function BookingFormContainer({
   services,
 }) {
   const theme = useTheme();
+  const calendarFormRef = useRef(null);
+  const cardMediaRef = useRef(null);
 
   /** state */
   const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
@@ -46,8 +49,27 @@ export default function BookingFormContainer({
   const hasCalendarForm = useMemo(() => formStep === FORM_STEPS.CALENDAR, [formStep]);
   const hasCalendarOverview = useMemo(() => formStep > FORM_STEPS.CALENDAR && formStep < FORM_STEPS.FINISH, [formStep]);
 
+  /** watchers */
+  useEffect(() => {
+    if (hasCalendarForm) {
+      if (calendarFormRef.current) {
+        calendarFormRef.current.style.scrollMargin = `400px`;
+      }
 
-  /* methods */
+      calendarFormRef.current?.scrollIntoView({ 
+        behavior: "smooth", 
+      });
+    }
+  } ,[hasCalendarForm]);
+
+  useEffect(() => {
+    if (selectedDay) {
+      setSelectedTimeSlot(null);
+    }
+  } ,[selectedDay]);
+
+
+  /** methods */
   const onSubmitServiceFormClick = (service) => {
     setSelectedService(service);
 
@@ -61,10 +83,16 @@ export default function BookingFormContainer({
 
   const onChangeServiceFormClick = () => {
     setSelectedService(null);
+    setSelectedDay(null);
     setSelectedEmployeesIds([]);
     setSelectedEmployeeFromTimeSlotAvailability(null);
 
+    cardMediaRef.current?.scrollIntoView({ 
+      behavior: "smooth", 
+    });
+
     setFormStep(FORM_STEPS.SERVICES);
+
   }
 
   const onChangeSelectedEmployeeClick = (event) => {
@@ -99,21 +127,37 @@ export default function BookingFormContainer({
 
   const onChangeEmployeeFormClick = () => {   
     setFormStep(FORM_STEPS.EMPLOYEES);
+    setSelectedDay(null);
   };
 
-  const onSelectTimeSlotClick = (slot) => {
+  const onSelectTimeSlotClick = (slot) => {   
     setSelectedTimeSlot(slot);
+    setSelectedEmployeeFromTimeSlotAvailability(slot.employeeId[0]);
 
-    if (slot.employeeId.length > 1) {
-      setFormStep(FORM_STEPS.EMPLOYEES_FOR_CURRENT_SLOT);
-    } else {
-      setSelectedEmployeeFromTimeSlotAvailability(slot.employeeId[0]);
-      setFormStep(FORM_STEPS.CUSTOMER_FORM);
-    }
+    // if (slot.employeeId.length > 1) {
+    //   setFormStep(FORM_STEPS.EMPLOYEES_FOR_CURRENT_SLOT);
+    // } else {
+    // setSelectedEmployeeFromTimeSlotAvailability(slot.employeeId[0]);
+    // setFormStep(FORM_STEPS.CUSTOMER_FORM);
+    // }
   }
 
+  const onSubmitCalendarFormClick = () => {
+    if (!selectedDay || !selectedTimeSlot) {
+      alert(`Bitte wählen Sie ein Datum und eine Uhrzeit aus.`);
+    } else {
+      setSelectedEmployeesIds([selectedEmployeeFromTimeSlotAvailability]);
+      setFormStep(FORM_STEPS.CUSTOMER_FORM);
+    }
+  };
+
   return (<>
-    <Box sx={{ mt: `-56px` }}>
+    <span ref={cardMediaRef}></span>
+    <Box sx={{ 
+      mt: `-56px`,
+      position: `sticky`,
+      top: 0,
+    }}>
       <CardMedia
         component="img"
         image={category.image}
@@ -126,7 +170,11 @@ export default function BookingFormContainer({
       />
     </Box>
 
-    <Box sx={{ p: 2 }}>
+    <Box sx={{ 
+      p: 2,
+      backgroundColor: theme.palette.background.white,
+      zIndex: 1,
+    }}>
       <Typography variant="h2" gutterBottom mb={4}>
         {category.name}
       </Typography>
@@ -156,12 +204,25 @@ export default function BookingFormContainer({
         changeEmployees={onChangeEmployeeFormClick}
       />}
 
-      {hasCalendarForm && <CalendarForm
-        service={selectedService}
-        employees={selectedEmployeesIds}
-        setSelectedDay={setSelectedDay}
-        selectedTimeSlot={selectedTimeSlot}
-        setSelectedTimeSlot={onSelectTimeSlotClick}
+      {hasCalendarForm && (
+        <div ref={calendarFormRef} style={{minHeight:`4000px`}}>
+          <CalendarForm
+            service={selectedService}
+            employees={selectedEmployeesIds}
+            setSelectedDay={setSelectedDay}
+            selectedDay={selectedDay}
+            selectedTimeSlot={selectedTimeSlot}
+            setSelectedTimeSlot={onSelectTimeSlotClick}
+            theme={theme}
+            onNextStepClick={onSubmitCalendarFormClick}
+          />
+        </div>
+      )}
+
+      {hasCalendarOverview && <CalendarOverview
+        date={selectedDay.day}
+        time={selectedTimeSlot.startTime}
+        changeDate={()=> setFormStep(FORM_STEPS.CALENDAR)}
       />}
     </Box>
   </>

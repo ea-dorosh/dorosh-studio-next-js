@@ -1,5 +1,7 @@
 'use client';
+import { collapseClasses } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import { Cinzel, Poppins } from 'next/font/google';
 
 const poppins = Poppins({
@@ -17,6 +19,7 @@ const COLOR_SOFT_RED = '#FCBCB2';
 const COLOR_WHITE = '#ffffff';
 const COLOR_VERY_DARK_GRAYISH_BLUE = '#3b3c43';
 const COLOR_VERY_SOFT_RED = '#FFE9E6';
+const COLOR_BRAUN = '#A06054';
 
 
 const theme = createTheme({
@@ -30,7 +33,7 @@ const theme = createTheme({
       contrastText: COLOR_VERY_DARK_GRAYISH_BLUE,
     },
     info: {
-      main: `#A06054`,
+      main: COLOR_BRAUN,
       contrastText: COLOR_WHITE,
     },
     background: {
@@ -73,10 +76,11 @@ const theme = createTheme({
       fontFamily: cinzel.style.fontFamily,
     },
     formOverview: {
-      fontSize: `1.3rem`,
+      fontSize: `1.1rem`,
     },
     formSubtitle: {
-      fontSize: `1rem`,
+      fontSize: `0.9rem`,
+      color: alpha(COLOR_VERY_DARK_GRAYISH_BLUE, 0.5),
     },
   },
   components: {

@@ -6,8 +6,13 @@ import {
   Button,
   Divider,
 } from "@mui/material";
+import dayjs from 'dayjs';
+import 'dayjs/locale/de';
+import { formattedTime } from "@/utils/formatters";
 
-export default function ServiceOverview({ service, changeService }) {
+dayjs.locale('de');
+
+export default function CalendarOverview({ date, time, changeDate }) {
 
   return (<>
     <Box sx={{
@@ -18,11 +23,11 @@ export default function ServiceOverview({ service, changeService }) {
       <Typography
         variant="formSubtitle"
       >
-        Behandlung und Dauer
+        Ausgewähltes Datum und Uhrzeit
       </Typography>
 
       <Button
-        onClick={changeService}
+        onClick={changeDate}
         variant="text"
         size="small"
         color="info"
@@ -34,12 +39,12 @@ export default function ServiceOverview({ service, changeService }) {
       </Button>
     </Box>
 
-    <Typography 
+    <Typography
       variant="formOverview"
       component="div"
       mt={1}
     >
-      {service.name}
+      {dayjs(date).format('D. MMMM YYYY')} um {formattedTime(time)}
     </Typography>
 
     <Divider sx={{mt: 2, mb: 1}} />

@@ -22,7 +22,6 @@ export default function ServiceOverview({
     }}>
       <Typography
         variant="formSubtitle"
-        color="textSecondary"
       >
         {selectedEmployees.length === 1 ? `Ihr Spezialist und Preis` : `Ihre Spezialisten`}
       </Typography>

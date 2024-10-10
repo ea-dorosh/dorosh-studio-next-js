@@ -105,7 +105,6 @@ export default function CalendarForm({
     <Box>
       <Typography
         variant="formSubtitle"
-        color="textSecondary"
       >
         Wählen Sie Datum und Uhrzeit
       </Typography>

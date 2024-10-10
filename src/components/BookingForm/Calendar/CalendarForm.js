@@ -1,13 +1,17 @@
 "use client";
 
 import {
+  ArrowBackIos,
+  ArrowForwardIos,
+} from '@mui/icons-material';
+import {
   Badge,
   Typography,
   Box,
   Button,
+  IconButton,
 } from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { alpha } from '@mui/material/styles';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { formattedTime } from '@/utils/formatters';
@@ -17,32 +21,44 @@ dayjs.locale('de');
 
 const initialValue = dayjs(new Date());
 
-function ServerDay({ highlightedDays, day, onClick }) {
-  const isHighlighted = highlightedDays.some(({ day: highlightedDay }) =>
-    day.format('YYYY-MM-DD') === dayjs(highlightedDay).format('YYYY-MM-DD')
-  );
-
-  const isSelected = isHighlighted; // Для выделенного дня
+function ServerDay({ isHighlighted, day, onClick, selectedDay, theme }) {
+  const isSelected = selectedDay?.day === day.format(`YYYY-MM-DD`);
 
   return (
     <Badge
       key={day.toString()}
       overlap="circular"
-      badgeContent={isSelected ? '●' : undefined}
+      badgeContent={isHighlighted ? '●' : undefined}
+      sx={{
+        '& .MuiBadge-badge': {
+          padding: 0,
+          width: `100%`,
+          transform: `none`,
+          top: `-1px`,
+          left: 0,
+          transition: `none`,
+          color: isSelected ? 'info.contrastText' : 'info.main',
+        }
+      }}
     >
       <Button
         variant="text"
-        onClick={() => isHighlighted && onClick(day)}
-        disabled={!isHighlighted}
+        onClick={() => onClick(day)}
         sx={{
-          minWidth: `34px`,
-          width: `34px`,
-          // height: '100%',
-          padding: 0,
+          minWidth: `36px`,
+          width: `38px`,
+          height: `44px`,
           margin: 0,
+          padding: `20px 0 8px 0`,
           borderRadius: 0,
-          backgroundColor: isSelected ? 'lightblue' : 'transparent',
-          borderColor: isSelected ? 'blue' : 'grey',
+          color: isHighlighted
+            ? isSelected
+              ? `info.contrastText`
+              : `info.main`
+            : isSelected
+              ? `info.contrastText`
+              : `gray`,
+          backgroundColor: `${isSelected ? theme.palette.info.main : 'initial'} !important`,
         }}
       >
         {day.date()}
@@ -50,6 +66,7 @@ function ServerDay({ highlightedDays, day, onClick }) {
     </Badge>
   );
 }
+const weekDays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 
 async function fetchTimeSlots(date, serviceId, employees) {
   const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format('YYYY-MM-DD')}&serviceId=${serviceId}&employeeIds=${employees.join(',')}`;
@@ -63,7 +80,12 @@ async function fetchTimeSlots(date, serviceId, employees) {
 
   const data = await response.json();
 
-  return { daysToHighlight: data };
+  const filteredData = data.map(day => ({
+    ...day,
+    availableTimeslots: day.availableTimeslots.filter(timeslot => !timeslot.disabled),
+  }));
+
+  return { daysToHighlight: filteredData };
 }
 
 const formatMonthYear = (start) => {
@@ -83,14 +105,18 @@ const formatMonthYear = (start) => {
 export default function CalendarForm({
   service,
   employees,
+  selectedDay,
   setSelectedDay,
   selectedTimeSlot,
   setSelectedTimeSlot,
+  theme,
+  onNextStepClick,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedDays, setHighlightedDays] = useState([]);
-  const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
-  const [currentWeekStart, setCurrentWeekStart] = useState(initialValue.startOf('week'));
+  const [currentWeekStart, setCurrentWeekStart] = useState(
+    selectedDay?.day ? dayjs(selectedDay.day).startOf('week') : initialValue.startOf('week')
+  );
 
   const fetchHighlightedDays = (date) => {
     fetchTimeSlots(date, service.id, employees)
@@ -104,81 +130,194 @@ export default function CalendarForm({
   };
 
   useEffect(() => {
-    setAvailableTimeSlots([]);
     fetchHighlightedDays(currentWeekStart);
+
+    /** set today as selected day */
+    if (!selectedDay?.day) {
+      setSelectedDay({
+        day: initialValue.format(`YYYY-MM-DD`),
+        availableTimeslots: [],
+      });
+    }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [service, currentWeekStart]);
+  }, []);
 
   const handleWeekChange = (direction) => {
     setIsLoading(true);
     const newStart = currentWeekStart.add(direction, 'week');
     setCurrentWeekStart(newStart);
     setHighlightedDays([]);
-    setAvailableTimeSlots([]);
+    // setSelectedDay(null);
     fetchHighlightedDays(newStart);
   };
+  
+  const dateText = dayjs(selectedDay?.day)?.isSame(dayjs(), 'day')
+    ? `Heute, am ${dayjs(selectedDay?.day)?.format('D. MMMM')},`
+    : dayjs(selectedDay?.day)?.isSame(dayjs().add(1, 'day'), 'day')
+      ? `Morgen, am ${dayjs(selectedDay?.day)?.format('D. MMMM')},`
+      : `Am ${dayjs(selectedDay?.day)?.format('D. MMMM')}`;
 
   return (
     <Box>
       <Typography
         variant="formSubtitle"
-        color="textSecondary"
       >
         Wählen Sie Datum und Uhrzeit
       </Typography>
-      
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Button onClick={() => handleWeekChange(-1)}>Vorherige Woche</Button>
+      <Box 
+        sx={{
+          display: `flex`,
+          flexDirection: `column`,
+          width: `266px`,
+          margin: `auto`,
+        }}>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+          <IconButton 
+            size="large"
+            color="info"
+            sx={{
+              padding: `6px`,
+              minWidth: `auto`,
+            }}
+            onClick={() => handleWeekChange(-1)}
+          >
+            <ArrowBackIos />
+          </IconButton>
+
           <Typography variant="h6">
             {formatMonthYear(currentWeekStart)}
           </Typography>
-          <Button onClick={() => handleWeekChange(1)}>Nächste Woche</Button>
+
+          <IconButton 
+            size="large"
+            color="info"
+            sx={{
+              padding: '6px',
+              minWidth: 'auto',
+            }}
+            onClick={() => handleWeekChange(1)}
+          >
+            <ArrowForwardIos />
+          </IconButton>
         </Box>
 
-        <Box display="grid" gridTemplateColumns="repeat(7, 1fr)" gap={1} mt={2}>
+        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
+          {weekDays.map((day, index) => (
+            <Typography 
+              key={index} 
+              variant="body1" 
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '38px',
+                height: '36px',
+                fontSize: '1.1rem',
+              }}>
+              {day}
+            </Typography>
+          ))}
+        </Box>
+
+        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
           {Array.from({ length: 7 }).map((_, index) => {
             const day = currentWeekStart.add(index, 'day');
+
+            const isHighlighted = highlightedDays.some(({ day: highlightedDay }) =>
+              highlightedDay === day.format('YYYY-MM-DD')
+            );
+
             return (
               <ServerDay
                 key={day.toString()}
                 day={day}
-                highlightedDays={highlightedDays}
-                onClick={(day) => {
-                  const highlightedDay = highlightedDays.find(({ day: highlightedDay }) => highlightedDay === day.format(`YYYY-MM-DD`));
-                  setAvailableTimeSlots(highlightedDay.availableTimeslots);
-                  setSelectedDay(highlightedDay);
+                isHighlighted={isHighlighted}
+                selectedDay={selectedDay}
+                theme={theme}
+                onClick={(clickedDay) => {
+                  const selectedDay = highlightedDays.find(({ day: highlightedDay }) => highlightedDay === clickedDay.format(`YYYY-MM-DD`));
+    
+                  if (selectedDay)  {
+                    setSelectedDay(selectedDay);
+                  } else {
+                    setSelectedDay({
+                      day: clickedDay.format(`YYYY-MM-DD`),
+                      availableTimeslots: [],
+                    });
+                  }
                 }}
               />
             );
           })}
         </Box>
-      </LocalizationProvider>
 
-      {!selectedTimeSlot && availableTimeSlots.length > 0 && <Box sx={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        flexWrap: 'wrap',
-        width: '200px',
-        gap: '10px',
-      }}>
-        {availableTimeSlots.map(slot => (
-          <Button 
-            key={slot.startTime}
-            variant="outlined"
-            onClick={() => setSelectedTimeSlot(slot)}
-            disabled={slot.disabled}
-            sx={{
-              backgroundColor: slot.notActive ? `lightgrey` : `initial`,
-            }}
-          >
-            {formattedTime(slot.startTime)}
-          </Button>
-        ))}
+      </Box>
+
+      {selectedDay && selectedDay.availableTimeslots.length > 0 && <Box 
+        sx={{
+          display:`flex`,
+          flexDirection:`column`,
+        }}
+        mt={3}
+      >
+        <Box> 
+          <b>{dateText}</b> folgende Termine sind verfügbar:
+        </Box>
+
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            width: '100%',
+            gap: '10px',
+            mt:2,
+          }}
+        >
+          {selectedDay.availableTimeslots.map(slot => (
+            <Button 
+              key={slot.startTime}
+              variant="outlined"
+              size='medium'
+              onClick={() => setSelectedTimeSlot(slot)}
+              disabled={slot.disabled}
+              sx={{
+                backgroundColor: `${
+                  slot.startTime === selectedTimeSlot?.startTime ? 
+                    alpha(theme.palette.info.main, 0.2) : 
+                    `initial`
+                } !important`,
+                borderColor: `${
+                  slot.startTime === selectedTimeSlot?.startTime ? 
+                    theme.palette.info.main : 
+                    `lightgrey`
+                } !important`,
+                fontSize: `1rem`,
+                height: `40px`,
+              }}
+            >
+              {formattedTime(slot.startTime)}
+            </Button>
+          ))}
+        </Box>
+
+        <Button
+          variant="contained"
+          color="info"
+          size="medium"
+          onClick={onNextStepClick}
+          sx={{
+            margin: `auto`,
+            mt: 2,
+          }}
+        >
+          Weiter
+        </Button>
       </Box>}
 
-      {availableTimeSlots.length === 0 && <Box>
-        No available time slots
+      {selectedDay && selectedDay.availableTimeslots.length === 0 && <Box mt={3}>
+        <b>{dateText}</b> gibt es keine verfügbaren Zeiten. <br />
+        Bitte wählen Sie ein anderes Datum.
       </Box>}
     </Box>
   );
