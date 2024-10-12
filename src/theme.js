@@ -1,5 +1,5 @@
 'use client';
-import { collapseClasses } from '@mui/material';
+
 import { createTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
 import { Cinzel, Poppins } from 'next/font/google';
