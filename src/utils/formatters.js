@@ -1,5 +1,11 @@
 
-export const formattedTime = (parsedTime) => parsedTime.slice(0, 5);
+export const formattedTime = (parsedTime) => {
+  if (parsedTime) {
+    return parsedTime.slice(0, 5)
+  } else {
+    return `no time`
+  }
+};
 
 export const formatTimeToString = (timeStr) =>{
   const [hours, minutes, seconds] = timeStr.split(`:`).map(Number);

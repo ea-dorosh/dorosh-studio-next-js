@@ -6,14 +6,21 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { 
+  useState, 
+  useMemo, 
+  useRef, 
+  useEffect,
+} from "react";
 import CalendarForm from "@/components/BookingForm/Calendar/CalendarForm";
 import CalendarOverview from "@/components/BookingForm/Calendar/CalendarOverview";
+import CustomerForm from "@/components/BookingForm/CustomerForm/CustomerForm";
 import EmployeesForm from "@/components/BookingForm/Employees/EmployeesForm";
 import EmployeesOverview from "@/components/BookingForm/Employees/EmployeesOverview";
 import FORM_STEPS from "@/components/BookingForm/formSteps";
 import ServiceOverview from "@/components/BookingForm/Services/ServiceOverview";
 import ServicesList from "@/components/BookingForm/Services/ServicesList";
+import appointmentsService from "@/services/appointments.service";
 
 export default function BookingFormContainer({ 
   category, 
@@ -21,6 +28,7 @@ export default function BookingFormContainer({
 }) {
   const theme = useTheme();
   const calendarFormRef = useRef(null);
+  const customerFormRef = useRef(null);
   const cardMediaRef = useRef(null);
 
   /** state */
@@ -31,6 +39,7 @@ export default function BookingFormContainer({
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
   const [selectedEmployeeFromTimeSlotAvailability, setSelectedEmployeeFromTimeSlotAvailability] = useState(null);
+  const [generalError, setGeneralError] = useState(null);
 
   /** computed */
   const filteredServices = services.filter(
@@ -49,18 +58,24 @@ export default function BookingFormContainer({
   const hasCalendarForm = useMemo(() => formStep === FORM_STEPS.CALENDAR, [formStep]);
   const hasCalendarOverview = useMemo(() => formStep > FORM_STEPS.CALENDAR && formStep < FORM_STEPS.FINISH, [formStep]);
 
+  const hasCustomerForm = useMemo(() => formStep === FORM_STEPS.CUSTOMER_FORM, [formStep]);
+
   /** watchers */
   useEffect(() => {
     if (hasCalendarForm) {
       if (calendarFormRef.current) {
-        calendarFormRef.current.style.scrollMargin = `400px`;
+        calendarFormRef.current.style.scrollMargin = `350px`;
       }
 
       calendarFormRef.current?.scrollIntoView({ 
         behavior: "smooth", 
       });
+    } else if (hasCustomerForm) {
+      customerFormRef.current?.scrollIntoView({ 
+        behavior: "smooth", 
+      });
     }
-  } ,[hasCalendarForm]);
+  } ,[hasCalendarForm, hasCustomerForm]);
 
   useEffect(() => {
     if (selectedDay) {
@@ -151,6 +166,38 @@ export default function BookingFormContainer({
     }
   };
 
+  const onSubmitCustomerFormClick = async (formData) => {
+    const appointmentData = {
+      ...formData,
+      date: selectedDay.day,
+      time: selectedTimeSlot.startTime,
+      serviceId: selectedService.id,
+      serviceDuration: selectedService.duration,
+      employeeId: selectedEmployeeFromTimeSlotAvailability,
+    };
+
+    try {
+      await appointmentsService.createAppointment(appointmentData);
+      
+      // reset form after successful submission
+      // setFormStep(FORM_STEPS.FINISH);
+      // setSelectedService(null);
+      // setSelectedEmployeeIds([]);
+      // setSelectedDay(null);
+      // setSelectedTimeSlot(null);
+      // setCreateAppointmentErrors(null);
+      // setSelectedEmployeeFromTimeSlotAvailability(null);
+    } catch (error) {
+      const parsedErrors = await JSON.parse(error.message);
+
+      if (typeof parsedErrors === `string`) {
+        setGeneralError(parsedErrors);
+      } else {
+        setCreateAppointmentErrors(parsedErrors);
+      }
+    }
+  }
+
   return (<>
     <span ref={cardMediaRef}></span>
     <Box sx={{ 
@@ -220,10 +267,28 @@ export default function BookingFormContainer({
       )}
 
       {hasCalendarOverview && <CalendarOverview
-        date={selectedDay.day}
-        time={selectedTimeSlot.startTime}
+        date={selectedDay?.day}
+        time={selectedTimeSlot?.startTime}
         changeDate={()=> setFormStep(FORM_STEPS.CALENDAR)}
       />}
+
+      {hasCustomerForm && <div ref={customerFormRef} style={{minHeight:`4000px`}}>
+        <CustomerForm
+          createAppointment={onSubmitCustomerFormClick}
+          formErrors={createAppointmentErrors}
+        />
+      </div>}
+
+
+      {generalError && 
+        <Typography
+          variant="subtitle1"
+          mt={2}
+          color={`error`}
+        >
+          {generalError}
+        </Typography>
+      }
     </Box>
   </>
   );

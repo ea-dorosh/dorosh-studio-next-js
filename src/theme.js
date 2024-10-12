@@ -111,6 +111,14 @@ const theme = createTheme({
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: `0.8rem`,
+          fontFamily: poppins.style.fontFamily,
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {
