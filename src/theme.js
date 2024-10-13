@@ -61,6 +61,10 @@ const theme = createTheme({
       fontSize: '2.2rem',
       fontFamily: cinzel.style.fontFamily,
     },
+    h4: {
+      fontSize: '1.8rem',
+      fontFamily: cinzel.style.fontFamily,
+    },
     caption: {
       fontSize: `1.2rem`,
       letterSpacing: `3px`,

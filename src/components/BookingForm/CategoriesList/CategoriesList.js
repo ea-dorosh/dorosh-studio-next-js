@@ -94,6 +94,7 @@ export default function CategoryList({
           <BookingFormContainer
             category={selectedCategory}
             services={services}
+            closeModal={handleClose}
           />
         </ModalFullScreen>
       }

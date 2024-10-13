@@ -14,6 +14,7 @@ import {
 } from "react";
 import CalendarForm from "@/components/BookingForm/Calendar/CalendarForm";
 import CalendarOverview from "@/components/BookingForm/Calendar/CalendarOverview";
+import Confirmation from "@/components/BookingForm/Confirmation/Confirmation";
 import CustomerForm from "@/components/BookingForm/CustomerForm/CustomerForm";
 import EmployeesForm from "@/components/BookingForm/Employees/EmployeesForm";
 import EmployeesOverview from "@/components/BookingForm/Employees/EmployeesOverview";
@@ -25,6 +26,7 @@ import appointmentsService from "@/services/appointments.service";
 export default function BookingFormContainer({ 
   category, 
   services,
+  closeModal,
 }) {
   const theme = useTheme();
   const calendarFormRef = useRef(null);
@@ -40,6 +42,7 @@ export default function BookingFormContainer({
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
   const [selectedEmployeeFromTimeSlotAvailability, setSelectedEmployeeFromTimeSlotAvailability] = useState(null);
   const [generalError, setGeneralError] = useState(null);
+  const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
   /** computed */
   const filteredServices = services.filter(
@@ -58,7 +61,9 @@ export default function BookingFormContainer({
   const hasCalendarForm = useMemo(() => formStep === FORM_STEPS.CALENDAR, [formStep]);
   const hasCalendarOverview = useMemo(() => formStep > FORM_STEPS.CALENDAR && formStep < FORM_STEPS.FINISH, [formStep]);
 
-  const hasCustomerForm = useMemo(() => formStep === FORM_STEPS.CUSTOMER_FORM, [formStep]);
+  const hasCustomerForm = useMemo(() => formStep === FORM_STEPS.CUSTOMER_FORM && formStep < FORM_STEPS.FINISH, [formStep]);
+
+  const hasConfirmationMessage = useMemo(() => formStep === FORM_STEPS.FINISH, [formStep]);
 
   /** watchers */
   useEffect(() => {
@@ -176,11 +181,11 @@ export default function BookingFormContainer({
       employeeId: selectedEmployeeFromTimeSlotAvailability,
     };
 
-    try {
-      await appointmentsService.createAppointment(appointmentData);
-      
+    try {      
+      const data = await appointmentsService.createAppointment(appointmentData);
+      setAppointmentConfirmation(data.data);
       // reset form after successful submission
-      // setFormStep(FORM_STEPS.FINISH);
+      setFormStep(FORM_STEPS.FINISH);
       // setSelectedService(null);
       // setSelectedEmployeeIds([]);
       // setSelectedDay(null);
@@ -199,32 +204,35 @@ export default function BookingFormContainer({
   }
 
   return (<>
-    <span ref={cardMediaRef}></span>
-    <Box sx={{ 
-      mt: `-56px`,
-      position: `sticky`,
-      top: 0,
-    }}>
-      <CardMedia
-        component="img"
-        image={category.image}
-        alt={category.name}
-        sx={{
-          width: `100%`,
-          height: `250px`,
-          objectFit: `cover`,
-        }}
-      />
-    </Box>
+    {!hasConfirmationMessage && <><span ref={cardMediaRef}></span>
+      <Box sx={{ 
+        mt: `-56px`,
+        position: `sticky`,
+        top: 0,
+      }}>
+        <CardMedia
+          component="img"
+          image={category.image}
+          alt={category.name}
+          sx={{
+            width: `100%`,
+            height: `250px`,
+            objectFit: `cover`,
+          }}
+        />
+      </Box></>}
 
     <Box sx={{ 
       p: 2,
       backgroundColor: theme.palette.background.white,
       zIndex: 1,
     }}>
-      <Typography variant="h2" gutterBottom mb={4}>
+      {!hasConfirmationMessage && <Typography 
+        variant="h2" 
+        gutterBottom mb={4}
+      >
         {category.name}
-      </Typography>
+      </Typography>}
 
       {hasServicesForm && <ServicesList 
         services={filteredServices}
@@ -272,13 +280,17 @@ export default function BookingFormContainer({
         changeDate={()=> setFormStep(FORM_STEPS.CALENDAR)}
       />}
 
-      {hasCustomerForm && <div ref={customerFormRef} style={{minHeight:`4000px`}}>
+      {hasCustomerForm && <div ref={customerFormRef}>
         <CustomerForm
           createAppointment={onSubmitCustomerFormClick}
           formErrors={createAppointmentErrors}
         />
       </div>}
 
+      {hasConfirmationMessage && <Confirmation 
+        appointment={appointmentConfirmation}
+        closeConfirmation={closeModal}
+      />}
 
       {generalError && 
         <Typography
