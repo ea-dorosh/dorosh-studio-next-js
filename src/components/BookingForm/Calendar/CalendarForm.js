@@ -91,7 +91,6 @@ async function fetchTimeSlots(date, serviceId, employees) {
 const formatMonthYear = (start) => {
   const end = start.add(6, 'days');
   const startMonth = start.format('MMMM YYYY');
-  const endMonth = end.format('MMMM YYYY');
 
   // Check if the months are different
   if (start.month() === end.month()) {
@@ -112,7 +111,6 @@ export default function CalendarForm({
   theme,
   onNextStepClick,
 }) {
-  const [isLoading, setIsLoading] = useState(false);
   const [highlightedDays, setHighlightedDays] = useState([]);
   const [currentWeekStart, setCurrentWeekStart] = useState(
     selectedDay?.day ? dayjs(selectedDay.day).startOf('week') : initialValue.startOf('week')
@@ -122,7 +120,6 @@ export default function CalendarForm({
     fetchTimeSlots(date, service.id, employees)
       .then(({ daysToHighlight }) => {
         setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -144,13 +141,12 @@ export default function CalendarForm({
   }, []);
 
   const handleWeekChange = (direction) => {
-    setIsLoading(true);
     const newStart = currentWeekStart.add(direction, 'week');
     setCurrentWeekStart(newStart);
     setHighlightedDays([]);
     fetchHighlightedDays(newStart);
   };
-  
+
   const dateText = dayjs(selectedDay?.day)?.isSame(dayjs(), 'day')
     ? `Heute, am ${dayjs(selectedDay?.day)?.format('D. MMMM')},`
     : dayjs(selectedDay?.day)?.isSame(dayjs().add(1, 'day'), 'day')
@@ -164,7 +160,7 @@ export default function CalendarForm({
       >
         Wählen Sie Datum und Uhrzeit
       </Typography>
-      <Box 
+      <Box
         sx={{
           display: `flex`,
           flexDirection: `column`,
@@ -172,7 +168,7 @@ export default function CalendarForm({
           margin: `auto`,
         }}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
-          <IconButton 
+          <IconButton
             size="large"
             color="info"
             sx={{
@@ -188,7 +184,7 @@ export default function CalendarForm({
             {formatMonthYear(currentWeekStart)}
           </Typography>
 
-          <IconButton 
+          <IconButton
             size="large"
             color="info"
             sx={{
@@ -203,9 +199,9 @@ export default function CalendarForm({
 
         <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
           {weekDays.map((day, index) => (
-            <Typography 
-              key={index} 
-              variant="body1" 
+            <Typography
+              key={index}
+              variant="body1"
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -236,7 +232,7 @@ export default function CalendarForm({
                 theme={theme}
                 onClick={(clickedDay) => {
                   const selectedDay = highlightedDays.find(({ day: highlightedDay }) => highlightedDay === clickedDay.format(`YYYY-MM-DD`));
-    
+
                   if (selectedDay)  {
                     setSelectedDay(selectedDay);
                   } else {
@@ -253,14 +249,14 @@ export default function CalendarForm({
 
       </Box>
 
-      {selectedDay && selectedDay.availableTimeslots.length > 0 && <Box 
+      {selectedDay && selectedDay.availableTimeslots.length > 0 && <Box
         sx={{
           display:`flex`,
           flexDirection:`column`,
         }}
         mt={3}
       >
-        <Box> 
+        <Box>
           <b>{dateText}</b> folgende Termine sind verfügbar:
         </Box>
 
@@ -274,7 +270,7 @@ export default function CalendarForm({
           }}
         >
           {selectedDay.availableTimeslots.map(slot => (
-            <Button 
+            <Button
               key={slot.startTime}
               variant="outlined"
               size='medium'
@@ -282,13 +278,13 @@ export default function CalendarForm({
               disabled={slot.disabled}
               sx={{
                 backgroundColor: `${
-                  slot.startTime === selectedTimeSlot?.startTime ? 
-                    alpha(theme.palette.info.main, 0.2) : 
+                  slot.startTime === selectedTimeSlot?.startTime ?
+                    alpha(theme.palette.info.main, 0.2) :
                     `initial`
                 } !important`,
                 borderColor: `${
-                  slot.startTime === selectedTimeSlot?.startTime ? 
-                    theme.palette.info.main : 
+                  slot.startTime === selectedTimeSlot?.startTime ?
+                    theme.palette.info.main :
                     `lightgrey`
                 } !important`,
                 fontSize: `1rem`,

@@ -68,7 +68,7 @@ export default function CustomerForm({
         mt: 2,
       }}
     >
-      <FormControl error={formErrors?.salutation}>
+      <FormControl error={Boolean(formErrors?.salutation)}>
         <Box sx={{
           display: `flex`,
           flexDirection: `row`,
@@ -100,7 +100,7 @@ export default function CustomerForm({
         }
       </FormControl>
     
-      <FormControl error={formErrors?.firstName}>
+      <FormControl error={Boolean(formErrors?.firstName)}>
         <TextField
           value={formData.firstName}
           label="Vorname"
@@ -115,7 +115,7 @@ export default function CustomerForm({
         }
       </FormControl>
 
-      <FormControl error={formErrors?.lastName}>
+      <FormControl error={Boolean(formErrors?.lastName)}>
         <TextField
           value={formData.lastName}
           label="Nachname"
@@ -131,7 +131,7 @@ export default function CustomerForm({
       </FormControl>
 
       <FormControl
-        error={formErrors?.phone}
+        error={Boolean(formErrors?.phone)}
       >
         <TextField
           value={formData.phone}
@@ -149,7 +149,7 @@ export default function CustomerForm({
         }
       </FormControl>
 
-      <FormControl error={formErrors?.email}>
+      <FormControl error={Boolean(formErrors?.email)}>
         <TextField
           value={formData.email}
           label="E-Mail"

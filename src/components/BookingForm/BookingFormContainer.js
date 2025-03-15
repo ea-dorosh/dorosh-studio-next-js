@@ -181,25 +181,23 @@ export default function BookingFormContainer({
       employeeId: selectedEmployeeFromTimeSlotAvailability,
     };
 
-    try {      
-      const data = await appointmentsService.createAppointment(appointmentData);
-      setAppointmentConfirmation(data.data);
-      // reset form after successful submission
-      setFormStep(FORM_STEPS.FINISH);
-      // setSelectedService(null);
-      // setSelectedEmployeeIds([]);
-      // setSelectedDay(null);
-      // setSelectedTimeSlot(null);
-      // setCreateAppointmentErrors(null);
-      // setSelectedEmployeeFromTimeSlotAvailability(null);
-    } catch (error) {
-      const parsedErrors = await JSON.parse(error.message);
+    try {
+      const {validationErrors, errorMessage, data} = await appointmentsService.createAppointment(appointmentData);
 
-      if (typeof parsedErrors === `string`) {
-        setGeneralError(parsedErrors);
-      } else {
-        setCreateAppointmentErrors(parsedErrors);
+      if (validationErrors) {      
+        setCreateAppointmentErrors(validationErrors);
       }
+  
+      if (errorMessage) {      
+        setGeneralError(errorMessage);
+      }
+  
+      if (data) {      
+        setAppointmentConfirmation(data);
+        setFormStep(FORM_STEPS.FINISH);
+      }
+    } catch (error) {
+      setGeneralError(`Network error`);
     }
   }
 
