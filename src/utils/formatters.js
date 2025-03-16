@@ -1,14 +1,20 @@
 /**
  * Formats time to a more readable format without seconds.
- * @param {string} parsedTime - The time in 'HH:MM:SS' format to format.
+ * @param {string} parsedTime - The time in 'HH:MM:SS' or "2025-04-02 12:30:00" format to format.
  * @returns {string} - The formatted time in 'HH:MM' format or 'no time' if parsedTime is falsy.
  */
 export const formattedTime = (parsedTime) => {
-  if (parsedTime) {
-    return parsedTime.slice(0, 5);
-  } else {
-    return `no time`;
-  }
+  if (!parsedTime) return `Fehler`;
+
+  const timeString = parsedTime.includes(' ')
+    ? parsedTime.split(' ')[1]
+    : parsedTime;
+
+  const [hours, minutes] = timeString.split(':');
+  console.log(`hours`, hours);
+  console.log(`minutes`, minutes);
+
+  return `${hours}:${minutes}`;
 };
 
 /**
@@ -18,7 +24,7 @@ export const formattedTime = (parsedTime) => {
  */
 export const formatTimeToString = (timeStr) => {
   const [hours, minutes, seconds] = timeStr.split(`:`).map(Number);
-    
+
   let formattedTime = ``;
 
   if (hours > 0) {
@@ -43,8 +49,8 @@ export const formatTimeToString = (timeStr) => {
  * @returns {string} - The formatted price in Euro, e.g., '1.000 €'.
  */
 export const formatPrice = (price) => {
-  return new Intl.NumberFormat('de-DE', { 
-    style: `currency`, 
+  return new Intl.NumberFormat('de-DE', {
+    style: `currency`,
     currency: `EUR`,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,

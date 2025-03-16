@@ -292,7 +292,7 @@ export default function BookingFormContainer({
 
       {generalError &&
         <Dialog
-          open={generalError}
+          open={Boolean(generalError)}
           onClose={() => setGeneralError(null)}
           PaperProps={{
             sx: {
