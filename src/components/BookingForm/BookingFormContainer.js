@@ -3,13 +3,17 @@
 import {
   Box,
   CardMedia,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Button,
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
-import { 
-  useState, 
-  useMemo, 
-  useRef, 
+import {
+  useState,
+  useMemo,
+  useRef,
   useEffect,
 } from "react";
 import CalendarForm from "@/components/BookingForm/Calendar/CalendarForm";
@@ -23,8 +27,8 @@ import ServiceOverview from "@/components/BookingForm/Services/ServiceOverview";
 import ServicesList from "@/components/BookingForm/Services/ServicesList";
 import appointmentsService from "@/services/appointments.service";
 
-export default function BookingFormContainer({ 
-  category, 
+export default function BookingFormContainer({
+  category,
   services,
   closeModal,
 }) {
@@ -49,12 +53,12 @@ export default function BookingFormContainer({
     (service) => service.categoryId === category.id
   );
 
-  const selectedEmployees = useMemo(() => selectedService?.employees.filter(employee => selectedEmployeesIds.includes(employee.id)), 
+  const selectedEmployees = useMemo(() => selectedService?.employees.filter(employee => selectedEmployeesIds.includes(employee.id)),
     [selectedService?.employees, selectedEmployeesIds]);
-  
+
   const hasServicesForm = useMemo(() => formStep === FORM_STEPS.SERVICES, [formStep]);
   const hasServiceOverview = useMemo(() => formStep > FORM_STEPS.SERVICES && formStep < FORM_STEPS.FINISH, [formStep]);
-  
+
   const hasEmployeesForm = useMemo(() => formStep === FORM_STEPS.EMPLOYEES, [formStep]);
   const hasEmployeesOverview = useMemo(() => formStep > FORM_STEPS.EMPLOYEES && formStep < FORM_STEPS.FINISH, [formStep]);
 
@@ -72,12 +76,12 @@ export default function BookingFormContainer({
         calendarFormRef.current.style.scrollMargin = `350px`;
       }
 
-      calendarFormRef.current?.scrollIntoView({ 
-        behavior: "smooth", 
+      calendarFormRef.current?.scrollIntoView({
+        behavior: "smooth",
       });
     } else if (hasCustomerForm) {
-      customerFormRef.current?.scrollIntoView({ 
-        behavior: "smooth", 
+      customerFormRef.current?.scrollIntoView({
+        behavior: "smooth",
       });
     }
   } ,[hasCalendarForm, hasCustomerForm]);
@@ -93,11 +97,11 @@ export default function BookingFormContainer({
   const onSubmitServiceFormClick = (service) => {
     setSelectedService(service);
 
-    if (service.employees.length === 1) {      
+    if (service.employees.length === 1) {
       setSelectedEmployeesIds([service.employees[0].id]);
       setFormStep(FORM_STEPS.CALENDAR);
     } else {
-      setFormStep(FORM_STEPS.EMPLOYEES);    
+      setFormStep(FORM_STEPS.EMPLOYEES);
     }
   }
 
@@ -107,8 +111,8 @@ export default function BookingFormContainer({
     setSelectedEmployeesIds([]);
     setSelectedEmployeeFromTimeSlotAvailability(null);
 
-    cardMediaRef.current?.scrollIntoView({ 
-      behavior: "smooth", 
+    cardMediaRef.current?.scrollIntoView({
+      behavior: "smooth",
     });
 
     setFormStep(FORM_STEPS.SERVICES);
@@ -145,12 +149,12 @@ export default function BookingFormContainer({
     }
   };
 
-  const onChangeEmployeeFormClick = () => {   
+  const onChangeEmployeeFormClick = () => {
     setFormStep(FORM_STEPS.EMPLOYEES);
     setSelectedDay(null);
   };
 
-  const onSelectTimeSlotClick = (slot) => {   
+  const onSelectTimeSlotClick = (slot) => {
     setSelectedTimeSlot(slot);
     setSelectedEmployeeFromTimeSlotAvailability(slot.employeeId[0]);
 
@@ -184,26 +188,22 @@ export default function BookingFormContainer({
     try {
       const {validationErrors, errorMessage, data} = await appointmentsService.createAppointment(appointmentData);
 
-      if (validationErrors) {      
+      if (validationErrors) {
         setCreateAppointmentErrors(validationErrors);
-      }
-  
-      if (errorMessage) {      
+      } else if (errorMessage) {
         setGeneralError(errorMessage);
-      }
-  
-      if (data) {      
+      } else if (data) {
         setAppointmentConfirmation(data);
         setFormStep(FORM_STEPS.FINISH);
       }
     } catch (error) {
-      setGeneralError(`Network error`);
+      setGeneralError(`Beim Erstellen des Datensatzes ist ein Fehler aufgetreten, bitte versuchen Sie es erneut oder versuchen Sie es später noch einmal.`);
     }
   }
 
   return (<>
     {!hasConfirmationMessage && <><span ref={cardMediaRef}></span>
-      <Box sx={{ 
+      <Box sx={{
         mt: `-56px`,
         position: `sticky`,
         top: 0,
@@ -220,19 +220,19 @@ export default function BookingFormContainer({
         />
       </Box></>}
 
-    <Box sx={{ 
+    <Box sx={{
       p: 2,
       backgroundColor: theme.palette.background.white,
       zIndex: 1,
     }}>
-      {!hasConfirmationMessage && <Typography 
-        variant="h2" 
+      {!hasConfirmationMessage && <Typography
+        variant="h2"
         gutterBottom mb={4}
       >
         {category.name}
       </Typography>}
 
-      {hasServicesForm && <ServicesList 
+      {hasServicesForm && <ServicesList
         services={filteredServices}
         theme={theme}
         selectService={onSubmitServiceFormClick}
@@ -243,7 +243,7 @@ export default function BookingFormContainer({
         changeService={onChangeServiceFormClick}
       />}
 
-      {hasEmployeesForm && <EmployeesForm 
+      {hasEmployeesForm && <EmployeesForm
         availableEmployees={selectedService.employees}
         selectedEmployeesIds={selectedEmployeesIds}
         changeEmployees={onChangeSelectedEmployeeClick}
@@ -285,19 +285,52 @@ export default function BookingFormContainer({
         />
       </div>}
 
-      {hasConfirmationMessage && <Confirmation 
+      {hasConfirmationMessage && <Confirmation
         appointment={appointmentConfirmation}
         closeConfirmation={closeModal}
       />}
 
-      {generalError && 
-        <Typography
-          variant="subtitle1"
-          mt={2}
-          color={`error`}
+      {generalError &&
+        <Dialog
+          open={generalError}
+          onClose={() => setGeneralError(null)}
+          PaperProps={{
+            sx: {
+              backgroundColor: theme.palette.background.white,
+            },
+          }}
         >
-          {generalError}
-        </Typography>
+          <DialogContent>
+            <Typography
+              variant="h6"
+              mt={2}
+              color={`error`}
+            >
+              Fehler
+            </Typography>
+
+            <Typography
+              variant="subtitle1"
+              mt={2}
+              sx={{
+                fontSize: `1rem`,
+              }}
+            >
+              {generalError}
+            </Typography>
+          </DialogContent>
+
+          <DialogActions>
+            <Button
+              onClick={() => setGeneralError(null)}
+              autoFocus
+              variant="contained"
+              size="small"
+            >
+              Akzeptieren
+            </Button>
+          </DialogActions>
+        </Dialog>
       }
     </Box>
   </>

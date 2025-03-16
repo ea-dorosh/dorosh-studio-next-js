@@ -75,7 +75,7 @@ export default function CustomerForm({
           alignItems: `center`,
           gap: 3,
         }}>
-          <FormLabel 
+          <FormLabel
             id="salutation-group-label"
             sx={{ mr: 4 }}
           >
@@ -93,13 +93,13 @@ export default function CustomerForm({
           </RadioGroup>
         </Box>
 
-        {formErrors?.salutation && 
+        {formErrors?.salutation &&
           <FormHelperText>
             {formErrors.salutation}
           </FormHelperText>
         }
       </FormControl>
-    
+
       <FormControl error={Boolean(formErrors?.firstName)}>
         <TextField
           value={formData.firstName}
@@ -107,8 +107,9 @@ export default function CustomerForm({
           variant="outlined"
           name="firstName"
           onChange={handleChange}
+          error={Boolean(formErrors?.firstName)}
         />
-        {formErrors?.firstName && 
+        {formErrors?.firstName &&
           <FormHelperText>
             {formErrors.firstName}
           </FormHelperText>
@@ -122,8 +123,9 @@ export default function CustomerForm({
           variant="outlined"
           name="lastName"
           onChange={handleChange}
+          error={Boolean(formErrors?.lastName)}
         />
-        {formErrors?.lastName && 
+        {formErrors?.lastName &&
             <FormHelperText>
               {formErrors.lastName}
             </FormHelperText>
@@ -141,8 +143,9 @@ export default function CustomerForm({
           type="tel"
           placeholder="+49 111 111 11111"
           onChange={handleChange}
+          error={Boolean(formErrors?.phone)}
         />
-        {formErrors?.phone && 
+        {formErrors?.phone &&
             <FormHelperText>
               {formErrors.phone}
             </FormHelperText>
@@ -157,8 +160,9 @@ export default function CustomerForm({
           name="email"
           type="email"
           onChange={handleChange}
+          error={Boolean(formErrors?.email)}
         />
-        {formErrors?.email && 
+        {formErrors?.email &&
           <FormHelperText>
             {formErrors.email}
           </FormHelperText>

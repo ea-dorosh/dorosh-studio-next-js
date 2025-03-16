@@ -20,7 +20,7 @@ const COLOR_WHITE = '#ffffff';
 const COLOR_VERY_DARK_GRAYISH_BLUE = '#3b3c43';
 const COLOR_VERY_SOFT_RED = '#FFE9E6';
 const COLOR_BRAUN = '#A06054';
-
+const COLOR_RED = '#c82d2d';
 
 const theme = createTheme({
   palette: {
@@ -37,10 +37,13 @@ const theme = createTheme({
       contrastText: COLOR_WHITE,
     },
     background: {
-      main: COLOR_VERY_DARK_GRAYISH_BLUE, 
+      main: COLOR_VERY_DARK_GRAYISH_BLUE,
       secondary: COLOR_VERY_SOFT_RED,
       paper: COLOR_SOFT_RED,
       white: COLOR_WHITE,
+    },
+    error: {
+      main: COLOR_RED,
     },
   },
   typography: {
@@ -119,7 +122,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: `0.8rem`,
-          fontFamily: poppins.style.fontFamily,
+          fontFamily: `Verdana, Arial, sans-serif`,
+          marginLeft: 0,
+          marginRight: 0,
+          letterSpacing: `1.2px`,
         },
       },
     },
