@@ -11,13 +11,13 @@ import {
   Button,
   IconButton,
 } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { formattedTime } from '@/utils/formatters';
+import { MOCK_TIME_SLOTS } from './mockTimeSlots';
+import TimeSlotButton from './TimeSlotButton';
 import 'dayjs/locale/de';
 
-dayjs.locale('de');
+dayjs.locale(`de`);
 
 const initialValue = dayjs(new Date());
 
@@ -58,7 +58,7 @@ function ServerDay({ isHighlighted, day, onClick, selectedDay, theme }) {
             : isSelected
               ? `info.contrastText`
               : `gray`,
-          backgroundColor: `${isSelected ? theme.palette.info.main : 'initial'} !important`,
+          backgroundColor: `${isSelected ? theme.palette.info.main : `initial`} !important`,
         }}
       >
         {day.date()}
@@ -66,7 +66,7 @@ function ServerDay({ isHighlighted, day, onClick, selectedDay, theme }) {
     </Badge>
   );
 }
-const weekDays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+const weekDays = [`Mo`, `Di`, `Mi`, `Do`, `Fr`, `Sa`, `So`];
 
 async function fetchTimeSlots(date, serviceId, employees) {
   const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format('YYYY-MM-DD')}&serviceId=${serviceId}&employeeIds=${employees.join(',')}`;
@@ -80,12 +80,7 @@ async function fetchTimeSlots(date, serviceId, employees) {
 
   const data = await response.json();
 
-  const filteredData = data.map(day => ({
-    ...day,
-    availableTimeslots: day.availableTimeslots.filter(timeslot => !timeslot.disabled),
-  }));
-
-  return { daysToHighlight: filteredData };
+  return { daysToHighlight: data };
 }
 
 const formatMonthYear = (start) => {
@@ -141,7 +136,7 @@ export default function CalendarForm({
   }, []);
 
   const handleWeekChange = (direction) => {
-    const newStart = currentWeekStart.add(direction, 'week');
+    const newStart = currentWeekStart.add(direction, `week`);
     setCurrentWeekStart(newStart);
     setHighlightedDays([]);
     fetchHighlightedDays(newStart);
@@ -219,8 +214,11 @@ export default function CalendarForm({
           {Array.from({ length: 7 }).map((_, index) => {
             const day = currentWeekStart.add(index, 'day');
 
-            const isHighlighted = highlightedDays.some(({ day: highlightedDay }) =>
-              highlightedDay === day.format('YYYY-MM-DD')
+            const isHighlighted = highlightedDays.some(({
+              day: highlightedDay,
+              availableTimeslots,
+            }) =>
+              highlightedDay === day.format('YYYY-MM-DD') && availableTimeslots.some((timeslot) => !timeslot.disabled)
             );
 
             return (
@@ -257,7 +255,11 @@ export default function CalendarForm({
         mt={3}
       >
         <Box>
-          <b>{dateText}</b> folgende Termine sind verfügbar:
+          {selectedDay.availableTimeslots.some(timeslot => !timeslot.disabled) ? (
+            <span><b>{dateText}</b> folgende Termine sind verfügbar</span>
+          ) : (
+            <span><b>{dateText}</b> gibt es keine verfügbaren Zeiten. Bitte wählen Sie ein anderes Datum.</span>
+          )}
         </Box>
 
         <Box
@@ -270,29 +272,12 @@ export default function CalendarForm({
           }}
         >
           {selectedDay.availableTimeslots.map(slot => (
-            <Button
+            <TimeSlotButton
               key={slot.startTime}
-              variant="outlined"
-              size='medium'
-              onClick={() => setSelectedTimeSlot(slot)}
-              disabled={slot.disabled}
-              sx={{
-                backgroundColor: `${
-                  slot.startTime === selectedTimeSlot?.startTime ?
-                    alpha(theme.palette.info.main, 0.2) :
-                    `initial`
-                } !important`,
-                borderColor: `${
-                  slot.startTime === selectedTimeSlot?.startTime ?
-                    theme.palette.info.main :
-                    `lightgrey`
-                } !important`,
-                fontSize: `1rem`,
-                height: `40px`,
-              }}
-            >
-              {formattedTime(slot.startTime)}
-            </Button>
+              slot={slot}
+              selectedTimeSlot={selectedTimeSlot}
+              setSelectedTimeSlot={setSelectedTimeSlot}
+            />
           ))}
         </Box>
 
@@ -310,10 +295,31 @@ export default function CalendarForm({
         </Button>
       </Box>}
 
-      {selectedDay && selectedDay.availableTimeslots.length === 0 && <Box mt={3}>
-        <b>{dateText}</b> gibt es keine verfügbaren Zeiten. <br />
+      {selectedDay && selectedDay.availableTimeslots.length === 0 && <>
+        <Box mt={3}>
+          <b>{dateText}</b> gibt es keine verfügbaren Zeiten. <br />
         Bitte wählen Sie ein anderes Datum.
-      </Box>}
+        </Box>
+
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            width: '100%',
+            gap: '10px',
+            mt:2,
+          }}
+        >
+          {MOCK_TIME_SLOTS.map(slot => (
+            <TimeSlotButton
+              key={slot.startTime}
+              slot={slot}
+              selectedTimeSlot={selectedTimeSlot}
+              setSelectedTimeSlot={setSelectedTimeSlot}
+            />
+          ))}
+        </Box>
+      </>}
     </Box>
   );
 }

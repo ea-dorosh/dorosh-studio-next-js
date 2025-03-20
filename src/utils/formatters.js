@@ -11,8 +11,6 @@ export const formattedTime = (parsedTime) => {
     : parsedTime;
 
   const [hours, minutes] = timeString.split(':');
-  console.log(`hours`, hours);
-  console.log(`minutes`, minutes);
 
   return `${hours}:${minutes}`;
 };
