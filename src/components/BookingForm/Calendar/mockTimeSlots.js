@@ -18,24 +18,6 @@ export const MOCK_TIME_SLOTS = [
     employeeId: [1],
   },
   {
-    startTime: `11:00:00`,
-    endTime: `11:30:00`,
-    disabled: true,
-    employeeId: [1],
-  },
-  {
-    startTime: `11:00:00`,
-    endTime: `11:30:00`,
-    disabled: true,
-    employeeId: [1],
-  },
-  {
-    startTime: `11:00:00`,
-    endTime: `11:30:00`,
-    disabled: true,
-    employeeId: [1],
-  },
-  {
     startTime: `11:30:00`,
     endTime: `12:00:00`,
     disabled: true,

@@ -5,10 +5,11 @@ import {
   ArrowForwardIos,
 } from '@mui/icons-material';
 import {
-  Typography,
   Box,
   Button,
+  CircularProgress,
   IconButton,
+  Typography,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
@@ -19,7 +20,8 @@ import 'dayjs/locale/de';
 
 dayjs.locale(`de`);
 
-const initialValue = dayjs(new Date());
+// initial value for the calendar is tomorrow
+const initialValue = dayjs(new Date()).add(1, `day`);
 
 const weekDays = [`Mo`, `Di`, `Mi`, `Do`, `Fr`, `Sa`, `So`];
 
@@ -34,6 +36,10 @@ async function fetchTimeSlots(date, serviceId, employees) {
   });
 
   const data = await response.json();
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
 
   return { daysToHighlight: data };
 }
@@ -60,40 +66,55 @@ export default function CalendarForm({
   setSelectedTimeSlot,
   onNextStepClick,
 }) {
-  const [highlightedDays, setHighlightedDays] = useState([]);
+  const [calendarDays, setCalendarDays] = useState([]);
+  const [isCalendarDaysLoading, setIsCalendarDaysLoading] = useState(false);
   const [currentWeekStart, setCurrentWeekStart] = useState(
     selectedDay?.day ? dayjs(selectedDay.day).startOf(`week`) : initialValue.startOf(`week`)
   );
+  const [error, setError] = useState(null)
 
-  const fetchHighlightedDays = (date) => {
-    fetchTimeSlots(date, service.id, employees)
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const fetchCalendarDays = async (date) => {
+    setError(null);
+    setIsCalendarDaysLoading(true);
+
+    try {
+      const { daysToHighlight } = await fetchTimeSlots(date, service.id, employees);
+      return daysToHighlight;
+    } catch (error) {
+      console.error(error);
+      setError(`Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal`);
+    } finally {
+      setIsCalendarDaysLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchHighlightedDays(currentWeekStart);
+    async function fetchData() {
+      const daysToHighlight = await fetchCalendarDays(currentWeekStart);
+      setCalendarDays(daysToHighlight);
 
-    /** set today as selected day */
-    if (!selectedDay?.day) {
-      setSelectedDay({
-        day: initialValue.format(`YYYY-MM-DD`),
-        availableTimeslots: [],
-      });
+      if (!selectedDay?.day && daysToHighlight) {
+        setSelectedDay(daysToHighlight[0]);
+      }
     }
+    fetchData();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleWeekChange = (direction) => {
+  const handleWeekChange = async (direction) => {
     const newStart = currentWeekStart.add(direction, `week`);
     setCurrentWeekStart(newStart);
-    setHighlightedDays([]);
-    fetchHighlightedDays(newStart);
+    setCalendarDays([]);
+    setSelectedDay(null);
+
+    const daysToHighlight = await fetchCalendarDays(newStart);
+
+    setCalendarDays(daysToHighlight);
+
+    if (daysToHighlight.length > 0) {
+      setSelectedDay(daysToHighlight[0]);
+    }
   };
 
   const dateText = dayjs(selectedDay?.day)?.isSame(dayjs(), `day`)
@@ -104,11 +125,10 @@ export default function CalendarForm({
 
   return (
     <Box>
-      <Typography
-        variant="formSubtitle"
-      >
+      <Typography variant="formSubtitle">
         Wählen Sie Datum und Uhrzeit
       </Typography>
+
       <Box
         sx={{
           display: `flex`,
@@ -124,6 +144,7 @@ export default function CalendarForm({
               padding: `6px`,
               minWidth: `auto`,
             }}
+            disabled={currentWeekStart.isSame(dayjs(), `week`)}
             onClick={() => handleWeekChange(-1)}
           >
             <ArrowBackIos />
@@ -164,43 +185,51 @@ export default function CalendarForm({
           ))}
         </Box>
 
-        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
-          {Array.from({ length: 7 }).map((_, index) => {
-            const day = currentWeekStart.add(index, `day`);
+        {error ? <Box>
+          <Typography variant="body1" mt={2} color="error">
+            {error}
+          </Typography>
+        </Box> :
+          <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
+            {Array.from({ length: 7 }).map((_, index) => {
+              const day = currentWeekStart.add(index, `day`);
+              const isHighlighted = calendarDays.some(({
+                day: highlightedDay,
+                availableTimeslots,
+              }) =>
+                highlightedDay === day.format(`YYYY-MM-DD`) && availableTimeslots.some((timeslot) => !timeslot.disabled)
+              );
 
-            const isHighlighted = highlightedDays.some(({
-              day: highlightedDay,
-              availableTimeslots,
-            }) =>
-              highlightedDay === day.format(`YYYY-MM-DD`) && availableTimeslots.some((timeslot) => !timeslot.disabled)
-            );
+              return (
+                <CalendarDay
+                  key={day.toString()}
+                  day={day}
+                  isHighlighted={isHighlighted}
+                  selectedDay={selectedDay}
+                  onClick={(clickedDay) => {
+                    const foundDay = calendarDays.find(
+                      ({ day: highlightedDay }) => highlightedDay === clickedDay.format(`YYYY-MM-DD`)
+                    );
 
-            return (
-              <CalendarDay
-                key={day.toString()}
-                day={day}
-                isHighlighted={isHighlighted}
-                selectedDay={selectedDay}
-                onClick={(clickedDay) => {
-                  const foundDay = highlightedDays.find(
-                    ({ day: highlightedDay }) => highlightedDay === clickedDay.format(`YYYY-MM-DD`)
-                  );
-
-                  if (foundDay) {
-                    setSelectedDay(foundDay);
-                  } else {
-                    setSelectedDay({
-                      day: clickedDay.format(`YYYY-MM-DD`),
-                      availableTimeslots: [],
-                    });
-                  }
-                }}
-              />
-            );
-          })}
-        </Box>
-
+                    if (foundDay) {
+                      setSelectedDay(foundDay);
+                    } else {
+                      setSelectedDay({
+                        day: clickedDay.format(`YYYY-MM-DD`),
+                        availableTimeslots: [],
+                      });
+                    }
+                  }}
+                />
+              );
+            })}
+          </Box>
+        }
       </Box>
+
+      {isCalendarDaysLoading && <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
+        <CircularProgress color="info" />
+      </Box>}
 
       {selectedDay && selectedDay.availableTimeslots.length > 0 && <Box
         sx={{
