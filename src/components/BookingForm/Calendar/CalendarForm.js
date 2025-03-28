@@ -91,10 +91,32 @@ export default function CalendarForm({
   useEffect(() => {
     async function fetchData() {
       const daysToHighlight = await fetchCalendarDays(currentWeekStart);
-      setCalendarDays(daysToHighlight);
+      setCalendarDays(daysToHighlight || []);
 
-      if (!selectedDay?.day && daysToHighlight) {
-        setSelectedDay(daysToHighlight[0]);
+      if (!selectedDay?.day) {
+        if (daysToHighlight && daysToHighlight.length > 0) {
+          setSelectedDay(daysToHighlight[0]);
+        } else {
+          let defaultDate = dayjs().add(1, `day`);
+
+          if (dayjs().day() === 0) {
+            defaultDate = dayjs().add(1, `day`);
+          } else if (defaultDate.day() === 0) {
+            defaultDate = defaultDate.add(1, `day`);
+          }
+
+          const formattedDate = defaultDate.format(`YYYY-MM-DD`);
+          setSelectedDay({
+            day: formattedDate,
+            availableTimeslots: []
+          });
+
+          const newDaysToHighlight = await fetchCalendarDays(defaultDate);
+          if (newDaysToHighlight && newDaysToHighlight.length > 0) {
+            setCalendarDays(newDaysToHighlight);
+            setSelectedDay(newDaysToHighlight[0]);
+          }
+        }
       }
     }
     fetchData();
@@ -110,10 +132,17 @@ export default function CalendarForm({
 
     const daysToHighlight = await fetchCalendarDays(newStart);
 
-    setCalendarDays(daysToHighlight);
+    setCalendarDays(daysToHighlight || []);
 
-    if (daysToHighlight.length > 0) {
+    if (daysToHighlight && daysToHighlight.length > 0) {
       setSelectedDay(daysToHighlight[0]);
+    } else {
+      const defaultDate = newStart;
+      const formattedDate = defaultDate.format(`YYYY-MM-DD`);
+      setSelectedDay({
+        day: formattedDate,
+        availableTimeslots: []
+      });
     }
   };
 
