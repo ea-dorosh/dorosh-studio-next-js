@@ -26,10 +26,23 @@ export default function HomePage() {
             }}
             variant="h1"
             color="secondary.main"
+            fontSize={`2rem`}
           >
-            Permanent<br/>
-            Make-up<br/>
+            Dorosh Studio<br/>
+            Schönheitssalon<br/>
             in München
+          </Typography>
+
+          <Typography
+            sx={{
+              marginTop: `20px`,
+              fontSize: `1.2rem !important`,
+              lineHeight: 1.3,
+            }}
+            variant="h2"
+            color="secondary.main"
+          >
+            Permanent Make-up • Maniküre
           </Typography>
 
           <Button
