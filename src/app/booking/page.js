@@ -27,7 +27,7 @@ export default async function BookingPage() {
   const categories = getUniqueCategories(services);
 
   return (
-    <Box bgcolor="custom.white">
+    <Box bgcolor="background.default">
       <Container>
         <Box
           sx={{
@@ -42,7 +42,7 @@ export default async function BookingPage() {
               textAlign: `center`,
               fontSize: `1.2rem !important`,
             }}
-            variant="h2"
+            variant="h1"
           >
             Für welche Prozedur möchten Sie sich anmelden?
           </Typography>

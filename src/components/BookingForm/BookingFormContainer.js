@@ -222,7 +222,7 @@ export default function BookingFormContainer({
 
     <Box sx={{
       p: 2,
-      backgroundColor: theme.palette.custom.white,
+      backgroundColor: theme.palette.background.default,
       zIndex: 1,
     }}>
       {!hasConfirmationMessage && <Typography
@@ -296,7 +296,7 @@ export default function BookingFormContainer({
           onClose={() => setGeneralError(null)}
           PaperProps={{
             sx: {
-              backgroundColor: theme.palette.custom.white,
+              backgroundColor: theme.palette.background.paper,
             },
           }}
         >

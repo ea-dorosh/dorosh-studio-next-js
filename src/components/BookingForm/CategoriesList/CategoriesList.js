@@ -42,7 +42,7 @@ export default function CategoryList({
           <Card
             key={category.id}
             sx={{
-              backgroundColor: `custom.lightBackground`,
+              backgroundColor: `primary.main`,
               position: `relative`,
               overflow: `hidden`,
               transition: `transform 0.3s`,
@@ -62,6 +62,7 @@ export default function CategoryList({
                 objectFit: `cover`,
               }}
             />
+
             <CardContent>
               <Typography
                 variant="h3"
@@ -69,6 +70,7 @@ export default function CategoryList({
                   textAlign: `left`,
                   fontSize: `1.2rem`,
                 }}
+                color="secondary.main"
               >
                 {category.name}
               </Typography>
@@ -78,6 +80,7 @@ export default function CategoryList({
                   textAlign: `left`,
                   fontSize: `1rem`,
                 }}
+                color="secondary.main"
               >
                 Permanent Make-up
               </Typography>

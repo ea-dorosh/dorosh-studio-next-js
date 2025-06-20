@@ -34,7 +34,7 @@ export default function Menu({ links }) {
           width: `100%`,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            bgcolor: `custom.lightBackground`,
+            bgcolor: `background.default`,
             width: `100%`,
             height: `auto`,
             bottom: 0,

@@ -17,7 +17,7 @@ export default function ServicesPage() {
 
   return (
     <Box
-      bgcolor="custom.lightBackground"
+      bgcolor="background.default"
     >
       <Typography
         color="primary"

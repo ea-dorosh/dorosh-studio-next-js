@@ -10,7 +10,7 @@ export default function ContactSection() {
   return (
     <Box
       color="primary.main"
-      bgcolor="custom.lightBackground"
+      bgcolor="background.default"
       sx={{
         padding: `24px`,
       }}

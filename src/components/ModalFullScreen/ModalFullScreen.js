@@ -28,7 +28,7 @@ export default function ModalFullScreen({
       TransitionComponent={Transition}
       sx={{
         '& .MuiDialog-paper': {
-          backgroundColor: `custom.white`,
+          backgroundColor: `background.paper`,
         }
       }}
     >

@@ -20,7 +20,6 @@ export default function ServicesList({ services, theme, selectService }) {
           sx={{
             pb: 3,
             pt: 3,
-            backgroundColor: `custom.white`,
             borderBottom: index !== services.length - 1 && `1px solid ${theme.palette.primary.main}`,
             borderTop: index === 0 && `1px solid ${theme.palette.primary.main}`,
           }}

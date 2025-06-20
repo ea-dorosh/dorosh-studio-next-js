@@ -14,7 +14,7 @@ export default function ServicesCard({
 
   return (
     <Box
-      bgcolor="custom.lightBackground"
+      bgcolor="background.default"
     >
       <Box
         sx={{

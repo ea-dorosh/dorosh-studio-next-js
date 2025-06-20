@@ -6,7 +6,7 @@ export default function AboutSection() {
   return (
     <Box
       color="primary.main"
-      bgcolor="custom.darkBackground"
+      bgcolor="primary.main"
       sx={{
         padding: `24px`,
       }}

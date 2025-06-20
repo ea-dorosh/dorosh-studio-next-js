@@ -80,7 +80,7 @@ export default function RootLayout({ children }) {
                   px: 2,
                   mt: 'auto',
                   textAlign: 'center',
-                  bgcolor: "custom.darkBackground",
+                  bgcolor: "primary.main",
                 }}
               >
                 <Typography variant="body2" color="secondary">

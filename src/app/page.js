@@ -9,7 +9,7 @@ import ServicesSection from "@/components/ServicesSection/ServicesSection";
 export default function HomePage() {
   return (
     <>
-      <Box sx={{ 
+      <Box sx={{
         display: `flex`,
         flexDirection: `column`,
         width: `100%`,
@@ -25,13 +25,14 @@ export default function HomePage() {
               marginTop: `35px`,
             }}
             variant="h1"
+            color="secondary.main"
           >
             Permanent<br/>
             Make-up<br/>
             in München
           </Typography>
 
-          <Button 
+          <Button
             component={Link}
             href="/services"
             sx={{
