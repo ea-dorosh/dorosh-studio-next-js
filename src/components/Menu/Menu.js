@@ -22,9 +22,9 @@ export default function Menu({ links }) {
   return (
     <div>
       <IconButton onClick={()=>setOpen(true)}>
-        <MenuIcon 
+        <MenuIcon
           fontSize='large'
-          color="secondary" 
+          color="secondary"
         />
       </IconButton>
 
@@ -34,7 +34,7 @@ export default function Menu({ links }) {
           width: `100%`,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            bgcolor: `background.secondary`,
+            bgcolor: `custom.lightBackground`,
             width: `100%`,
             height: `auto`,
             bottom: 0,
@@ -59,17 +59,17 @@ export default function Menu({ links }) {
 
         <List>
           {links.map(({ text, href }) => (
-            <ListItem 
-              key={href} 
+            <ListItem
+              key={href}
               disablePadding
               onClick={handleClose}
             >
-              <ListItemButton 
+              <ListItemButton
                 component={Link}
                 href={href}
               >
-                <ListItemText 
-                  primary={text} 
+                <ListItemText
+                  primary={text}
                   color="primary"
                   sx={{
                     "& .MuiTypography-root": {

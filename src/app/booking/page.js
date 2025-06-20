@@ -1,7 +1,7 @@
-import { 
-  Box, 
-  Container, 
-  Typography, 
+import {
+  Box,
+  Container,
+  Typography,
 } from "@mui/material";
 import CategoriesList from "@/components/BookingForm/CategoriesList/CategoriesList";
 import servicesService from "@/services/services.service";
@@ -27,7 +27,7 @@ export default async function BookingPage() {
   const categories = getUniqueCategories(services);
 
   return (
-    <Box bgcolor="background.white">
+    <Box bgcolor="custom.white">
       <Container>
         <Box
           sx={{
@@ -47,9 +47,9 @@ export default async function BookingPage() {
             Für welche Prozedur möchten Sie sich anmelden?
           </Typography>
 
-          <CategoriesList 
-            categories={categories} 
-            services={services} 
+          <CategoriesList
+            categories={categories}
+            services={services}
           />
         </Box>
       </Container>

@@ -15,43 +15,48 @@ export const cinzel = Cinzel({
   display: 'swap',
 });
 
-const COLOR_SOFT_RED = '#FCBCB2';
-const COLOR_WHITE = '#ffffff';
-const COLOR_VERY_DARK_GRAYISH_BLUE = '#3b3c43';
-const COLOR_VERY_SOFT_RED = '#FFE9E6';
-const COLOR_BRAUN = '#A06054';
-const COLOR_RED = '#c82d2d';
+const COLORS = {
+  SOFT_RED: '#FCBCB2',
+  WHITE: '#ffffff',
+  VERY_DARK_GRAYISH_BLUE: '#3b3c43',
+  VERY_SOFT_RED: '#FFE9E6',
+  BRAUN: '#A06054',
+  RED: '#c82d2d',
+};
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: COLOR_VERY_DARK_GRAYISH_BLUE,
-      contrastText: COLOR_SOFT_RED,
+      main: COLORS.VERY_DARK_GRAYISH_BLUE,
+      contrastText: COLORS.SOFT_RED,
     },
     secondary: {
-      main: COLOR_SOFT_RED,
-      contrastText: COLOR_VERY_DARK_GRAYISH_BLUE,
+      main: COLORS.SOFT_RED,
+      contrastText: COLORS.VERY_DARK_GRAYISH_BLUE,
     },
     info: {
-      main: COLOR_BRAUN,
-      contrastText: COLOR_WHITE,
+      main: COLORS.BRAUN,
+      contrastText: COLORS.WHITE,
     },
     background: {
-      main: COLOR_VERY_DARK_GRAYISH_BLUE,
-      secondary: COLOR_VERY_SOFT_RED,
-      paper: COLOR_SOFT_RED,
-      white: COLOR_WHITE,
+      default: COLORS.VERY_SOFT_RED,
+      paper: COLORS.SOFT_RED,
     },
     error: {
-      main: COLOR_RED,
+      main: COLORS.RED,
+    },
+    custom: {
+      darkBackground: COLORS.VERY_DARK_GRAYISH_BLUE,
+      lightBackground: COLORS.VERY_SOFT_RED,
+      white: COLORS.WHITE,
     },
   },
   typography: {
     fontFamily: poppins.style.fontFamily,
     h1: {
-      color: COLOR_VERY_SOFT_RED,
       fontSize: '3rem',
       fontFamily: cinzel.style.fontFamily,
+      color: COLORS.VERY_SOFT_RED,
     },
     h2: {
       fontSize: '2.6rem',
@@ -87,7 +92,7 @@ const theme = createTheme({
     },
     formSubtitle: {
       fontSize: `0.9rem`,
-      color: alpha(COLOR_VERY_DARK_GRAYISH_BLUE, 0.5),
+      color: alpha(COLORS.VERY_DARK_GRAYISH_BLUE, 0.5),
     },
   },
   components: {

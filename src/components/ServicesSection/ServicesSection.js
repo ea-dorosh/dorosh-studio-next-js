@@ -8,7 +8,7 @@ export default function ServicesSection() {
     <Box>
       <Box
         color="primary.main"
-        bgcolor="background.main"
+        bgcolor="custom.darkBackground"
         sx={{
           padding: `24px`,
         }}
@@ -27,23 +27,23 @@ export default function ServicesSection() {
         </Typography>
       </Box>
 
-      <ServicesCard 
+      <ServicesCard
         title="Velvet Lips"
         subtitle="Lippenpigmentierung"
         linkHref="/services#velvet-lips"
         imageSrc="/images/services/velvetLips.webp"
-        imageAlt="Permanent Make-up Velvet Lips" 
+        imageAlt="Permanent Make-up Velvet Lips"
       />
 
-      <ServicesCard 
+      <ServicesCard
         title="Hairstroke"
         subtitle="Permanent Augenbrauen Make-Up in Haar Technik"
         linkHref="/services#hairstroke"
         imageSrc="/images/services/hairstroke.webp"
-        imageAlt="Permanent Make-up Hairstroke" 
+        imageAlt="Permanent Make-up Hairstroke"
       />
 
-      <ServicesCard 
+      <ServicesCard
         title="Powder Brows"
         subtitle="Permanent Augenbrauen Make-Up"
         linkHref="/services#powder-brows"
@@ -51,7 +51,7 @@ export default function ServicesSection() {
         imageAlt="Permanent Make-up Powder Brows"
       />
 
-      <ServicesCard 
+      <ServicesCard
         title="Wimpernkranz verdichtung"
         subtitle="Permanent Make-Up"
         linkHref="/services#wimpernkranz"
@@ -59,7 +59,7 @@ export default function ServicesSection() {
         imageAlt="Wimpernkranzverdichtung"
       />
 
-      <ServicesCard 
+      <ServicesCard
         title="Beratung"
         subtitle="Permanent Make-Up"
         linkHref="/services#beratung"

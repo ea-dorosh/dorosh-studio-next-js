@@ -14,9 +14,9 @@ export default function ServicesCard({
 
   return (
     <Box
-      bgcolor="background.secondary"
+      bgcolor="custom.lightBackground"
     >
-      <Box 
+      <Box
         sx={{
           position: 'relative',
           width: '100%',
@@ -24,7 +24,7 @@ export default function ServicesCard({
           overflow: 'hidden',
         }}
       >
-        <Image 
+        <Image
           src={imageSrc}
           alt={imageAlt}
           layout="fill"
@@ -35,7 +35,7 @@ export default function ServicesCard({
 
       <Box sx={{
         padding: `12px 24px 24px 24px`,
-      
+
       }}>
         <Typography
           variant="h3"
@@ -51,7 +51,7 @@ export default function ServicesCard({
           {subtitle}
         </Typography>
 
-        <Button 
+        <Button
           component={Link}
           href={linkHref}
           sx={{

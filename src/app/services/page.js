@@ -16,8 +16,8 @@ export default function ServicesPage() {
   };
 
   return (
-    <Box 
-      bgcolor="background.secondary"
+    <Box
+      bgcolor="custom.lightBackground"
     >
       <Typography
         color="primary"
@@ -33,7 +33,7 @@ export default function ServicesPage() {
       >
         Unsere Services
       </Typography>
-      
+
       <Box>
         <Box
           id="powder-brows"
@@ -74,7 +74,7 @@ export default function ServicesPage() {
               overflow: `hidden`,
             }}
           >
-            <Box 
+            <Box
               sx={{
                 position: 'relative',
                 width: '100%',
@@ -82,7 +82,7 @@ export default function ServicesPage() {
                 overflow: 'hidden',
               }}
             >
-              <Image 
+              <Image
                 src="/images/services-page/service-brows.jpg"
                 alt="Permanent Make-up Powder Brows"
                 width="300"
@@ -152,7 +152,7 @@ export default function ServicesPage() {
               overflow: 'hidden',
             }}
           >
-            <Box 
+            <Box
               sx={{
                 position: 'relative',
                 width: '100%',
@@ -160,7 +160,7 @@ export default function ServicesPage() {
                 overflow: 'hidden',
               }}
             >
-              <Image 
+              <Image
                 src="/images/services-page/service-hairstroke.webp"
                 alt="Permanent Make-up Hairstroke Brows"
                 width="300"
@@ -217,7 +217,7 @@ export default function ServicesPage() {
               margin: `10px 0 0 0`,
             }}
           >
-            Lippenpigmentierung.Velvet Lips, Nude Lips, Lipstick Effect Es sieht sehr harmonisch & natürlich aus. 
+            Lippenpigmentierung.Velvet Lips, Nude Lips, Lipstick Effect Es sieht sehr harmonisch & natürlich aus.
             <br/>
             Schmerzfreie Behandlung. Auf jede Kundin tüchtig abgestimmte Pigmentfarbe & Formkorrektur.
           </Box>
@@ -228,7 +228,7 @@ export default function ServicesPage() {
               overflow: `hidden`,
             }}
           >
-            <Box 
+            <Box
               sx={{
                 position: 'relative',
                 width: '100%',
@@ -236,7 +236,7 @@ export default function ServicesPage() {
                 overflow: 'hidden',
               }}
             >
-              <Image 
+              <Image
                 src="/images/services-page/service-lips.webp"
                 alt="Permanent Make-up Velvet Lips"
                 width="300"
@@ -305,7 +305,7 @@ export default function ServicesPage() {
               overflow: `hidden`,
             }}
           >
-            <Box 
+            <Box
               sx={{
                 position: 'relative',
                 width: '100%',
@@ -313,7 +313,7 @@ export default function ServicesPage() {
                 overflow: 'hidden',
               }}
             >
-              <Image 
+              <Image
                 src="/images/services-page/service-wimpernkranz.webp"
                 alt="Permanent Make-up Wimpernkranzverdichtung"
                 width="300"

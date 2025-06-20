@@ -13,8 +13,8 @@ const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ModalFullScreen({ 
-  open, 
+export default function ModalFullScreen({
+  open,
   handleClose,
   children,
 }) {
@@ -28,7 +28,7 @@ export default function ModalFullScreen({
       TransitionComponent={Transition}
       sx={{
         '& .MuiDialog-paper': {
-          backgroundColor: `background.white`,
+          backgroundColor: `custom.white`,
         }
       }}
     >

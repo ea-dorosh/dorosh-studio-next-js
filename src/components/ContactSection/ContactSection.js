@@ -10,7 +10,7 @@ export default function ContactSection() {
   return (
     <Box
       color="primary.main"
-      bgcolor="background.secondary"
+      bgcolor="custom.lightBackground"
       sx={{
         padding: `24px`,
       }}
@@ -26,7 +26,7 @@ export default function ContactSection() {
         Unsere Kontakte
       </Typography>
 
-      <Box 
+      <Box
         sx={{
           display: `flex`,
           flexDirection: `column`,
@@ -45,16 +45,16 @@ export default function ContactSection() {
           Call
         </Typography>
 
-        <Button 
-          variant="plain" 
-          color="primary" 
+        <Button
+          variant="plain"
+          color="primary"
           href="tel:015207389443"
         >
           0152 073 89 443
         </Button>
       </Box>
 
-      <Box 
+      <Box
         sx={{
           display: `flex`,
           flexDirection: `column`,
@@ -73,16 +73,16 @@ export default function ContactSection() {
           Email
         </Typography>
 
-        <Button 
-          variant="plain" 
-          color="primary" 
+        <Button
+          variant="plain"
+          color="primary"
           href="mailto:doroshstudio@gmail.com"
         >
           doroshstudio@gmail.com
         </Button>
       </Box>
 
-      <Box 
+      <Box
         sx={{
           display: `flex`,
           flexDirection: `column`,
@@ -101,9 +101,9 @@ export default function ContactSection() {
           Adresse
         </Typography>
 
-        <Button 
-          variant="plain" 
-          color="primary" 
+        <Button
+          variant="plain"
+          color="primary"
           href="https://goo.gl/maps/7jed5oouJkNUf3xA8"
           sx={{textAlign: 'center'}}
         >
@@ -111,7 +111,7 @@ export default function ContactSection() {
         </Button>
       </Box>
 
-      <Box 
+      <Box
         sx={{
           display: `flex`,
           flexDirection: `column`,
@@ -131,9 +131,9 @@ export default function ContactSection() {
         </Typography>
 
         <Box>
-          <IconButton 
+          <IconButton
             size="large"
-            color="primary" 
+            color="primary"
             sx={{
               padding: '6px',
               minWidth: 'auto',
@@ -143,9 +143,9 @@ export default function ContactSection() {
             <FacebookIcon />
           </IconButton>
 
-          <IconButton 
+          <IconButton
             size="large"
-            color="primary" 
+            color="primary"
             href="https://www.instagram.com/dorosh_studio/"
             sx={{
               padding: '6px',

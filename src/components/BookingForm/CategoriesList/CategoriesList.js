@@ -1,17 +1,17 @@
 "use client";
 
-import { 
-  Box, 
+import {
+  Box,
   Typography,
-  Card, 
-  CardContent, 
+  Card,
+  CardContent,
   CardMedia,
 } from "@mui/material";
 import { useState } from "react";
 import BookingFormContainer from "@/components/BookingForm/BookingFormContainer";
 import ModalFullScreen from "@/components/ModalFullScreen/ModalFullScreen";
 
-export default function CategoryList({ 
+export default function CategoryList({
   categories,
   services,
 }) {
@@ -42,7 +42,7 @@ export default function CategoryList({
           <Card
             key={category.id}
             sx={{
-              backgroundColor: `background.secondary`,
+              backgroundColor: `custom.lightBackground`,
               position: `relative`,
               overflow: `hidden`,
               transition: `transform 0.3s`,
@@ -65,8 +65,8 @@ export default function CategoryList({
             <CardContent>
               <Typography
                 variant="h3"
-                sx={{ 
-                  textAlign: `left`, 
+                sx={{
+                  textAlign: `left`,
                   fontSize: `1.2rem`,
                 }}
               >
@@ -74,8 +74,8 @@ export default function CategoryList({
               </Typography>
               <Typography
                 variant="subtitle1"
-                sx={{ 
-                  textAlign: `left`, 
+                sx={{
+                  textAlign: `left`,
                   fontSize: `1rem`,
                 }}
               >
@@ -87,7 +87,7 @@ export default function CategoryList({
       </Box>
 
       {selectedCategory &&
-        <ModalFullScreen 
+        <ModalFullScreen
           open={open}
           handleClose={handleClose}
         >

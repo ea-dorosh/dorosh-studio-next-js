@@ -5,7 +5,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { 
+import {
   formatTimeToString,
   formatPrice,
 } from "@/utils/formatters";
@@ -15,19 +15,19 @@ export default function ServicesList({ services, theme, selectService }) {
   return (
     <>
       {services.map((service, index) => (
-        <Box 
-          key={service.id} 
-          sx={{ 
+        <Box
+          key={service.id}
+          sx={{
             pb: 3,
             pt: 3,
-            backgroundColor: `background.white`,
+            backgroundColor: `custom.white`,
             borderBottom: index !== services.length - 1 && `1px solid ${theme.palette.primary.main}`,
             borderTop: index === 0 && `1px solid ${theme.palette.primary.main}`,
           }}
         >
-          <Typography 
+          <Typography
             variant="h3"
-            sx={{ 
+            sx={{
               fontSize: `1.3rem`,
               textAlign: `left`,
             }}
@@ -43,9 +43,9 @@ export default function ServicesList({ services, theme, selectService }) {
             {formatTimeToString(service.durationTime)}
           </Typography>
 
-          <Typography 
-            variant="caption" 
-            mt={1} 
+          <Typography
+            variant="caption"
+            mt={1}
             sx={{display: `block`}}
           >
             {formatPrice(service.employees[0].price)}
