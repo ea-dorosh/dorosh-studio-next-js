@@ -37,7 +37,9 @@ export default function HomePage() {
             sx={{
               marginTop: `20px`,
               fontSize: `1.2rem !important`,
+              fontFamily: `poppins`,
               lineHeight: 1.3,
+              textAlign: `center`,
             }}
             variant="h2"
             color="secondary.main"

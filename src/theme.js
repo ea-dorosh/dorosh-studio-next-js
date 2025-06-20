@@ -16,34 +16,34 @@ export const cinzel = Cinzel({
 });
 
 const COLORS = {
-  SOFT_RED: '#FCBCB2',
+  BLACK: '#000000',
   WHITE: '#ffffff',
-  VERY_DARK_GRAYISH_BLUE: '#3b3c43',
-  VERY_SOFT_RED: '#FFE9E6',
-  BRAUN: '#A06054',
-  RED: '#c82d2d',
+  CHARCOAL: '#1a1a1a',
+  LIGHT_GRAY: '#f5f5f5',
+  GOLD: '#D4AF37',
+  CRIMSON: '#DC143C',
 };
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: COLORS.VERY_DARK_GRAYISH_BLUE,
-      contrastText: COLORS.SOFT_RED,
+      main: COLORS.BLACK,
+      contrastText: COLORS.WHITE,
     },
     secondary: {
-      main: COLORS.SOFT_RED,
-      contrastText: COLORS.VERY_DARK_GRAYISH_BLUE,
+      main: COLORS.GOLD,
+      contrastText: COLORS.BLACK,
     },
     info: {
-      main: COLORS.BRAUN,
+      main: COLORS.CHARCOAL,
       contrastText: COLORS.WHITE,
     },
     background: {
-      default: COLORS.VERY_SOFT_RED,
-      paper: COLORS.SOFT_RED,
+      default: COLORS.LIGHT_GRAY,
+      paper: COLORS.WHITE,
     },
     error: {
-      main: COLORS.RED,
+      main: COLORS.CRIMSON,
     },
   },
   typography: {
@@ -86,7 +86,7 @@ const theme = createTheme({
     },
     formSubtitle: {
       fontSize: `0.9rem`,
-      color: alpha(COLORS.VERY_DARK_GRAYISH_BLUE, 0.5),
+      color: alpha(COLORS.BLACK, 0.5),
     },
   },
   components: {
@@ -147,23 +147,5 @@ const theme = createTheme({
 });
 
 export { COLORS };
-
-/**
- * 🎨 СТАНДАРТНАЯ MUI СТРУКТУРА ЦВЕТОВ
- *
- * Используем ТОЛЬКО стандартные свойства Material-UI:
- *
- * background.default - основной фон приложения (очень светло-розовый)
- * background.paper - фон для карточек, модалов, "бумажных" компонентов (светло-розовый)
- *
- * primary.main - основной темный цвет (для темных секций и текста)
- * secondary.main - акцентный розовый цвет (для кнопок)
- * info.main - коричневый цвет (для специальных элементов)
- * error.main - красный цвет (для ошибок)
- *
- * ✅ Никаких кастомных свойств - только стандарт MUI!
- * ✅ Легко менять цвета - просто изменив COLORS объект
- * ✅ Типобезопасность и автокомплит в IDE
- */
 
 export default theme;
