@@ -18,57 +18,19 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Create production env file
+        run: |
+          echo "REACT_APP_API_URL=https://booking.baufi-poker.org" > .env.production
+          echo "REACT_APP_API_URL=https://booking.baufi-poker.org" > .env.local
+
       - name: Build and pack Next.js app
         run: |
           npm ci
           npm run build
-          tar czf nextjs-app.tar.gz .next package.json package-lock.json public next.config.js src
+          tar czf nextjs-app.tar.gz .next package.json package-lock.json public next.config.js src .env.production .env.local
 
       - name: Upload Next.js artifact
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-build
           path: nextjs-app.tar.gz
-
-  deploy:
-    needs: build
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download Next.js artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: nextjs-build
-
-      - name: Copy artifact to EC2
-        uses: appleboy/scp-action@v0.1.3
-        with:
-          host: ${{ secrets.STUDIO_EC2_HOST }}
-          username: ${{ secrets.STUDIO_EC2_USER }}
-          key: ${{ secrets.STUDIO_EC2_SSH_KEY }}
-          source: nextjs-app.tar.gz
-          target: /var/www/dorosh-studio
-
-      - name: Deploy on EC2 via SSH
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.STUDIO_EC2_HOST }}
-          username: ${{ secrets.STUDIO_EC2_USER }}
-          key: ${{ secrets.STUDIO_EC2_SSH_KEY }}
-          script: |
-            set -e
-            cd /var/www/dorosh-studio
-
-            # Extract the build files
-            tar xzf nextjs-app.tar.gz
-
-            # Install production dependencies
-            npm ci --omit=dev
-
-            # Restart the Next.js application with PM2
-            pm2 delete dorosh-studio || true
-            pm2 start npm --name dorosh-studio -- start -- -p 3001
-
-            # Clean up archive
-            rm -f nextjs-app.tar.gz
