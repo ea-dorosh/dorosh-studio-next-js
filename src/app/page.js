@@ -44,7 +44,7 @@ export default function HomePage() {
             variant="h2"
             color="secondary.main"
           >
-            Permanent Make-up • Maniküre
+            Permanent Make-up
           </Typography>
 
           <Button
