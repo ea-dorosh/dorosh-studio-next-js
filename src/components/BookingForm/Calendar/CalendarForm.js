@@ -97,25 +97,7 @@ export default function CalendarForm({
         if (daysToHighlight && daysToHighlight.length > 0) {
           setSelectedDay(daysToHighlight[0]);
         } else {
-          let defaultDate = dayjs().add(1, `day`);
-
-          if (dayjs().day() === 0) {
-            defaultDate = dayjs().add(1, `day`);
-          } else if (defaultDate.day() === 0) {
-            defaultDate = defaultDate.add(1, `day`);
-          }
-
-          const formattedDate = defaultDate.format(`YYYY-MM-DD`);
-          setSelectedDay({
-            day: formattedDate,
-            availableTimeslots: []
-          });
-
-          const newDaysToHighlight = await fetchCalendarDays(defaultDate);
-          if (newDaysToHighlight && newDaysToHighlight.length > 0) {
-            setCalendarDays(newDaysToHighlight);
-            setSelectedDay(newDaysToHighlight[0]);
-          }
+          handleWeekChange(1);
         }
       }
     }
@@ -226,6 +208,7 @@ export default function CalendarForm({
                 day: highlightedDay,
                 availableTimeslots,
               }) =>
+                // TODO: remove disabled logic
                 highlightedDay === day.format(`YYYY-MM-DD`) && availableTimeslots.some((timeslot) => !timeslot.disabled)
               );
 
