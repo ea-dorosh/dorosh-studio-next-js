@@ -13,7 +13,11 @@ import { formattedTime } from "@/utils/formatters";
 
 dayjs.locale('de');
 
-export default function Confirmation({ appointment, closeConfirmation }) {
+export default function Confirmation({
+  appointment,
+  closeConfirmation,
+  company,
+}) {
   return (<>
     <Divider sx={{mt: 2, mb: 2}} />
 
@@ -56,15 +60,19 @@ export default function Confirmation({ appointment, closeConfirmation }) {
         Mit freundlichen Grüßen,
         <br />
         <br />
-        Natalia Dorosh
+        {company.name} | {company.branches[0].name}
         <br />
-        [Kontaktinformationen]
+        {company.branches[0].email}
+        <br />
+        {company.branches[0].phone}
+        <br />
+        {company.branches[0].addressStreet}, {company.branches[0].addressZip} {company.branches[0].addressCity}
       </Box>
     </Box>
 
     <Divider sx={{mt: 2, mb: 2}} />
 
-    <Button 
+    <Button
       onClick={closeConfirmation}
       sx={{margin: `20px auto`}}
       variant="contained"

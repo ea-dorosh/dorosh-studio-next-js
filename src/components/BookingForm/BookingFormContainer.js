@@ -26,6 +26,7 @@ import FORM_STEPS from "@/components/BookingForm/formSteps";
 import ServiceOverview from "@/components/BookingForm/Services/ServiceOverview";
 import ServicesList from "@/components/BookingForm/Services/ServicesList";
 import appointmentsService from "@/services/appointments.service";
+import companyService from "@/services/company.service";
 
 export default function BookingFormContainer({
   category,
@@ -38,6 +39,7 @@ export default function BookingFormContainer({
   const cardMediaRef = useRef(null);
 
   /** state */
+  const [company, setCompany] = useState(null);
   const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedEmployeesIds, setSelectedEmployeesIds] = useState([]);
@@ -68,6 +70,16 @@ export default function BookingFormContainer({
   const hasCustomerForm = useMemo(() => formStep === FORM_STEPS.CUSTOMER_FORM && formStep < FORM_STEPS.FINISH, [formStep]);
 
   const hasConfirmationMessage = useMemo(() => formStep === FORM_STEPS.FINISH, [formStep]);
+
+  /** mounted */
+  useEffect(() => {
+    const fetchCompany = async () => {
+      const company = await companyService.getCompany();
+      setCompany(company);
+    };
+
+    fetchCompany();
+  }, []);
 
   /** watchers */
   useEffect(() => {
@@ -288,6 +300,7 @@ export default function BookingFormContainer({
       {hasConfirmationMessage && <Confirmation
         appointment={appointmentConfirmation}
         closeConfirmation={closeModal}
+        company={company}
       />}
 
       {generalError &&
