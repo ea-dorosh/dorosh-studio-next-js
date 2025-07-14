@@ -12,20 +12,20 @@ import BookingFormContainer from "@/components/BookingForm/BookingFormContainer"
 import ModalFullScreen from "@/components/ModalFullScreen/ModalFullScreen";
 
 export default function CategoryList({
-  categories,
+  subCategories,
   services,
 }) {
   const [open, setOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
-  const handleCardClick = (category) => {
-    setSelectedCategory(category);
+  const handleCardClick = (subCategory) => {
+    setSelectedSubCategory(subCategory);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedCategory(null);
+    setSelectedSubCategory(null);
   };
 
   return (
@@ -38,9 +38,9 @@ export default function CategoryList({
           mt: `2rem`,
         }}
       >
-        {categories.map((category) => (
+        {subCategories.map((subCategory) => (
           <Card
-            key={category.id}
+            key={subCategory.id}
             sx={{
               backgroundColor: `primary.main`,
               position: `relative`,
@@ -51,13 +51,13 @@ export default function CategoryList({
                 transform: `scale(1.02)`,
               },
             }}
-            onClick={() => handleCardClick(category)}
+            onClick={() => handleCardClick(subCategory)}
           >
             <CardMedia
               component="img"
               height="200"
-              image={category.image}
-              alt={category.name}
+              image={subCategory.image}
+              alt={subCategory.name}
               sx={{
                 objectFit: `cover`,
               }}
@@ -72,7 +72,7 @@ export default function CategoryList({
                 }}
                 color="secondary.main"
               >
-                {category.name}
+                {subCategory.name}
               </Typography>
               <Typography
                 variant="subtitle1"
@@ -89,13 +89,13 @@ export default function CategoryList({
         ))}
       </Box>
 
-      {selectedCategory &&
+      {selectedSubCategory &&
         <ModalFullScreen
           open={open}
           handleClose={handleClose}
         >
           <BookingFormContainer
-            category={selectedCategory}
+            subCategory={selectedSubCategory}
             services={services}
             closeModal={handleClose}
           />

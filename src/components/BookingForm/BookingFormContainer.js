@@ -29,7 +29,7 @@ import appointmentsService from "@/services/appointments.service";
 import companyService from "@/services/company.service";
 
 export default function BookingFormContainer({
-  category,
+  subCategory,
   services,
   closeModal,
 }) {
@@ -52,7 +52,7 @@ export default function BookingFormContainer({
 
   /** computed */
   const filteredServices = services.filter(
-    (service) => service.categoryId === category.id
+    (service) => service.subCategoryId === subCategory.id
   );
 
   const selectedEmployees = useMemo(() => selectedService?.employees.filter(employee => selectedEmployeesIds.includes(employee.id)),
@@ -222,8 +222,8 @@ export default function BookingFormContainer({
       }}>
         <CardMedia
           component="img"
-          image={category.image}
-          alt={category.name}
+          image={subCategory.image}
+          alt={subCategory.name}
           sx={{
             width: `100%`,
             height: `250px`,
@@ -241,7 +241,7 @@ export default function BookingFormContainer({
         variant="h2"
         gutterBottom mb={4}
       >
-        {category.name}
+        {subCategory.name}
       </Typography>}
 
       {hasServicesForm && <ServicesList

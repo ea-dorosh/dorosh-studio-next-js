@@ -3,28 +3,28 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import CategoriesList from "@/components/BookingForm/CategoriesList/CategoriesList";
+import SubCategoriesList from "@/components/BookingForm/SubCategoriesList/SubCategoriesList";
 import servicesService from "@/services/services.service";
 
 export default async function BookingPage() {
   const services = await servicesService.getServices();
 
-  const getUniqueCategories = (services) => {
-    const categoriesMap = new Map(); // eslint-disable-line no-undef
+  const getUniqueSubCategories = (services) => {
+    const subCategoriesMap = new Map(); // eslint-disable-line no-undef
     services.forEach((service) => {
-      if (!categoriesMap.has(service.categoryId)) {
-        categoriesMap.set(service.categoryId, {
-          id: service.categoryId,
-          name: service.categoryName,
-          image: service.categoryImage,
-          url: service.categoryUrl,
+      if (!subCategoriesMap.has(service.subCategoryId)) {
+        subCategoriesMap.set(service.subCategoryId, {
+          id: service.subCategoryId,
+          name: service.subCategoryName,
+          image: service.subCategoryImage,
+          url: service.subCategoryUrl,
         });
       }
     });
-    return Array.from(categoriesMap.values());
+    return Array.from(subCategoriesMap.values());
   };
 
-  const categories = getUniqueCategories(services);
+  const subCategories = getUniqueSubCategories(services);
 
   return (
     <Box bgcolor="background.default">
@@ -47,8 +47,8 @@ export default async function BookingPage() {
             Für welche Prozedur möchten Sie sich anmelden?
           </Typography>
 
-          <CategoriesList
-            categories={categories}
+          <SubCategoriesList
+            subCategories={subCategories}
             services={services}
           />
         </Box>
