@@ -3,28 +3,22 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import SubCategoriesList from "@/components/BookingForm/SubCategoriesList/SubCategoriesList";
+import CategoriesList from "@/components/BookingForm/CategoriesList";
 import servicesService from "@/services/services.service";
 
+export const metadata = {
+  title: "Online Termin buchen - Dorosh Studio München",
+  description: "Buchen Sie Ihren Termin für Permanent Make-Up, Nail Art und andere Schönheitsbehandlungen in München. Kostenlose Beratung verfügbar.",
+  keywords: "Termin buchen, Permanent Make-Up München, Nail Art München, Schönheitsbehandlung, Online Buchung",
+  openGraph: {
+    title: "Online Termin buchen - Dorosh Studio München",
+    description: "Buchen Sie Ihren Termin für Permanent Make-Up, Nail Art und andere Schönheitsbehandlungen in München.",
+    type: "website",
+  },
+};
+
 export default async function BookingPage() {
-  const services = await servicesService.getServices();
-
-  const getUniqueSubCategories = (services) => {
-    const subCategoriesMap = new Map(); // eslint-disable-line no-undef
-    services.forEach((service) => {
-      if (!subCategoriesMap.has(service.subCategoryId)) {
-        subCategoriesMap.set(service.subCategoryId, {
-          id: service.subCategoryId,
-          name: service.subCategoryName,
-          image: service.subCategoryImage,
-          url: service.subCategoryUrl,
-        });
-      }
-    });
-    return Array.from(subCategoriesMap.values());
-  };
-
-  const subCategories = getUniqueSubCategories(services);
+  const categories = await servicesService.getServices();
 
   return (
     <Box bgcolor="background.default">
@@ -47,10 +41,7 @@ export default async function BookingPage() {
             Für welche Prozedur möchten Sie sich anmelden?
           </Typography>
 
-          <SubCategoriesList
-            subCategories={subCategories}
-            services={services}
-          />
+          <CategoriesList categories={categories} />
         </Box>
       </Container>
     </Box>

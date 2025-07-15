@@ -14,14 +14,14 @@ export default function ServicesList({ services, theme, selectService }) {
 
   return (
     <>
-      {services.map((service, index) => (
+      {services.map((service) => (
         <Box
           key={service.id}
           sx={{
             pb: 3,
             pt: 3,
-            borderBottom: index !== services.length - 1 && `1px solid ${theme.palette.primary.main}`,
-            borderTop: index === 0 && `1px solid ${theme.palette.primary.main}`,
+            borderBottom: `1px solid ${theme.palette.primary.main}`,
+            borderTop: `1px solid ${theme.palette.primary.main}`,
           }}
         >
           <Typography

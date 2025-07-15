@@ -15,7 +15,6 @@ dayjs.locale('de');
 
 export default function Confirmation({
   appointment,
-  closeConfirmation,
   company,
 }) {
   return (<>
@@ -73,11 +72,12 @@ export default function Confirmation({
     <Divider sx={{mt: 2, mb: 2}} />
 
     <Button
-      onClick={closeConfirmation}
+      component="a"
+      href="/booking"
       sx={{margin: `20px auto`}}
       variant="contained"
     >
-      Schließen
+      Zurück zur Startseite
     </Button>
   </>
   );

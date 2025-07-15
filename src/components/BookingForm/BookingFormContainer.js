@@ -2,7 +2,7 @@
 
 import {
   Box,
-  CardMedia,
+  // CardMedia,
   Dialog,
   DialogActions,
   DialogContent,
@@ -29,20 +29,19 @@ import appointmentsService from "@/services/appointments.service";
 import companyService from "@/services/company.service";
 
 export default function BookingFormContainer({
-  subCategory,
-  services,
-  closeModal,
+  service,
 }) {
   const theme = useTheme();
   const calendarFormRef = useRef(null);
   const customerFormRef = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const cardMediaRef = useRef(null);
 
   /** state */
   const [company, setCompany] = useState(null);
-  const [formStep, setFormStep] = useState(FORM_STEPS.SERVICES);
-  const [selectedService, setSelectedService] = useState(null);
-  const [selectedEmployeesIds, setSelectedEmployeesIds] = useState([]);
+  const [formStep, setFormStep] = useState(service.employees.length === 1 ? FORM_STEPS.CALENDAR : FORM_STEPS.EMPLOYEES);
+  const [selectedService, setSelectedService] = useState(service);
+  const [selectedEmployeesIds, setSelectedEmployeesIds] = useState(service.employees.length === 1 ? [service.employees[0].id] : []);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
@@ -51,10 +50,6 @@ export default function BookingFormContainer({
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
   /** computed */
-  const filteredServices = services.filter(
-    (service) => service.subCategoryId === subCategory.id
-  );
-
   const selectedEmployees = useMemo(() => selectedService?.employees.filter(employee => selectedEmployeesIds.includes(employee.id)),
     [selectedService?.employees, selectedEmployeesIds]);
 
@@ -85,16 +80,16 @@ export default function BookingFormContainer({
   useEffect(() => {
     if (hasCalendarForm) {
       if (calendarFormRef.current) {
-        calendarFormRef.current.style.scrollMargin = `350px`;
+        // calendarFormRef.current.style.scrollMargin = `350px`;
       }
 
-      calendarFormRef.current?.scrollIntoView({
-        behavior: "smooth",
-      });
+      // calendarFormRef.current?.scrollIntoView({
+      //   behavior: "smooth",
+      // });
     } else if (hasCustomerForm) {
-      customerFormRef.current?.scrollIntoView({
-        behavior: "smooth",
-      });
+      // customerFormRef.current?.scrollIntoView({
+      //   behavior: "smooth",
+      // });
     }
   } ,[hasCalendarForm, hasCustomerForm]);
 
@@ -123,9 +118,9 @@ export default function BookingFormContainer({
     setSelectedEmployeesIds([]);
     setSelectedEmployeeFromTimeSlotAvailability(null);
 
-    cardMediaRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
+    // cardMediaRef.current?.scrollIntoView({
+    //   behavior: "smooth",
+    // });
 
     setFormStep(FORM_STEPS.SERVICES);
 
@@ -214,7 +209,7 @@ export default function BookingFormContainer({
   }
 
   return (<>
-    {!hasConfirmationMessage && <><span ref={cardMediaRef}></span>
+    {/* {!hasConfirmationMessage && <><span ref={cardMediaRef}></span>
       <Box sx={{
         mt: `-56px`,
         position: `sticky`,
@@ -222,30 +217,30 @@ export default function BookingFormContainer({
       }}>
         <CardMedia
           component="img"
-          image={subCategory.image}
-          alt={subCategory.name}
+          image={subCategory.subCategoryImage}
+          alt={subCategory.subCategoryName}
           sx={{
             width: `100%`,
             height: `250px`,
             objectFit: `cover`,
           }}
         />
-      </Box></>}
+      </Box></>} */}
 
     <Box sx={{
       p: 2,
       backgroundColor: theme.palette.background.default,
       zIndex: 1,
     }}>
-      {!hasConfirmationMessage && <Typography
+      {/* {!hasConfirmationMessage && <Typography
         variant="h2"
         gutterBottom mb={4}
       >
-        {subCategory.name}
-      </Typography>}
+        {subCategory.subCategoryName}
+      </Typography>} */}
 
       {hasServicesForm && <ServicesList
-        services={filteredServices}
+        services={[service]}
         theme={theme}
         selectService={onSubmitServiceFormClick}
       />}
@@ -299,7 +294,6 @@ export default function BookingFormContainer({
 
       {hasConfirmationMessage && <Confirmation
         appointment={appointmentConfirmation}
-        closeConfirmation={closeModal}
         company={company}
       />}
 
