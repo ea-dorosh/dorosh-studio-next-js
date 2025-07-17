@@ -55,9 +55,10 @@ export default function Menu({ links }) {
         anchor="right"
       >
         <Box sx={{
-          display: `flex`,
-          justifyContent: `flex-end`,
-          paddingTop: `68px`,
+          position: `absolute`,
+          top: `8px`,
+          right: `4px`,
+          zIndex: 1201,
         }}>
           <IconButton onClick={handleClose}>
             <CloseIcon
@@ -67,7 +68,9 @@ export default function Menu({ links }) {
           </IconButton>
         </Box>
 
-        <List>
+        <List sx={{
+          paddingTop: `170px`,
+        }}>
           {links.map(({ text, href }) => (
             <ListItem
               key={href}

@@ -23,7 +23,8 @@ export default function LogoLink() {
           style={{
             position: "absolute",
             top: "50%",
-            transform: "translateY(-50%)"
+            transform: "translateY(-50%)",
+            zIndex: 1201,
           }}
         />
       ) : (
@@ -36,7 +37,8 @@ export default function LogoLink() {
             style={{
               position: "absolute",
               top: "50%",
-              transform: "translateY(-50%)"
+              transform: "translateY(-50%)",
+              zIndex: 1201,
             }}
           />
         </Link>
