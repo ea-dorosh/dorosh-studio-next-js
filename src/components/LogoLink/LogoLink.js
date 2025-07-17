@@ -10,33 +10,33 @@ export default function LogoLink() {
   const isMainPage = pathname === "/";
 
   return (
-    <Box 
-      sx={{ 
-        width: "250px", 
-        maxWidth: "90%", 
-        height: "90px", 
-        position: "relative" 
+    <Box
+      sx={{
+        width: `160px`,
+        // maxWidth: "90%",
+        height: `70px`,
+        position: "relative"
       }}
     >
       {isMainPage ? (
-        <Logo 
-          style={{ 
-            position: "absolute", 
-            top: "50%", 
-            transform: "translateY(-50%)" 
-          }} 
+        <Logo
+          style={{
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-50%)"
+          }}
         />
       ) : (
-        <Link 
-          href="/" 
-          sx={{ 
-            textDecoration: "none" 
+        <Link
+          href="/"
+          sx={{
+            textDecoration: "none"
           }}>
-          <Logo 
-            style={{ 
-              position: "absolute", 
-              top: "50%", 
-              transform: "translateY(-50%)" 
+          <Logo
+            style={{
+              position: "absolute",
+              top: "50%",
+              transform: "translateY(-50%)"
             }}
           />
         </Link>

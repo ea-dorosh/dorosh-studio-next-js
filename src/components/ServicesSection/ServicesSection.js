@@ -1,71 +1,57 @@
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
+import {
+  Box,
+  Container,
+  Typography,
+} from "@mui/material";
 import ServicesCard from "./ServiceCard/ServicesCard";
 
 export default function ServicesSection() {
 
   return (
-    <Box>
-      <Box
-        color="primary.main"
-        bgcolor="primary.main"
-        sx={{
-          padding: `24px`,
-        }}
-      >
+    <Box
+      bgcolor="background.default"
+      component="section"
+    >
+      <Container sx={{
+        padding: `0 32px`,
+      }}>
         <Typography
           variant="h2"
-          color="secondary"
+          color="primary"
           sx={{
-            '@media (max-width: 392px)': {
-              fontSize: '2.2rem',
-            },
+            fontSize: '2.2rem',
             textAlign: 'center',
+            marginTop: `18px`,
+            marginBottom: `18px`,
           }}
         >
           Unsere Services
         </Typography>
-      </Box>
 
-      <ServicesCard
-        title="Velvet Lips"
-        subtitle="Lippenpigmentierung"
-        linkHref="/services#velvet-lips"
-        imageSrc="/images/services/velvetLips.webp"
-        imageAlt="Permanent Make-up Velvet Lips"
-      />
+        <Box
+          sx={{
+            display: `flex`,
+            flexDirection: `column`,
+            gap: `16px`,
+          }}
+        >
+          <ServicesCard
+            title="Permanent Make-up"
+            subtitle="Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke"
+            linkHref="/services#permanent-make-up"
+            imageSrc="/images/services/permanent-make-up.avif"
+            imageAlt="Frau mit Permanent Make-up"
+          />
 
-      <ServicesCard
-        title="Hairstroke"
-        subtitle="Permanent Augenbrauen Make-Up in Haar Technik"
-        linkHref="/services#hairstroke"
-        imageSrc="/images/services/hairstroke.webp"
-        imageAlt="Permanent Make-up Hairstroke"
-      />
-
-      <ServicesCard
-        title="Powder Brows"
-        subtitle="Permanent Augenbrauen Make-Up"
-        linkHref="/services#powder-brows"
-        imageSrc="/images/services/powderBrows.webp"
-        imageAlt="Permanent Make-up Powder Brows"
-      />
-
-      <ServicesCard
-        title="Wimpernkranz verdichtung"
-        subtitle="Permanent Make-Up"
-        linkHref="/services#wimpernkranz"
-        imageSrc="/images/services/wimpernkranz.webp"
-        imageAlt="Wimpernkranzverdichtung"
-      />
-
-      <ServicesCard
-        title="Beratung"
-        subtitle="Permanent Make-Up"
-        linkHref="/services#beratung"
-        imageSrc="/images/services/beratung.webp"
-        imageAlt="Natalia Dorosh"
-      />
+          <ServicesCard
+            title="Nails"
+            subtitle="Manicure & Pedicure"
+            linkHref="/services#nails"
+            imageSrc="/images/services/manikure.avif"
+            imageAlt="Hände mit Manikur"
+          />
+        </Box>
+      </Container>
     </Box>
   );
 }

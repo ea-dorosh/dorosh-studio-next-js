@@ -1,101 +1,121 @@
-import { Button, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Typography,
+} from "@mui/material";
 import Box from "@mui/material/Box";
+import Image from 'next/image';
 import Link from "next/link";
 import * as React from "react";
 import AboutSection from "@/components/AboutSection/AboutSection";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import ServicesSection from "@/components/ServicesSection/ServicesSection";
 
+
 export default function HomePage() {
   return (
     <>
-      <Box sx={{
-        display: `flex`,
-        flexDirection: `column`,
-        width: `100%`,
-        padding: `0 24px`,
-        backgroundColor: `#151211`,
-        '@media (min-width: 1024px)': {
-          flexDirection: `row`,
-        }
-      }}>
-        <Box>
-          <Typography
-            sx={{
-              marginTop: `35px`,
-            }}
-            variant="h1"
-            color="secondary.main"
-            fontSize={`2rem`}
-          >
-            Dorosh Studio<br/>
-            Schönheitssalon<br/>
-            in München
-          </Typography>
-
-          <Typography
-            sx={{
-              marginTop: `20px`,
-              fontSize: `1.2rem !important`,
-              fontFamily: `poppins`,
-              lineHeight: 1.3,
-              textAlign: `center`,
-            }}
-            variant="h2"
-            color="secondary.main"
-          >
-            Permanent Make-up
-          </Typography>
-
-          <Button
-            component={Link}
-            href="/services"
-            sx={{
-              marginTop: `30px`,
-              width: `100%`,
-            }}
-            color="secondary"
-            size="large"
-            variant="contained"
-
-          >
-            Unsere Services
-          </Button>
-        </Box>
-
+      <Box
+        component="section"
+      >
         <Box sx={{
-          backgroundImage: `url(/images/main.webp)`,
-          marginTop: `auto`,
-          backgroundSize: `100%`,
-          height: `350px`,
-          backgroundRepeat: `no-repeat`,
-
-          '@media (min-width: 500px)': {
-            backgroundPositionY: `-37px`,
-          },
-          '@media (min-width: 630px)': {
-            backgroundPositionY: `-72px`,
-          },
-          '@media (min-width: 770px)': {
-            backgroundPositionY: `-116px`,
-            height: `380px`,
-          },
-          '@media (min-width: 1024px)': {
-            backgroundPositionY: `-60px`,
-            height: `500px`,
-            width: `100%`,
-          },
-          '@media (min-width: 1224px)': {
-            backgroundPositionY: `0px`,
-            height: `700px`,
-          },
+          position: `relative`,
+          width: `100%`,
+          overflow: `hidden`,
+          backgroundColor: `#e1dbd6`,
         }}>
+          <Image
+            src="/images/main-top-image.avif"
+            alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
+            priority
+            style={{
+              objectFit: `cover`,
+              position: `absolute`,
+              top: `50%`,
+              left: `50%`,
+              transform: `translate(-50%, -50%)`,
+              zIndex: `0`,
+              width: `100%`,
+              height: `100%`,
+            }}
+            width={512}
+            height={512}
+          />
+
+          <Container sx={{
+            background: `rgb(0 0 0 / 0.3)`,
+            position: `relative`,
+            paddingTop: `208px`,
+            paddingBottom: `30px`,
+          }}>
+            <Typography
+              variant="h1"
+              color="primary.contrastText"
+              fontSize={`3rem`}
+              textAlign={`center`}
+              sx={{
+                lineHeight: `0.6`,
+              }}
+            >
+              MOOD <br/>
+
+              <Typography
+                component="span" sx={{
+                  fontSize: `1.4rem`,
+                  fontWeight: `400`,
+                  fontFamily: `cormorantGaramond`,
+                  lineHeight: `0.6`,
+                }}
+              >
+                beauty studio <br/>
+                in München
+              </Typography>
+
+            </Typography>
+
+            <Box
+              sx={{
+                marginTop: `30px`,
+                display: `flex`,
+                justifyContent: `center`,
+                flexDirection: `column`,
+                gap: `16px`,
+                alignItems: `center`,
+              }}
+            >
+              <Button
+                component={Link}
+                href="/services"
+                color="secondary"
+                size="large"
+                variant="contained"
+                sx={{
+                  width: `150px`,
+                }}
+              >
+                Services
+              </Button>
+
+              <Button
+                component={Link}
+                href="/booking"
+                color="secondary"
+                size="large"
+                variant="contained"
+                sx={{
+                  width: `150px`,
+                }}
+              >
+                Termin
+              </Button>
+            </Box>
+          </Container>
         </Box>
       </Box>
 
-      <ServicesSection />
-
       <AboutSection />
+
+      <ServicesSection />
 
       <ContactSection />
     </>

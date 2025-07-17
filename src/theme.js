@@ -2,14 +2,15 @@
 
 import { createTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
-import { Cinzel, Poppins } from 'next/font/google';
+import { Cormorant_Garamond, Montserrat } from 'next/font/google';
 
-const poppins = Poppins({
+export const cormorantGaramond = Cormorant_Garamond({
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
-  weight: '300',
+  display: 'swap',
 });
 
-export const cinzel = Cinzel({
+export const montserrat = Montserrat({
   weight: ['400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
@@ -19,7 +20,7 @@ const COLORS = {
   BLACK: '#000000',
   WHITE: '#ffffff',
   CHARCOAL: '#1a1a1a',
-  LIGHT_GRAY: '#f5f5f5',
+  LIGHT_GRAY: '#f8f5f3',
   GOLD: '#D4AF37',
   CRIMSON: '#DC143C',
 };
@@ -31,7 +32,7 @@ const theme = createTheme({
       contrastText: COLORS.WHITE,
     },
     secondary: {
-      main: COLORS.GOLD,
+      main: COLORS.WHITE,
       contrastText: COLORS.BLACK,
     },
     info: {
@@ -47,30 +48,32 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: poppins.style.fontFamily,
+    fontFamily: montserrat.style.fontFamily,
     h1: {
       fontSize: '3rem',
-      fontFamily: cinzel.style.fontFamily,
+      fontFamily: cormorantGaramond.style.fontFamily,
+      fontWeight: `700`,
     },
     h2: {
       fontSize: '2.6rem',
-      fontFamily: cinzel.style.fontFamily,
+      fontFamily: cormorantGaramond.style.fontFamily,
       '@media (max-width: 392px)': {
         fontSize: '2.2rem',
       },
     },
     h3: {
-      fontSize: '2.2rem',
-      fontFamily: cinzel.style.fontFamily,
+      fontSize: '20px',
+      fontWeight: `600`,
+      fontFamily: cormorantGaramond.style.fontFamily,
     },
     h4: {
       fontSize: '1.8rem',
-      fontFamily: cinzel.style.fontFamily,
+      fontFamily: cormorantGaramond.style.fontFamily,
     },
     caption: {
       fontSize: `1.2rem`,
       letterSpacing: `3px`,
-      fontFamily: cinzel.style.fontFamily,
+      fontFamily: cormorantGaramond.style.fontFamily,
     },
     subtitle1: {
       fontSize: `1.2rem`,
@@ -79,7 +82,7 @@ const theme = createTheme({
     subtitle2: {
       fontSize: `1.4rem`,
       fontWeight: `400`,
-      fontFamily: cinzel.style.fontFamily,
+      fontFamily: cormorantGaramond.style.fontFamily,
     },
     formOverview: {
       fontSize: `1.1rem`,
@@ -93,10 +96,14 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '4px',
-          padding: '10px 30px',
+          borderRadius: `9999px`,
+          padding: '2px 15px',
           fontSize: '1.2rem',
-          fontFamily: poppins.style.fontFamily,
+          fontFamily: montserrat.style.fontFamily,
+        },
+        primary: {
+          backgroundColor: COLORS.GOLD,
+          color: COLORS.BLACK,
         },
         contained: {
           textTransform: `capitalize`,
@@ -107,7 +114,7 @@ const theme = createTheme({
           fontWeight: `500`,
           backgroundColor: `transparent`,
           padding: 0,
-          fontFamily: cinzel.style.fontFamily,
+          fontFamily: cormorantGaramond.style.fontFamily,
           textTransform: `lowercase`,
         },
         sizeSmall: {

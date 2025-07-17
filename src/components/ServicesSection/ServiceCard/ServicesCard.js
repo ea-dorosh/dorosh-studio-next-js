@@ -14,39 +14,50 @@ export default function ServicesCard({
 
   return (
     <Box
-      bgcolor="background.default"
+      bgcolor="background.paper"
+      sx={{
+        borderRadius: `12px`,
+        boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+        position: `relative`,
+        overflow: `hidden`,
+        padding: `24px`,
+      }}
     >
       <Box
         sx={{
           position: 'relative',
           width: '100%',
-          paddingTop: '50%',
+          paddingTop: '69%',
           overflow: 'hidden',
         }}
       >
         <Image
           src={imageSrc}
           alt={imageAlt}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center 0px"
+          fill
+          style={{
+            objectFit: `cover`,
+            objectPosition: `center 0px`,
+            borderRadius: `12px`,
+          }}
         />
       </Box>
 
       <Box sx={{
-        padding: `12px 24px 24px 24px`,
-
+        padding: `16px 0px 0px 0px`,
       }}>
         <Typography
           variant="h3"
-          aria-label="Velvet Lips Permanent Make-up"
+          aria-label={title}
         >
           {title}
         </Typography>
 
         <Typography
-          variant="subtitle1"
-          aria-label="Lippenpigmentierung"
+          aria-label={subtitle}
+          sx={{
+            marginTop: `8px`,
+          }}
         >
           {subtitle}
         </Typography>
@@ -55,7 +66,7 @@ export default function ServicesCard({
           component={Link}
           href={linkHref}
           sx={{
-            marginTop: `12px`,
+            marginTop: `8px`,
           }}
           color="info"
           size="medium"

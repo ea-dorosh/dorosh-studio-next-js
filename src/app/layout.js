@@ -1,10 +1,12 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Link,
+  CssBaseline,
+} from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import * as React from "react";
 import LogoLink from "@/components/LogoLink/LogoLink";
@@ -38,32 +40,13 @@ export default function RootLayout({ children }) {
                 minHeight: '100vh',
               }}
             >
-              <AppBar position="static">
-                <Box
-                  sx={{
-                    textAlign: `center`,
-                    padding: `1.6px`,
-                    bgcolor: `background.paper`,
-                  }}
-                >
-                  <Typography variant="caption" noWrap component="div" color="primary">
-                    kostenlose Beratung
-                  </Typography>
-                </Box>
+              <AppBar position="static" sx={{ backgroundColor: 'background.paper' }}>
+                <Toolbar sx={{
+                  justifyContent: 'flex-start',
+                }}>
+                  <LogoLink />
 
-                <Toolbar sx={{ padding: `0 70px` }}>
-                  <Box
-                    sx={{
-                      width: `250px`,
-                      maxWidth: `90%`,
-                      height: `90px`,
-                      position: `relative`,
-                    }}
-                  >
-                    <LogoLink />
-                  </Box>
-
-                  <Box sx={{ position: `absolute`, right: 20 }}>
+                  <Box sx={{ marginLeft: `auto` }}>
                     <Menu links={LINKS} />
                   </Box>
                 </Toolbar>

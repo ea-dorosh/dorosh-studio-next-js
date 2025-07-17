@@ -1,14 +1,18 @@
 'use client'
 
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import {
+  Close as CloseIcon,
+  Menu as MenuIcon,
+} from '@mui/icons-material';
+import {
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import Link from "next/link";
 import * as React from "react";
 
@@ -20,11 +24,17 @@ export default function Menu({ links }) {
   };
 
   return (
-    <div>
-      <IconButton onClick={()=>setOpen(true)}>
+    <Box sx={{ marginRight: `-4px`,}}>
+      <IconButton
+        onClick={() => setOpen(true)}
+        sx={{
+          padding: 0,
+          width: `30px`,
+        }}
+      >
         <MenuIcon
           fontSize='large'
-          color="secondary"
+          color="primary"
         />
       </IconButton>
 
@@ -83,6 +93,6 @@ export default function Menu({ links }) {
           ))}
         </List>
       </Drawer>
-    </div>
+    </Box>
   );
 }
