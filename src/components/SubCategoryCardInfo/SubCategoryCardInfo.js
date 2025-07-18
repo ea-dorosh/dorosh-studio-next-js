@@ -6,16 +6,13 @@ import {
 import Image from 'next/image';
 import Link from "next/link";
 
-export default function ServiceCard({
+export default function SubCategoryCardInfo({
   id,
   title,
-  description,
   price,
-  duration,
   imageSrc,
   imageAlt,
-  bookingLink,
-  onClick,
+  children,
 }) {
   const imageStyles = {
     position: 'absolute',
@@ -67,18 +64,6 @@ export default function ServiceCard({
         {title}
       </Typography>
 
-      {description && (
-        <Typography
-          variant="body1"
-          sx={{
-            color: `text.secondary`,
-            marginBottom: `8px`,
-          }}
-        >
-          {description}
-        </Typography>
-      )}
-
       <Box sx={{
         display: `flex`,
         justifyContent: `space-between`,
@@ -90,39 +75,33 @@ export default function ServiceCard({
           <Typography
             variant="h6"
             color={"primary"}
-            sx={{
-              fontWeight: `bold`,
-            }}
           >
             {price} €
           </Typography>
         )}
-        {duration && (
-          <Typography
-            variant="body2"
-            sx={{
-              color: `text.secondary`,
-            }}
-          >
-            {duration} Min
-          </Typography>
-        )}
       </Box>
+
+      {children && (
+        <Box>
+          {children}
+        </Box>
+      )}
 
       <Box
         sx={{
-          padding: `12px 26px 0 26px`,
+          padding: `12px 0 0 0`,
         }}
       >
         <Button
+          component={Link}
+          href="/booking"
           variant="contained"
           color="primary"
-          onClick={onClick}
           sx={{
-            width: `100%`,
+            width: `200px`,
           }}
         >
-          {bookingLink ? 'Online Termine' : 'Buchen'}
+          Online Termine
         </Button>
       </Box>
     </Box>

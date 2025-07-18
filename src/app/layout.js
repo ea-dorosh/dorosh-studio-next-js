@@ -27,19 +27,18 @@ const LINKS = [
 export default function RootLayout({ children }) {
   return (
     <html lang="de">
-      <body>
+      <body
+        style={{
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100vh',
+                backgroundColor: "background.paper",
+              }}
+      >
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '100vh',
-              }}
-            >
               <AppBar position="static" sx={{ backgroundColor: 'background.paper' }}>
                 <Toolbar sx={{
                   justifyContent: 'flex-start',
@@ -52,7 +51,13 @@ export default function RootLayout({ children }) {
                 </Toolbar>
               </AppBar>
 
-              <Box component="main" sx={{ flexGrow: 1 }}>
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  backgroundColor: "background.paper",
+                }}
+              >
                 {children}
               </Box>
 
@@ -74,7 +79,6 @@ export default function RootLayout({ children }) {
                   Privacy Policy
                 </Link>
               </Box>
-            </Box>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

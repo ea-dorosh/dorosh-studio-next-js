@@ -3,7 +3,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import ServiceCard from "@/components/ServiceCard/ServiceCard";
+import SubCategoryCardInfo from "@/components/SubCategoryCardInfo/SubCategoryCardInfo";
 
 export const metadata = {
   title: "Permanent Make-up München - Dorosh Studio | Powder Brows, Hairstroke, Velvet Lips",
@@ -62,7 +62,7 @@ export const metadata = {
 export default async function CategoryPage() {
   return (
     <Box
-      bgcolor="background.default"
+      bgcolor="background.paper"
       component="section"
       sx={{
         paddingBottom: `32px`,
@@ -76,6 +76,8 @@ export default async function CategoryPage() {
             textAlign: `center`,
             marginTop: `18px`,
             marginBottom: `18px`,
+            textTransform: `uppercase`,
+            fontSize: `2.5rem`,
           }}
         >
           Unsere Services
@@ -88,6 +90,9 @@ export default async function CategoryPage() {
             textAlign: `center`,
             marginTop: `18px`,
             marginBottom: `18px`,
+            textTransform: `uppercase`,
+            fontSize: `1.8rem`,
+            fontWeight: `bold`,
           }}
         >
           Permanent Make-up
@@ -100,54 +105,54 @@ export default async function CategoryPage() {
             gap: `16px`,
           }}
         >
-          <ServiceCard
+          <SubCategoryCardInfo
             id="powder-brows"
             title="Powder Brows"
+            price="350"
             imageSrc="/images/services-page/service-brows.jpg"
             imageAlt="Permanent Make-up Powder Brows"
-            bookingLink="/booking/permanent-make-up/powder-brows"
           >
             Powder Brows, Pudertechnik, Ombre Brows. Hochwertiges Permanent Make-Up hält 1,5-2 Jahre & die Augenbrauen wirken sehr natürlich, sehen dicht und voll aus.
-          </ServiceCard>
+          </SubCategoryCardInfo>
 
-          <ServiceCard
+          <SubCategoryCardInfo
             id="hairstroke"
             title="Hairstroke"
+            price="350"
             imageSrc="/images/services-page/service-hairstroke.webp"
             imageAlt="Permanent Make-up Hairstroke Brows"
-            bookingLink="/booking/permanent-make-up/hairstroke"
           >
             Permanent Augenbrauen Make-Up in Haar Technik.
             <br/>
             Die natürlichste und realistischste Technik.
             <br/>
             Nicht zu verwechseln mit Microblading! Hairstroke - eine leichte, oberflächliche Technik ohne Hauttrauma
-          </ServiceCard>
+          </SubCategoryCardInfo>
 
-          <ServiceCard
+          <SubCategoryCardInfo
             id="velvet-lips"
             title="Velvet Lips"
+            price="350"
             imageSrc="/images/services-page/service-lips.webp"
             imageAlt="Permanent Make-up Velvet Lips"
-            bookingLink="/booking/permanent-make-up/velvet-lippen"
           >
             Lippenpigmentierung.Velvet Lips, Nude Lips, Lipstick Effect Es sieht sehr harmonisch & natürlich aus.
             <br/>
             Schmerzfreie Behandlung. Auf jede Kundin tüchtig abgestimmte Pigmentfarbe & Formkorrektur.
-          </ServiceCard>
+          </SubCategoryCardInfo>
 
-          <ServiceCard
+          <SubCategoryCardInfo
             id="wimpernkranz"
             title="Wimpernkranz"
+            price="250"
             imageSrc="/images/services-page/service-wimpernkranz.webp"
             imageAlt="Permanent Make-up Wimpernkranz"
-            bookingLink="/booking/permanent-make-up/wimpernkranz"
           >
             Der Effekt eines frisch geöffneten Looks Schmerlos und sicher Bechandlung.
             <br/>
             <br/>
             Sterilisation, Qualität & Komfort.
-          </ServiceCard>
+          </SubCategoryCardInfo>
         </Box>
       </Container>
     </Box>

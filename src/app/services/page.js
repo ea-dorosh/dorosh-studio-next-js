@@ -3,12 +3,12 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import CategoryCard from "@/components/CategoryCard/CategoryCard";
+import CategoryCardInfo from "@/components/CategoryCardInfo/CategoryCardInfo";
 
 export default function ServicesPage() {
   return (
     <Box
-      bgcolor="background.default"
+      bgcolor="background.paper"
       component="section"
       sx={{
         paddingBottom: `32px`,
@@ -22,6 +22,8 @@ export default function ServicesPage() {
             textAlign: `center`,
             marginTop: `18px`,
             marginBottom: `18px`,
+            textTransform: `uppercase`,
+            fontSize: `2.5rem`,
           }}
         >
           Unsere Services
@@ -34,7 +36,7 @@ export default function ServicesPage() {
             gap: `16px`,
           }}
         >
-          <CategoryCard
+          <CategoryCardInfo
             title="Permanent Make-up"
             subtitle="Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke"
             linkHref="/services/permanent-make-up"
@@ -42,7 +44,7 @@ export default function ServicesPage() {
             imageAlt="Frau mit Permanent Make-up"
           />
 
-          <CategoryCard
+          <CategoryCardInfo
             title="Nails"
             subtitle="Manicure & Pedicure"
             linkHref="/services/nails"

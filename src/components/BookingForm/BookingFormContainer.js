@@ -30,6 +30,7 @@ import companyService from "@/services/company.service";
 
 export default function BookingFormContainer({
   service,
+  selectedService,
 }) {
   const theme = useTheme();
   const calendarFormRef = useRef(null);
@@ -39,9 +40,13 @@ export default function BookingFormContainer({
 
   /** state */
   const [company, setCompany] = useState(null);
-  const [formStep, setFormStep] = useState(service.employees.length === 1 ? FORM_STEPS.CALENDAR : FORM_STEPS.EMPLOYEES);
-  const [selectedService, setSelectedService] = useState(service);
-  const [selectedEmployeesIds, setSelectedEmployeesIds] = useState(service.employees.length === 1 ? [service.employees[0].id] : []);
+
+  // Use the passed service or fall back to the original service prop
+  const currentService = selectedService || service;
+
+  const [formStep, setFormStep] = useState(currentService.employees?.length === 1 ? FORM_STEPS.CALENDAR : FORM_STEPS.EMPLOYEES);
+  const [selectedServiceState, setSelectedServiceState] = useState(currentService);
+  const [selectedEmployeesIds, setSelectedEmployeesIds] = useState(currentService.employees?.length === 1 ? [currentService.employees[0].id] : []);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
@@ -50,8 +55,8 @@ export default function BookingFormContainer({
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
   /** computed */
-  const selectedEmployees = useMemo(() => selectedService?.employees.filter(employee => selectedEmployeesIds.includes(employee.id)),
-    [selectedService?.employees, selectedEmployeesIds]);
+  const selectedEmployees = useMemo(() => selectedServiceState?.employees?.filter(employee => selectedEmployeesIds.includes(employee.id)),
+    [selectedServiceState?.employees, selectedEmployeesIds]);
 
   const hasServicesForm = useMemo(() => formStep === FORM_STEPS.SERVICES, [formStep]);
   const hasServiceOverview = useMemo(() => formStep > FORM_STEPS.SERVICES && formStep < FORM_STEPS.FINISH, [formStep]);
@@ -102,9 +107,9 @@ export default function BookingFormContainer({
 
   /** methods */
   const onSubmitServiceFormClick = (service) => {
-    setSelectedService(service);
+    setSelectedServiceState(service);
 
-    if (service.employees.length === 1) {
+    if (service.employees?.length === 1) {
       setSelectedEmployeesIds([service.employees[0].id]);
       setFormStep(FORM_STEPS.CALENDAR);
     } else {
@@ -113,7 +118,7 @@ export default function BookingFormContainer({
   }
 
   const onChangeServiceFormClick = () => {
-    setSelectedService(null);
+    setSelectedServiceState(null);
     setSelectedDay(null);
     setSelectedEmployeesIds([]);
     setSelectedEmployeeFromTimeSlotAvailability(null);
@@ -139,11 +144,11 @@ export default function BookingFormContainer({
   };
 
   const onSelectAllClick = () => {
-    if (selectedEmployeesIds.length === selectedService.employees.length) {
+    if (selectedEmployeesIds.length === selectedServiceState.employees?.length) {
       setSelectedEmployeesIds([]);
     } else {
       setSelectedEmployeesIds(()=>(
-        selectedService.employees.map(employee => employee.id)
+        selectedServiceState.employees?.map(employee => employee.id) || []
       ));
     }
   };
@@ -187,8 +192,8 @@ export default function BookingFormContainer({
       ...formData,
       date: selectedDay.day,
       time: selectedTimeSlot.startTime,
-      serviceId: selectedService.id,
-      serviceDuration: selectedService.duration,
+      serviceId: selectedServiceState.id,
+      serviceDuration: selectedServiceState.duration,
       employeeId: selectedEmployeeFromTimeSlotAvailability,
     };
 
@@ -209,49 +214,24 @@ export default function BookingFormContainer({
   }
 
   return (<>
-    {/* {!hasConfirmationMessage && <><span ref={cardMediaRef}></span>
-      <Box sx={{
-        mt: `-56px`,
-        position: `sticky`,
-        top: 0,
-      }}>
-        <CardMedia
-          component="img"
-          image={subCategory.subCategoryImage}
-          alt={subCategory.subCategoryName}
-          sx={{
-            width: `100%`,
-            height: `250px`,
-            objectFit: `cover`,
-          }}
-        />
-      </Box></>} */}
-
     <Box sx={{
       p: 2,
       backgroundColor: theme.palette.background.default,
       zIndex: 1,
     }}>
-      {/* {!hasConfirmationMessage && <Typography
-        variant="h2"
-        gutterBottom mb={4}
-      >
-        {subCategory.subCategoryName}
-      </Typography>} */}
-
       {hasServicesForm && <ServicesList
-        services={[service]}
+        services={[currentService]}
         theme={theme}
         selectService={onSubmitServiceFormClick}
       />}
 
       {hasServiceOverview && <ServiceOverview
-        service={selectedService}
+        service={selectedServiceState}
         changeService={onChangeServiceFormClick}
       />}
 
       {hasEmployeesForm && <EmployeesForm
-        availableEmployees={selectedService.employees}
+        availableEmployees={selectedServiceState.employees || []}
         selectedEmployeesIds={selectedEmployeesIds}
         changeEmployees={onChangeSelectedEmployeeClick}
         selectAllEmployees={onSelectAllClick}
@@ -260,14 +240,14 @@ export default function BookingFormContainer({
 
       {hasEmployeesOverview && <EmployeesOverview
         selectedEmployees={selectedEmployees}
-        hasOnlyOneEmployee={selectedService?.employees.length === 1}
+        hasOnlyOneEmployee={selectedServiceState?.employees?.length === 1}
         changeEmployees={onChangeEmployeeFormClick}
       />}
 
       {hasCalendarForm && (
         <div ref={calendarFormRef} style={{minHeight:`4000px`}}>
           <CalendarForm
-            service={selectedService}
+            service={selectedServiceState}
             employees={selectedEmployeesIds}
             setSelectedDay={setSelectedDay}
             selectedDay={selectedDay}

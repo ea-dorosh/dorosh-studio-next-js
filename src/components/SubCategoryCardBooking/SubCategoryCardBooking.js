@@ -1,17 +1,19 @@
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Image from 'next/image';
-import Link from "next/link";
+'use client';
 
-export default function CategoryCard({
+import {
+  Typography,
+  Button,
+  Box,
+} from "@mui/material";
+import Image from 'next/image';
+
+export default function SubCategoryCardBooking({
   title,
-  subtitle,
-  linkHref,
   imageSrc,
   imageAlt,
+  subCategory,
+  onSubCategoryClick,
 }) {
-
   return (
     <Box
       bgcolor="background.paper"
@@ -20,14 +22,15 @@ export default function CategoryCard({
         boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
         position: `relative`,
         overflow: `hidden`,
-        padding: `24px`,
+        padding: `18px`,
+        textDecoration: `none`,
       }}
     >
       <Box
         sx={{
           position: 'relative',
           width: '100%',
-          paddingTop: '69%',
+          paddingTop: '40%',
           overflow: 'hidden',
         }}
       >
@@ -37,7 +40,7 @@ export default function CategoryCard({
           fill
           style={{
             objectFit: `cover`,
-            objectPosition: `center 0px`,
+            objectPosition: `center`,
             borderRadius: `12px`,
           }}
         />
@@ -49,30 +52,37 @@ export default function CategoryCard({
         <Typography
           variant="h3"
           aria-label={title}
+          sx={{
+            fontSize: `1.6rem`,
+            fontWeight: `bold`,
+            color: `primary.main`,
+          }}
         >
           {title}
         </Typography>
 
         <Typography
-          aria-label={subtitle}
+          variant="subtitle1"
           sx={{
-            marginTop: `8px`,
+            textAlign: `left`,
+            fontSize: `1rem`,
+            color: `primary.main`,
+            opacity: 0.8,
           }}
         >
-          {subtitle}
+          {subCategory.services.length} {subCategory.services.length === 1 ? 'Service' : 'Services'} verfügbar
         </Typography>
 
         <Button
-          component={Link}
-          href={linkHref}
-          sx={{
-            marginTop: `8px`,
-          }}
-          color="info"
-          size="medium"
           variant="contained"
+          color="primary"
+          sx={{
+            marginTop: `1.2rem`,
+            width: `250px`,
+          }}
+          onClick={onSubCategoryClick || (() => {})}
         >
-          Mehr Erfahren
+          Buchen
         </Button>
       </Box>
     </Box>
