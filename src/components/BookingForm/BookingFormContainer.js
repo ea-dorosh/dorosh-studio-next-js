@@ -2,7 +2,6 @@
 
 import {
   Box,
-  // CardMedia,
   Dialog,
   DialogActions,
   DialogContent,
@@ -13,11 +12,12 @@ import { useTheme } from "@mui/material";
 import {
   useState,
   useMemo,
-  useRef,
   useEffect,
 } from "react";
 import CalendarForm from "@/components/BookingForm/Calendar/CalendarForm";
 import CalendarOverview from "@/components/BookingForm/Calendar/CalendarOverview";
+import CategoryForm from "@/components/BookingForm/Categories/CategoryForm";
+import CategoryOverview from "@/components/BookingForm/Categories/CategoryOverview";
 import Confirmation from "@/components/BookingForm/Confirmation/Confirmation";
 import CustomerForm from "@/components/BookingForm/CustomerForm/CustomerForm";
 import EmployeesForm from "@/components/BookingForm/Employees/EmployeesForm";
@@ -25,28 +25,24 @@ import EmployeesOverview from "@/components/BookingForm/Employees/EmployeesOverv
 import FORM_STEPS from "@/components/BookingForm/formSteps";
 import ServiceOverview from "@/components/BookingForm/Services/ServiceOverview";
 import ServicesList from "@/components/BookingForm/Services/ServicesList";
+import SubCategoryForm from "@/components/BookingForm/SubCategories/SubCategoryForm";
+import SubCategoryOverview from "@/components/BookingForm/SubCategories/SubCategoryOverview";
 import appointmentsService from "@/services/appointments.service";
 import companyService from "@/services/company.service";
 
 export default function BookingFormContainer({
-  service,
-  selectedService,
+  categories,
 }) {
   const theme = useTheme();
-  const calendarFormRef = useRef(null);
-  const customerFormRef = useRef(null);
-  // eslint-disable-next-line no-unused-vars
-  const cardMediaRef = useRef(null);
+  console.log(categories);
 
   /** state */
   const [company, setCompany] = useState(null);
-
-  // Use the passed service or fall back to the original service prop
-  const currentService = selectedService || service;
-
-  const [formStep, setFormStep] = useState(currentService.employees?.length === 1 ? FORM_STEPS.CALENDAR : FORM_STEPS.EMPLOYEES);
-  const [selectedServiceState, setSelectedServiceState] = useState(currentService);
-  const [selectedEmployeesIds, setSelectedEmployeesIds] = useState(currentService.employees?.length === 1 ? [currentService.employees[0].id] : []);
+  const [formStep, setFormStep] = useState(FORM_STEPS.CATEGORIES);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+  const [selectedEmployeesIds, setSelectedEmployeesIds] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
@@ -55,8 +51,14 @@ export default function BookingFormContainer({
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
   /** computed */
-  const selectedEmployees = useMemo(() => selectedServiceState?.employees?.filter(employee => selectedEmployeesIds.includes(employee.id)),
-    [selectedServiceState?.employees, selectedEmployeesIds]);
+  const selectedEmployees = useMemo(() => selectedService?.employees.filter(employee => selectedEmployeesIds.includes(employee.id)),
+    [selectedService?.employees, selectedEmployeesIds]);
+
+  const hasCategoriesForm = useMemo(() => formStep === FORM_STEPS.CATEGORIES, [formStep]);
+  const hasCategoriesOverview = useMemo(() => formStep > FORM_STEPS.CATEGORIES && formStep < FORM_STEPS.FINISH, [formStep]);
+
+  const hasSubCategoriesForm = useMemo(() => formStep === FORM_STEPS.SUBCATEGORIES, [formStep]);
+  const hasSubCategoriesOverview = useMemo(() => formStep > FORM_STEPS.SUBCATEGORIES && formStep < FORM_STEPS.FINISH, [formStep]);
 
   const hasServicesForm = useMemo(() => formStep === FORM_STEPS.SERVICES, [formStep]);
   const hasServiceOverview = useMemo(() => formStep > FORM_STEPS.SERVICES && formStep < FORM_STEPS.FINISH, [formStep]);
@@ -83,22 +85,6 @@ export default function BookingFormContainer({
 
   /** watchers */
   useEffect(() => {
-    if (hasCalendarForm) {
-      if (calendarFormRef.current) {
-        // calendarFormRef.current.style.scrollMargin = `350px`;
-      }
-
-      // calendarFormRef.current?.scrollIntoView({
-      //   behavior: "smooth",
-      // });
-    } else if (hasCustomerForm) {
-      // customerFormRef.current?.scrollIntoView({
-      //   behavior: "smooth",
-      // });
-    }
-  } ,[hasCalendarForm, hasCustomerForm]);
-
-  useEffect(() => {
     if (selectedDay) {
       setSelectedTimeSlot(null);
     }
@@ -106,10 +92,28 @@ export default function BookingFormContainer({
 
 
   /** methods */
-  const onSubmitServiceFormClick = (service) => {
-    setSelectedServiceState(service);
+  const onSubmitCategoryFormClick = (category) => {
+    setSelectedCategory(category);
+    setFormStep(FORM_STEPS.SUBCATEGORIES);
+  }
 
-    if (service.employees?.length === 1) {
+  const onChangeCategoryFormClick = () => {
+    setFormStep(FORM_STEPS.CATEGORIES);
+  }
+
+  const onSubmitSubCategoryFormClick = (subCategory) => {
+    setSelectedSubCategory(subCategory);
+    setFormStep(FORM_STEPS.SERVICES);
+  }
+
+  const onChangeSubCategoryFormClick = () => {
+    setFormStep(FORM_STEPS.SUBCATEGORIES);
+  }
+
+  const onSubmitServiceFormClick = (service) => {
+    setSelectedService(service);
+
+    if (service.employees.length === 1) {
       setSelectedEmployeesIds([service.employees[0].id]);
       setFormStep(FORM_STEPS.CALENDAR);
     } else {
@@ -118,17 +122,12 @@ export default function BookingFormContainer({
   }
 
   const onChangeServiceFormClick = () => {
-    setSelectedServiceState(null);
+    setSelectedService(null);
     setSelectedDay(null);
     setSelectedEmployeesIds([]);
     setSelectedEmployeeFromTimeSlotAvailability(null);
 
-    // cardMediaRef.current?.scrollIntoView({
-    //   behavior: "smooth",
-    // });
-
     setFormStep(FORM_STEPS.SERVICES);
-
   }
 
   const onChangeSelectedEmployeeClick = (event) => {
@@ -144,11 +143,11 @@ export default function BookingFormContainer({
   };
 
   const onSelectAllClick = () => {
-    if (selectedEmployeesIds.length === selectedServiceState.employees?.length) {
+    if (selectedEmployeesIds.length === selectedService.employees.length) {
       setSelectedEmployeesIds([]);
     } else {
       setSelectedEmployeesIds(()=>(
-        selectedServiceState.employees?.map(employee => employee.id) || []
+        selectedService.employees.map(employee => employee.id)
       ));
     }
   };
@@ -192,8 +191,8 @@ export default function BookingFormContainer({
       ...formData,
       date: selectedDay.day,
       time: selectedTimeSlot.startTime,
-      serviceId: selectedServiceState.id,
-      serviceDuration: selectedServiceState.duration,
+      serviceId: selectedService.id,
+      serviceDuration: selectedService.duration,
       employeeId: selectedEmployeeFromTimeSlotAvailability,
     };
 
@@ -214,24 +213,62 @@ export default function BookingFormContainer({
   }
 
   return (<>
+    {/* {!hasConfirmationMessage && <>
+      <Box sx={{
+        mt: `-56px`,
+        position: `sticky`,
+        top: 0,
+      }}>
+        <CardMedia
+          component="img"
+          image={subCategory.image}
+          alt={subCategory.name}
+          sx={{
+            width: `100%`,
+            height: `250px`,
+            objectFit: `cover`,
+          }}
+        />
+      </Box></>} */}
+
     <Box sx={{
       p: 2,
       backgroundColor: theme.palette.background.default,
       zIndex: 1,
     }}>
+      {hasCategoriesForm && <CategoryForm
+        categories={categories}
+        onCategorySelect={onSubmitCategoryFormClick}
+      />}
+
+      {hasCategoriesOverview && <CategoryOverview
+        category={selectedCategory}
+        changeCategory={onChangeCategoryFormClick}
+      />}
+
+      {hasSubCategoriesForm && <SubCategoryForm
+        subCategories={selectedCategory.subCategories}
+        onSubCategorySelect={onSubmitSubCategoryFormClick}
+      />}
+
+      {hasSubCategoriesOverview && <SubCategoryOverview
+        subCategory={selectedSubCategory}
+        changeSubCategory={onChangeSubCategoryFormClick}
+      />}
+
       {hasServicesForm && <ServicesList
-        services={[currentService]}
+        services={selectedSubCategory.services}
         theme={theme}
         selectService={onSubmitServiceFormClick}
       />}
 
       {hasServiceOverview && <ServiceOverview
-        service={selectedServiceState}
+        service={selectedService}
         changeService={onChangeServiceFormClick}
       />}
 
       {hasEmployeesForm && <EmployeesForm
-        availableEmployees={selectedServiceState.employees || []}
+        availableEmployees={selectedService.employees}
         selectedEmployeesIds={selectedEmployeesIds}
         changeEmployees={onChangeSelectedEmployeeClick}
         selectAllEmployees={onSelectAllClick}
@@ -240,14 +277,14 @@ export default function BookingFormContainer({
 
       {hasEmployeesOverview && <EmployeesOverview
         selectedEmployees={selectedEmployees}
-        hasOnlyOneEmployee={selectedServiceState?.employees?.length === 1}
+        hasOnlyOneEmployee={selectedService?.employees.length === 1}
         changeEmployees={onChangeEmployeeFormClick}
       />}
 
       {hasCalendarForm && (
-        <div ref={calendarFormRef} style={{minHeight:`4000px`}}>
+        <div>
           <CalendarForm
-            service={selectedServiceState}
+            service={selectedService}
             employees={selectedEmployeesIds}
             setSelectedDay={setSelectedDay}
             selectedDay={selectedDay}
@@ -265,7 +302,7 @@ export default function BookingFormContainer({
         changeDate={()=> setFormStep(FORM_STEPS.CALENDAR)}
       />}
 
-      {hasCustomerForm && <div ref={customerFormRef}>
+      {hasCustomerForm && <div>
         <CustomerForm
           createAppointment={onSubmitCustomerFormClick}
           formErrors={createAppointmentErrors}
@@ -274,6 +311,7 @@ export default function BookingFormContainer({
 
       {hasConfirmationMessage && <Confirmation
         appointment={appointmentConfirmation}
+        closeConfirmation={() => {}}
         company={company}
       />}
 

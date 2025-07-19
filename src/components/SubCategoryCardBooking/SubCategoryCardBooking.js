@@ -12,7 +12,7 @@ export default function SubCategoryCardBooking({
   imageSrc,
   imageAlt,
   subCategory,
-  onSubCategoryClick,
+  onClick,
 }) {
   return (
     <Box
@@ -80,7 +80,7 @@ export default function SubCategoryCardBooking({
             marginTop: `1.2rem`,
             width: `250px`,
           }}
-          onClick={onSubCategoryClick || (() => {})}
+          onClick={onClick}
         >
           Buchen
         </Button>

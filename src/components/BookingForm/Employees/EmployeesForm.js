@@ -8,11 +8,11 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import { 
+import {
   formatPrice,
 } from "@/utils/formatters";
 
-export default function ServiceOverview({ 
+export default function ServiceOverview({
   availableEmployees,
   selectedEmployeesIds,
   changeEmployees,
@@ -38,7 +38,7 @@ export default function ServiceOverview({
       </Typography>
     </Box>
 
-    {availableEmployees.map((employee) => <FormControlLabel 
+    {availableEmployees.map((employee) => <FormControlLabel
       key={employee.id}
       sx={{
         display: `flex`,
@@ -55,13 +55,13 @@ export default function ServiceOverview({
           value={employee.id}
         />
 
-        <Avatar 
+        <Avatar
           src={employee.image}
           alt={employee.firstName}
           sx={{ width: 30, height: 30, mr: 2 }}
         />
 
-        <Typography 
+        <Typography
           variant="formOverview"
           mr={2}
         >
@@ -94,7 +94,7 @@ export default function ServiceOverview({
           onChange={selectAllEmployees}
         />
 
-        <Typography 
+        <Typography
           variant="formOverview"
           mr={2}
         >

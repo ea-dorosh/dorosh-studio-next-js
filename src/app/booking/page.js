@@ -1,4 +1,4 @@
-import BookingFormMain from "@/components/BookingForm/BookingFormMain";
+import BookingFormContainer from "@/components/BookingForm/BookingFormContainer";
 import servicesService from "@/services/services.service";
 
 export const metadata = {
@@ -16,6 +16,6 @@ export default async function BookingPage() {
   const categories = await servicesService.getServices();
 
   return (
-    <BookingFormMain categories={categories} />
+    <BookingFormContainer categories={categories} />
   );
 }

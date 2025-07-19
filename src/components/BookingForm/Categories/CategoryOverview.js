@@ -7,7 +7,7 @@ import {
   Divider,
 } from "@mui/material";
 
-export default function ServiceOverview({ service, changeService }) {
+export default function CategoryOverview({ category, changeCategory }) {
 
   return (<>
     <Box sx={{
@@ -22,7 +22,7 @@ export default function ServiceOverview({ service, changeService }) {
       </Typography>
 
       <Button
-        onClick={changeService}
+        onClick={changeCategory}
         variant="text"
         size="small"
         color="info"
@@ -39,7 +39,7 @@ export default function ServiceOverview({ service, changeService }) {
       component="div"
       mt={1}
     >
-      {service.name}
+      {category.categoryName}
     </Typography>
 
     <Divider sx={{mt: 2, mb: 1}} />
