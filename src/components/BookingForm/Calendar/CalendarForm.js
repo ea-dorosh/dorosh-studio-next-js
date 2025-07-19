@@ -10,6 +10,13 @@ import {
   CircularProgress,
   IconButton,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Checkbox,
+  ListItemText,
+  Chip,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
@@ -59,7 +66,8 @@ const formatMonthYear = (start) => {
 
 export default function CalendarForm({
   service,
-  employees,
+  availableEmployees,
+  onEmployeesChange,
   selectedDay,
   setSelectedDay,
   selectedTimeSlot,
@@ -71,14 +79,20 @@ export default function CalendarForm({
   const [currentWeekStart, setCurrentWeekStart] = useState(
     selectedDay?.day ? dayjs(selectedDay.day).startOf(`week`) : initialValue.startOf(`week`)
   );
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
+  // State для селекта: либо ['selectAll'] либо массив ID сотрудников
+  const [selectValue, setSelectValue] = useState(['selectAll']);
 
-  const fetchCalendarDays = async (date) => {
+  const fetchCalendarDays = async (date, employeesToUse = null) => {
     setError(null);
     setIsCalendarDaysLoading(true);
 
+    const employeeList = employeesToUse || (selectValue.includes('selectAll')
+      ? availableEmployees.map(emp => emp.id)
+      : selectValue.map(id => parseInt(id)));
+
     try {
-      const { daysToHighlight } = await fetchTimeSlots(date, service.id, employees);
+      const { daysToHighlight } = await fetchTimeSlots(date, service.id, employeeList);
       return daysToHighlight;
     } catch (error) {
       console.error(error);
@@ -90,7 +104,10 @@ export default function CalendarForm({
 
   useEffect(() => {
     async function fetchData() {
-      const daysToHighlight = await fetchCalendarDays(currentWeekStart);
+      const employeesToUse = selectValue.includes('selectAll')
+        ? availableEmployees.map(emp => emp.id)
+        : selectValue.map(id => parseInt(id));
+      const daysToHighlight = await fetchCalendarDays(currentWeekStart, employeesToUse);
       setCalendarDays(daysToHighlight || []);
 
       if (!selectedDay?.day) {
@@ -106,13 +123,39 @@ export default function CalendarForm({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Update calendar when employees selection changes
+  useEffect(() => {
+    async function updateCalendar() {
+      const employeesToUse = selectValue.includes('selectAll')
+        ? availableEmployees.map(emp => emp.id)
+        : selectValue.map(id => parseInt(id));
+
+      if (employeesToUse.length > 0) {
+        const daysToHighlight = await fetchCalendarDays(currentWeekStart, employeesToUse);
+        setCalendarDays(daysToHighlight || []);
+
+        // Reset selected day if current selection is no longer available
+        if (selectedDay && daysToHighlight) {
+          const stillAvailable = daysToHighlight.find(d => d.day === selectedDay.day);
+          if (!stillAvailable) {
+            setSelectedDay(daysToHighlight.length > 0 ? daysToHighlight[0] : null);
+          }
+        }
+      }
+    }
+    updateCalendar();
+  }, [selectValue]);
+
   const handleWeekChange = async (direction) => {
     const newStart = currentWeekStart.add(direction, `week`);
     setCurrentWeekStart(newStart);
     setCalendarDays([]);
     setSelectedDay(null);
 
-    const daysToHighlight = await fetchCalendarDays(newStart);
+    const employeesToUse = selectValue.includes('selectAll')
+      ? availableEmployees.map(emp => emp.id)
+      : selectValue.map(id => parseInt(id));
+    const daysToHighlight = await fetchCalendarDays(newStart, employeesToUse);
 
     setCalendarDays(daysToHighlight || []);
 
@@ -134,11 +177,108 @@ export default function CalendarForm({
       ? `Morgen, am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)},`
       : `Am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)}`;
 
+  // Helper functions for employee selection
+  const getEmployeeLabel = () => {
+    if (selectValue.includes('selectAll')) {
+      return 'Alle Mitarbeiter';
+    }
+    if (selectValue.length === 1) {
+      const selectedEmployee = availableEmployees.find(emp => emp.id === parseInt(selectValue[0]));
+      return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName}` : 'Mitarbeiter';
+    }
+    if (selectValue.length > 1) {
+      const selectedNames = selectValue.map(empIdStr => {
+        const emp = availableEmployees.find(e => e.id === parseInt(empIdStr));
+        return emp ? `${emp.firstName} ${emp.lastName}` : '';
+      }).filter(name => name).join(', ');
+      return selectedNames;
+    }
+    return 'Mitarbeiter auswählen';
+  };
+
+  const handleEmployeeSelectionChange = (event) => {
+    const selectedValues = event.target.value;
+
+    // Определяем, что было добавлено в выбор
+    const addedValue = selectedValues.find(val => !selectValue.includes(val));
+    const removedValue = selectValue.find(val => !selectedValues.includes(val));
+
+    let newSelectValue;
+
+    if (addedValue === 'selectAll') {
+      // Кликнули на "выбрать всех" - только она остается выбрана
+      newSelectValue = ['selectAll'];
+      onEmployeesChange(availableEmployees.map(emp => emp.id));
+    } else if (removedValue === 'selectAll') {
+      // Убрали "выбрать всех" - остаются только конкретные сотрудники
+      newSelectValue = selectedValues.filter(val => val !== 'selectAll');
+      const employeeIds = newSelectValue.map(id => parseInt(id));
+      onEmployeesChange(employeeIds);
+    } else if (addedValue && addedValue !== 'selectAll') {
+      // Добавили конкретного сотрудника - убираем "выбрать всех"
+      newSelectValue = selectedValues.filter(val => val !== 'selectAll');
+      const employeeIds = newSelectValue.map(id => parseInt(id));
+      onEmployeesChange(employeeIds);
+    } else if (removedValue && removedValue !== 'selectAll') {
+      // Убрали конкретного сотрудника
+      newSelectValue = selectedValues.filter(val => val !== 'selectAll');
+      const employeeIds = newSelectValue.map(id => parseInt(id));
+      onEmployeesChange(employeeIds);
+    } else {
+      // Какой-то другой случай
+      newSelectValue = selectedValues.filter(val => val !== 'selectAll');
+      const employeeIds = newSelectValue.map(id => parseInt(id));
+      onEmployeesChange(employeeIds);
+    }
+
+    setSelectValue(newSelectValue);
+  };
+
   return (
     <Box>
       <Typography variant="formSubtitle">
         Wählen Sie Datum und Uhrzeit
       </Typography>
+
+      {/* Employee Selection */}
+      <Box sx={{ mb: 3, mt: 2 }}>
+        <FormControl fullWidth variant="outlined">
+          <InputLabel>Mitarbeiter</InputLabel>
+          <Select
+            multiple
+            value={selectValue}
+            onChange={handleEmployeeSelectionChange}
+            renderValue={() => getEmployeeLabel()}
+            label="Mitarbeiter"
+          >
+            {/* Опция "Выбрать всех" */}
+            <MenuItem key="selectAll" value="selectAll">
+              <Checkbox checked={selectValue.includes('selectAll')} />
+              <ListItemText primary="Alle Mitarbeiter auswählen" />
+            </MenuItem>
+
+            {/* Отдельные сотрудники */}
+            {availableEmployees.map((employee) => (
+              <MenuItem key={employee.id} value={employee.id.toString()}>
+                <Checkbox checked={selectValue.includes(employee.id.toString())} />
+                <ListItemText
+                  primary={
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                      <span>{`${employee.firstName} ${employee.lastName}`}</span>
+                      <Chip
+                        label={`${employee.price || 0}€`}
+                        size="small"
+                        variant="outlined"
+                        sx={{ ml: 1 }}
+                      />
+                    </Box>
+                  }
+                />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
       <Box
         sx={{
