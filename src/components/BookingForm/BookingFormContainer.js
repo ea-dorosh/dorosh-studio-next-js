@@ -18,6 +18,7 @@ import {
   useMemo,
   useEffect,
 } from "react";
+import AddMoreServicesQuestion from "@/components/BookingForm/AddMoreServices/AddMoreServicesQuestion";
 import CalendarForm from "@/components/BookingForm/Calendar/CalendarForm";
 import CategoryForm from "@/components/BookingForm/Categories/CategoryForm";
 import Confirmation from "@/components/BookingForm/Confirmation/Confirmation";
@@ -40,6 +41,10 @@ export default function BookingFormContainer({
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
+  const [selectedServices, setSelectedServices] = useState([]); // массив выбранных сервисов
+  const [additionalServiceCategory, setAdditionalServiceCategory] = useState(null);
+  const [additionalServiceSubCategory, setAdditionalServiceSubCategory] = useState(null);
+  const [hasAnsweredAddMoreServices, setHasAnsweredAddMoreServices] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
@@ -47,8 +52,13 @@ export default function BookingFormContainer({
   const [generalError, setGeneralError] = useState(null);
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
-  // Collapsible state - only one panel can be open at a time
-  const [expandedPanel, setExpandedPanel] = useState('category');
+  // Collapsible state for main panels
+  const [expandedMainPanel, setExpandedMainPanel] = useState('service1');
+  // Nested panels within each service
+  const [expandedServicePanels, setExpandedServicePanels] = useState({
+    service1: 'category',
+    service2: null,
+  });
 
   /** computed */
   const hasConfirmationMessage = useMemo(() => formStep === FORM_STEPS.FINISH, [formStep]);
@@ -71,23 +81,37 @@ export default function BookingFormContainer({
   } ,[selectedDay]);
 
   /** methods */
-  const handlePanelChange = (panel) => (event, isExpanded) => {
-    setExpandedPanel(isExpanded ? panel : null);
+  const handleMainPanelChange = (panel) => (event, isExpanded) => {
+    setExpandedMainPanel(isExpanded ? panel : null);
+  };
+
+  const handleServicePanelChange = (serviceKey, panel) => (event, isExpanded) => {
+    setExpandedServicePanels(prev => ({
+      ...prev,
+      [serviceKey]: isExpanded ? panel : null,
+    }));
   };
 
   const onSubmitCategoryFormClick = (category) => {
     setSelectedCategory(category);
-    setExpandedPanel('subCategory');
+    setExpandedServicePanels(prev => ({
+      ...prev,
+      service1: 'subCategory',
+    }));
   }
 
   const onSubmitSubCategoryFormClick = (subCategory) => {
     setSelectedSubCategory(subCategory);
-    setExpandedPanel('service');
+    setExpandedServicePanels(prev => ({
+      ...prev,
+      service1: 'service',
+    }));
   }
 
   const onSubmitServiceFormClick = (service) => {
     setSelectedService(service);
-    setExpandedPanel('calendar');
+    setSelectedServices(prev => [...prev, service]);
+    setFormStep(FORM_STEPS.ADD_MORE_SERVICES);
   }
 
   // Методы для работы с выбором мастеров (теперь в CalendarForm)
@@ -95,6 +119,51 @@ export default function BookingFormContainer({
     // Сохраняем выбранных сотрудников для использования в API
     // Этот callback вызывается из CalendarForm когда меняется выбор сотрудников
     console.log('Selected employees changed:', employeeIds);
+  };
+
+  // Обработчики для вопроса о добавлении еще одного сервиса
+  const onAddMoreServicesYes = () => {
+    // Добавляем еще один сервис - показываем новую панель
+    setHasAnsweredAddMoreServices(true);
+    setAdditionalServiceCategory(null);
+    setAdditionalServiceSubCategory(null);
+    setExpandedMainPanel('service2');
+    setExpandedServicePanels(prev => ({
+      ...prev,
+      service2: 'category',
+    }));
+  };
+
+  const onAddMoreServicesNo = () => {
+    // Переходим к календарю
+    setHasAnsweredAddMoreServices(true);
+    setExpandedMainPanel('calendar');
+  };
+
+  // Обработчики для дополнительных сервисов
+  const onSubmitAdditionalCategoryFormClick = (category) => {
+    setAdditionalServiceCategory(category);
+    setExpandedServicePanels(prev => ({
+      ...prev,
+      service2: 'subCategory',
+    }));
+  };
+
+  const onSubmitAdditionalSubCategoryFormClick = (subCategory) => {
+    setAdditionalServiceSubCategory(subCategory);
+    setExpandedServicePanels(prev => ({
+      ...prev,
+      service2: 'service',
+    }));
+  };
+
+  const onSubmitAdditionalServiceFormClick = (service) => {
+    setSelectedServices(prev => [...prev, service]);
+    setAdditionalServiceCategory(null);
+    setAdditionalServiceSubCategory(null);
+    setHasAnsweredAddMoreServices(false); // Сброс для возможности добавления еще сервисов
+    // После выбора дополнительного сервиса снова показываем вопрос
+    setFormStep(FORM_STEPS.ADD_MORE_SERVICES);
   };
 
   const onSelectTimeSlotClick = (slot) => {
@@ -115,8 +184,10 @@ export default function BookingFormContainer({
       ...formData,
       date: selectedDay.day,
       time: selectedTimeSlot.startTime,
-      serviceId: selectedService.id,
-      serviceDuration: selectedService.duration,
+      services: selectedServices.map(service => ({
+        serviceId: service.id,
+        serviceDuration: service.durationTime,
+      })),
       employeeId: selectedEmployeeFromTimeSlotAvailability,
     };
 
@@ -157,6 +228,12 @@ export default function BookingFormContainer({
     return `Service wählen`;
   };
 
+  // Фильтруем уже выбранные сервисы
+  const getAvailableServices = (services) => {
+    const selectedServiceIds = selectedServices.map(s => s.id);
+    return services.filter(service => !selectedServiceIds.includes(service.id));
+  };
+
 
 
   return (<>
@@ -167,83 +244,178 @@ export default function BookingFormContainer({
     }}>
       {!hasConfirmationMessage && (
         <>
-          {/* Category Selection */}
+          {/* Service 1 Panel */}
           <Accordion
-            expanded={expandedPanel === 'category'}
-            onChange={handlePanelChange('category')}
+            expanded={expandedMainPanel === 'service1'}
+            onChange={handleMainPanelChange('service1')}
             sx={{ mb: 2 }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6">{getCategoryTitle()}</Typography>
+              <Typography variant="h6">
+                {selectedService ? `Service 1: ${selectedService.name}` : 'Service 1 wählen'}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <CategoryForm
-                categories={categories}
-                onCategorySelect={onSubmitCategoryFormClick}
-              />
+              {/* Category Selection within Service 1 */}
+              <Accordion
+                expanded={expandedServicePanels.service1 === 'category'}
+                onChange={handleServicePanelChange('service1', 'category')}
+                sx={{ mb: 1 }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography variant="subtitle1">{getCategoryTitle()}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <CategoryForm
+                    categories={categories}
+                    onCategorySelect={onSubmitCategoryFormClick}
+                  />
+                </AccordionDetails>
+              </Accordion>
+
+              {/* SubCategory Selection within Service 1 */}
+              {selectedCategory && (
+                <Accordion
+                  expanded={expandedServicePanels.service1 === 'subCategory'}
+                  onChange={handleServicePanelChange('service1', 'subCategory')}
+                  sx={{ mb: 1 }}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography variant="subtitle1">{getSubCategoryTitle()}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <SubCategoryForm
+                      subCategories={selectedCategory.subCategories}
+                      onSubCategorySelect={onSubmitSubCategoryFormClick}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              )}
+
+              {/* Service Selection within Service 1 */}
+              {selectedSubCategory && (
+                <Accordion
+                  expanded={expandedServicePanels.service1 === 'service'}
+                  onChange={handleServicePanelChange('service1', 'service')}
+                  sx={{ mb: 1 }}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography variant="subtitle1">{getServiceTitle()}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ServicesList
+                      services={getAvailableServices(selectedSubCategory.services)}
+                      theme={theme}
+                      selectService={onSubmitServiceFormClick}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              )}
             </AccordionDetails>
           </Accordion>
 
-          {/* SubCategory Selection */}
-          {selectedCategory && (
+
+
+          {/* Add More Services Question */}
+          {formStep === FORM_STEPS.ADD_MORE_SERVICES && !hasAnsweredAddMoreServices && (
+            <Box sx={{ mb: 2 }}>
+              <AddMoreServicesQuestion
+                onYes={onAddMoreServicesYes}
+                onNo={onAddMoreServicesNo}
+              />
+            </Box>
+          )}
+
+          {/* Service 2 Panel */}
+          {expandedMainPanel === 'service2' && (
             <Accordion
-              expanded={expandedPanel === 'subCategory'}
-              onChange={handlePanelChange('subCategory')}
+              expanded={expandedMainPanel === 'service2'}
+              onChange={handleMainPanelChange('service2')}
               sx={{ mb: 2 }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6">{getSubCategoryTitle()}</Typography>
+                <Typography variant="h6">
+                  {selectedServices.length > 1 ? `Service 2: ${selectedServices[1].name}` : 'Service 2 wählen'}
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <SubCategoryForm
-                  subCategories={selectedCategory.subCategories}
-                  onSubCategorySelect={onSubmitSubCategoryFormClick}
-                />
+                {/* Category Selection within Service 2 */}
+                <Accordion
+                  expanded={expandedServicePanels.service2 === 'category'}
+                  onChange={handleServicePanelChange('service2', 'category')}
+                  sx={{ mb: 1 }}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography variant="subtitle1">Kategorie wählen</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <CategoryForm
+                      categories={categories}
+                      onCategorySelect={onSubmitAdditionalCategoryFormClick}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+
+                {/* SubCategory Selection within Service 2 */}
+                {additionalServiceCategory && (
+                  <Accordion
+                    expanded={expandedServicePanels.service2 === 'subCategory'}
+                    onChange={handleServicePanelChange('service2', 'subCategory')}
+                    sx={{ mb: 1 }}
+                  >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography variant="subtitle1">Unterkategorie wählen</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <SubCategoryForm
+                        subCategories={additionalServiceCategory.subCategories}
+                        onSubCategorySelect={onSubmitAdditionalSubCategoryFormClick}
+                      />
+                    </AccordionDetails>
+                  </Accordion>
+                )}
+
+                {/* Service Selection within Service 2 */}
+                {additionalServiceSubCategory && (
+                  <Accordion
+                    expanded={expandedServicePanels.service2 === 'service'}
+                    onChange={handleServicePanelChange('service2', 'service')}
+                    sx={{ mb: 1 }}
+                  >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography variant="subtitle1">Service wählen</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <ServicesList
+                        services={getAvailableServices(additionalServiceSubCategory.services)}
+                        theme={theme}
+                        selectService={onSubmitAdditionalServiceFormClick}
+                      />
+                    </AccordionDetails>
+                  </Accordion>
+                )}
               </AccordionDetails>
             </Accordion>
           )}
-
-          {/* Service Selection */}
-          {selectedSubCategory && (
-            <Accordion
-              expanded={expandedPanel === 'service'}
-              onChange={handlePanelChange('service')}
-              sx={{ mb: 2 }}
-            >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6">{getServiceTitle()}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <ServicesList
-                  services={selectedSubCategory.services}
-                  theme={theme}
-                  selectService={onSubmitServiceFormClick}
-                />
-              </AccordionDetails>
-            </Accordion>
-          )}
-
-
 
           {/* Calendar Selection */}
-          {selectedService && (
+          {selectedServices.length > 0 && expandedMainPanel === 'calendar' && (
             <Accordion
-              expanded={expandedPanel === 'calendar'}
-              onChange={handlePanelChange('calendar')}
+              expanded={expandedMainPanel === 'calendar'}
+              onChange={handleMainPanelChange('calendar')}
               sx={{ mb: 2 }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography variant="h6">
                   {selectedDay && selectedTimeSlot
                     ? `${selectedDay.day} ${selectedTimeSlot.startTime} - Ausgewählt`
-                    : `Datum und Zeit wählen`
+                    : `Datum und Zeit wählen (${selectedServices.length} Service${selectedServices.length > 1 ? 's' : ''})`
                   }
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <CalendarForm
-                  service={selectedService}
-                  availableEmployees={selectedService.employees}
+                  services={selectedServices}
                   onEmployeesChange={onChangeSelectedEmployeeClick}
                   setSelectedDay={setSelectedDay}
                   selectedDay={selectedDay}

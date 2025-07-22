@@ -32,14 +32,15 @@ const initialValue = dayjs(new Date()).add(1, `day`);
 
 const weekDays = [`Mo`, `Di`, `Mi`, `Do`, `Fr`, `Sa`, `So`];
 
-async function fetchTimeSlots(date, serviceId, employees) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format(`YYYY-MM-DD`)}&serviceId=${serviceId}&employeeIds=${employees.join(`,`)}`;
+async function fetchTimeSlots(date, servicesWithEmployees) {
+  const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format(`YYYY-MM-DD`)}`;
 
   const response = await fetch(apiUrl, {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(servicesWithEmployees),
   });
 
   const data = await response.json();
@@ -65,13 +66,13 @@ const formatMonthYear = (start) => {
 };
 
 export default function CalendarForm({
-  services = [],
+  services,
   onEmployeesChange,
   selectedDay,
   setSelectedDay,
   selectedTimeSlot,
   setSelectedTimeSlot,
-  onNextStepClick,
+  onNextStepClick
 }) {
   const [calendarDays, setCalendarDays] = useState([]);
   const [isCalendarDaysLoading, setIsCalendarDaysLoading] = useState(false);
@@ -85,45 +86,47 @@ export default function CalendarForm({
   // Инициализируем выбор мастеров для всех сервисов
   useEffect(() => {
     if (services.length > 0) {
-      const initialServiceEmployees = {};
-      services.forEach(service => {
-        if (!serviceEmployees[service.id]) {
-          // По умолчанию выбираем всех мастеров для каждого сервиса
-          initialServiceEmployees[service.id] = service.employees.map(emp => emp.id);
-        }
-      });
+      setServiceEmployees(prevServiceEmployees => {
+        const newServiceEmployees = { ...prevServiceEmployees };
+        let hasChanges = false;
 
-      if (Object.keys(initialServiceEmployees).length > 0) {
-        setServiceEmployees(prev => ({ ...prev, ...initialServiceEmployees }));
-      }
+        services.forEach(service => {
+          if (!newServiceEmployees[service.id] || newServiceEmployees[service.id].length === 0) {
+            // По умолчанию выбираем всех мастеров именно для этого сервиса
+            newServiceEmployees[service.id] = service.employees.map(emp => emp.id);
+            hasChanges = true;
+          }
+        });
+
+        return hasChanges ? newServiceEmployees : prevServiceEmployees;
+      });
     }
   }, [services]);
 
-  // Получаем всех выбранных мастеров для всех сервисов
-  const getAllSelectedEmployees = () => {
-    const allEmployees = [];
-    Object.values(serviceEmployees).forEach(employees => {
-      employees.forEach(empId => {
-        if (!allEmployees.includes(empId)) {
-          allEmployees.push(empId);
-        }
-      });
-    });
-    return allEmployees;
+  // Создаем payload для API запроса
+  const createServicesPayload = () => {
+    const payload = services.map(service => ({
+      serviceId: service.id,
+      employeeIds: serviceEmployees[service.id] || service.employees.map(emp => emp.id)
+    }));
+
+    console.log('createServicesPayload - serviceEmployees:', serviceEmployees);
+    console.log('createServicesPayload - payload:', payload);
+
+    return payload;
   };
 
-  const fetchCalendarDays = async (date, employeesToUse = null) => {
+  const fetchCalendarDays = async (date, servicesPayloadOverride = null) => {
     setError(null);
     setIsCalendarDaysLoading(true);
 
-    const employeeList = employeesToUse || getAllSelectedEmployees();
-
     try {
-      // Используем первый сервис для получения слотов времени
-      const serviceId = services.length > 0 ? services[0].id : null;
-      if (!serviceId) return [];
+      if (services.length === 0) return [];
 
-      const { daysToHighlight } = await fetchTimeSlots(date, serviceId, employeeList);
+      const payload = servicesPayloadOverride || createServicesPayload();
+      if (payload.length === 0) return [];
+
+      const { daysToHighlight } = await fetchTimeSlots(date, payload);
       return daysToHighlight;
     } catch (error) {
       console.error(error);
@@ -135,32 +138,17 @@ export default function CalendarForm({
 
   useEffect(() => {
     async function fetchData() {
-      const employeesToUse = getAllSelectedEmployees();
-      if (employeesToUse.length === 0 && services.length > 0) {
-        // Если еще нет выбранных мастеров, используем всех доступных
-        const allAvailable = [];
-        services.forEach(service => {
-          service.employees.forEach(emp => {
-            if (!allAvailable.includes(emp.id)) {
-              allAvailable.push(emp.id);
-            }
-          });
-        });
-        const daysToHighlight = await fetchCalendarDays(currentWeekStart, allAvailable);
-        setCalendarDays(daysToHighlight || []);
-      } else if (employeesToUse.length > 0) {
-        const daysToHighlight = await fetchCalendarDays(currentWeekStart, employeesToUse);
-        setCalendarDays(daysToHighlight || []);
-      }
+      if (services.length === 0) return;
 
-      if (!selectedDay?.day && calendarDays.length > 0) {
-        setSelectedDay(calendarDays[0]);
+      const daysToHighlight = await fetchCalendarDays(currentWeekStart);
+      setCalendarDays(daysToHighlight || []);
+
+      if (!selectedDay?.day && daysToHighlight && daysToHighlight.length > 0) {
+        setSelectedDay(daysToHighlight[0]);
       }
     }
 
-    if (services.length > 0) {
-      fetchData();
-    }
+    fetchData();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [services]);
@@ -168,18 +156,16 @@ export default function CalendarForm({
   // Update calendar when employees selection changes
   useEffect(() => {
     async function updateCalendar() {
-      const employeesToUse = getAllSelectedEmployees();
+      if (services.length === 0) return;
 
-      if (employeesToUse.length > 0) {
-        const daysToHighlight = await fetchCalendarDays(currentWeekStart, employeesToUse);
-        setCalendarDays(daysToHighlight || []);
+      const daysToHighlight = await fetchCalendarDays(currentWeekStart);
+      setCalendarDays(daysToHighlight || []);
 
-        // Reset selected day if current selection is no longer available
-        if (selectedDay && daysToHighlight) {
-          const stillAvailable = daysToHighlight.find(d => d.day === selectedDay.day);
-          if (!stillAvailable) {
-            setSelectedDay(daysToHighlight.length > 0 ? daysToHighlight[0] : null);
-          }
+      // Reset selected day if current selection is no longer available
+      if (selectedDay && daysToHighlight) {
+        const stillAvailable = daysToHighlight.find(d => d.day === selectedDay.day);
+        if (!stillAvailable) {
+          setSelectedDay(daysToHighlight.length > 0 ? daysToHighlight[0] : null);
         }
       }
     }
@@ -192,8 +178,7 @@ export default function CalendarForm({
     setCalendarDays([]);
     setSelectedDay(null);
 
-    const employeesToUse = getAllSelectedEmployees();
-    const daysToHighlight = await fetchCalendarDays(newStart, employeesToUse);
+    const daysToHighlight = await fetchCalendarDays(newStart);
 
     setCalendarDays(daysToHighlight || []);
 
@@ -247,36 +232,24 @@ export default function CalendarForm({
     setServiceEmployees(newServiceEmployees);
 
     // Уведомляем родительский компонент о всех выбранных сотрудниках
-    const allSelectedEmployees = [];
-    Object.values(newServiceEmployees).forEach(employees => {
-      employees.forEach(empId => {
-        if (!allSelectedEmployees.includes(empId)) {
-          allSelectedEmployees.push(empId);
-        }
+    if (onEmployeesChange) {
+      const allSelectedEmployees = [];
+      Object.values(newServiceEmployees).forEach(employees => {
+        employees.forEach(empId => {
+          if (!allSelectedEmployees.includes(empId)) {
+            allSelectedEmployees.push(empId);
+          }
+        });
       });
-    });
-    onEmployeesChange(allSelectedEmployees);
+      onEmployeesChange(allSelectedEmployees);
+    }
   };
 
   return (
     <Box>
-      <Typography variant="formSubtitle">
-        Wählen Sie Datum und Uhrzeit
+      <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+        Datum und Zeit auswählen
       </Typography>
-
-      {/* Selected Services Display */}
-      {services.length > 0 && (
-        <Box sx={{ mb: 3, p: 2, bgcolor: 'background.paper', borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
-          <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-            Ausgewählte Services:
-          </Typography>
-          {services.map((service, index) => (
-            <Typography key={service.id} variant="body2" sx={{ ml: 1 }}>
-              {index + 1}. {service.name}
-            </Typography>
-          ))}
-        </Box>
-      )}
 
       {/* Employee Selection for each service */}
       {services.map((service) => (
@@ -454,18 +427,20 @@ export default function CalendarForm({
           ))}
         </Box>
 
-        <Button
-          variant="contained"
-          color="info"
-          size="medium"
-          onClick={onNextStepClick}
-          sx={{
-            margin: `auto`,
-            mt: 2,
-          }}
-        >
-          Weiter
-        </Button>
+        {onNextStepClick && (
+          <Button
+            variant="contained"
+            color="info"
+            size="medium"
+            onClick={onNextStepClick}
+            sx={{
+              margin: `auto`,
+              mt: 2,
+            }}
+          >
+            Weiter
+          </Button>
+        )}
       </Box>}
 
       {selectedDay && selectedDay.availableTimeslots.length === 0 && <>
