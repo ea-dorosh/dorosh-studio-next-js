@@ -35,13 +35,17 @@ export default function BookingFormContainer2({ categories }) {
     //   return;
     // }
 
-    setSelectedServices(prev => [...prev, service]);
+    setSelectedServices(prev => {
+      const newServices = prev.find(s => s.id === service.id) ? [...prev] : [...prev, service];
+      return newServices;
+    });
     setShowAddServiceQuestion(true);
     setSelectedServicesForChange(null);
   };
 
   const onAddServiceYes = () => {
     setShowAddServiceQuestion(false);
+    setSelectedServices(prev => [...prev, {}]);
     // Новая форма будет отрендерена автоматически
   };
 
@@ -127,11 +131,14 @@ export default function BookingFormContainer2({ categories }) {
 
       {/* New Service Selection Form */}
       {/* {!showCalendar && !showAddServiceQuestion && ( */}
-      <ServiceSelectionForm
-        categories={categories}
-        onServiceSelect={onServiceSelected}
-        getAvailableServices={getAvailableServices}
-      />
+      {selectedServices.map(service => (<React.Fragment key={service.id}>
+        <ServiceSelectionForm
+          categories={categories}
+          onServiceSelect={onServiceSelected}
+          getAvailableServices={getAvailableServices}
+        />
+      </React.Fragment>))}
+
       {/* )} */}
 
       {/* Add Service Question */}
