@@ -27,13 +27,13 @@ export default function BookingFormContainer2({ categories }) {
 
   /** Methods */
   const onServiceSelected = (service) => {
-    if (selectedServicesForChange) {
-      const selectedServiceIndex = selectedServices?.findIndex(selectedService => selectedService.id === selectedServicesForChange)
+    // if (selectedServicesForChange) {
+    //   const selectedServiceIndex = selectedServices?.findIndex(selectedService => selectedService.id === selectedServicesForChange)
 
-      setSelectedServices(selectedServices => selectedServices.map(s => s.id === selectedServicesForChange ? service : s));
-      setSelectedServicesForChange(null);
-      return;
-    }
+    //   setSelectedServices(selectedServices => selectedServices.map(s => s.id === selectedServicesForChange ? service : s));
+    //   setSelectedServicesForChange(null);
+    //   return;
+    // }
 
     setSelectedServices(prev => [...prev, service]);
     setShowAddServiceQuestion(true);
@@ -68,6 +68,7 @@ export default function BookingFormContainer2({ categories }) {
 
   // Фильтруем уже выбранные сервисы
   const getAvailableServices = (services) => {
+    return services;
     const selectedServiceIds = selectedServices.map(s => s.id);
     return services.filter(service => !selectedServiceIds.includes(service.id));
   };
@@ -92,7 +93,7 @@ export default function BookingFormContainer2({ categories }) {
       </Typography>
 
       {/* Service Overview Components */}
-      {selectedServices.length > 0 && <>
+      {/* {selectedServices.length > 0 && <>
         <Typography sx={{
           mb: 1,
           textAlign: `left`,
@@ -122,16 +123,16 @@ export default function BookingFormContainer2({ categories }) {
           )}
         </React.Fragment>
         ))}
-      </>}
+      </>} */}
 
       {/* New Service Selection Form */}
-      {!showCalendar && !showAddServiceQuestion && (
-        <ServiceSelectionForm
-          categories={categories}
-          onServiceSelect={onServiceSelected}
-          getAvailableServices={getAvailableServices}
-        />
-      )}
+      {/* {!showCalendar && !showAddServiceQuestion && ( */}
+      <ServiceSelectionForm
+        categories={categories}
+        onServiceSelect={onServiceSelected}
+        getAvailableServices={getAvailableServices}
+      />
+      {/* )} */}
 
       {/* Add Service Question */}
       {showAddServiceQuestion && (

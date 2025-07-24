@@ -6,11 +6,14 @@ import {
   AccordionDetails,
   Card,
   CardContent,
+  Box,
+  Chip,
 } from "@mui/material";
 import { useState } from "react";
 import CategoryForm from "../Categories/CategoryForm";
 import ServicesList from "../Services/ServicesList";
 import SubCategoryForm from "../SubCategories/SubCategoryForm";
+import { formatTimeToString } from "@/utils/formatters";
 
 export default function ServiceSelectionForm({
   categories,
@@ -27,7 +30,7 @@ export default function ServiceSelectionForm({
   const [selectedSubCategory, setSelectedSubCategory] = useState(
     selectedSubCategoryId ? selectedCategory?.subCategories.find(subCategory => subCategory.subCategoryId === selectedSubCategoryId) : null
   );
-
+  const [selectedService, setSelectedService] = useState(null);
   const [expandedPanel, setExpandedPanel] = useState(selectedServiceId ? 'service' : null);
 
   const handlePanelChange = (panel) => (event, isExpanded) => {
@@ -46,6 +49,8 @@ export default function ServiceSelectionForm({
   };
 
   const onServiceSelectInternal = (service) => {
+    setExpandedPanel(null);
+    setSelectedService(service);
     onServiceSelect(service);
   };
 
@@ -69,50 +74,46 @@ export default function ServiceSelectionForm({
           p: 0,
         },
       }}>
-        {/* Category Selection - Becomes collapsible after selection */}
-        {/* {!selectedCategory ? (
-          <Box sx={{ mb: 2 }}>
-            <Typography
-              variant="h3"
-              sx={{
-                mb: 2,
-                fontSize: `1.8rem`,
-                fontWeight: `400`,
-              }}
-            >
-              Kategorie wählen
-            </Typography>
-
-            <CategoryForm
-              categories={categories}
-              onCategorySelect={onCategorySelect}
-              selectedCategory={selectedCategory}
-            />
-          </Box>
-        ) : ( */}
         <Accordion
           expanded={!selectedCategory ? true : expandedPanel === 'category'}
           onChange={handlePanelChange('category')}
           sx={{
-            mb: 2,
-            boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
-            borderRadius: `12px`,
+            boxShadow: `none`,
+            // boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+            borderRadius: `0`,
+            backgroundColor: `background.default`,
+            borderBottom: `1px solid`,
 
             '&:before': {
               display: 'none',
             },
 
             '&:first-of-type': {
-              borderRadius: `12px`,
+              borderRadius: `0`,
             },
 
             '&:last-of-type': {
-              borderRadius: `12px`,
+              borderRadius: `0`,
             },
           }}
         >
-          <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}>
-            <Typography variant="h6">
+          <AccordionSummary
+            expandIcon={selectedCategory && <ExpandMoreIcon />}
+            sx={{
+              '& .MuiAccordionSummary-content': {
+                margin: `14px 0`,
+              },
+
+              '&.Mui-expanded': {
+                minHeight: `48px`,
+              },
+
+              '& .Mui-expanded': {
+                margin: `14px 0`,
+              },
+            }}
+          >
+            <Typography sx={{ fontWeight: `bold` }}>
               {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
             </Typography>
           </AccordionSummary>
@@ -133,25 +134,41 @@ export default function ServiceSelectionForm({
             expanded={!selectedSubCategory ? true : expandedPanel === 'subCategory'}
             onChange={handlePanelChange('subCategory')}
             sx={{
-              mb: 2,
-              boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
-              borderRadius: `12px`,
+              boxShadow: `none`,
+              // boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+              borderRadius: `0`,
+              backgroundColor: `background.default`,
+              borderBottom: `1px solid`,
 
               '&:before': {
                 display: 'none',
               },
 
               '&:first-of-type': {
-                borderRadius: `12px`,
+                borderRadius: `0`,
               },
 
               '&:last-of-type': {
-                borderRadius: `12px`,
+                borderRadius: `0`,
               },
             }}
           >
-            <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}>
-              <Typography variant="h6">
+            <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}
+              sx={{
+                '& .MuiAccordionSummary-content': {
+                  margin: `14px 0`,
+                },
+
+                '&.Mui-expanded': {
+                  minHeight: `48px`,
+                },
+
+                '& .Mui-expanded': {
+                  margin: `14px 0`,
+                },
+              }}
+            >
+              <Typography sx={{ fontWeight: `bold` }}>
                 {selectedSubCategory
                   ? selectedSubCategory.subCategoryName
                   : `Unterkategorie wählen`
@@ -175,25 +192,65 @@ export default function ServiceSelectionForm({
             expanded={expandedPanel === 'service'}
             onChange={handlePanelChange('service')}
             sx={{
-              mb: 2,
-              boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
-              borderRadius: `12px`,
+              boxShadow: `none`,
+              // boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+              borderRadius: `0`,
+              backgroundColor: `background.default`,
+              // borderBottom: `1px solid`,
 
               '&:before': {
                 display: 'none',
               },
 
               '&:first-of-type': {
-                borderRadius: `12px`,
+                borderRadius: `0`,
               },
 
               '&:last-of-type': {
-                borderRadius: `12px`,
+                borderRadius: `0`,
               },
             }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6">Service wählen</Typography>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              sx={{
+                '& .MuiAccordionSummary-content': {
+                  margin: `14px 0`,
+                },
+
+                '&.Mui-expanded': {
+                  minHeight: `48px`,
+                },
+
+                '& .Mui-expanded': {
+                  margin: `14px 0`,
+                },
+              }}
+            >
+              {!selectedService || expandedPanel === 'service' ?
+                <Typography sx={{ fontWeight: `bold` }}>Service wählen</Typography>
+                :
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Typography sx={{ fontWeight: `bold` }}>{selectedService.name}</Typography>
+
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    <Chip
+                      label={<>Dauer: <b>{formatTimeToString(selectedService.durationTime)}</b></>}
+                      size="small"
+                      variant="outlined"
+                    />
+
+                    {selectedService.employees && selectedService.employees.length > 0 && (
+                      <Chip
+                        label={<>Preis: <b>{selectedService.employees[0].price || 0}€</b></>}
+                        size="small"
+                        color="primary"
+                        variant="outlined"
+                      />
+                    )}
+                  </Box>
+                </Box>
+              }
             </AccordionSummary>
 
             <AccordionDetails>
