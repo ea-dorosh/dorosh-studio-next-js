@@ -4,29 +4,20 @@ import {
   CardContent,
   Typography,
   Grid,
+  Button,
 } from "@mui/material";
 
 export default function CategoryForm({ categories, onCategorySelect, selectedCategory }) {
+
   return (
     <Grid container spacing={2}>
       {categories.map((category) => (
         <Grid item xs={12} sm={6} md={4} key={category.categoryId}>
           <Card
             sx={{
-              cursor: 'pointer',
-              border: selectedCategory?.categoryId === category.categoryId
-                ? '3px solid'
-                : '1px solid',
-              borderColor: selectedCategory?.categoryId === category.categoryId
-                ? 'primary.main'
-                : 'grey.300',
-              transition: 'all 0.2s ease-in-out',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: 3,
-              }
+              boxShadow: `none`,
+              borderRadius: `12px`,
             }}
-            onClick={() => onCategorySelect(category)}
           >
             {category.categoryImage && (
               <CardMedia
@@ -34,25 +25,48 @@ export default function CategoryForm({ categories, onCategorySelect, selectedCat
                 height="140"
                 image={category.categoryImage}
                 alt={category.categoryName}
-                sx={{ objectFit: 'cover' }}
+                sx={{ objectFit: `cover`, borderRadius: `12px` }}
               />
             )}
-            <CardContent>
+            <CardContent sx={{
+              p: `8px`,
+
+              '&:last-child': {
+                p: `8px`,
+              },
+            }}>
               <Typography
                 variant="h6"
                 component="h3"
-                textAlign="center"
+                textAlign="left"
                 sx={{
-                  fontWeight: selectedCategory?.categoryId === category.categoryId
-                    ? 'bold'
-                    : 'normal',
                   color: selectedCategory?.categoryId === category.categoryId
-                    ? 'primary.main'
-                    : 'text.primary'
+                    ? `primary.main`
+                    : `text.primary`
                 }}
               >
                 {category.categoryName}
               </Typography>
+
+              <Button
+                sx={{
+                  marginTop: `8px`,
+                  width: `160px`,
+
+                }}
+                color={selectedCategory?.categoryId === category.categoryId
+                  ? `primary`
+                  : `info`}
+                size="small"
+                variant={selectedCategory?.categoryId === category.categoryId
+                  ? `outlined`
+                  : `contained`}
+                onClick={() => onCategorySelect(category)}
+              >
+                {selectedCategory?.categoryId === category.categoryId
+                  ? `ausgewählt`
+                  : `auswählen`}
+              </Button>
             </CardContent>
           </Card>
         </Grid>

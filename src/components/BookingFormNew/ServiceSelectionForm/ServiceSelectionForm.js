@@ -1,6 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-  Box,
   Typography,
   Accordion,
   AccordionSummary,
@@ -17,11 +16,19 @@ export default function ServiceSelectionForm({
   categories,
   onServiceSelect,
   getAvailableServices,
-  serviceNumber
+  selectedServiceId,
+  selectedCategoryId,
+  selectedSubCategoryId,
 }) {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-  const [expandedPanel, setExpandedPanel] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(
+    selectedCategoryId ? categories.find(category => category.categoryId === selectedCategoryId) : null
+  );
+
+  const [selectedSubCategory, setSelectedSubCategory] = useState(
+    selectedSubCategoryId ? selectedCategory?.subCategories.find(subCategory => subCategory.subCategoryId === selectedSubCategoryId) : null
+  );
+
+  const [expandedPanel, setExpandedPanel] = useState(selectedServiceId ? 'service' : null);
 
   const handlePanelChange = (panel) => (event, isExpanded) => {
     setExpandedPanel(isExpanded ? panel : null);
@@ -43,60 +50,115 @@ export default function ServiceSelectionForm({
   };
 
   return (
-    <Card sx={{ mb: 3, border: '1px solid', borderColor: 'grey.300' }}>
-      <CardContent>
-        <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
-          Service {serviceNumber} auswählen
-        </Typography>
+    <Card
+      sx={{
+        mb: 3,
+        boxShadow: `none`,
+        overflow: `unset`,
+        border: `1px solid`,
+        borderColor: `grey.300`,
+        borderRadius: `12px`,
+        p: 2,
+        backgroundColor: `background.default`,
+      }}
+    >
+      <CardContent sx={{
+        p: 0,
 
+        '&:last-child': {
+          p: 0,
+        },
+      }}>
         {/* Category Selection - Becomes collapsible after selection */}
-        {!selectedCategory ? (
+        {/* {!selectedCategory ? (
           <Box sx={{ mb: 2 }}>
-            <Typography variant="h6" sx={{ mb: 2 }}>
+            <Typography
+              variant="h3"
+              sx={{
+                mb: 2,
+                fontSize: `1.8rem`,
+                fontWeight: `400`,
+              }}
+            >
               Kategorie wählen
             </Typography>
+
             <CategoryForm
               categories={categories}
               onCategorySelect={onCategorySelect}
               selectedCategory={selectedCategory}
             />
           </Box>
-        ) : (
-          <Accordion
-            expanded={expandedPanel === 'category'}
-            onChange={handlePanelChange('category')}
-            sx={{ mb: 2 }}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6">
-                Kategorie: {selectedCategory.categoryName}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <CategoryForm
-                categories={categories}
-                onCategorySelect={onCategorySelect}
-                selectedCategory={selectedCategory}
-              />
-            </AccordionDetails>
-          </Accordion>
-        )}
+        ) : ( */}
+        <Accordion
+          expanded={!selectedCategory ? true : expandedPanel === 'category'}
+          onChange={handlePanelChange('category')}
+          sx={{
+            mb: 2,
+            boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+            borderRadius: `12px`,
+
+            '&:before': {
+              display: 'none',
+            },
+
+            '&:first-of-type': {
+              borderRadius: `12px`,
+            },
+
+            '&:last-of-type': {
+              borderRadius: `12px`,
+            },
+          }}
+        >
+          <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}>
+            <Typography variant="h6">
+              {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
+            </Typography>
+          </AccordionSummary>
+
+          <AccordionDetails>
+            <CategoryForm
+              categories={categories}
+              onCategorySelect={onCategorySelect}
+              selectedCategory={selectedCategory}
+            />
+          </AccordionDetails>
+        </Accordion>
+        {/* )} */}
 
         {/* SubCategory Selection - Collapsible */}
         {selectedCategory && (
           <Accordion
-            expanded={expandedPanel === 'subCategory'}
+            expanded={!selectedSubCategory ? true : expandedPanel === 'subCategory'}
             onChange={handlePanelChange('subCategory')}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+              borderRadius: `12px`,
+
+              '&:before': {
+                display: 'none',
+              },
+
+              '&:first-of-type': {
+                borderRadius: `12px`,
+              },
+
+              '&:last-of-type': {
+                borderRadius: `12px`,
+              },
+            }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}>
               <Typography variant="h6">
                 {selectedSubCategory
-                  ? `Unterkategorie: ${selectedSubCategory.subCategoryName}`
-                  : 'Unterkategorie wählen'
+                  ? selectedSubCategory.subCategoryName
+                  : `Unterkategorie wählen`
                 }
               </Typography>
             </AccordionSummary>
+
             <AccordionDetails>
               <SubCategoryForm
                 subCategories={selectedCategory.subCategories}
@@ -112,15 +174,33 @@ export default function ServiceSelectionForm({
           <Accordion
             expanded={expandedPanel === 'service'}
             onChange={handlePanelChange('service')}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+              borderRadius: `12px`,
+
+              '&:before': {
+                display: 'none',
+              },
+
+              '&:first-of-type': {
+                borderRadius: `12px`,
+              },
+
+              '&:last-of-type': {
+                borderRadius: `12px`,
+              },
+            }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography variant="h6">Service wählen</Typography>
             </AccordionSummary>
+
             <AccordionDetails>
               <ServicesList
                 services={getAvailableServices(selectedSubCategory.services)}
                 onServiceSelect={onServiceSelectInternal}
+                selectedServiceId={selectedServiceId}
               />
             </AccordionDetails>
           </Accordion>

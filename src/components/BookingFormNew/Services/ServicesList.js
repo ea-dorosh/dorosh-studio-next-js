@@ -7,8 +7,9 @@ import {
   Chip,
   Grid,
 } from "@mui/material";
+import { formatTimeToString } from "@/utils/formatters";
 
-export default function ServicesList({ services, onServiceSelect }) {
+export default function ServicesList({ services, onServiceSelect, selectedServiceId }) {
   if (services.length === 0) {
     return (
       <Box sx={{ textAlign: 'center', py: 3 }}>
@@ -19,76 +20,76 @@ export default function ServicesList({ services, onServiceSelect }) {
     );
   }
 
+  console.log(`selectedServiceId: `, selectedServiceId, `services: `, services);
+
   return (
     <Grid container spacing={2}>
       {services.map((service) => (
         <Grid item xs={12} key={service.id}>
           <Card
             sx={{
-              cursor: 'pointer',
-              border: '1px solid',
-              borderColor: 'grey.300',
-              transition: 'all 0.2s ease-in-out',
-              '&:hover': {
-                borderColor: 'primary.main',
-                boxShadow: 2,
-              }
+              boxShadow: `none`,
+              borderBottom: `1px solid`,
+              pb: `16px`,
+              borderColor: `grey.300`,
             }}
           >
-            <CardContent>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <Box sx={{ flex: 1, mr: 2 }}>
-                  <Typography variant="h6" sx={{ mb: 1 }}>
-                    {service.name}
-                  </Typography>
+            <CardContent sx={{
+              p: `0`,
 
-                  {service.bookingNote && (
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      {service.bookingNote}
-                    </Typography>
-                  )}
+              '&:last-child': {
+                p: `0`,
+              },
+            }}>
+              <Box>
 
-                  <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  {service.name}
+                </Typography>
+
+                <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+                  <Chip
+                    label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
+                    size="small"
+                    variant="outlined"
+                  />
+
+                  {service.employees && (
                     <Chip
-                      label={`Dauer: ${service.durationTime}`}
+                      label={<>Mitarbeiter: <b>{service.employees.length}</b></>}
                       size="small"
                       variant="outlined"
                     />
-
-                    {service.employees && service.employees.length > 0 && (
-                      <Chip
-                        label={`Preis: ${service.employees[0].price || 0}€`}
-                        size="small"
-                        color="primary"
-                        variant="outlined"
-                      />
-                    )}
-
-                    {service.employees && (
-                      <Chip
-                        label={`Mitarbeiter: ${service.employees.length}`}
-                        size="small"
-                        variant="outlined"
-                      />
-                    )}
-                  </Box>
+                  )}
 
                   {service.employees && service.employees.length > 0 && (
-                    <Typography variant="body2" color="text.secondary">
-                      Verfügbare Mitarbeiter: {service.employees.map(emp =>
-                        `${emp.firstName} ${emp.lastName}`
-                      ).join(', ')}
-                    </Typography>
+                    <Chip
+                      label={<>Preis: <b>{service.employees[0].price || 0}€</b></>}
+                      size="small"
+                      color="primary"
+                      variant="outlined"
+                    />
                   )}
                 </Box>
 
-                <Button
-                  variant="contained"
-                  onClick={() => onServiceSelect(service)}
-                  sx={{ minWidth: 120 }}
-                >
-                  Auswählen
-                </Button>
+                {service.bookingNote && (
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {service.bookingNote}
+                  </Typography>
+                )}
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2 }}>
+
+
+                  <Button
+                    variant={selectedServiceId === service.id ? `outlined` : `contained`}
+                    size="small"
+                    onClick={() => onServiceSelect(service)}
+                    sx={{ minWidth: 120 }}
+                  >
+                    Auswählen
+                  </Button>
+                </Box>
               </Box>
             </CardContent>
           </Card>

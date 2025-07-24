@@ -1,74 +1,82 @@
-import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Box,
   Typography,
   Card,
   CardContent,
-  IconButton,
+  Button,
   Chip,
 } from "@mui/material";
+import { formatTimeToString } from "@/utils/formatters";
 
-export default function ServiceOverview({ service, serviceNumber, onRemove }) {
+export default function ServiceOverview({ service, onRemove, onChange, selectedServices }) {
   return (
     <Card sx={{
       mb: 2,
-      border: '1px solid',
-      borderColor: 'grey.300',
+      border: 'none',
+      boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+      borderRadius: '12px',
+      backgroundColor: `background.default`,
     }}>
       <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              Service {serviceNumber} - Ausgewählt
-            </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start' }}>
+          <Button
+            onClick={onChange}
+            sx={{ ml: 1.5, fontWeight: 'bold', p: 0, minWidth: '0' }}
+            size="small"
+            color="success"
+          >
+            ändern
+          </Button>
 
-            <Box sx={{ mb: 1 }}>
+          {selectedServices.length > 1 && <Button
+            onClick={onRemove}
+            sx={{ ml: 1.5, fontWeight: 'bold', p: 0, minWidth: '0' }}
+            size="small"
+            color="error"
+          >
+            entfernen
+          </Button>}
+        </Box>
+
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h6" sx={{ mb: 1, color: 'text.primary',fontSize: '1.1rem' }}>
+            {service.categoryName}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 1, color: 'text.primary', fontSize: '1.1rem' }}>
+            {service.subCategoryName}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 1, color: 'text.primary', fontSize: '1rem', fontWeight: 'bold' }}>
+            {service.name}
+          </Typography>
+
+          <Box sx={{ gap: 1, display: 'flex', flexWrap: 'wrap' }}>
+            <Chip
+              label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
+              size="small"
+              variant="outlined"
+            />
+
+            {service.employees && (
               <Chip
-                label={service.categoryName || "Kategorie"}
+                label={<>Mitarbeiter: <b>{service.employees.length}</b></>}
                 size="small"
                 variant="outlined"
-                sx={{ mr: 1, mb: 1 }}
               />
-              <Chip
-                label={service.subCategoryName || "Unterkategorie"}
-                size="small"
-                variant="outlined"
-                sx={{ mr: 1, mb: 1 }}
-              />
-            </Box>
-
-            <Typography variant="h6" sx={{ mb: 1, color: 'text.primary' }}>
-              {service.name}
-            </Typography>
-
-            {service.bookingNote && (
-              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
-                {service.bookingNote}
-              </Typography>
             )}
 
-            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-              <Typography variant="body2">
-                <strong>Dauer:</strong> {service.durationTime}
-              </Typography>
-
-              {service.employees && service.employees.length > 0 && (
-                <Typography variant="body2">
-                  <strong>Preis:</strong> {service.employees[0].price || 0}€
-                </Typography>
-              )}
-            </Box>
+            {service.employees && service.employees.length > 0 && (
+              <Chip
+                label={<>Preis: <b>{service.employees[0].price || 0}€</b></>}
+                size="small"
+                color="primary"
+                variant="outlined"
+              />
+            )}
           </Box>
-
-          <IconButton
-            onClick={onRemove}
-            color="error"
-            sx={{ ml: 2 }}
-            title="Service entfernen"
-          >
-            <DeleteIcon />
-          </IconButton>
         </Box>
+
       </CardContent>
     </Card>
   );
