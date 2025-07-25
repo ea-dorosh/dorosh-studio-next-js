@@ -91,9 +91,9 @@ export default function CalendarForm({
         let hasChanges = false;
 
         services.forEach(service => {
-          if (!newServiceEmployees[service.id] || newServiceEmployees[service.id].length === 0) {
+          if (!newServiceEmployees[service?.id] || newServiceEmployees[service?.id]?.length === 0) {
             // По умолчанию выбираем всех мастеров именно для этого сервиса
-            newServiceEmployees[service.id] = service.employees.map(emp => emp.id);
+            newServiceEmployees[service?.id] = service?.employees?.map(emp => emp.id);
             hasChanges = true;
           }
         });
@@ -105,9 +105,9 @@ export default function CalendarForm({
 
   // Создаем payload для API запроса
   const createServicesPayload = () => {
-    const payload = services.map(service => ({
+    const payload = services?.map(service => ({
       serviceId: service.id,
-      employeeIds: serviceEmployees[service.id] || service.employees.map(emp => emp.id)
+      employeeIds: serviceEmployees[service?.id] || service?.employees?.map(emp => emp.id)
     }));
 
     console.log('createServicesPayload - serviceEmployees:', serviceEmployees);
@@ -121,7 +121,7 @@ export default function CalendarForm({
     setIsCalendarDaysLoading(true);
 
     try {
-      if (services.length === 0) return [];
+      if (services?.length === 0) return [];
 
       const payload = servicesPayloadOverride || createServicesPayload();
       if (payload.length === 0) return [];
@@ -246,49 +246,54 @@ export default function CalendarForm({
   };
 
   return (
-    <Box>
-      <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+    <Box mt={2}>
+      <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.2rem' }}>
         Datum und Zeit auswählen
       </Typography>
 
       {/* Employee Selection for each service */}
-      {services.map((service) => (
-        <Box key={service.id} sx={{ mb: 3, mt: 2 }}>
-          <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-            Mitarbeiter für: {service.name}
-          </Typography>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel>Mitarbeiter</InputLabel>
-            <Select
-              multiple
-              value={(serviceEmployees[service.id] || []).map(id => id.toString())}
-              onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
-              renderValue={() => getEmployeeLabel(service)}
-              label="Mitarbeiter"
-            >
-              {/* Отдельные сотрудники для этого сервиса */}
-              {service.employees.map((employee) => (
-                <MenuItem key={employee.id} value={employee.id.toString()}>
-                  <Checkbox checked={(serviceEmployees[service.id] || []).includes(employee.id)} />
-                  <ListItemText
-                    primary={
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        <span>{`${employee.firstName} ${employee.lastName}`}</span>
-                        <Chip
-                          label={`${employee.price || 0}€`}
-                          size="small"
-                          variant="outlined"
-                          sx={{ ml: 1 }}
-                        />
-                      </Box>
-                    }
-                  />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-      ))}
+      {services.map((service) => {
+        if (!service) return null;
+
+        return (
+          <Box key={service.id} sx={{ mt: 1 }}>
+            <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
+              {service.name}
+            </Typography>
+
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>Mitarbeiter</InputLabel>
+
+              <Select
+                multiple
+                value={(serviceEmployees[service.id] || []).map(id => id.toString())}
+                onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
+                renderValue={() => getEmployeeLabel(service)}
+                label="Mitarbeiter"
+              >
+                {/* Отдельные сотрудники для этого сервиса */}
+                {service.employees.map((employee) => (
+                  <MenuItem key={employee.id} value={employee.id.toString()}>
+                    <Checkbox checked={(serviceEmployees[service.id] || []).includes(employee.id)} />
+                    <ListItemText
+                      primary={
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                          <span>{`${employee.firstName} ${employee.lastName}`}</span>
+                          <Chip
+                            label={`${employee.price || 0}€`}
+                            size="small"
+                            variant="outlined"
+                            sx={{ ml: 1 }}
+                          />
+                        </Box>
+                      }
+                    />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        )})}
 
       <Box
         sx={{
@@ -328,7 +333,7 @@ export default function CalendarForm({
           </IconButton>
         </Box>
 
-        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
+        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)">
           {weekDays.map((day, index) => (
             <Typography
               key={index}
@@ -351,7 +356,7 @@ export default function CalendarForm({
             {error}
           </Typography>
         </Box> :
-          <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
+          <Box display="grid" gridTemplateColumns="repeat(7, 0fr)">
             {Array.from({ length: 7 }).map((_, index) => {
               const day = currentWeekStart.add(index, `day`);
               const isHighlighted = calendarDays.some(({

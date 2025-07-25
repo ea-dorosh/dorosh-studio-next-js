@@ -1,5 +1,7 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+  Clear as ClearIcon,
+  ExpandMore as ExpandMoreIcon,
+} from '@mui/icons-material';
 import {
   Typography,
   Accordion,
@@ -11,7 +13,10 @@ import {
   Chip,
   IconButton,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+} from "react";
 import CategoryForm from "../Categories/CategoryForm";
 import ServicesList from "../Services/ServicesList";
 import SubCategoryForm from "../SubCategories/SubCategoryForm";
@@ -24,30 +29,20 @@ export default function ServiceSelectionForm({
   serviceData,
   deleteService,
   hasDeleteButton,
-  isFirstForm,
+  selectedServicesIds,
 }) {
-  useEffect(() => {
-    console.log(`ServiceSelectionForm ${isFirstForm ? `1` : `2`} rendered`);
-  }, []);
-
-  // ... existing code ...
-
-  // Добавить новый useEffect для отслеживания изменений serviceData
   useEffect(() => {
     if (serviceData) {
       const category = categories.find(category => category.categoryId === serviceData?.categoryId);
       const subCategory = category?.subCategories.find(subCategory => subCategory.subCategoryId === serviceData?.subCategoryId);
-      const service = subCategory?.services.find(service => service.serviceId === serviceData?.serviceId);
 
       setSelectedCategory(category || null);
       setSelectedSubCategory(subCategory || null);
-      setSelectedService(service || null);
     } else {
-    // Если serviceData стала null, очищаем состояние
       setSelectedCategory(null);
       setSelectedSubCategory(null);
-      setSelectedService(null);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serviceData]);
 
   const [selectedCategory, setSelectedCategory] = useState(
@@ -56,10 +51,6 @@ export default function ServiceSelectionForm({
 
   const [selectedSubCategory, setSelectedSubCategory] = useState(
     selectedCategory ? selectedCategory?.subCategories.find(subCategory => subCategory.subCategoryId === serviceData?.subCategoryId) : null
-  );
-
-  const [selectedService, setSelectedService] = useState(
-    selectedSubCategory ? selectedSubCategory.services.find(service => service.serviceId === serviceData?.serviceId) : null
   );
 
   const [expandedPanel, setExpandedPanel] = useState(null);
@@ -88,7 +79,6 @@ export default function ServiceSelectionForm({
   return (
     <Card
       sx={{
-        mb: 3,
         boxShadow: `none`,
         overflow: `unset`,
         border: `1px solid`,
@@ -100,27 +90,38 @@ export default function ServiceSelectionForm({
     >
       <CardContent sx={{
         p: 0,
-        position: `relative`,
 
         '&:last-child': {
           p: 0,
         },
       }}>
-        {hasDeleteButton && (
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', position: `absolute`, top: 0, left: 0, zIndex: 1 }}>
-            <IconButton onClick={deleteService}>
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        )}
         <Accordion
           expanded={!selectedCategory ? true : expandedPanel === 'category'}
           onChange={handlePanelChange('category')}
         >
-          <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}>
+          <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}
+            sx={{
+              '& .MuiAccordionSummary-content': {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              },
+            }}>
             <Typography sx={{ fontWeight: `bold` }}>
               {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
             </Typography>
+
+            {hasDeleteButton && (
+              <Box sx={{
+                margin: `-4px 0`,
+              }}>
+                <IconButton
+                  size='small'
+                  onClick={deleteService}>
+                  <ClearIcon />
+                </IconButton>
+              </Box>
+            )}
           </AccordionSummary>
 
           <AccordionDetails>
@@ -195,7 +196,7 @@ export default function ServiceSelectionForm({
               <ServicesList
                 services={getAvailableServices(selectedSubCategory.services)}
                 onServiceSelect={onServiceSelectInternal}
-                selectedServiceId={serviceData?.id}
+                selectedServicesIds={selectedServicesIds}
               />
             </AccordionDetails>
           </Accordion>

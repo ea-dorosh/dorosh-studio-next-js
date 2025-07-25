@@ -16,6 +16,7 @@ export default function SubCategoryForm({ subCategories, onSubCategorySelect, se
             sx={{
               boxShadow: `none`,
               borderRadius: `12px`,
+              backgroundColor: `background.default`,
             }}
           >
             {subCategory.subCategoryImage && (

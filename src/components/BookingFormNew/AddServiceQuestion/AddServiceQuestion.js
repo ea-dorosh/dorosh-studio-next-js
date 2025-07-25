@@ -1,43 +1,31 @@
+import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
   Typography,
-  Button,
-  Card,
-  CardContent,
+  IconButton,
 } from '@mui/material';
 
-export default function AddServiceQuestion({ onYes, onNo }) {
+export default function AddServiceQuestion({ onAddService }) {
   return (
-    <Card sx={{
-      mb: 3,
-      border: '1px solid',
-      borderColor: 'grey.300',
+    <Box sx={{
+      mt: 1,
     }}>
-      <CardContent sx={{ textAlign: 'center' }}>
-        <Typography variant="h6" sx={{ mb: 3 }}>
-          Möchten Sie noch einen Service hinzufügen?
-        </Typography>
+      <Box sx={{ textAlign: 'center', p: 0, }}>
+        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
+          <Typography>
+            Service hinzufügen?
+          </Typography>
 
-        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-          <Button
+          <IconButton
             variant="outlined"
-            size="large"
-            onClick={onNo}
-            sx={{ minWidth: 120 }}
+            size="small"
+            onClick={onAddService}
+            sx={{ borderRadius: '50%', border: '1px solid', borderColor: 'primary.main', width: 40, height: 40 }}
           >
-            Nein
-          </Button>
-
-          <Button
-            variant="contained"
-            size="large"
-            onClick={onYes}
-            sx={{ minWidth: 120 }}
-          >
-            Ja
-          </Button>
+            <AddIcon fontSize='inherit' />
+          </IconButton>
         </Box>
-      </CardContent>
-    </Card>
+      </Box>
+    </Box>
   );
 }

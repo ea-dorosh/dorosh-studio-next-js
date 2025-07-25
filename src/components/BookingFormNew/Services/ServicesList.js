@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { formatTimeToString } from "@/utils/formatters";
 
-export default function ServicesList({ services, onServiceSelect, selectedServiceId }) {
+export default function ServicesList({ services, onServiceSelect, selectedServicesIds }) {
   if (services.length === 0) {
     return (
       <Box sx={{ textAlign: 'center', py: 3 }}>
@@ -19,8 +19,6 @@ export default function ServicesList({ services, onServiceSelect, selectedServic
       </Box>
     );
   }
-
-  console.log(`selectedServiceId: `, selectedServiceId, `services: `, services);
 
   return (
     <Grid container spacing={2}>
@@ -32,6 +30,7 @@ export default function ServicesList({ services, onServiceSelect, selectedServic
               borderBottom: `1px solid`,
               pb: `16px`,
               borderColor: `grey.300`,
+              backgroundColor: `background.default`,
             }}
           >
             <CardContent sx={{
@@ -82,12 +81,13 @@ export default function ServicesList({ services, onServiceSelect, selectedServic
 
 
                   <Button
-                    variant={selectedServiceId === service.id ? `outlined` : `contained`}
+                    variant={selectedServicesIds.includes(service.id) ? `outlined` : `contained`}
                     size="small"
                     onClick={() => onServiceSelect(service)}
                     sx={{ minWidth: 120 }}
+                    disabled={selectedServicesIds.includes(service.id)}
                   >
-                    Auswählen
+                    {selectedServicesIds.includes(service.id) ? `Ausgewählt` : `Auswählen`}
                   </Button>
                 </Box>
               </Box>

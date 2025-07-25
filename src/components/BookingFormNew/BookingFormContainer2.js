@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import AddServiceQuestion from "./AddServiceQuestion/AddServiceQuestion";
 import CalendarForm from "./Calendar/CalendarForm";
@@ -26,52 +26,29 @@ export default function BookingFormContainer2({ categories }) {
 
   /** State */
   const [selectedServices, setSelectedServices] = useState([]);
-  const [showAddServiceQuestion, setShowAddServiceQuestion] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
 
-  /** Methods */
-  const onServiceSelected = (service) => {
-    // if (selectedServicesForChange) {
-    //   const selectedServiceIndex = selectedServices?.findIndex(selectedService => selectedService.id === selectedServicesForChange)
-
-    //   setSelectedServices(selectedServices => selectedServices.map(s => s.id === selectedServicesForChange ? service : s));
-    //   setSelectedServicesForChange(null);
-    //   return;
-    // }
-
-    setSelectedServices(prev => {
-      const newServices = prev.find(s => s.id === service.id) ? [...prev] : [...prev, service];
-      return newServices;
-    });
-    setShowAddServiceQuestion(true);
-  };
-
-  const onAddServiceYes = () => {
-    setShowAddServiceQuestion(false);
-    setFormState(prev => ({ ...prev, hasSecondService: true }));
-    // setSelectedServices(prev => [...prev, {}]);
-    // // Новая форма будет отрендерена автоматически
-  };
-
-  const onAddServiceNo = () => {
-    setShowAddServiceQuestion(false);
-    setShowCalendar(true);
-  };
-
-  const removeService = (serviceId) => {
-    setSelectedServices(prev => prev.filter(service => service.id !== serviceId));
-    if (selectedServices.length === 1) {
-      setShowAddServiceQuestion(false);
+  /** Watch */
+  useEffect(() => {
+    if (formState.firstService) {
+      setShowCalendar(true);
+    } else {
       setShowCalendar(false);
     }
-  };
 
-  // console.log(`selectedServicesForChange: `, selectedServicesForChange);
-  // console.log(`selectedServices: `, selectedServices);
+    const updatedServices = [];
+    if (formState.firstService) {
+      updatedServices.push(formState.firstService);
+    }
+    if (formState.secondService) {
+      updatedServices.push(formState.secondService);
+    }
+    setSelectedServices(updatedServices);
+  }, [formState]);
 
-  // Фильтруем уже выбранные сервисы
+  /** Methods */
   const getAvailableServices = (services) => {
     return services;
     const selectedServiceIds = selectedServices.map(s => s.id);
@@ -97,55 +74,10 @@ export default function BookingFormContainer2({ categories }) {
         Service auswählen
       </Typography>
 
-      {/* Service Overview Components */}
-      {/* {selectedServices.length > 0 && <>
-        <Typography sx={{
-          mb: 1,
-          textAlign: `left`,
-          fontSize: `1.2rem`,
-          fontWeight: `400`,
-        }}>
-          Sie haben gewählt:
-        </Typography>
-
-        {selectedServices.map(service => (<React.Fragment key={service.id}>
-          {service.id !== selectedServicesForChange ? (<ServiceOverview
-            key={service.id}
-            service={service}
-            onRemove={() => removeService(service.id)}
-            onChange={() => onChangeService(service.id)}
-            selectedServices={selectedServices}
-          />) : (
-            <ServiceSelectionForm
-              key={service.id}
-              categories={categories}
-              onServiceSelect={onServiceSelected}
-              getAvailableServices={() => getAllServices(service.categoryId, service.subCategoryId)}
-              selectedServiceId={service.id}
-              selectedCategoryId={service.categoryId}
-              selectedSubCategoryId={service.subCategoryId}
-            />
-          )}
-        </React.Fragment>
-        ))}
-      </>} */}
-
-      {/* New Service Selection Form */}
-      {/* {!showCalendar && !showAddServiceQuestion && ( */}
-      {/* {selectedServices.map(service => (<React.Fragment key={service.id}>
-        <ServiceSelectionForm
-          categories={categories}
-          onServiceSelect={onServiceSelected}
-          getAvailableServices={getAvailableServices}
-        />
-      </React.Fragment>))} */}
       <ServiceSelectionForm
         categories={categories}
         onServiceSelect={(service) => {
           setFormState(prev => ({ ...prev, firstService: service }));
-          if (!formState.hasSecondService) {
-            setShowAddServiceQuestion(true);
-          }
         }}
         getAvailableServices={getAvailableServices}
         serviceData={formState.firstService}
@@ -157,12 +89,11 @@ export default function BookingFormContainer2({ categories }) {
             firstService: prev.secondService,
             secondService: null,
           }));
-          setShowAddServiceQuestion(true);
         }}
-        isFirstForm
+        selectedServicesIds={selectedServices.map(service => service.id)}
       />
 
-      {formState.hasSecondService && (
+      {formState.hasSecondService && (<Box mt={2}>
         <ServiceSelectionForm
           categories={categories}
           onServiceSelect={(service) => {
@@ -175,26 +106,25 @@ export default function BookingFormContainer2({ categories }) {
               hasSecondService: false,
               secondService: null,
             }));
-            setShowAddServiceQuestion(true);
           }}
           getAvailableServices={getAvailableServices}
           serviceData={formState.secondService}
+          selectedServicesIds={selectedServices.map(service => service.id)}
         />
+      </Box>
       )}
 
-
-      {/* )} */}
-
       {/* Add Service Question */}
-      {showAddServiceQuestion && (
+      {formState.firstService && !formState.hasSecondService && (
         <AddServiceQuestion
-          onYes={onAddServiceYes}
-          onNo={onAddServiceNo}
+          onAddService={() => {
+            setFormState(prev => ({ ...prev, hasSecondService: true }));
+          }}
         />
       )}
 
       {/* Calendar */}
-      {showCalendar && selectedServices.length > 0 && (
+      {showCalendar && (
         <CalendarForm
           services={selectedServices}
           selectedDay={selectedDay}
