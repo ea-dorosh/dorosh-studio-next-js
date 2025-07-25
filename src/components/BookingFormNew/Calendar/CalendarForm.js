@@ -244,12 +244,12 @@ export default function CalendarForm({
       return 'Mitarbeiter auswählen';
     }
     if (realEmployees.length === 1) {
-      const selectedEmployee = service.employees.find(emp => emp.id === realEmployees[0]);
+      const selectedEmployee = service.employees.find(emp => emp.id.toString() === realEmployees[0].toString());
       return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName}` : 'Mitarbeiter';
     }
     if (realEmployees.length > 1) {
       const selectedNames = realEmployees.map(empId => {
-        const emp = service.employees.find(e => e.id === empId);
+        const emp = service.employees.find(e => e.id.toString() === empId.toString());
         return emp ? `${emp.firstName} ${emp.lastName}` : '';
       }).filter(name => name).join(', ');
       return selectedNames;
@@ -257,7 +257,7 @@ export default function CalendarForm({
     return 'Mitarbeiter auswählen';
   };
 
-  const handleEmployeeSelectionChange = (serviceId, event) => {
+    const handleEmployeeSelectionChange = (serviceId, event) => {
     const selectedValues = event.target.value;
     const service = services.find(s => s.id === serviceId);
     if (!service) return;
@@ -282,9 +282,9 @@ export default function CalendarForm({
     else if (newValue && newValue !== 'all' && previousValues.includes('all')) {
       finalSelection = [newValue];
     }
-    // Если выбрали всех сотрудников по отдельности
-    else if (selectedValues.filter(val => val !== 'all').length === service.employees.length) {
-      finalSelection = ['all'];
+    else {
+      // Убираем 'all' если выбираем отдельных сотрудников
+      finalSelection = selectedValues.filter(val => val !== 'all');
     }
 
     // Обновляем выбор для конкретного сервиса
@@ -353,24 +353,30 @@ export default function CalendarForm({
                 </MenuItem>
 
                 {/* Отдельные сотрудники для этого сервиса */}
-                {service.employees.map((employee) => (
-                  <MenuItem key={employee.id} value={employee.id.toString()}>
-                    <Checkbox checked={(serviceEmployees[service.id] || []).includes(employee.id.toString()) && !(serviceEmployees[service.id] || []).includes('all')} />
-                    <ListItemText
-                      primary={
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                          <span>{`${employee.firstName} ${employee.lastName}`}</span>
-                          <Chip
-                            label={`${employee.price || 0}€`}
-                            size="small"
-                            variant="outlined"
-                            sx={{ ml: 1 }}
-                          />
-                        </Box>
-                      }
-                    />
-                  </MenuItem>
-                ))}
+                {service.employees.map((employee) => {
+                  const currentSelection = serviceEmployees[service.id] || [];
+                  const isAllSelected = currentSelection.includes('all');
+                  const isIndividuallySelected = currentSelection.includes(employee.id.toString()) || currentSelection.includes(employee.id);
+
+                  return (
+                    <MenuItem key={employee.id} value={employee.id.toString()}>
+                      <Checkbox checked={!isAllSelected && isIndividuallySelected} />
+                      <ListItemText
+                        primary={
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <span>{`${employee.firstName} ${employee.lastName}`}</span>
+                            <Chip
+                              label={`${employee.price || 0}€`}
+                              size="small"
+                              variant="outlined"
+                              sx={{ ml: 1 }}
+                            />
+                          </Box>
+                        }
+                      />
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Box>
