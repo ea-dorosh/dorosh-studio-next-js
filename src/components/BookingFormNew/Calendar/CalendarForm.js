@@ -92,23 +92,51 @@ export default function CalendarForm({
 
         services.forEach(service => {
           if (!newServiceEmployees[service?.id] || newServiceEmployees[service?.id]?.length === 0) {
-            // По умолчанию выбираем всех мастеров именно для этого сервиса
-            newServiceEmployees[service?.id] = service?.employees?.map(emp => emp.id);
+            // По умолчанию выбираем "Alle Mitarbeiter" (специальное значение "all")
+            newServiceEmployees[service?.id] = ['all'];
             hasChanges = true;
           }
         });
 
+        // Если были изменения, уведомляем родительский компонент
+        if (hasChanges && onEmployeesChange) {
+          const allSelectedEmployees = [];
+          Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
+            const svc = services.find(s => s.id === parseInt(sId));
+            if (!svc) return;
+
+            if (employees.includes('all')) {
+              // Если выбран "all", добавляем всех сотрудников этого сервиса
+              svc.employees.forEach(emp => {
+                if (!allSelectedEmployees.includes(emp.id)) {
+                  allSelectedEmployees.push(emp.id);
+                }
+              });
+            }
+          });
+          onEmployeesChange(allSelectedEmployees);
+        }
+
         return hasChanges ? newServiceEmployees : prevServiceEmployees;
       });
     }
-  }, [services]);
+  }, [services, onEmployeesChange]);
 
   // Создаем payload для API запроса
   const createServicesPayload = () => {
-    const payload = services?.map(service => ({
-      serviceId: service.id,
-      employeeIds: serviceEmployees[service?.id] || service?.employees?.map(emp => emp.id)
-    }));
+    const payload = services?.map(service => {
+      const selectedEmployees = serviceEmployees[service?.id] || ['all'];
+
+      // Если выбран "all", используем всех сотрудников
+      const employeeIds = selectedEmployees.includes('all') || selectedEmployees.length === 0
+        ? service?.employees?.map(emp => emp.id)
+        : selectedEmployees.filter(id => id !== 'all').map(id => parseInt(id));
+
+      return {
+        serviceId: service.id,
+        employeeIds
+      };
+    });
 
     console.log('createServicesPayload - serviceEmployees:', serviceEmployees);
     console.log('createServicesPayload - payload:', payload);
@@ -204,15 +232,23 @@ export default function CalendarForm({
   const getEmployeeLabel = (service) => {
     const selectedEmployees = serviceEmployees[service.id] || [];
 
-    if (selectedEmployees.length === service.employees.length) {
+    // Если выбрано "all", показываем "Alle Mitarbeiter"
+    if (selectedEmployees.includes('all')) {
       return 'Alle Mitarbeiter';
     }
-    if (selectedEmployees.length === 1) {
-      const selectedEmployee = service.employees.find(emp => emp.id === selectedEmployees[0]);
+
+    // Фильтруем только реальных сотрудников (исключаем 'all')
+    const realEmployees = selectedEmployees.filter(id => id !== 'all');
+
+    if (realEmployees.length === 0) {
+      return 'Mitarbeiter auswählen';
+    }
+    if (realEmployees.length === 1) {
+      const selectedEmployee = service.employees.find(emp => emp.id === realEmployees[0]);
       return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName}` : 'Mitarbeiter';
     }
-    if (selectedEmployees.length > 1) {
-      const selectedNames = selectedEmployees.map(empId => {
+    if (realEmployees.length > 1) {
+      const selectedNames = realEmployees.map(empId => {
         const emp = service.employees.find(e => e.id === empId);
         return emp ? `${emp.firstName} ${emp.lastName}` : '';
       }).filter(name => name).join(', ');
@@ -226,20 +262,59 @@ export default function CalendarForm({
     const service = services.find(s => s.id === serviceId);
     if (!service) return;
 
+    const previousValues = serviceEmployees[serviceId] || [];
+
+    // Определяем, что было добавлено или убрано
+    const newValue = selectedValues.find(val => !previousValues.includes(val));
+    const removedValue = previousValues.find(val => !selectedValues.includes(val));
+
+    let finalSelection = [...selectedValues];
+
+    // Если выбрали "all"
+    if (newValue === 'all') {
+      finalSelection = ['all'];
+    }
+    // Если убрали "all"
+    else if (removedValue === 'all') {
+      finalSelection = selectedValues.filter(val => val !== 'all');
+    }
+    // Если выбрали конкретного сотрудника и был выбран "all"
+    else if (newValue && newValue !== 'all' && previousValues.includes('all')) {
+      finalSelection = [newValue];
+    }
+    // Если выбрали всех сотрудников по отдельности
+    else if (selectedValues.filter(val => val !== 'all').length === service.employees.length) {
+      finalSelection = ['all'];
+    }
+
     // Обновляем выбор для конкретного сервиса
     const newServiceEmployees = { ...serviceEmployees };
-    newServiceEmployees[serviceId] = selectedValues.map(id => parseInt(id));
+    newServiceEmployees[serviceId] = finalSelection;
     setServiceEmployees(newServiceEmployees);
 
     // Уведомляем родительский компонент о всех выбранных сотрудниках
     if (onEmployeesChange) {
       const allSelectedEmployees = [];
-      Object.values(newServiceEmployees).forEach(employees => {
-        employees.forEach(empId => {
-          if (!allSelectedEmployees.includes(empId)) {
-            allSelectedEmployees.push(empId);
-          }
-        });
+      Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
+        const svc = services.find(s => s.id === parseInt(sId));
+        if (!svc) return;
+
+        if (employees.includes('all')) {
+          // Если выбран "all", добавляем всех сотрудников этого сервиса
+          svc.employees.forEach(emp => {
+            if (!allSelectedEmployees.includes(emp.id)) {
+              allSelectedEmployees.push(emp.id);
+            }
+          });
+        } else {
+          // Иначе добавляем только выбранных
+          employees.forEach(empId => {
+            const numId = parseInt(empId);
+            if (empId !== 'all' && !allSelectedEmployees.includes(numId)) {
+              allSelectedEmployees.push(numId);
+            }
+          });
+        }
       });
       onEmployeesChange(allSelectedEmployees);
     }
@@ -271,10 +346,16 @@ export default function CalendarForm({
                 renderValue={() => getEmployeeLabel(service)}
                 label="Mitarbeiter"
               >
+                {/* Опция "Alle Mitarbeiter" */}
+                <MenuItem key="all" value="all">
+                  <Checkbox checked={(serviceEmployees[service.id] || []).includes('all')} />
+                  <ListItemText primary="Alle Mitarbeiter" />
+                </MenuItem>
+
                 {/* Отдельные сотрудники для этого сервиса */}
                 {service.employees.map((employee) => (
                   <MenuItem key={employee.id} value={employee.id.toString()}>
-                    <Checkbox checked={(serviceEmployees[service.id] || []).includes(employee.id)} />
+                    <Checkbox checked={(serviceEmployees[service.id] || []).includes(employee.id.toString()) && !(serviceEmployees[service.id] || []).includes('all')} />
                     <ListItemText
                       primary={
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
