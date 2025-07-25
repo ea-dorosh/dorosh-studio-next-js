@@ -82,6 +82,8 @@ export default function CalendarForm({
   const [error, setError] = useState(null);
   // State для селектов: объект где ключ - ID сервиса, значение - выбранные мастера
   const [serviceEmployees, setServiceEmployees] = useState({});
+  // State для отслеживания открытых селектов
+  const [openSelects, setOpenSelects] = useState({});
 
   // Инициализируем выбор мастеров для всех сервисов
   useEffect(() => {
@@ -166,6 +168,8 @@ export default function CalendarForm({
 
   useEffect(() => {
     async function fetchData() {
+      console.log(`fetchData`);
+
       if (services.length === 0) return;
 
       const daysToHighlight = await fetchCalendarDays(currentWeekStart);
@@ -181,10 +185,14 @@ export default function CalendarForm({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [services]);
 
-  // Update calendar when employees selection changes
+  // Проверяем, открыт ли какой-то селект
+  const isAnySelectOpen = Object.values(openSelects).some(Boolean);
+
+  // Update calendar when employees selection changes, но только если селекты закрыты
   useEffect(() => {
     async function updateCalendar() {
-      if (services.length === 0) return;
+      console.log(`updateCalendar`);
+      if (services.length === 0 || isAnySelectOpen) return;
 
       const daysToHighlight = await fetchCalendarDays(currentWeekStart);
       setCalendarDays(daysToHighlight || []);
@@ -198,14 +206,17 @@ export default function CalendarForm({
       }
     }
     updateCalendar();
-  }, [serviceEmployees]);
+  }, [serviceEmployees, isAnySelectOpen]);
 
   const handleWeekChange = async (direction) => {
+    console.log(`handleWeekChange`);
+
     const newStart = currentWeekStart.add(direction, `week`);
     setCurrentWeekStart(newStart);
     setCalendarDays([]);
     setSelectedDay(null);
 
+    // При смене недели всегда обновляем календарь, независимо от состояния селектов
     const daysToHighlight = await fetchCalendarDays(newStart);
 
     setCalendarDays(daysToHighlight || []);
@@ -343,6 +354,8 @@ export default function CalendarForm({
                 multiple
                 value={(serviceEmployees[service.id] || []).map(id => id.toString())}
                 onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
+                onOpen={() => setOpenSelects(prev => ({ ...prev, [service.id]: true }))}
+                onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
                 renderValue={() => getEmployeeLabel(service)}
                 label="Mitarbeiter"
               >
