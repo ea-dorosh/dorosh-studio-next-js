@@ -9,17 +9,23 @@ import { useState } from "react";
 import React from "react";
 import AddServiceQuestion from "./AddServiceQuestion/AddServiceQuestion";
 import CalendarForm from "./Calendar/CalendarForm";
-import ServiceOverview from "./ServiceOverview/ServiceOverview";
 import ServiceSelectionForm from "./ServiceSelectionForm/ServiceSelectionForm";
 
 export default function BookingFormContainer2({ categories }) {
   const theme = useTheme();
 
-  console.log(`categories: `, JSON.stringify(categories, null, 2));
+  // console.log(`categories: `, JSON.stringify(categories, null, 2));
+
+  const [formState, setFormState] = useState({
+    firstService: null,
+    secondService: null,
+    hasSecondService: false,
+  });
+
+  console.log(`formState: `, JSON.stringify(formState, null, 2));
 
   /** State */
   const [selectedServices, setSelectedServices] = useState([]);
-  const [selectedServicesForChange, setSelectedServicesForChange] = useState(null); // id
   const [showAddServiceQuestion, setShowAddServiceQuestion] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
@@ -40,13 +46,13 @@ export default function BookingFormContainer2({ categories }) {
       return newServices;
     });
     setShowAddServiceQuestion(true);
-    setSelectedServicesForChange(null);
   };
 
   const onAddServiceYes = () => {
     setShowAddServiceQuestion(false);
-    setSelectedServices(prev => [...prev, {}]);
-    // Новая форма будет отрендерена автоматически
+    setFormState(prev => ({ ...prev, hasSecondService: true }));
+    // setSelectedServices(prev => [...prev, {}]);
+    // // Новая форма будет отрендерена автоматически
   };
 
   const onAddServiceNo = () => {
@@ -62,13 +68,8 @@ export default function BookingFormContainer2({ categories }) {
     }
   };
 
-  const onChangeService = (serviceId) => {
-    // setShowAddServiceQuestion(false);
-    setSelectedServicesForChange(serviceId);
-  };
-
-  console.log(`selectedServicesForChange: `, selectedServicesForChange);
-  console.log(`selectedServices: `, selectedServices);
+  // console.log(`selectedServicesForChange: `, selectedServicesForChange);
+  // console.log(`selectedServices: `, selectedServices);
 
   // Фильтруем уже выбранные сервисы
   const getAvailableServices = (services) => {
@@ -131,13 +132,56 @@ export default function BookingFormContainer2({ categories }) {
 
       {/* New Service Selection Form */}
       {/* {!showCalendar && !showAddServiceQuestion && ( */}
-      {selectedServices.map(service => (<React.Fragment key={service.id}>
+      {/* {selectedServices.map(service => (<React.Fragment key={service.id}>
         <ServiceSelectionForm
           categories={categories}
           onServiceSelect={onServiceSelected}
           getAvailableServices={getAvailableServices}
         />
-      </React.Fragment>))}
+      </React.Fragment>))} */}
+      <ServiceSelectionForm
+        categories={categories}
+        onServiceSelect={(service) => {
+          setFormState(prev => ({ ...prev, firstService: service }));
+          if (!formState.hasSecondService) {
+            setShowAddServiceQuestion(true);
+          }
+        }}
+        getAvailableServices={getAvailableServices}
+        serviceData={formState.firstService}
+        hasDeleteButton={formState.hasSecondService}
+        deleteService={() => {
+          setFormState(prev => ({
+            ...prev,
+            hasSecondService: false,
+            firstService: prev.secondService,
+            secondService: null,
+          }));
+          setShowAddServiceQuestion(true);
+        }}
+        isFirstForm
+      />
+
+      {formState.hasSecondService && (
+        <ServiceSelectionForm
+          categories={categories}
+          onServiceSelect={(service) => {
+            setFormState(prev => ({ ...prev, secondService: service }));
+          }}
+          hasDeleteButton
+          deleteService={() => {
+            setFormState(prev => ({
+              ...prev,
+              hasSecondService: false,
+              secondService: null,
+            }));
+            setShowAddServiceQuestion(true);
+          }}
+          getAvailableServices={getAvailableServices}
+          serviceData={formState.secondService}
+        />
+      )}
+
 
       {/* )} */}
 

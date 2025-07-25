@@ -150,6 +150,56 @@ const theme = createTheme({
         },
       },
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          boxShadow: `none`,
+          borderRadius: `0`,
+          backgroundColor: COLORS.LIGHT_GRAY,
+
+          '&:before': {
+            display: 'none',
+          },
+
+          '&:first-of-type': {
+            borderRadius: `0`,
+          },
+
+          '&:last-of-type': {
+            borderRadius: `0`,
+          },
+
+          '&:last-of-type .MuiAccordionSummary-root:not(.Mui-expanded)': {
+            borderBottom: 'none',
+          },
+
+          '&.Mui-expanded': {
+            margin: `0px`,
+          },
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          minHeight: `0px`,
+
+          '&:not(.Mui-expanded)': {
+            borderBottom: `1px solid ${alpha(COLORS.BLACK, 0.1)}`,
+          },
+
+          '&.Mui-expanded': {
+            minHeight: `0px`,
+          },
+
+
+
+          '& .MuiAccordionSummary-content': {
+            margin: `6px 0 !important`,
+          },
+        },
+      },
+    },
   },
 });
 

@@ -1,3 +1,4 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Typography,
@@ -8,8 +9,9 @@ import {
   CardContent,
   Box,
   Chip,
+  IconButton,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CategoryForm from "../Categories/CategoryForm";
 import ServicesList from "../Services/ServicesList";
 import SubCategoryForm from "../SubCategories/SubCategoryForm";
@@ -19,19 +21,48 @@ export default function ServiceSelectionForm({
   categories,
   onServiceSelect,
   getAvailableServices,
-  selectedServiceId,
-  selectedCategoryId,
-  selectedSubCategoryId,
+  serviceData,
+  deleteService,
+  hasDeleteButton,
+  isFirstForm,
 }) {
+  useEffect(() => {
+    console.log(`ServiceSelectionForm ${isFirstForm ? `1` : `2`} rendered`);
+  }, []);
+
+  // ... existing code ...
+
+  // Добавить новый useEffect для отслеживания изменений serviceData
+  useEffect(() => {
+    if (serviceData) {
+      const category = categories.find(category => category.categoryId === serviceData?.categoryId);
+      const subCategory = category?.subCategories.find(subCategory => subCategory.subCategoryId === serviceData?.subCategoryId);
+      const service = subCategory?.services.find(service => service.serviceId === serviceData?.serviceId);
+
+      setSelectedCategory(category || null);
+      setSelectedSubCategory(subCategory || null);
+      setSelectedService(service || null);
+    } else {
+    // Если serviceData стала null, очищаем состояние
+      setSelectedCategory(null);
+      setSelectedSubCategory(null);
+      setSelectedService(null);
+    }
+  }, [serviceData]);
+
   const [selectedCategory, setSelectedCategory] = useState(
-    selectedCategoryId ? categories.find(category => category.categoryId === selectedCategoryId) : null
+    serviceData ? categories.find(category => category.categoryId === serviceData?.categoryId) : null
   );
 
   const [selectedSubCategory, setSelectedSubCategory] = useState(
-    selectedSubCategoryId ? selectedCategory?.subCategories.find(subCategory => subCategory.subCategoryId === selectedSubCategoryId) : null
+    selectedCategory ? selectedCategory?.subCategories.find(subCategory => subCategory.subCategoryId === serviceData?.subCategoryId) : null
   );
-  const [selectedService, setSelectedService] = useState(null);
-  const [expandedPanel, setExpandedPanel] = useState(selectedServiceId ? 'service' : null);
+
+  const [selectedService, setSelectedService] = useState(
+    selectedSubCategory ? selectedSubCategory.services.find(service => service.serviceId === serviceData?.serviceId) : null
+  );
+
+  const [expandedPanel, setExpandedPanel] = useState(null);
 
   const handlePanelChange = (panel) => (event, isExpanded) => {
     setExpandedPanel(isExpanded ? panel : null);
@@ -50,7 +81,7 @@ export default function ServiceSelectionForm({
 
   const onServiceSelectInternal = (service) => {
     setExpandedPanel(null);
-    setSelectedService(service);
+    // setSelectedService(service);
     onServiceSelect(service);
   };
 
@@ -63,56 +94,30 @@ export default function ServiceSelectionForm({
         border: `1px solid`,
         borderColor: `grey.300`,
         borderRadius: `12px`,
-        p: 2,
+        padding: `4px`,
         backgroundColor: `background.default`,
       }}
     >
       <CardContent sx={{
         p: 0,
+        position: `relative`,
 
         '&:last-child': {
           p: 0,
         },
       }}>
+        {hasDeleteButton && (
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', position: `absolute`, top: 0, left: 0, zIndex: 1 }}>
+            <IconButton onClick={deleteService}>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        )}
         <Accordion
           expanded={!selectedCategory ? true : expandedPanel === 'category'}
           onChange={handlePanelChange('category')}
-          sx={{
-            boxShadow: `none`,
-            // boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
-            borderRadius: `0`,
-            backgroundColor: `background.default`,
-            borderBottom: `1px solid`,
-
-            '&:before': {
-              display: 'none',
-            },
-
-            '&:first-of-type': {
-              borderRadius: `0`,
-            },
-
-            '&:last-of-type': {
-              borderRadius: `0`,
-            },
-          }}
         >
-          <AccordionSummary
-            expandIcon={selectedCategory && <ExpandMoreIcon />}
-            sx={{
-              '& .MuiAccordionSummary-content': {
-                margin: `14px 0`,
-              },
-
-              '&.Mui-expanded': {
-                minHeight: `48px`,
-              },
-
-              '& .Mui-expanded': {
-                margin: `14px 0`,
-              },
-            }}
-          >
+          <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}>
             <Typography sx={{ fontWeight: `bold` }}>
               {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
             </Typography>
@@ -133,41 +138,8 @@ export default function ServiceSelectionForm({
           <Accordion
             expanded={!selectedSubCategory ? true : expandedPanel === 'subCategory'}
             onChange={handlePanelChange('subCategory')}
-            sx={{
-              boxShadow: `none`,
-              // boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
-              borderRadius: `0`,
-              backgroundColor: `background.default`,
-              borderBottom: `1px solid`,
-
-              '&:before': {
-                display: 'none',
-              },
-
-              '&:first-of-type': {
-                borderRadius: `0`,
-              },
-
-              '&:last-of-type': {
-                borderRadius: `0`,
-              },
-            }}
           >
-            <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}
-              sx={{
-                '& .MuiAccordionSummary-content': {
-                  margin: `14px 0`,
-                },
-
-                '&.Mui-expanded': {
-                  minHeight: `48px`,
-                },
-
-                '& .Mui-expanded': {
-                  margin: `14px 0`,
-                },
-              }}
-            >
+            <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}>
               <Typography sx={{ fontWeight: `bold` }}>
                 {selectedSubCategory
                   ? selectedSubCategory.subCategoryName
@@ -191,58 +163,24 @@ export default function ServiceSelectionForm({
           <Accordion
             expanded={expandedPanel === 'service'}
             onChange={handlePanelChange('service')}
-            sx={{
-              boxShadow: `none`,
-              // boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
-              borderRadius: `0`,
-              backgroundColor: `background.default`,
-              // borderBottom: `1px solid`,
-
-              '&:before': {
-                display: 'none',
-              },
-
-              '&:first-of-type': {
-                borderRadius: `0`,
-              },
-
-              '&:last-of-type': {
-                borderRadius: `0`,
-              },
-            }}
           >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              sx={{
-                '& .MuiAccordionSummary-content': {
-                  margin: `14px 0`,
-                },
-
-                '&.Mui-expanded': {
-                  minHeight: `48px`,
-                },
-
-                '& .Mui-expanded': {
-                  margin: `14px 0`,
-                },
-              }}
-            >
-              {!selectedService || expandedPanel === 'service' ?
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              {!serviceData || expandedPanel === 'service' ?
                 <Typography sx={{ fontWeight: `bold` }}>Service wählen</Typography>
                 :
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Typography sx={{ fontWeight: `bold` }}>{selectedService.name}</Typography>
+                  <Typography sx={{ fontWeight: `bold` }}>{serviceData.name}</Typography>
 
                   <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                     <Chip
-                      label={<>Dauer: <b>{formatTimeToString(selectedService.durationTime)}</b></>}
+                      label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
                       size="small"
                       variant="outlined"
                     />
 
-                    {selectedService.employees && selectedService.employees.length > 0 && (
+                    {serviceData?.employees && serviceData?.employees?.length > 0 && (
                       <Chip
-                        label={<>Preis: <b>{selectedService.employees[0].price || 0}€</b></>}
+                        label={<>Preis: <b>{serviceData?.employees[0]?.price || 0}€</b></>}
                         size="small"
                         color="primary"
                         variant="outlined"
@@ -257,7 +195,7 @@ export default function ServiceSelectionForm({
               <ServicesList
                 services={getAvailableServices(selectedSubCategory.services)}
                 onServiceSelect={onServiceSelectInternal}
-                selectedServiceId={selectedServiceId}
+                selectedServiceId={serviceData?.id}
               />
             </AccordionDetails>
           </Accordion>
