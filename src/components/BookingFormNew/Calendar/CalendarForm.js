@@ -166,39 +166,35 @@ export default function CalendarForm({
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      console.log(`fetchData`);
-
-      if (services.length === 0) return;
-
-      const daysToHighlight = await fetchCalendarDays(currentWeekStart);
-      setCalendarDays(daysToHighlight || []);
-
-      if (!selectedDay?.day && daysToHighlight && daysToHighlight.length > 0) {
-        setSelectedDay(daysToHighlight[0]);
-      }
-    }
-
-    fetchData();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [services]);
-
   // Проверяем, открыт ли какой-то селект
   const isAnySelectOpen = Object.values(openSelects).some(Boolean);
 
-  // Update calendar when employees selection changes, но только если селекты закрыты
+  // Проверяем, инициализированы ли serviceEmployees для всех сервисов
+  const areEmployeesInitialized = services.length > 0 && services.every(service =>
+    serviceEmployees[service.id] && serviceEmployees[service.id].length > 0
+  );
+
+  // Single useEffect для обновления календаря
   useEffect(() => {
     async function updateCalendar() {
-      console.log(`updateCalendar`);
-      if (services.length === 0 || isAnySelectOpen) return;
+      console.log(`updateCalendar`, {
+        servicesLength: services.length,
+        isAnySelectOpen,
+        areEmployeesInitialized,
+        serviceEmployees
+      });
+
+      if (services.length === 0 || isAnySelectOpen || !areEmployeesInitialized) return;
 
       const daysToHighlight = await fetchCalendarDays(currentWeekStart);
       setCalendarDays(daysToHighlight || []);
 
+      // Set initial selected day if none is selected
+      if (!selectedDay?.day && daysToHighlight && daysToHighlight.length > 0) {
+        setSelectedDay(daysToHighlight[0]);
+      }
       // Reset selected day if current selection is no longer available
-      if (selectedDay && daysToHighlight) {
+      else if (selectedDay && daysToHighlight) {
         const stillAvailable = daysToHighlight.find(d => d.day === selectedDay.day);
         if (!stillAvailable) {
           setSelectedDay(daysToHighlight.length > 0 ? daysToHighlight[0] : null);
@@ -206,7 +202,7 @@ export default function CalendarForm({
       }
     }
     updateCalendar();
-  }, [serviceEmployees, isAnySelectOpen]);
+  }, [services, serviceEmployees, isAnySelectOpen]);
 
   const handleWeekChange = async (direction) => {
     console.log(`handleWeekChange`);
