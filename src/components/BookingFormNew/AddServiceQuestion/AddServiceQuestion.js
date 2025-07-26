@@ -12,7 +12,7 @@ export default function AddServiceQuestion({ onAddService }) {
     }}>
       <Box sx={{ textAlign: 'center', p: 0, }}>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
-          <Typography>
+          <Typography sx={{ color: 'success.main' }}>
             Service hinzufügen?
           </Typography>
 
@@ -20,7 +20,8 @@ export default function AddServiceQuestion({ onAddService }) {
             variant="outlined"
             size="small"
             onClick={onAddService}
-            sx={{ borderRadius: '50%', border: '1px solid', borderColor: 'primary.main', width: 40, height: 40 }}
+            color="success"
+            sx={{ borderRadius: '50%', border: '1px solid', width: 40, height: 40, }}
           >
             <AddIcon fontSize='inherit' />
           </IconButton>

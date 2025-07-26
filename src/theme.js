@@ -23,6 +23,7 @@ const COLORS = {
   LIGHT_GRAY: '#f8f5f3',
   GOLD: '#D4AF37',
   CRIMSON: '#DC143C',
+  GREEN: '#18b518',
 };
 
 const theme = createTheme({
@@ -45,6 +46,9 @@ const theme = createTheme({
     },
     error: {
       main: COLORS.CRIMSON,
+    },
+    success: {
+      main: COLORS.GREEN,
     },
   },
   typography: {
@@ -76,13 +80,14 @@ const theme = createTheme({
       fontFamily: cormorantGaramond.style.fontFamily,
     },
     subtitle1: {
-      fontSize: `1.2rem`,
+      fontSize: `1rem`,
       fontWeight: `200`,
+      fontFamily: montserrat.style.fontFamily,
     },
     subtitle2: {
-      fontSize: `1.4rem`,
+      fontSize: `1.1rem`,
       fontWeight: `400`,
-      fontFamily: cormorantGaramond.style.fontFamily,
+      fontFamily: montserrat.style.fontFamily,
     },
     formOverview: {
       fontSize: `1.1rem`,

@@ -23,47 +23,36 @@ import { useEffect, useState } from 'react';
 import CalendarDay from './CalendarDay';
 import { MOCK_TIME_SLOTS } from './mockTimeSlots';
 import TimeSlotButton from './TimeSlotButton';
+import { formatMonthYear } from '@/utils/formatters';
+import calendarService from '@/services/calendar.service';
 import 'dayjs/locale/de';
 
 dayjs.locale(`de`);
 
-// initial value for the calendar is tomorrow
-const initialValue = dayjs(new Date()).add(1, `day`);
+// initial value for the calendar is today
+const initialValue = dayjs(new Date());
 
 const weekDays = [`Mo`, `Di`, `Mi`, `Do`, `Fr`, `Sa`, `So`];
 
-async function fetchTimeSlots(date, servicesWithEmployees) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format(`YYYY-MM-DD`)}`;
+// async function fetchTimeSlots(date, servicesWithEmployees) {
+//   const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format(`YYYY-MM-DD`)}`;
 
-  const response = await fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(servicesWithEmployees),
-  });
+//   const response = await fetch(apiUrl, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(servicesWithEmployees),
+//   });
 
-  const data = await response.json();
+//   const data = await response.json();
 
-  if (data.error) {
-    throw new Error(data.error);
-  }
+//   if (data.error) {
+//     throw new Error(data.error);
+//   }
 
-  return { daysToHighlight: data };
-}
-
-const formatMonthYear = (start) => {
-  const end = start.add(6, `days`);
-  const startMonth = start.format(`MMMM YYYY`);
-
-  // Check if the months are different
-  if (start.month() === end.month()) {
-    return startMonth; // Same month
-  } else {
-    // Return the abbreviated months and the year
-    return `${start.format(`MMM`)}-${end.format(`MMM`)} ${start.year()}`;
-  }
-};
+//   return { daysToHighlight: data };
+// }
 
 export default function CalendarForm({
   services,
@@ -93,9 +82,20 @@ export default function CalendarForm({
         let hasChanges = false;
 
         services.forEach(service => {
-          if (!newServiceEmployees[service?.id] || newServiceEmployees[service?.id]?.length === 0) {
-            // По умолчанию выбираем "Alle Mitarbeiter" (специальное значение "all")
-            newServiceEmployees[service?.id] = ['all'];
+          const currentSelection = newServiceEmployees[service?.id] || [];
+
+          // Проверяем, нужна ли инициализация или корректировка
+          const needsInit = currentSelection.length === 0;
+          const needsCorrection = service?.employees?.length === 1 && currentSelection.includes('all');
+
+          if (needsInit || needsCorrection) {
+            // Если у сервиса только один сотрудник, выбираем его по умолчанию
+            if (service?.employees?.length === 1) {
+              newServiceEmployees[service?.id] = [service.employees[0].id.toString()];
+            } else {
+              // Иначе выбираем "Alle Mitarbeiter" (специальное значение "all")
+              newServiceEmployees[service?.id] = ['all'];
+            }
             hasChanges = true;
           }
         });
@@ -103,7 +103,7 @@ export default function CalendarForm({
         // Если были изменения, уведомляем родительский компонент
         if (hasChanges && onEmployeesChange) {
           const allSelectedEmployees = [];
-          Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
+                    Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
             const svc = services.find(s => s.id === parseInt(sId));
             if (!svc) return;
 
@@ -112,6 +112,14 @@ export default function CalendarForm({
               svc.employees.forEach(emp => {
                 if (!allSelectedEmployees.includes(emp.id)) {
                   allSelectedEmployees.push(emp.id);
+                }
+              });
+            } else {
+              // Если выбраны конкретные сотрудники, добавляем их
+              employees.forEach(empId => {
+                const numId = parseInt(empId);
+                if (!allSelectedEmployees.includes(numId)) {
+                  allSelectedEmployees.push(numId);
                 }
               });
             }
@@ -156,7 +164,7 @@ export default function CalendarForm({
       const payload = servicesPayloadOverride || createServicesPayload();
       if (payload.length === 0) return [];
 
-      const { daysToHighlight } = await fetchTimeSlots(date, payload);
+      const { daysToHighlight } = await calendarService.fetchTimeSlots(date, payload);
       return daysToHighlight;
     } catch (error) {
       console.error(error);
@@ -169,24 +177,24 @@ export default function CalendarForm({
   // Проверяем, открыт ли какой-то селект
   const isAnySelectOpen = Object.values(openSelects).some(Boolean);
 
-  // Проверяем, инициализированы ли serviceEmployees для всех сервисов
-  const areEmployeesInitialized = services.length > 0 && services.every(service =>
-    serviceEmployees[service.id] && serviceEmployees[service.id].length > 0
-  );
+    // Проверяем, инициализированы ли serviceEmployees для всех сервисов
+  const areEmployeesInitialized = services.length > 0 && services.every(service => {
+    const selected = serviceEmployees[service.id];
+    return selected && selected.length > 0;
+  });
 
   // Single useEffect для обновления календаря
   useEffect(() => {
     async function updateCalendar() {
-      console.log(`updateCalendar`, {
-        servicesLength: services.length,
-        isAnySelectOpen,
-        areEmployeesInitialized,
-        serviceEmployees
-      });
-
       if (services.length === 0 || isAnySelectOpen || !areEmployeesInitialized) return;
 
       const daysToHighlight = await fetchCalendarDays(currentWeekStart);
+
+      if (daysToHighlight.length === 0) {
+        handleWeekChange(1); // go to next week
+        return;
+      }
+
       setCalendarDays(daysToHighlight || []);
 
       // Set initial selected day if none is selected
@@ -239,7 +247,13 @@ export default function CalendarForm({
   const getEmployeeLabel = (service) => {
     const selectedEmployees = serviceEmployees[service.id] || [];
 
-    // Если выбрано "all", показываем "Alle Mitarbeiter"
+    // Если у сервиса только один сотрудник, всегда показываем его имя и цену как текст
+    if (service.employees.length === 1) {
+      const employee = service.employees[0];
+      return `${employee.firstName} ${employee.lastName} (${employee.price || 0}€)`;
+    }
+
+    // Если выбрано "all", показываем "Alle Mitarbeiter" как текст
     if (selectedEmployees.includes('all')) {
       return 'Alle Mitarbeiter';
     }
@@ -252,22 +266,48 @@ export default function CalendarForm({
     }
     if (realEmployees.length === 1) {
       const selectedEmployee = service.employees.find(emp => emp.id.toString() === realEmployees[0].toString());
-      return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName}` : 'Mitarbeiter';
+      return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName} (${selectedEmployee.price || 0}€)` : 'Mitarbeiter';
     }
     if (realEmployees.length > 1) {
-      const selectedNames = realEmployees.map(empId => {
+      // Только для множественного выбора показываем чипы
+      const selectedEmployeeChips = realEmployees.map(empId => {
         const emp = service.employees.find(e => e.id.toString() === empId.toString());
-        return emp ? `${emp.firstName} ${emp.lastName}` : '';
-      }).filter(name => name).join(', ');
-      return selectedNames;
+        if (!emp) return null;
+
+        return (
+          <Chip
+            key={emp.id}
+            label={`${emp.firstName} ${emp.lastName} • ${emp.price || 0}€`}
+            size="small"
+            variant="outlined"
+            sx={{ flex: 1, mr: 0.5, mb: 0.5 }}
+          />
+        );
+      }).filter(chip => chip);
+
+      return (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          {selectedEmployeeChips}
+        </Box>
+      );
     }
     return 'Mitarbeiter auswählen';
   };
 
     const handleEmployeeSelectionChange = (serviceId, event) => {
-    const selectedValues = event.target.value;
-    const service = services.find(s => s.id === serviceId);
-    if (!service) return;
+      const selectedValues = event.target.value;
+      const service = services.find(s => s.id === serviceId);
+      if (!service) return;
+
+      // Если у сервиса только один сотрудник, не позволяем его отчекивать
+      if (service.employees.length === 1) {
+        // Проверяем, пытается ли пользователь отчекнуть единственного сотрудника
+        const employeeId = service.employees[0].id.toString();
+
+        if (!selectedValues.includes(employeeId)) {
+          return; // Не позволяем отчекнуть единственного сотрудника
+        }
+      }
 
     const previousValues = serviceEmployees[serviceId] || [];
 
@@ -329,7 +369,7 @@ export default function CalendarForm({
 
   return (
     <Box mt={2}>
-      <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.2rem' }}>
+      <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.5rem', fontFamily: `cormorantGaramond`}}>
         Datum und Zeit auswählen
       </Typography>
 
@@ -339,7 +379,7 @@ export default function CalendarForm({
 
         return (
           <Box key={service.id} sx={{ mt: 1 }}>
-            <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
               {service.name}
             </Typography>
 
@@ -348,28 +388,46 @@ export default function CalendarForm({
 
               <Select
                 multiple
-                value={(serviceEmployees[service.id] || []).map(id => id.toString())}
+                value={(() => {
+                  const currentSelection = serviceEmployees[service.id] || [];
+                  // Для сервиса с одним сотрудником фильтруем только валидные значения
+                  if (service.employees.length === 1) {
+                    return currentSelection.filter(id => id !== 'all').map(id => id.toString());
+                  }
+                  return currentSelection.map(id => id.toString());
+                })()}
                 onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
                 onOpen={() => setOpenSelects(prev => ({ ...prev, [service.id]: true }))}
                 onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
                 renderValue={() => getEmployeeLabel(service)}
                 label="Mitarbeiter"
               >
-                {/* Опция "Alle Mitarbeiter" */}
-                <MenuItem key="all" value="all">
-                  <Checkbox checked={(serviceEmployees[service.id] || []).includes('all')} />
-                  <ListItemText primary="Alle Mitarbeiter" />
-                </MenuItem>
+                {/* Опция "Alle Mitarbeiter" только если сотрудников больше одного */}
+                {service.employees.length > 1 && (
+                  <MenuItem key="all" value="all">
+                    <Checkbox checked={(serviceEmployees[service.id] || []).includes('all')} />
+                    <ListItemText primary="Alle Mitarbeiter" />
+                  </MenuItem>
+                )}
 
-                {/* Отдельные сотрудники для этого сервиса */}
+                                {/* Отдельные сотрудники для этого сервиса */}
                 {service.employees.map((employee) => {
                   const currentSelection = serviceEmployees[service.id] || [];
                   const isAllSelected = currentSelection.includes('all');
                   const isIndividuallySelected = currentSelection.includes(employee.id.toString()) || currentSelection.includes(employee.id);
+                  const isSingleEmployee = service.employees.length === 1;
 
                   return (
                     <MenuItem key={employee.id} value={employee.id.toString()}>
-                      <Checkbox checked={!isAllSelected && isIndividuallySelected} />
+                      {/* Для единственного сотрудника показываем неактивный чекбокс */}
+                      {isSingleEmployee ? (
+                        <Checkbox
+                          checked={true}
+                          disabled={true}
+                        />
+                      ) : (
+                        <Checkbox checked={!isAllSelected && isIndividuallySelected} />
+                      )}
                       <ListItemText
                         primary={
                           <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
@@ -378,7 +436,11 @@ export default function CalendarForm({
                               label={`${employee.price || 0}€`}
                               size="small"
                               variant="outlined"
-                              sx={{ ml: 1 }}
+                              sx={{
+                                ml: 1,
+                                backgroundColor: `#f0f0f0`,
+                                borderColor: `#f0f0f0`,
+                         }}
                             />
                           </Box>
                         }

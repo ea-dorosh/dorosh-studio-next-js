@@ -141,7 +141,7 @@ export default function ServiceSelectionForm({
             onChange={handlePanelChange('subCategory')}
           >
             <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}>
-              <Typography sx={{ fontWeight: `bold` }}>
+              <Typography>
                 {selectedSubCategory
                   ? selectedSubCategory.subCategoryName
                   : `Unterkategorie wählen`
@@ -167,10 +167,10 @@ export default function ServiceSelectionForm({
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               {!serviceData || expandedPanel === 'service' ?
-                <Typography sx={{ fontWeight: `bold` }}>Service wählen</Typography>
+                <Typography>Service wählen</Typography>
                 :
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Typography sx={{ fontWeight: `bold` }}>{serviceData.name}</Typography>
+                  <Typography>{serviceData.name}</Typography>
 
                   <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                     <Chip

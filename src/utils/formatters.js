@@ -68,3 +68,20 @@ export const formatIsoDate = (dateString) => {
 
   return `${day}. ${month} ${year}`;
 };
+
+/**
+ * Formats a date to a more readable format.
+ * @param {string} dateString - The date in 'dayjs' format.
+ * @returns {string} - The formatted date, e.g., 'June 2025', 'Jan-Feb 2025'.
+ */
+export const formatMonthYear = (start) => {
+  const end = start.add(6, `days`);
+
+  // Check if the months are different
+  if (start.month() === end.month()) {
+    return start.format(`MMMM YYYY`); // Same month
+  } else {
+    // Return the abbreviated months and the year
+    return `${start.format(`MMM`)}-${end.format(`MMM`)} ${start.year()}`;
+  }
+};
