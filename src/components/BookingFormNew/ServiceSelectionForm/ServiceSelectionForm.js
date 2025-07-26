@@ -1,5 +1,5 @@
 import {
-  Clear as ClearIcon,
+  Delete as DeleteIcon,
   ExpandMore as ExpandMoreIcon,
 } from '@mui/icons-material';
 import {
@@ -107,21 +107,38 @@ export default function ServiceSelectionForm({
                 alignItems: 'center',
               },
             }}>
-            <Typography sx={{ fontWeight: `bold` }}>
-              {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
-            </Typography>
+            <Box sx={{ width: `100%`, pr: 3 }}>
+              {!selectedCategory ? (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 1,
+                    width: '100%',
+                  }}
+                >
+                  <Typography sx={{ fontWeight: `bold` }}>Kategorie wählen</Typography>
 
-            {hasDeleteButton && (
-              <Box sx={{
-                margin: `-4px 0`,
-              }}>
-                <IconButton
-                  size='small'
-                  onClick={deleteService}>
-                  <ClearIcon />
-                </IconButton>
-              </Box>
-            )}
+                  {hasDeleteButton && (
+                    <Box sx={{
+                      margin: `-4px 0`,
+                    }}>
+                      <IconButton
+                        size='small'
+                        color="error"
+                        onClick={deleteService}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  )}
+                </Box>)
+                :
+                <Typography sx={{ fontWeight: `bold` }}>
+                  {selectedCategory.categoryName}
+                </Typography>
+              }
+            </Box>
           </AccordionSummary>
 
           <AccordionDetails>
@@ -167,27 +184,73 @@ export default function ServiceSelectionForm({
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               {!serviceData || expandedPanel === 'service' ?
-                <Typography>Service wählen</Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 1,
+                    width: '100%',
+                  }}
+                >
+                  <Typography>Service wählen</Typography>
+
+                  {hasDeleteButton && (
+                    <Box sx={{
+                      margin: `-4px 0`,
+                    }}>
+                      <IconButton
+                        size='small'
+                        color="error"
+                        onClick={deleteService}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  )}
+                </Box>
                 :
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Typography>{serviceData.name}</Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 1,
+                    width: '100%',
+                  }}
+                >
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    <Typography>{serviceData.name}</Typography>
 
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                    <Chip
-                      label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
-                      size="small"
-                      variant="outlined"
-                    />
-
-                    {serviceData?.employees && serviceData?.employees?.length > 0 && (
+                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                       <Chip
-                        label={<>Preis: <b>{serviceData?.employees[0]?.price || 0}€</b></>}
+                        label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
                         size="small"
-                        color="primary"
                         variant="outlined"
                       />
-                    )}
+
+                      {serviceData?.employees && serviceData?.employees?.length > 0 && (
+                        <Chip
+                          label={<>Preis: <b>{serviceData?.employees[0]?.price || 0}€</b></>}
+                          size="small"
+                          color="primary"
+                          variant="outlined"
+                        />
+                      )}
+                    </Box>
                   </Box>
+
+                  {hasDeleteButton && (
+                    <Box sx={{
+                      margin: `-4px 0`,
+                    }}>
+                      <IconButton
+                        size='small'
+                        color="error"
+                        onClick={deleteService}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  )}
                 </Box>
               }
             </AccordionSummary>

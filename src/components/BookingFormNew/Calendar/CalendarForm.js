@@ -11,7 +11,6 @@ import {
   IconButton,
   Typography,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   Checkbox,
@@ -219,6 +218,7 @@ export default function CalendarForm({
     setCurrentWeekStart(newStart);
     setCalendarDays([]);
     setSelectedDay(null);
+    setSelectedTimeSlot(null);
 
     // При смене недели всегда обновляем календарь, независимо от состояния селектов
     const daysToHighlight = await fetchCalendarDays(newStart);
@@ -253,9 +253,17 @@ export default function CalendarForm({
       return `${employee.firstName} ${employee.lastName} (${employee.price || 0}€)`;
     }
 
-    // Если выбрано "all", показываем "Alle Mitarbeiter" как текст
+    // Если выбрано "all", показываем "Alle Mitarbeiter" с ценами
     if (selectedEmployees.includes('all')) {
-      return 'Alle Mitarbeiter';
+      const prices = service.employees.map(emp => emp.price || 0);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+
+      if (minPrice === maxPrice) {
+        return `Alle Mitarbeiter (${minPrice}€)`;
+      } else {
+        return `Alle Mitarbeiter (${minPrice}€ - ${maxPrice}€)`;
+      }
     }
 
     // Фильтруем только реальных сотрудников (исключаем 'all')
@@ -378,14 +386,16 @@ export default function CalendarForm({
         if (!service) return null;
 
         return (
-          <Box key={service.id} sx={{ mt: 1 }}>
+          <Box key={service.id} sx={{ mt: 2 }}>
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               {service.name}
             </Typography>
 
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>Mitarbeiter</InputLabel>
+            <Typography variant="selectLabel">
+              Mitarbeiter
+            </Typography>
 
+            <FormControl fullWidth variant="outlined">
               <Select
                 multiple
                 value={(() => {
@@ -400,7 +410,6 @@ export default function CalendarForm({
                 onOpen={() => setOpenSelects(prev => ({ ...prev, [service.id]: true }))}
                 onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
                 renderValue={() => getEmployeeLabel(service)}
-                label="Mitarbeiter"
               >
                 {/* Опция "Alle Mitarbeiter" только если сотрудников больше одного */}
                 {service.employees.length > 1 && (
@@ -552,7 +561,14 @@ export default function CalendarForm({
         }
       </Box>
 
-      {isCalendarDaysLoading && <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
+      {isCalendarDaysLoading && <Box
+        sx={{
+        display: `flex`,
+        justifyContent: `center`,
+        alignItems: `center`,
+        height: `320px`,
+        pt: 5,
+      }}>
         <CircularProgress color="info" />
       </Box>}
 
@@ -596,9 +612,11 @@ export default function CalendarForm({
             color="info"
             size="medium"
             onClick={onNextStepClick}
+            disabled={!selectedTimeSlot}
             sx={{
               margin: `auto`,
               mt: 2,
+              width: `300px`,
             }}
           >
             Weiter

@@ -96,6 +96,12 @@ const theme = createTheme({
       fontSize: `0.9rem`,
       color: alpha(COLORS.BLACK, 0.5),
     },
+    selectLabel: {
+      fontSize: '0.875rem',
+      color: alpha(COLORS.BLACK, 0.7),
+      fontFamily: montserrat.style.fontFamily,
+      marginBottom: '4px',
+    },
   },
   components: {
     MuiButton: {
@@ -201,6 +207,89 @@ const theme = createTheme({
 
           '& .MuiAccordionSummary-content': {
             margin: `6px 0 !important`,
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          borderRadius: '12px',
+          fontSize: '1rem',
+          backgroundColor: COLORS.LIGHT_GRAY,
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: alpha(COLORS.BLACK, 0.2),
+            borderWidth: '1px',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: alpha(COLORS.BLACK, 0.4),
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: COLORS.BLACK,
+            borderWidth: '1px',
+          },
+        },
+        select: {
+          padding: '10px 14px',
+          display: 'flex',
+          alignItems: 'center',
+          minHeight: '20px',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&.MuiInputBase-root': {
+            borderRadius: '12px',
+          },
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '12px',
+          marginTop: '4px',
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          padding: '4px 16px',
+          fontSize: '0.95rem',
+          minHeight: '32px',
+          display: 'flex',
+          alignItems: 'center',
+          '&:hover': {
+            backgroundColor: alpha(COLORS.BLACK, 0.04),
+          },
+          '&.Mui-selected': {
+            backgroundColor: COLORS.LIGHT_GRAY,
+            '&:hover': {
+              backgroundColor: alpha(COLORS.LIGHT_GRAY, 0.8),
+            },
+          },
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          padding: '4px',
+          '& .MuiSvgIcon-root': {
+            fontSize: '1.2rem',
+          },
+        },
+      },
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          '& .MuiInputLabel-root': {
+            display: 'none', // Скрываем стандартный floating label
           },
         },
       },
