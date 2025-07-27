@@ -32,7 +32,6 @@ export default function BookingFormContainer({ categories }) {
   const [selectedServices, setSelectedServices] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showCalendarOverview, setShowCalendarOverview] = useState(false);
-  const [showCustomerForm, setShowCustomerForm] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
@@ -55,6 +54,7 @@ export default function BookingFormContainer({ categories }) {
       updatedServices.push(formState.secondService);
     }
     setSelectedServices(updatedServices);
+    console.log(`BookingFormContainer selectedServices updated:`, updatedServices);
   }, [formState]);
 
   /** Methods */
@@ -167,7 +167,6 @@ export default function BookingFormContainer({ categories }) {
           selectedTimeSlot={selectedTimeSlot}
           setSelectedTimeSlot={setSelectedTimeSlot}
           onNextStep={() => {
-            setShowCustomerForm(true);
             setShowCalendarOverview(true);
             setShowCalendar(false);
 
@@ -178,20 +177,18 @@ export default function BookingFormContainer({ categories }) {
         />
       )}
 
-      {showCalendarOverview && (
+      {showCalendarOverview && (<>
         <CalendarOverview
           services={selectedServices}
           selectedDay={selectedDay}
           selectedTimeSlot={selectedTimeSlot}
         />
-      )}
 
-      {/* Customer Form */}
-      {showCustomerForm && (
         <CustomerForm
-          createAppointment={onSubmitCustomerFormClick}
-          formErrors={createAppointmentErrors}
-        />
+        createAppointment={onSubmitCustomerFormClick}
+        formErrors={createAppointmentErrors}
+      />
+      </>
       )}
     </Box>
   );

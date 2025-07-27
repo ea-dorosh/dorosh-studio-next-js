@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import { forwardRef } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/de';
+import { formattedTime } from '@/utils/formatters';
 
 dayjs.locale(`de`);
 
@@ -37,12 +38,29 @@ const CalendarOverview = forwardRef(function CalendarOverview({
 
   const getTimeText = () => {
     if (!selectedTimeSlot?.startTime) return `Keine Zeit ausgewählt`;
-    return selectedTimeSlot.startTime;
+    return formattedTime(selectedTimeSlot.startTime);
+  };
+
+  const parseTimeToMinutes = (timeString) => {
+    if (!timeString) return 0;
+
+    // Parse "HH:MM:SS" format to minutes
+    const parts = timeString.split(':');
+    if (parts.length !== 3) return 0;
+
+    const hours = parseInt(parts[0]) || 0;
+    const minutes = parseInt(parts[1]) || 0;
+    const seconds = parseInt(parts[2]) || 0;
+
+    return hours * 60 + minutes + Math.round(seconds / 60);
   };
 
   const getTotalDuration = () => {
     if (!services.length) return 0;
-    return services.reduce((total, service) => total + (service.durationTime || 0), 0);
+    return services.reduce((total, service) => {
+      const duration = parseTimeToMinutes(service.durationTime);
+      return total + duration;
+    }, 0);
   };
 
   const formatDuration = (minutes) => {
@@ -58,12 +76,48 @@ const CalendarOverview = forwardRef(function CalendarOverview({
     }
   };
 
-  const getTotalPrice = () => {
-    if (!services.length) return 0;
-    return services.reduce((total, service) => {
-      const price = service.employees?.[0]?.price || 0;
-      return total + price;
-    }, 0);
+      const getServicePriceInfo = (service) => {
+    if (!service.employees?.length) {
+      return { min: 0, max: 0, isRange: false };
+    }
+
+    const prices = service.employees.map(emp => emp.price || 0);
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+
+    return {
+      min: minPrice,
+      max: maxPrice,
+      isRange: minPrice !== maxPrice
+    };
+  };
+
+  const getTotalPriceInfo = () => {
+    if (!services.length) return { min: 0, max: 0, isRange: false };
+
+    let totalMin = 0;
+    let totalMax = 0;
+    let hasRange = false;
+
+    services.forEach(service => {
+      const priceInfo = getServicePriceInfo(service);
+      totalMin += priceInfo.min;
+      totalMax += priceInfo.max;
+      if (priceInfo.isRange) hasRange = true;
+    });
+
+    return {
+      min: totalMin,
+      max: totalMax,
+      isRange: hasRange || totalMin !== totalMax
+    };
+  };
+
+  const formatPrice = (priceInfo) => {
+    if (priceInfo.isRange) {
+      return `${priceInfo.min}€ - ${priceInfo.max}€`;
+    }
+    return `${priceInfo.min}€`;
   };
 
   return (
@@ -103,45 +157,51 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           </Typography>
         </Box>
 
-        {services.length > 0 && (
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.primary', fontSize: '1rem', fontWeight: 'bold' }}>
-              Gewählte Services:
-            </Typography>
+                <Box sx={{ mb: 2 }}>
+          <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.primary', fontSize: '1rem', fontWeight: 'bold' }}>
+            Gewählte Services: ({services.length})
+          </Typography>
 
-            {services.map((service, index) => (
-              <Typography key={index} variant="body2" sx={{ ml: 1, mb: 0.5, color: 'text.secondary' }}>
-                • {service.name}
-              </Typography>
-            ))}
-          </Box>
-        )}
+          {services.length === 0 ? (
+            <Typography variant="body2" sx={{ color: 'text.secondary', ml: 1 }}>
+              Keine Services ausgewählt
+            </Typography>
+          ) : (
+            services.map((service, index) => {
+              const priceInfo = getServicePriceInfo(service);
+              return (
+                <Box key={index} sx={{ ml: 1, mb: 0.5, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2 }}>
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    {service.name || 'Unnamed Service'}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 'bold', whiteSpace: 'nowrap' }}>
+                    {formatPrice(priceInfo)}
+                  </Typography>
+                </Box>
+              );
+            })
+          )}
+        </Box>
 
         <Box sx={{ gap: 1, display: 'flex', flexWrap: 'wrap' }}>
-          {services.length > 0 && (
-            <Chip
-              label={<>Services: <b>{services.length}</b></>}
-              size="small"
-              variant="outlined"
-            />
-          )}
+          <Chip
+            label={<>Services: <b>{services.length}</b></>}
+            size="small"
+            variant="outlined"
+          />
 
-          {getTotalDuration() > 0 && (
-            <Chip
-              label={<>Gesamtdauer: <b>{formatDuration(getTotalDuration())}</b></>}
-              size="small"
-              variant="outlined"
-            />
-          )}
+          <Chip
+            label={<>Gesamtdauer: <b>{formatDuration(getTotalDuration())}</b></>}
+            size="small"
+            variant="outlined"
+          />
 
-          {getTotalPrice() > 0 && (
-            <Chip
-              label={<>Gesamtpreis: <b>{getTotalPrice()}€</b></>}
-              size="small"
-              color="primary"
-              variant="outlined"
-            />
-          )}
+          <Chip
+            label={<>Gesamtpreis: <b>{formatPrice(getTotalPriceInfo())}</b></>}
+            size="small"
+            color="primary"
+            variant="outlined"
+          />
         </Box>
       </CardContent>
     </Card>
