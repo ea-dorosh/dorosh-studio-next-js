@@ -6,6 +6,7 @@ import {
 } from '@mui/icons-material';
 import {
   Box,
+  Button,
   IconButton,
   Typography,
   FormControl,
@@ -38,17 +39,18 @@ const CalendarForm = forwardRef(function CalendarForm({
   setSelectedDay,
   selectedTimeSlot,
   setSelectedTimeSlot,
-  calendarError,
-  removeCalendarError,
+  onNextStep,
 }, ref) {
   const [calendarDays, setCalendarDays] = useState([]);
   const [isCalendarDaysLoading, setIsCalendarDaysLoading] = useState(false);
   const [currentWeekStart, setCurrentWeekStart] = useState(
     selectedDay?.day ? dayjs(selectedDay.day).startOf(`week`) : initialValue.startOf(`week`)
   );
-  const [error, setError] = useState(null);
+  const [fetchCalendarDaysError, setFetchCalendarDaysError] = useState(null);
+  const [timeSlotError, setTimeSlotError] = useState(null);
   const [serviceEmployees, setServiceEmployees] = useState({});
   const [openSelects, setOpenSelects] = useState({});
+  const [shimmerSlotCount, setShimmerSlotCount] = useState(12);
 
   useEffect(() => {
     if (services.length > 0) {
@@ -97,7 +99,7 @@ const CalendarForm = forwardRef(function CalendarForm({
   };
 
   const fetchCalendarDays = async (date, servicesPayloadOverride = null) => {
-    setError(null);
+    setFetchCalendarDaysError(null);
     setIsCalendarDaysLoading(true);
 
     try {
@@ -110,7 +112,7 @@ const CalendarForm = forwardRef(function CalendarForm({
       return daysToHighlight;
     } catch (error) {
       console.error(error);
-      setError(`Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal`);
+      setFetchCalendarDaysError(`Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal`);
     } finally {
       setIsCalendarDaysLoading(false);
     }
@@ -150,20 +152,16 @@ const CalendarForm = forwardRef(function CalendarForm({
     updateCalendar();
   }, [services, serviceEmployees, isAnySelectOpen]);
 
-  useEffect(() => {
-    if (calendarError && selectedDay && selectedTimeSlot) {
-      removeCalendarError();
-    }
-  }, [selectedDay, selectedTimeSlot, calendarError]);
-
   const handleWeekChange = async (direction) => {
     console.log(`handleWeekChange`);
 
     const newStart = currentWeekStart.add(direction, `week`);
     setCurrentWeekStart(newStart);
     setCalendarDays([]);
+    setShimmerSlotCount(selectedDay?.availableTimeslots?.length || 12);
     setSelectedDay(null);
     setSelectedTimeSlot(null);
+    setTimeSlotError(null);
 
     const daysToHighlight = await fetchCalendarDays(newStart);
 
@@ -417,9 +415,9 @@ const CalendarForm = forwardRef(function CalendarForm({
           ))}
         </Box>
 
-        {error ? <Box>
+        {fetchCalendarDaysError ? <Box>
           <Typography variant="body1" mt={2} color="error">
-            {error}
+            {fetchCalendarDaysError}
           </Typography>
         </Box> :
           <Box display="grid" gridTemplateColumns="repeat(7, 0fr)">
@@ -454,6 +452,7 @@ const CalendarForm = forwardRef(function CalendarForm({
                     }
 
                     setSelectedTimeSlot(null);
+                    setTimeSlotError(null);
                   }}
                 />
               );
@@ -464,15 +463,7 @@ const CalendarForm = forwardRef(function CalendarForm({
 
       {isCalendarDaysLoading && (
         <Box sx={{ mt: 2 }}>
-          <TimeSlotSkeleton count={12} showDateText={true} showButton={false} />
-        </Box>
-      )}
-
-      {calendarError && (
-        <Box>
-          <Typography variant="body1" mt={2} color="error">
-            {calendarError}
-          </Typography>
+          <TimeSlotSkeleton count={shimmerSlotCount} showDateText={true} showButton={false} />
         </Box>
       )}
 
@@ -505,7 +496,10 @@ const CalendarForm = forwardRef(function CalendarForm({
               key={slot.startTime}
               slot={slot}
               selectedTimeSlot={selectedTimeSlot}
-              setSelectedTimeSlot={setSelectedTimeSlot}
+              setSelectedTimeSlot={(slot) => {
+                setSelectedTimeSlot(slot);
+                setTimeSlotError(null);
+              }}
             />
           ))}
         </Box>
@@ -530,12 +524,39 @@ const CalendarForm = forwardRef(function CalendarForm({
             <TimeSlotButton
               key={slot.startTime}
               slot={slot}
-              selectedTimeSlot={selectedTimeSlot}
-              setSelectedTimeSlot={setSelectedTimeSlot}
+              selectedTimeSlot={null}
+              setSelectedTimeSlot={() => {}}
             />
           ))}
         </Box>
       </>}
+
+      {timeSlotError && (
+        <Box>
+          <Typography variant="body1" mt={2} color="error">
+            {timeSlotError}
+          </Typography>
+        </Box>
+      )}
+
+      <Button
+        variant="contained"
+        size="large"
+        color="info"
+        onClick={() => {
+          if (selectedDay && selectedTimeSlot) {
+            onNextStep();
+          } else {
+            setTimeSlotError(`Bitte wählen Sie ein Datum und eine Uhrzeit.`);
+          }
+        }}
+        sx={{
+          mt: 2,
+          width: `100%`,
+        }}
+      >
+        Weiter
+      </Button>
     </Box>
   );
 });

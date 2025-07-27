@@ -35,17 +35,14 @@ export default function BookingFormContainer({ categories }) {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
   const [generalError, setGeneralError] = useState(null);
-  const [calendarError, setCalendarError] = useState(null);
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
   /** Watch */
   useEffect(() => {
     if (formState.firstService) {
       setShowCalendar(true);
-      setShowCustomerForm(true);
     } else {
       setShowCalendar(false);
-      setShowCustomerForm(false);
     }
 
     const updatedServices = [];
@@ -76,13 +73,6 @@ export default function BookingFormContainer({ categories }) {
       service: selectedTimeSlot,
     };
     console.log(`appointmentData: `, JSON.stringify(appointmentData, null, 2));
-
-    if (!selectedDay || !selectedTimeSlot) {
-      setCalendarError(`Bitte wählen Sie ein Datum und eine Uhrzeit.`);
-      console.log(`calendarRef.current: `, calendarRef.current);
-      calendarRef.current?.scrollIntoView({ behavior: `smooth` });
-      return;
-    }
 
     try {
       const {validationErrors, errorMessage, data} = await appointmentsService.createAppointment(appointmentData);
@@ -172,8 +162,9 @@ export default function BookingFormContainer({ categories }) {
           setSelectedDay={setSelectedDay}
           selectedTimeSlot={selectedTimeSlot}
           setSelectedTimeSlot={setSelectedTimeSlot}
-          calendarError={calendarError}
-          removeCalendarError={() => setCalendarError(null)}
+          onNextStep={() => {
+            setShowCustomerForm(true);
+          }}
         />
       )}
 
