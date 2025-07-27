@@ -1,68 +1,100 @@
-"use client";
-
 import {
   Box,
+  Card,
+  CardContent,
   Typography,
   Button,
+  Chip,
+  Grid,
 } from "@mui/material";
-import {
-  formatTimeToString,
-  formatPrice,
-} from "@/utils/formatters";
+import { formatTimeToString } from "@/utils/formatters";
 
-export default function ServicesList({ services, theme, selectService }) {
+export default function ServicesList({ services, onServiceSelect, selectedServicesIds }) {
+  if (services.length === 0) {
+    return (
+      <Box sx={{ textAlign: 'center', py: 3 }}>
+        <Typography variant="body1" color="text.secondary">
+          Alle Services aus dieser Kategorie wurden bereits ausgewählt.
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
-    <>
+    <Grid container spacing={2}>
       {services.map((service) => (
-        <Box
-          key={service.id}
-          sx={{
-            pb: 3,
-            pt: 3,
-            borderBottom: `1px solid ${theme.palette.primary.main}`,
-            borderTop: `1px solid ${theme.palette.primary.main}`,
-          }}
-        >
-          <Typography
-            variant="h3"
+        <Grid item xs={12} key={service.id}>
+          <Card
             sx={{
-              fontSize: `1.3rem`,
-              textAlign: `left`,
+              boxShadow: `none`,
+              borderBottom: `1px solid`,
+              pb: `16px`,
+              borderColor: `grey.300`,
+              backgroundColor: `background.default`,
             }}
           >
-            {service.name}
-          </Typography>
+            <CardContent sx={{
+              p: `0`,
 
-          <Typography variant="body1" mt={1}>
-            {service.bookingNote}
-          </Typography>
+              '&:last-child': {
+                p: `0`,
+              },
+            }}>
+              <Box>
 
-          <Typography variant="body1" mt={1}>
-            {formatTimeToString(service.durationTime)}
-          </Typography>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  {service.name}
+                </Typography>
 
-          <Typography
-            variant="caption"
-            mt={1}
-            sx={{display: `block`}}
-          >
-            {formatPrice(service.employees[0].price)}
-          </Typography>
+                <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+                  <Chip
+                    label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
+                    size="small"
+                    variant="outlined"
+                  />
 
-          <Button
-            variant="contained"
-            color="info"
-            sx={{
-              width: `200px`,
-              mt: 2,
-            }}
-            onClick={() => selectService(service)}
-          >
-            Buchen
-          </Button>
-        </Box>
+                  {service.employees && (
+                    <Chip
+                      label={<>Mitarbeiter: <b>{service.employees.length}</b></>}
+                      size="small"
+                      variant="outlined"
+                    />
+                  )}
+
+                  {service.employees && service.employees.length > 0 && (
+                    <Chip
+                      label={<>Preis: <b>{service.employees[0].price || 0}€</b></>}
+                      size="small"
+                      color="primary"
+                      variant="outlined"
+                    />
+                  )}
+                </Box>
+
+                {service.bookingNote && (
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {service.bookingNote}
+                  </Typography>
+                )}
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2 }}>
+
+
+                  <Button
+                    variant={selectedServicesIds.includes(service.id) ? `outlined` : `contained`}
+                    size="small"
+                    onClick={() => onServiceSelect(service)}
+                    sx={{ minWidth: 120 }}
+                    disabled={selectedServicesIds.includes(service.id)}
+                  >
+                    {selectedServicesIds.includes(service.id) ? `Ausgewählt` : `Auswählen`}
+                  </Button>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
       ))}
-    </>
+    </Grid>
   );
 }

@@ -1,4 +1,4 @@
-import BookingFormContainer2 from "@/components/BookingFormNew/BookingFormContainer2";
+import BookingFormContainer2 from "@/components/BookingForm/BookingFormContainer2";
 import servicesService from "@/services/services.service";
 
 export const metadata = {

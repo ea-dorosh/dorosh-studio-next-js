@@ -7,15 +7,14 @@ import {
   FormHelperText,
   Radio,
   RadioGroup,
-  FormLabel,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
-export default function CustomerForm({
+const CustomerForm = forwardRef(function CustomerForm({
   createAppointment,
   formErrors,
-}) {
+}, ref) {
   const [formData, setFormData] = useState({
     firstName: ``,
     lastName: ``,
@@ -44,10 +43,8 @@ export default function CustomerForm({
     });
   };
 
-  return (<Box>
-    <Typography
-      variant="formSubtitle"
-    >
+  return (<Box ref={ref} mt={3} mb={3}>
+      <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.5rem', fontFamily: `cormorantGaramond`}}>
       Kundendetails
     </Typography>
 
@@ -61,9 +58,11 @@ export default function CustomerForm({
       }}
     >
       <FormControl error={Boolean(formErrors?.firstName)}>
+        <Typography variant="selectLabel">
+          Vorname
+        </Typography>
         <TextField
           value={formData.firstName}
-          label="Vorname"
           variant="outlined"
           name="firstName"
           onChange={handleChange}
@@ -77,9 +76,11 @@ export default function CustomerForm({
       </FormControl>
 
       <FormControl error={Boolean(formErrors?.lastName)}>
+        <Typography variant="selectLabel">
+          Nachname
+        </Typography>
         <TextField
           value={formData.lastName}
-          label="Nachname"
           variant="outlined"
           name="lastName"
           onChange={handleChange}
@@ -95,9 +96,11 @@ export default function CustomerForm({
       <FormControl
         error={Boolean(formErrors?.phone)}
       >
+        <Typography variant="selectLabel">
+          Telefon
+        </Typography>
         <TextField
           value={formData.phone}
-          label="Telefon"
           variant="outlined"
           name="phone"
           type="tel"
@@ -113,9 +116,11 @@ export default function CustomerForm({
       </FormControl>
 
       <FormControl error={Boolean(formErrors?.email)}>
+        <Typography variant="selectLabel">
+          E-Mail
+        </Typography>
         <TextField
           value={formData.email}
-          label="E-Mail"
           variant="outlined"
           name="email"
           type="email"
@@ -133,11 +138,19 @@ export default function CustomerForm({
         type="submit"
         variant="contained"
         color="primary"
+        size="large"
         onClick={handleSubmit}
+        sx={{
+          paddingTop: `12px`,
+          paddingBottom: `12px`,
+          mt: 2,
+        }}
       >
         Termin Buchen
       </Button>
     </Box>
   </Box>
   );
-}
+});
+
+export default CustomerForm;

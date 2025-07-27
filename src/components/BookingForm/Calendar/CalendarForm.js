@@ -6,12 +6,9 @@ import {
 } from '@mui/icons-material';
 import {
   Box,
-  Button,
-  CircularProgress,
   IconButton,
   Typography,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   Checkbox,
@@ -19,111 +16,97 @@ import {
   Chip,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import CalendarDay from './CalendarDay';
 import { MOCK_TIME_SLOTS } from './mockTimeSlots';
 import TimeSlotButton from './TimeSlotButton';
+import TimeSlotSkeleton from './TimeSlotSkeleton';
+import { formatMonthYear } from '@/utils/formatters';
+import calendarService from '@/services/calendar.service';
 import 'dayjs/locale/de';
 
 dayjs.locale(`de`);
 
-// initial value for the calendar is tomorrow
-const initialValue = dayjs(new Date()).add(1, `day`);
+// initial value for the calendar is today
+const initialValue = dayjs(new Date());
 
 const weekDays = [`Mo`, `Di`, `Mi`, `Do`, `Fr`, `Sa`, `So`];
 
-async function fetchTimeSlots(date, serviceId, employees) {
-  const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format(`YYYY-MM-DD`)}&serviceId=${serviceId}&employeeIds=${employees.join(`,`)}`;
-
-  const response = await fetch(apiUrl, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const data = await response.json();
-
-  if (data.error) {
-    throw new Error(data.error);
-  }
-
-  return { daysToHighlight: data };
-}
-
-const formatMonthYear = (start) => {
-  const end = start.add(6, `days`);
-  const startMonth = start.format(`MMMM YYYY`);
-
-  // Check if the months are different
-  if (start.month() === end.month()) {
-    return startMonth; // Same month
-  } else {
-    // Return the abbreviated months and the year
-    return `${start.format(`MMM`)}-${end.format(`MMM`)} ${start.year()}`;
-  }
-};
-
-export default function CalendarForm({
-  services = [],
-  onEmployeesChange,
+const CalendarForm = forwardRef(function CalendarForm({
+  services,
   selectedDay,
   setSelectedDay,
   selectedTimeSlot,
   setSelectedTimeSlot,
-  onNextStepClick,
-}) {
+  calendarError,
+  removeCalendarError,
+}, ref) {
   const [calendarDays, setCalendarDays] = useState([]);
   const [isCalendarDaysLoading, setIsCalendarDaysLoading] = useState(false);
   const [currentWeekStart, setCurrentWeekStart] = useState(
     selectedDay?.day ? dayjs(selectedDay.day).startOf(`week`) : initialValue.startOf(`week`)
   );
   const [error, setError] = useState(null);
-  // State для селектов: объект где ключ - ID сервиса, значение - выбранные мастера
   const [serviceEmployees, setServiceEmployees] = useState({});
+  const [openSelects, setOpenSelects] = useState({});
 
-  // Инициализируем выбор мастеров для всех сервисов
   useEffect(() => {
     if (services.length > 0) {
-      const initialServiceEmployees = {};
-      services.forEach(service => {
-        if (!serviceEmployees[service.id]) {
-          // По умолчанию выбираем всех мастеров для каждого сервиса
-          initialServiceEmployees[service.id] = service.employees.map(emp => emp.id);
-        }
-      });
+      setServiceEmployees(prevServiceEmployees => {
+        const newServiceEmployees = { ...prevServiceEmployees };
+        let hasChanges = false;
 
-      if (Object.keys(initialServiceEmployees).length > 0) {
-        setServiceEmployees(prev => ({ ...prev, ...initialServiceEmployees }));
-      }
+        services.forEach(service => {
+          const currentSelection = newServiceEmployees[service?.id] || [];
+
+          const needsInit = currentSelection.length === 0;
+          const needsCorrection = service?.employees?.length === 1 && currentSelection.includes('all');
+
+          if (needsInit || needsCorrection) {
+            if (service?.employees?.length === 1) {
+              newServiceEmployees[service?.id] = [service.employees[0].id.toString()];
+            } else {
+              newServiceEmployees[service?.id] = ['all'];
+            }
+            hasChanges = true;
+          }
+        });
+
+
+
+        return hasChanges ? newServiceEmployees : prevServiceEmployees;
+      });
     }
   }, [services]);
 
-  // Получаем всех выбранных мастеров для всех сервисов
-  const getAllSelectedEmployees = () => {
-    const allEmployees = [];
-    Object.values(serviceEmployees).forEach(employees => {
-      employees.forEach(empId => {
-        if (!allEmployees.includes(empId)) {
-          allEmployees.push(empId);
-        }
-      });
+  const createServicesPayload = () => {
+    const payload = services?.map(service => {
+      const selectedEmployees = serviceEmployees[service?.id] || ['all'];
+
+      const employeeIds = selectedEmployees.includes('all') || selectedEmployees.length === 0
+        ? service?.employees?.map(emp => emp.id)
+        : selectedEmployees.filter(id => id !== 'all').map(id => parseInt(id));
+
+      return {
+        serviceId: service.id,
+        employeeIds
+      };
     });
-    return allEmployees;
+
+    return payload;
   };
 
-  const fetchCalendarDays = async (date, employeesToUse = null) => {
+  const fetchCalendarDays = async (date, servicesPayloadOverride = null) => {
     setError(null);
     setIsCalendarDaysLoading(true);
 
-    const employeeList = employeesToUse || getAllSelectedEmployees();
-
     try {
-      // Используем первый сервис для получения слотов времени
-      const serviceId = services.length > 0 ? services[0].id : null;
-      if (!serviceId) return [];
+      if (services?.length === 0) return [];
 
-      const { daysToHighlight } = await fetchTimeSlots(date, serviceId, employeeList);
+      const payload = servicesPayloadOverride || createServicesPayload();
+      if (payload.length === 0) return [];
+
+      const { daysToHighlight } = await calendarService.fetchTimeSlots(date, payload);
       return daysToHighlight;
     } catch (error) {
       console.error(error);
@@ -133,67 +116,56 @@ export default function CalendarForm({
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      const employeesToUse = getAllSelectedEmployees();
-      if (employeesToUse.length === 0 && services.length > 0) {
-        // Если еще нет выбранных мастеров, используем всех доступных
-        const allAvailable = [];
-        services.forEach(service => {
-          service.employees.forEach(emp => {
-            if (!allAvailable.includes(emp.id)) {
-              allAvailable.push(emp.id);
-            }
-          });
-        });
-        const daysToHighlight = await fetchCalendarDays(currentWeekStart, allAvailable);
-        setCalendarDays(daysToHighlight || []);
-      } else if (employeesToUse.length > 0) {
-        const daysToHighlight = await fetchCalendarDays(currentWeekStart, employeesToUse);
-        setCalendarDays(daysToHighlight || []);
-      }
+  const isAnySelectOpen = Object.values(openSelects).some(Boolean);
+  const areEmployeesInitialized = services.length > 0 && services.every(service => {
+    const selected = serviceEmployees[service.id];
+    return selected && selected.length > 0;
+  });
 
-      if (!selectedDay?.day && calendarDays.length > 0) {
-        setSelectedDay(calendarDays[0]);
-      }
-    }
-
-    if (services.length > 0) {
-      fetchData();
-    }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [services]);
-
-  // Update calendar when employees selection changes
   useEffect(() => {
     async function updateCalendar() {
-      const employeesToUse = getAllSelectedEmployees();
+      if (services.length === 0 || isAnySelectOpen || !areEmployeesInitialized) return;
 
-      if (employeesToUse.length > 0) {
-        const daysToHighlight = await fetchCalendarDays(currentWeekStart, employeesToUse);
-        setCalendarDays(daysToHighlight || []);
+      const daysToHighlight = await fetchCalendarDays(currentWeekStart);
 
-        // Reset selected day if current selection is no longer available
-        if (selectedDay && daysToHighlight) {
-          const stillAvailable = daysToHighlight.find(d => d.day === selectedDay.day);
-          if (!stillAvailable) {
-            setSelectedDay(daysToHighlight.length > 0 ? daysToHighlight[0] : null);
-          }
+      if (daysToHighlight.length === 0) {
+        handleWeekChange(1); // go to next week
+        return;
+      }
+
+      setCalendarDays(daysToHighlight || []);
+
+      // Set initial selected day if none is selected
+      if (!selectedDay?.day && daysToHighlight && daysToHighlight.length > 0) {
+        setSelectedDay(daysToHighlight[0]);
+      }
+      // Reset selected day if current selection is no longer available
+      else if (selectedDay && daysToHighlight) {
+        const stillAvailable = daysToHighlight.find(d => d.day === selectedDay.day);
+        if (!stillAvailable) {
+          setSelectedDay(daysToHighlight.length > 0 ? daysToHighlight[0] : null);
         }
       }
     }
     updateCalendar();
-  }, [serviceEmployees]);
+  }, [services, serviceEmployees, isAnySelectOpen]);
+
+  useEffect(() => {
+    if (calendarError && selectedDay && selectedTimeSlot) {
+      removeCalendarError();
+    }
+  }, [selectedDay, selectedTimeSlot, calendarError]);
 
   const handleWeekChange = async (direction) => {
+    console.log(`handleWeekChange`);
+
     const newStart = currentWeekStart.add(direction, `week`);
     setCurrentWeekStart(newStart);
     setCalendarDays([]);
     setSelectedDay(null);
+    setSelectedTimeSlot(null);
 
-    const employeesToUse = getAllSelectedEmployees();
-    const daysToHighlight = await fetchCalendarDays(newStart, employeesToUse);
+    const daysToHighlight = await fetchCalendarDays(newStart);
 
     setCalendarDays(daysToHighlight || []);
 
@@ -215,107 +187,179 @@ export default function CalendarForm({
       ? `Morgen, am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)},`
       : `Am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)}`;
 
-  // Helper functions for employee selection for specific service
   const getEmployeeLabel = (service) => {
     const selectedEmployees = serviceEmployees[service.id] || [];
 
-    if (selectedEmployees.length === service.employees.length) {
-      return 'Alle Mitarbeiter';
+    if (service.employees.length === 1) {
+      const employee = service.employees[0];
+      return `${employee.firstName} ${employee.lastName} (${employee.price || 0}€)`;
     }
-    if (selectedEmployees.length === 1) {
-      const selectedEmployee = service.employees.find(emp => emp.id === selectedEmployees[0]);
-      return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName}` : 'Mitarbeiter';
+
+    if (selectedEmployees.includes('all')) {
+      const prices = service.employees.map(emp => emp.price || 0);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+
+      if (minPrice === maxPrice) {
+        return `Alle Mitarbeiter (${minPrice}€)`;
+      } else {
+        return `Alle Mitarbeiter (${minPrice}€ - ${maxPrice}€)`;
+      }
     }
-    if (selectedEmployees.length > 1) {
-      const selectedNames = selectedEmployees.map(empId => {
-        const emp = service.employees.find(e => e.id === empId);
-        return emp ? `${emp.firstName} ${emp.lastName}` : '';
-      }).filter(name => name).join(', ');
-      return selectedNames;
+
+    const realEmployees = selectedEmployees.filter(id => id !== 'all');
+
+    if (realEmployees.length === 0) {
+      return 'Mitarbeiter auswählen';
+    }
+    if (realEmployees.length === 1) {
+      const selectedEmployee = service.employees.find(emp => emp.id.toString() === realEmployees[0].toString());
+      return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName} (${selectedEmployee.price || 0}€)` : 'Mitarbeiter';
+    }
+    if (realEmployees.length > 1) {
+      const selectedEmployeeChips = realEmployees.map(empId => {
+        const emp = service.employees.find(e => e.id.toString() === empId.toString());
+        if (!emp) return null;
+
+        return (
+          <Chip
+            key={emp.id}
+            label={`${emp.firstName} ${emp.lastName} • ${emp.price || 0}€`}
+            size="small"
+            variant="outlined"
+            sx={{ flex: 1, mr: 0.5, mb: 0.5 }}
+          />
+        );
+      }).filter(chip => chip);
+
+      return (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          {selectedEmployeeChips}
+        </Box>
+      );
     }
     return 'Mitarbeiter auswählen';
   };
 
-  const handleEmployeeSelectionChange = (serviceId, event) => {
-    const selectedValues = event.target.value;
-    const service = services.find(s => s.id === serviceId);
-    if (!service) return;
+    const handleEmployeeSelectionChange = (serviceId, event) => {
+      const selectedValues = event.target.value;
+      const service = services.find(s => s.id === serviceId);
+      if (!service) return;
 
-    // Обновляем выбор для конкретного сервиса
-    const newServiceEmployees = { ...serviceEmployees };
-    newServiceEmployees[serviceId] = selectedValues.map(id => parseInt(id));
-    setServiceEmployees(newServiceEmployees);
+      if (service.employees.length === 1) {
+        const employeeId = service.employees[0].id.toString();
 
-    // Уведомляем родительский компонент о всех выбранных сотрудниках
-    const allSelectedEmployees = [];
-    Object.values(newServiceEmployees).forEach(employees => {
-      employees.forEach(empId => {
-        if (!allSelectedEmployees.includes(empId)) {
-          allSelectedEmployees.push(empId);
+        if (!selectedValues.includes(employeeId)) {
+          return;
         }
-      });
-    });
-    onEmployeesChange(allSelectedEmployees);
+      }
+
+    const previousValues = serviceEmployees[serviceId] || [];
+
+    const newValue = selectedValues.find(val => !previousValues.includes(val));
+    const removedValue = previousValues.find(val => !selectedValues.includes(val));
+
+    let finalSelection = [...selectedValues];
+
+    if (newValue === 'all') {
+      finalSelection = ['all'];
+    } else if (removedValue === 'all') {
+      finalSelection = selectedValues.filter(val => val !== 'all');
+    } else if (newValue && newValue !== 'all' && previousValues.includes('all')) {
+      finalSelection = [newValue];
+    } else {
+      finalSelection = selectedValues.filter(val => val !== 'all');
+    }
+
+    const newServiceEmployees = { ...serviceEmployees };
+    newServiceEmployees[serviceId] = finalSelection;
+    setServiceEmployees(newServiceEmployees);
   };
 
   return (
-    <Box>
-      <Typography variant="formSubtitle">
-        Wählen Sie Datum und Uhrzeit
+    <Box ref={ref} mt={2}>
+      <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.5rem', fontFamily: `cormorantGaramond`}}>
+        Datum und Zeit auswählen
       </Typography>
 
-      {/* Selected Services Display */}
-      {services.length > 0 && (
-        <Box sx={{ mb: 3, p: 2, bgcolor: 'background.paper', borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
-          <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-            Ausgewählte Services:
-          </Typography>
-          {services.map((service, index) => (
-            <Typography key={service.id} variant="body2" sx={{ ml: 1 }}>
-              {index + 1}. {service.name}
-            </Typography>
-          ))}
-        </Box>
-      )}
-
       {/* Employee Selection for each service */}
-      {services.map((service) => (
-        <Box key={service.id} sx={{ mb: 3, mt: 2 }}>
-          <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-            Mitarbeiter für: {service.name}
-          </Typography>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel>Mitarbeiter</InputLabel>
-            <Select
-              multiple
-              value={(serviceEmployees[service.id] || []).map(id => id.toString())}
-              onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
-              renderValue={() => getEmployeeLabel(service)}
-              label="Mitarbeiter"
-            >
-              {/* Отдельные сотрудники для этого сервиса */}
-              {service.employees.map((employee) => (
-                <MenuItem key={employee.id} value={employee.id.toString()}>
-                  <Checkbox checked={(serviceEmployees[service.id] || []).includes(employee.id)} />
-                  <ListItemText
-                    primary={
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        <span>{`${employee.firstName} ${employee.lastName}`}</span>
-                        <Chip
-                          label={`${employee.price || 0}€`}
-                          size="small"
-                          variant="outlined"
-                          sx={{ ml: 1 }}
+      {services.map((service) => {
+        if (!service) return null;
+
+        return (
+          <Box key={service.id} sx={{ mt: 2 }}>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+              {service.name}
+            </Typography>
+
+            <Typography variant="selectLabel">
+              Mitarbeiter
+            </Typography>
+
+            <FormControl fullWidth variant="outlined">
+              <Select
+                multiple
+                value={(() => {
+                  const currentSelection = serviceEmployees[service.id] || [];
+
+                  if (service.employees.length === 1) {
+                    return currentSelection.filter(id => id !== 'all').map(id => id.toString());
+                  }
+
+                  return currentSelection.map(id => id.toString());
+                })()}
+                onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
+                onOpen={() => setOpenSelects(prev => ({ ...prev, [service.id]: true }))}
+                onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
+                renderValue={() => getEmployeeLabel(service)}
+              >
+                {service.employees.length > 1 && (
+                  <MenuItem key="all" value="all">
+                    <Checkbox checked={(serviceEmployees[service.id] || []).includes('all')} />
+                    <ListItemText primary="Alle Mitarbeiter" />
+                  </MenuItem>
+                )}
+
+                {service.employees.map((employee) => {
+                  const currentSelection = serviceEmployees[service.id] || [];
+                  const isAllSelected = currentSelection.includes('all');
+                  const isIndividuallySelected = currentSelection.includes(employee.id.toString()) || currentSelection.includes(employee.id);
+                  const isSingleEmployee = service.employees.length === 1;
+
+                  return (
+                    <MenuItem key={employee.id} value={employee.id.toString()}>
+                      {isSingleEmployee ? (
+                        <Checkbox
+                          checked={true}
+                          disabled={true}
                         />
-                      </Box>
-                    }
-                  />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-      ))}
+                      ) : (
+                        <Checkbox checked={!isAllSelected && isIndividuallySelected} />
+                      )}
+                      <ListItemText
+                        primary={
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <span>{`${employee.firstName} ${employee.lastName}`}</span>
+                            <Chip
+                              label={`${employee.price || 0}€`}
+                              size="small"
+                              variant="outlined"
+                              sx={{
+                                ml: 1,
+                                backgroundColor: `#f0f0f0`,
+                                borderColor: `#f0f0f0`,
+                         }}
+                            />
+                          </Box>
+                        }
+                      />
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Box>
+        )})}
 
       <Box
         sx={{
@@ -355,7 +399,7 @@ export default function CalendarForm({
           </IconButton>
         </Box>
 
-        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
+        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)">
           {weekDays.map((day, index) => (
             <Typography
               key={index}
@@ -378,7 +422,7 @@ export default function CalendarForm({
             {error}
           </Typography>
         </Box> :
-          <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" mt={1}>
+          <Box display="grid" gridTemplateColumns="repeat(7, 0fr)">
             {Array.from({ length: 7 }).map((_, index) => {
               const day = currentWeekStart.add(index, `day`);
               const isHighlighted = calendarDays.some(({
@@ -408,6 +452,8 @@ export default function CalendarForm({
                         availableTimeslots: [],
                       });
                     }
+
+                    setSelectedTimeSlot(null);
                   }}
                 />
               );
@@ -416,16 +462,26 @@ export default function CalendarForm({
         }
       </Box>
 
-      {isCalendarDaysLoading && <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
-        <CircularProgress color="info" />
-      </Box>}
+      {isCalendarDaysLoading && (
+        <Box sx={{ mt: 2 }}>
+          <TimeSlotSkeleton count={12} showDateText={true} showButton={false} />
+        </Box>
+      )}
+
+      {calendarError && (
+        <Box>
+          <Typography variant="body1" mt={2} color="error">
+            {calendarError}
+          </Typography>
+        </Box>
+      )}
 
       {selectedDay && selectedDay.availableTimeslots.length > 0 && <Box
         sx={{
           display:`flex`,
           flexDirection:`column`,
         }}
-        mt={3}
+        mt={2}
       >
         <Box>
           {selectedDay.availableTimeslots.some(timeslot => !timeslot.disabled) ? (
@@ -453,23 +509,10 @@ export default function CalendarForm({
             />
           ))}
         </Box>
-
-        <Button
-          variant="contained"
-          color="info"
-          size="medium"
-          onClick={onNextStepClick}
-          sx={{
-            margin: `auto`,
-            mt: 2,
-          }}
-        >
-          Weiter
-        </Button>
       </Box>}
 
       {selectedDay && selectedDay.availableTimeslots.length === 0 && <>
-        <Box mt={3}>
+        <Box mt={2}>
           <b>{dateText}</b> gibt es keine verfügbaren Zeiten. <br />
         Bitte wählen Sie ein anderes Datum.
         </Box>
@@ -495,4 +538,6 @@ export default function CalendarForm({
       </>}
     </Box>
   );
-}
+});
+
+export default CalendarForm;
