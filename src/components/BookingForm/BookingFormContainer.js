@@ -13,7 +13,7 @@ import ServiceSelectionForm from "./ServiceSelectionForm/ServiceSelectionForm";
 import CustomerForm from "./CustomerForm/CustomerForm";
 import appointmentsService from "@/services/appointments.service";
 
-export default function BookingFormContainer2({ categories }) {
+export default function BookingFormContainer({ categories }) {
   const theme = useTheme();
   const calendarRef = useRef(null);
 
