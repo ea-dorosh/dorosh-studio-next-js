@@ -26,8 +26,6 @@ export default function BookingFormContainer({ categories }) {
     hasSecondService: false,
   });
 
-  console.log(`formState: `, JSON.stringify(formState, null, 2));
-
   /** State */
   const [selectedServices, setSelectedServices] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -54,7 +52,6 @@ export default function BookingFormContainer({ categories }) {
       updatedServices.push(formState.secondService);
     }
     setSelectedServices(updatedServices);
-    console.log(`BookingFormContainer selectedServices updated:`, updatedServices);
   }, [formState]);
 
   /** Methods */
@@ -79,7 +76,6 @@ export default function BookingFormContainer({ categories }) {
       date: selectedDay.day,
       service: selectedTimeSlot,
     };
-    console.log(`appointmentData: `, JSON.stringify(appointmentData, null, 2));
 
     try {
       const {validationErrors, errorMessage, data} = await appointmentsService.createAppointment(appointmentData);

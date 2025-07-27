@@ -17,7 +17,7 @@ import {
   Chip,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { useEffect, useState, forwardRef } from 'react';
+import { useEffect, useState, forwardRef, useRef } from 'react';
 import CalendarDay from './CalendarDay';
 import { MOCK_TIME_SLOTS } from './mockTimeSlots';
 import TimeSlotButton from './TimeSlotButton';
@@ -51,6 +51,7 @@ const CalendarForm = forwardRef(function CalendarForm({
   const [serviceEmployees, setServiceEmployees] = useState({});
   const [openSelects, setOpenSelects] = useState({});
   const [shimmerSlotCount, setShimmerSlotCount] = useState(12);
+  const previousPayloadRef = useRef(null);
 
   useEffect(() => {
     if (services.length > 0) {
@@ -91,11 +92,19 @@ const CalendarForm = forwardRef(function CalendarForm({
 
       return {
         serviceId: service.id,
-        employeeIds
+        employeeIds: employeeIds.sort() // Sort for consistent comparison
       };
     });
 
     return payload;
+  };
+
+  const isPayloadChanged = (newPayload, previousPayload) => {
+    if (!previousPayload) return true;
+
+    if (newPayload.length !== previousPayload.length) return true;
+
+    return JSON.stringify(newPayload) !== JSON.stringify(previousPayload);
   };
 
   const fetchCalendarDays = async (date, servicesPayloadOverride = null) => {
@@ -128,6 +137,15 @@ const CalendarForm = forwardRef(function CalendarForm({
     async function updateCalendar() {
       if (services.length === 0 || isAnySelectOpen || !areEmployeesInitialized) return;
 
+      const currentPayload = createServicesPayload();
+
+      // Only fetch if payload has changed
+      if (!isPayloadChanged(currentPayload, previousPayloadRef.current)) {
+        return;
+      }
+
+      previousPayloadRef.current = JSON.parse(JSON.stringify(currentPayload)); // Deep copy
+
       const daysToHighlight = await fetchCalendarDays(currentWeekStart);
 
       if (daysToHighlight.length === 0) {
@@ -153,8 +171,6 @@ const CalendarForm = forwardRef(function CalendarForm({
   }, [services, serviceEmployees, isAnySelectOpen]);
 
   const handleWeekChange = async (direction) => {
-    console.log(`handleWeekChange`);
-
     const newStart = currentWeekStart.add(direction, `week`);
     setCurrentWeekStart(newStart);
     setCalendarDays([]);
