@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import AddServiceQuestion from "./AddServiceQuestion/AddServiceQuestion";
 import CalendarForm from "./Calendar/CalendarForm";
+import CalendarOverview from "./Calendar/CalendarOverview";
 import ServiceSelectionForm from "./ServiceSelectionForm/ServiceSelectionForm";
 import CustomerForm from "./CustomerForm/CustomerForm";
 import appointmentsService from "@/services/appointments.service";
@@ -30,6 +31,7 @@ export default function BookingFormContainer({ categories }) {
   /** State */
   const [selectedServices, setSelectedServices] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showCalendarOverview, setShowCalendarOverview] = useState(false);
   const [showCustomerForm, setShowCustomerForm] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
@@ -95,63 +97,65 @@ export default function BookingFormContainer({ categories }) {
       backgroundColor: theme.palette.background.paper,
       zIndex: 1,
     }}>
-      <Typography variant="h1" sx={{
-        mb: 3,
-        textAlign: `center`,
-        fontSize: `2.4rem`,
-        fontWeight: `400`,
-      }}>
-        Service auswählen
-      </Typography>
+      {!showCalendarOverview && <>
+        <Typography variant="h1" sx={{
+          mb: 3,
+          textAlign: `center`,
+          fontSize: `2.4rem`,
+          fontWeight: `400`,
+        }}>
+          Service auswählen
+        </Typography>
 
-      <ServiceSelectionForm
-        categories={categories}
-        onServiceSelect={(service) => {
-          setFormState(prev => ({ ...prev, firstService: service }));
-        }}
-        getAvailableServices={getAvailableServices}
-        serviceData={formState.firstService}
-        hasDeleteButton={formState.hasSecondService}
-        deleteService={() => {
-          setFormState(prev => ({
-            ...prev,
-            hasSecondService: false,
-            firstService: prev.secondService,
-            secondService: null,
-          }));
-        }}
-        selectedServicesIds={selectedServices.map(service => service.id)}
-      />
-
-      {formState.hasSecondService && (<Box mt={2}>
         <ServiceSelectionForm
           categories={categories}
           onServiceSelect={(service) => {
-            setFormState(prev => ({ ...prev, secondService: service }));
+            setFormState(prev => ({ ...prev, firstService: service }));
           }}
-          hasDeleteButton
+          getAvailableServices={getAvailableServices}
+          serviceData={formState.firstService}
+          hasDeleteButton={formState.hasSecondService}
           deleteService={() => {
             setFormState(prev => ({
               ...prev,
               hasSecondService: false,
+              firstService: prev.secondService,
               secondService: null,
             }));
           }}
-          getAvailableServices={getAvailableServices}
-          serviceData={formState.secondService}
           selectedServicesIds={selectedServices.map(service => service.id)}
         />
-      </Box>
-      )}
 
-      {/* Add Service Question */}
-      {formState.firstService && !formState.hasSecondService && (
-        <AddServiceQuestion
-          onAddService={() => {
-            setFormState(prev => ({ ...prev, hasSecondService: true }));
-          }}
-        />
-      )}
+        {formState.hasSecondService && (<Box mt={2}>
+          <ServiceSelectionForm
+            categories={categories}
+            onServiceSelect={(service) => {
+              setFormState(prev => ({ ...prev, secondService: service }));
+            }}
+            hasDeleteButton
+            deleteService={() => {
+              setFormState(prev => ({
+                ...prev,
+                hasSecondService: false,
+                secondService: null,
+              }));
+            }}
+            getAvailableServices={getAvailableServices}
+            serviceData={formState.secondService}
+            selectedServicesIds={selectedServices.map(service => service.id)}
+          />
+        </Box>
+        )}
+
+        {/* Add Service Question */}
+        {formState.firstService && !formState.hasSecondService && (
+          <AddServiceQuestion
+            onAddService={() => {
+              setFormState(prev => ({ ...prev, hasSecondService: true }));
+            }}
+          />
+        )}
+      </>}
 
       {/* Calendar */}
       {showCalendar && (
@@ -164,7 +168,21 @@ export default function BookingFormContainer({ categories }) {
           setSelectedTimeSlot={setSelectedTimeSlot}
           onNextStep={() => {
             setShowCustomerForm(true);
+            setShowCalendarOverview(true);
+            setShowCalendar(false);
+
+            setTimeout(() => {
+              window.scrollTo({ top: 0, behavior: `smooth` });
+            }, 0);
           }}
+        />
+      )}
+
+      {showCalendarOverview && (
+        <CalendarOverview
+          services={selectedServices}
+          selectedDay={selectedDay}
+          selectedTimeSlot={selectedTimeSlot}
         />
       )}
 

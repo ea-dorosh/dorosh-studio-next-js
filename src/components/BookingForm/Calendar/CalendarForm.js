@@ -543,6 +543,7 @@ const CalendarForm = forwardRef(function CalendarForm({
         variant="contained"
         size="large"
         color="info"
+        disabled={isCalendarDaysLoading}
         onClick={() => {
           if (selectedDay && selectedTimeSlot) {
             onNextStep();
