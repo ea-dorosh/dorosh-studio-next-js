@@ -17,7 +17,6 @@ export default function CustomerForm({
   formErrors,
 }) {
   const [formData, setFormData] = useState({
-    salutation: null,
     firstName: ``,
     lastName: ``,
     phone: ``,
@@ -31,17 +30,10 @@ export default function CustomerForm({
       delete formErrors[name];
     }
 
-    if (name === `salutation`) {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: Number(value),
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (event) => {
@@ -68,38 +60,6 @@ export default function CustomerForm({
         mt: 2,
       }}
     >
-      <FormControl error={Boolean(formErrors?.salutation)}>
-        <Box sx={{
-          display: `flex`,
-          flexDirection: `row`,
-          alignItems: `center`,
-          gap: 3,
-        }}>
-          <FormLabel
-            id="salutation-group-label"
-            sx={{ mr: 4 }}
-          >
-            Anrede
-          </FormLabel>
-
-          <RadioGroup
-            row
-            name="salutation"
-            value={formData.salutation}
-            onChange={handleChange}
-          >
-            <FormControlLabel value={1} control={<Radio color="info" />} label="Frau"  />
-            <FormControlLabel value={0} control={<Radio color="info"/>} label="Herr" />
-          </RadioGroup>
-        </Box>
-
-        {formErrors?.salutation &&
-          <FormHelperText>
-            {formErrors.salutation}
-          </FormHelperText>
-        }
-      </FormControl>
-
       <FormControl error={Boolean(formErrors?.firstName)}>
         <TextField
           value={formData.firstName}

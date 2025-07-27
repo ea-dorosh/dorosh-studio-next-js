@@ -7,7 +7,6 @@ import {
   Divider,
 } from "@mui/material";
 import dayjs from 'dayjs';
-import { salutationEnum } from '@/constants/enums';
 import 'dayjs/locale/de';
 import { formattedTime } from "@/utils/formatters";
 
@@ -28,7 +27,7 @@ export default function Confirmation({
       </Typography>
 
       <Box mt={4}>
-        Sehr {appointment.salutation === salutationEnum.male ? 'geehrter Herr' : 'geehrte Frau'} {appointment.lastName},
+        Hallo {appointment.firstName} {appointment.lastName},
       </Box>
 
       <Box>
