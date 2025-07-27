@@ -172,7 +172,6 @@ export default function BookingFormContainer2({ categories }) {
           setSelectedDay={setSelectedDay}
           selectedTimeSlot={selectedTimeSlot}
           setSelectedTimeSlot={setSelectedTimeSlot}
-          onEmployeesChange={() => {}} // placeholder for now
           calendarError={calendarError}
           removeCalendarError={() => setCalendarError(null)}
         />

@@ -34,7 +34,6 @@ const weekDays = [`Mo`, `Di`, `Mi`, `Do`, `Fr`, `Sa`, `So`];
 
 const CalendarForm = forwardRef(function CalendarForm({
   services,
-  onEmployeesChange,
   selectedDay,
   setSelectedDay,
   selectedTimeSlot,
@@ -73,34 +72,12 @@ const CalendarForm = forwardRef(function CalendarForm({
           }
         });
 
-        if (hasChanges && onEmployeesChange) {
-          const allSelectedEmployees = [];
-                    Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
-            const svc = services.find(s => s.id === parseInt(sId));
-            if (!svc) return;
 
-            if (employees.includes('all')) {
-              svc.employees.forEach(emp => {
-                if (!allSelectedEmployees.includes(emp.id)) {
-                  allSelectedEmployees.push(emp.id);
-                }
-              });
-            } else {
-              employees.forEach(empId => {
-                const numId = parseInt(empId);
-                if (!allSelectedEmployees.includes(numId)) {
-                  allSelectedEmployees.push(numId);
-                }
-              });
-            }
-          });
-          onEmployeesChange(allSelectedEmployees);
-        }
 
         return hasChanges ? newServiceEmployees : prevServiceEmployees;
       });
     }
-  }, [services, onEmployeesChange]);
+  }, [services]);
 
   const createServicesPayload = () => {
     const payload = services?.map(service => {
@@ -297,30 +274,6 @@ const CalendarForm = forwardRef(function CalendarForm({
     const newServiceEmployees = { ...serviceEmployees };
     newServiceEmployees[serviceId] = finalSelection;
     setServiceEmployees(newServiceEmployees);
-
-    if (onEmployeesChange) {
-      const allSelectedEmployees = [];
-      Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
-        const svc = services.find(s => s.id === parseInt(sId));
-        if (!svc) return;
-
-        if (employees.includes('all')) {
-          svc.employees.forEach(emp => {
-            if (!allSelectedEmployees.includes(emp.id)) {
-              allSelectedEmployees.push(emp.id);
-            }
-          });
-        } else {
-          employees.forEach(empId => {
-            const numId = parseInt(empId);
-            if (empId !== 'all' && !allSelectedEmployees.includes(numId)) {
-              allSelectedEmployees.push(numId);
-            }
-          });
-        }
-      });
-      onEmployeesChange(allSelectedEmployees);
-    }
   };
 
   return (
