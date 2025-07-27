@@ -237,12 +237,45 @@ const theme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: COLORS.LIGHT_GRAY,
+            borderRadius: '12px',
+            fontSize: '1rem',
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: alpha(COLORS.BLACK, 0.2),
+              borderWidth: '1px',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: alpha(COLORS.BLACK, 0.4),
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: COLORS.BLACK,
+              borderWidth: '1px',
+            },
+            '& .MuiOutlinedInput-input': {
+              padding: '10px 14px',
+            },
+          },
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
           '&.MuiInputBase-root': {
             borderRadius: '12px',
+            backgroundColor: COLORS.LIGHT_GRAY,
           },
+        },
+        notchedOutline: {
+          borderColor: alpha(COLORS.BLACK, 0.2),
+          borderWidth: '1px',
+        },
+        input: {
+          padding: '10px 14px',
         },
       },
     },
@@ -285,12 +318,51 @@ const theme = createTheme({
         },
       },
     },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: alpha(COLORS.BLACK, 0.6),
+          '&.Mui-checked': {
+            color: COLORS.BLACK,
+          },
+          '&:hover': {
+            backgroundColor: alpha(COLORS.BLACK, 0.04),
+          },
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: '0.875rem',
+          color: alpha(COLORS.BLACK, 0.7),
+          fontFamily: montserrat.style.fontFamily,
+          fontWeight: '500',
+          '&.Mui-focused': {
+            color: alpha(COLORS.BLACK, 0.7),
+          },
+        },
+      },
+    },
     MuiFormControl: {
       styleOverrides: {
         root: {
           '& .MuiInputLabel-root': {
             display: 'none', // Скрываем стандартный floating label
           },
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontFamily: montserrat.style.fontFamily,
+          fontSize: `0.8rem`,
+          fontWeight: `400`,
+          color: alpha(COLORS.BLACK, 0.7),
+          marginLeft: 0,
+          marginRight: 0,
+          letterSpacing: `1.2px`,
         },
       },
     },

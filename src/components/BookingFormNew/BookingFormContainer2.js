@@ -5,14 +5,17 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import AddServiceQuestion from "./AddServiceQuestion/AddServiceQuestion";
 import CalendarForm from "./Calendar/CalendarForm";
 import ServiceSelectionForm from "./ServiceSelectionForm/ServiceSelectionForm";
+import CustomerForm from "./CustomerForm/CustomerForm";
+import appointmentsService from "@/services/appointments.service";
 
 export default function BookingFormContainer2({ categories }) {
   const theme = useTheme();
+  const calendarRef = useRef(null);
 
   // console.log(`categories: `, JSON.stringify(categories, null, 2));
 
@@ -27,15 +30,22 @@ export default function BookingFormContainer2({ categories }) {
   /** State */
   const [selectedServices, setSelectedServices] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showCustomerForm, setShowCustomerForm] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+  const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
+  const [generalError, setGeneralError] = useState(null);
+  const [calendarError, setCalendarError] = useState(null);
+  const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
   /** Watch */
   useEffect(() => {
     if (formState.firstService) {
       setShowCalendar(true);
+      setShowCustomerForm(true);
     } else {
       setShowCalendar(false);
+      setShowCustomerForm(false);
     }
 
     const updatedServices = [];
@@ -58,6 +68,36 @@ export default function BookingFormContainer2({ categories }) {
   const getAllServices = (categoryId, subCategoryId) => {
     return categories.find(category => category.categoryId === categoryId)?.subCategories.find(subCategory => subCategory.subCategoryId === subCategoryId)?.services;
   };
+
+  const onSubmitCustomerFormClick = async (formData) => {
+    const appointmentData = {
+      ...formData,
+      date: selectedDay.day,
+      service: selectedTimeSlot,
+    };
+    console.log(`appointmentData: `, JSON.stringify(appointmentData, null, 2));
+
+    if (!selectedDay || !selectedTimeSlot) {
+      setCalendarError(`Bitte wählen Sie ein Datum und eine Uhrzeit.`);
+      console.log(`calendarRef.current: `, calendarRef.current);
+      calendarRef.current?.scrollIntoView({ behavior: `smooth` });
+      return;
+    }
+
+    try {
+      const {validationErrors, errorMessage, data} = await appointmentsService.createAppointment(appointmentData);
+
+      if (validationErrors) {
+        setCreateAppointmentErrors(validationErrors);
+      } else if (errorMessage) {
+        setGeneralError(errorMessage);
+      } else if (data) {
+        setAppointmentConfirmation(data);
+      }
+    } catch (error) {
+      setGeneralError(`Beim Erstellen des Datensatzes ist ein Fehler aufgetreten, bitte versuchen Sie es erneut oder versuchen Sie es später noch einmal.`);
+    }
+  }
 
   return (
     <Box sx={{
@@ -126,13 +166,23 @@ export default function BookingFormContainer2({ categories }) {
       {/* Calendar */}
       {showCalendar && (
         <CalendarForm
+          ref={calendarRef}
           services={selectedServices}
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
           selectedTimeSlot={selectedTimeSlot}
           setSelectedTimeSlot={setSelectedTimeSlot}
           onEmployeesChange={() => {}} // placeholder for now
-          onNextStepClick={() => console.log('Next step clicked')} // placeholder for now
+          calendarError={calendarError}
+          removeCalendarError={() => setCalendarError(null)}
+        />
+      )}
+
+      {/* Customer Form */}
+      {showCustomerForm && (
+        <CustomerForm
+          createAppointment={onSubmitCustomerFormClick}
+          formErrors={createAppointmentErrors}
         />
       )}
     </Box>

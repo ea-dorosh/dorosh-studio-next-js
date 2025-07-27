@@ -6,8 +6,6 @@ import {
 } from '@mui/icons-material';
 import {
   Box,
-  Button,
-  CircularProgress,
   IconButton,
   Typography,
   FormControl,
@@ -18,10 +16,11 @@ import {
   Chip,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import CalendarDay from './CalendarDay';
 import { MOCK_TIME_SLOTS } from './mockTimeSlots';
 import TimeSlotButton from './TimeSlotButton';
+import TimeSlotSkeleton from './TimeSlotSkeleton';
 import { formatMonthYear } from '@/utils/formatters';
 import calendarService from '@/services/calendar.service';
 import 'dayjs/locale/de';
@@ -33,47 +32,25 @@ const initialValue = dayjs(new Date());
 
 const weekDays = [`Mo`, `Di`, `Mi`, `Do`, `Fr`, `Sa`, `So`];
 
-// async function fetchTimeSlots(date, servicesWithEmployees) {
-//   const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format(`YYYY-MM-DD`)}`;
-
-//   const response = await fetch(apiUrl, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(servicesWithEmployees),
-//   });
-
-//   const data = await response.json();
-
-//   if (data.error) {
-//     throw new Error(data.error);
-//   }
-
-//   return { daysToHighlight: data };
-// }
-
-export default function CalendarForm({
+const CalendarForm = forwardRef(function CalendarForm({
   services,
   onEmployeesChange,
   selectedDay,
   setSelectedDay,
   selectedTimeSlot,
   setSelectedTimeSlot,
-  onNextStepClick
-}) {
+  calendarError,
+  removeCalendarError,
+}, ref) {
   const [calendarDays, setCalendarDays] = useState([]);
   const [isCalendarDaysLoading, setIsCalendarDaysLoading] = useState(false);
   const [currentWeekStart, setCurrentWeekStart] = useState(
     selectedDay?.day ? dayjs(selectedDay.day).startOf(`week`) : initialValue.startOf(`week`)
   );
   const [error, setError] = useState(null);
-  // State для селектов: объект где ключ - ID сервиса, значение - выбранные мастера
   const [serviceEmployees, setServiceEmployees] = useState({});
-  // State для отслеживания открытых селектов
   const [openSelects, setOpenSelects] = useState({});
 
-  // Инициализируем выбор мастеров для всех сервисов
   useEffect(() => {
     if (services.length > 0) {
       setServiceEmployees(prevServiceEmployees => {
@@ -83,23 +60,19 @@ export default function CalendarForm({
         services.forEach(service => {
           const currentSelection = newServiceEmployees[service?.id] || [];
 
-          // Проверяем, нужна ли инициализация или корректировка
           const needsInit = currentSelection.length === 0;
           const needsCorrection = service?.employees?.length === 1 && currentSelection.includes('all');
 
           if (needsInit || needsCorrection) {
-            // Если у сервиса только один сотрудник, выбираем его по умолчанию
             if (service?.employees?.length === 1) {
               newServiceEmployees[service?.id] = [service.employees[0].id.toString()];
             } else {
-              // Иначе выбираем "Alle Mitarbeiter" (специальное значение "all")
               newServiceEmployees[service?.id] = ['all'];
             }
             hasChanges = true;
           }
         });
 
-        // Если были изменения, уведомляем родительский компонент
         if (hasChanges && onEmployeesChange) {
           const allSelectedEmployees = [];
                     Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
@@ -107,14 +80,12 @@ export default function CalendarForm({
             if (!svc) return;
 
             if (employees.includes('all')) {
-              // Если выбран "all", добавляем всех сотрудников этого сервиса
               svc.employees.forEach(emp => {
                 if (!allSelectedEmployees.includes(emp.id)) {
                   allSelectedEmployees.push(emp.id);
                 }
               });
             } else {
-              // Если выбраны конкретные сотрудники, добавляем их
               employees.forEach(empId => {
                 const numId = parseInt(empId);
                 if (!allSelectedEmployees.includes(numId)) {
@@ -131,12 +102,10 @@ export default function CalendarForm({
     }
   }, [services, onEmployeesChange]);
 
-  // Создаем payload для API запроса
   const createServicesPayload = () => {
     const payload = services?.map(service => {
       const selectedEmployees = serviceEmployees[service?.id] || ['all'];
 
-      // Если выбран "all", используем всех сотрудников
       const employeeIds = selectedEmployees.includes('all') || selectedEmployees.length === 0
         ? service?.employees?.map(emp => emp.id)
         : selectedEmployees.filter(id => id !== 'all').map(id => parseInt(id));
@@ -146,9 +115,6 @@ export default function CalendarForm({
         employeeIds
       };
     });
-
-    console.log('createServicesPayload - serviceEmployees:', serviceEmployees);
-    console.log('createServicesPayload - payload:', payload);
 
     return payload;
   };
@@ -173,16 +139,12 @@ export default function CalendarForm({
     }
   };
 
-  // Проверяем, открыт ли какой-то селект
   const isAnySelectOpen = Object.values(openSelects).some(Boolean);
-
-    // Проверяем, инициализированы ли serviceEmployees для всех сервисов
   const areEmployeesInitialized = services.length > 0 && services.every(service => {
     const selected = serviceEmployees[service.id];
     return selected && selected.length > 0;
   });
 
-  // Single useEffect для обновления календаря
   useEffect(() => {
     async function updateCalendar() {
       if (services.length === 0 || isAnySelectOpen || !areEmployeesInitialized) return;
@@ -211,6 +173,12 @@ export default function CalendarForm({
     updateCalendar();
   }, [services, serviceEmployees, isAnySelectOpen]);
 
+  useEffect(() => {
+    if (calendarError && selectedDay && selectedTimeSlot) {
+      removeCalendarError();
+    }
+  }, [selectedDay, selectedTimeSlot, calendarError]);
+
   const handleWeekChange = async (direction) => {
     console.log(`handleWeekChange`);
 
@@ -220,7 +188,6 @@ export default function CalendarForm({
     setSelectedDay(null);
     setSelectedTimeSlot(null);
 
-    // При смене недели всегда обновляем календарь, независимо от состояния селектов
     const daysToHighlight = await fetchCalendarDays(newStart);
 
     setCalendarDays(daysToHighlight || []);
@@ -243,17 +210,14 @@ export default function CalendarForm({
       ? `Morgen, am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)},`
       : `Am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)}`;
 
-  // Helper functions for employee selection for specific service
   const getEmployeeLabel = (service) => {
     const selectedEmployees = serviceEmployees[service.id] || [];
 
-    // Если у сервиса только один сотрудник, всегда показываем его имя и цену как текст
     if (service.employees.length === 1) {
       const employee = service.employees[0];
       return `${employee.firstName} ${employee.lastName} (${employee.price || 0}€)`;
     }
 
-    // Если выбрано "all", показываем "Alle Mitarbeiter" с ценами
     if (selectedEmployees.includes('all')) {
       const prices = service.employees.map(emp => emp.price || 0);
       const minPrice = Math.min(...prices);
@@ -266,7 +230,6 @@ export default function CalendarForm({
       }
     }
 
-    // Фильтруем только реальных сотрудников (исключаем 'all')
     const realEmployees = selectedEmployees.filter(id => id !== 'all');
 
     if (realEmployees.length === 0) {
@@ -277,7 +240,6 @@ export default function CalendarForm({
       return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName} (${selectedEmployee.price || 0}€)` : 'Mitarbeiter';
     }
     if (realEmployees.length > 1) {
-      // Только для множественного выбора показываем чипы
       const selectedEmployeeChips = realEmployees.map(empId => {
         const emp = service.employees.find(e => e.id.toString() === empId.toString());
         if (!emp) return null;
@@ -307,47 +269,35 @@ export default function CalendarForm({
       const service = services.find(s => s.id === serviceId);
       if (!service) return;
 
-      // Если у сервиса только один сотрудник, не позволяем его отчекивать
       if (service.employees.length === 1) {
-        // Проверяем, пытается ли пользователь отчекнуть единственного сотрудника
         const employeeId = service.employees[0].id.toString();
 
         if (!selectedValues.includes(employeeId)) {
-          return; // Не позволяем отчекнуть единственного сотрудника
+          return;
         }
       }
 
     const previousValues = serviceEmployees[serviceId] || [];
 
-    // Определяем, что было добавлено или убрано
     const newValue = selectedValues.find(val => !previousValues.includes(val));
     const removedValue = previousValues.find(val => !selectedValues.includes(val));
 
     let finalSelection = [...selectedValues];
 
-    // Если выбрали "all"
     if (newValue === 'all') {
       finalSelection = ['all'];
-    }
-    // Если убрали "all"
-    else if (removedValue === 'all') {
+    } else if (removedValue === 'all') {
       finalSelection = selectedValues.filter(val => val !== 'all');
-    }
-    // Если выбрали конкретного сотрудника и был выбран "all"
-    else if (newValue && newValue !== 'all' && previousValues.includes('all')) {
+    } else if (newValue && newValue !== 'all' && previousValues.includes('all')) {
       finalSelection = [newValue];
-    }
-    else {
-      // Убираем 'all' если выбираем отдельных сотрудников
+    } else {
       finalSelection = selectedValues.filter(val => val !== 'all');
     }
 
-    // Обновляем выбор для конкретного сервиса
     const newServiceEmployees = { ...serviceEmployees };
     newServiceEmployees[serviceId] = finalSelection;
     setServiceEmployees(newServiceEmployees);
 
-    // Уведомляем родительский компонент о всех выбранных сотрудниках
     if (onEmployeesChange) {
       const allSelectedEmployees = [];
       Object.entries(newServiceEmployees).forEach(([sId, employees]) => {
@@ -355,14 +305,12 @@ export default function CalendarForm({
         if (!svc) return;
 
         if (employees.includes('all')) {
-          // Если выбран "all", добавляем всех сотрудников этого сервиса
           svc.employees.forEach(emp => {
             if (!allSelectedEmployees.includes(emp.id)) {
               allSelectedEmployees.push(emp.id);
             }
           });
         } else {
-          // Иначе добавляем только выбранных
           employees.forEach(empId => {
             const numId = parseInt(empId);
             if (empId !== 'all' && !allSelectedEmployees.includes(numId)) {
@@ -376,7 +324,7 @@ export default function CalendarForm({
   };
 
   return (
-    <Box mt={2}>
+    <Box ref={ref} mt={2}>
       <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.5rem', fontFamily: `cormorantGaramond`}}>
         Datum und Zeit auswählen
       </Typography>
@@ -400,10 +348,11 @@ export default function CalendarForm({
                 multiple
                 value={(() => {
                   const currentSelection = serviceEmployees[service.id] || [];
-                  // Для сервиса с одним сотрудником фильтруем только валидные значения
+
                   if (service.employees.length === 1) {
                     return currentSelection.filter(id => id !== 'all').map(id => id.toString());
                   }
+
                   return currentSelection.map(id => id.toString());
                 })()}
                 onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
@@ -411,7 +360,6 @@ export default function CalendarForm({
                 onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
                 renderValue={() => getEmployeeLabel(service)}
               >
-                {/* Опция "Alle Mitarbeiter" только если сотрудников больше одного */}
                 {service.employees.length > 1 && (
                   <MenuItem key="all" value="all">
                     <Checkbox checked={(serviceEmployees[service.id] || []).includes('all')} />
@@ -419,7 +367,6 @@ export default function CalendarForm({
                   </MenuItem>
                 )}
 
-                                {/* Отдельные сотрудники для этого сервиса */}
                 {service.employees.map((employee) => {
                   const currentSelection = serviceEmployees[service.id] || [];
                   const isAllSelected = currentSelection.includes('all');
@@ -428,7 +375,6 @@ export default function CalendarForm({
 
                   return (
                     <MenuItem key={employee.id} value={employee.id.toString()}>
-                      {/* Для единственного сотрудника показываем неактивный чекбокс */}
                       {isSingleEmployee ? (
                         <Checkbox
                           checked={true}
@@ -553,6 +499,8 @@ export default function CalendarForm({
                         availableTimeslots: [],
                       });
                     }
+
+                    setSelectedTimeSlot(null);
                   }}
                 />
               );
@@ -561,23 +509,26 @@ export default function CalendarForm({
         }
       </Box>
 
-      {isCalendarDaysLoading && <Box
-        sx={{
-        display: `flex`,
-        justifyContent: `center`,
-        alignItems: `center`,
-        height: `320px`,
-        pt: 5,
-      }}>
-        <CircularProgress color="info" />
-      </Box>}
+      {isCalendarDaysLoading && (
+        <Box sx={{ mt: 2 }}>
+          <TimeSlotSkeleton count={12} showDateText={true} showButton={false} />
+        </Box>
+      )}
+
+      {calendarError && (
+        <Box>
+          <Typography variant="body1" mt={2} color="error">
+            {calendarError}
+          </Typography>
+        </Box>
+      )}
 
       {selectedDay && selectedDay.availableTimeslots.length > 0 && <Box
         sx={{
           display:`flex`,
           flexDirection:`column`,
         }}
-        mt={3}
+        mt={2}
       >
         <Box>
           {selectedDay.availableTimeslots.some(timeslot => !timeslot.disabled) ? (
@@ -605,27 +556,10 @@ export default function CalendarForm({
             />
           ))}
         </Box>
-
-        {onNextStepClick && (
-          <Button
-            variant="contained"
-            color="info"
-            size="medium"
-            onClick={onNextStepClick}
-            disabled={!selectedTimeSlot}
-            sx={{
-              margin: `auto`,
-              mt: 2,
-              width: `300px`,
-            }}
-          >
-            Weiter
-          </Button>
-        )}
       </Box>}
 
       {selectedDay && selectedDay.availableTimeslots.length === 0 && <>
-        <Box mt={3}>
+        <Box mt={2}>
           <b>{dateText}</b> gibt es keine verfügbaren Zeiten. <br />
         Bitte wählen Sie ein anderes Datum.
         </Box>
@@ -651,4 +585,6 @@ export default function CalendarForm({
       </>}
     </Box>
   );
-}
+});
+
+export default CalendarForm;

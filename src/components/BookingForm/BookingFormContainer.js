@@ -47,8 +47,8 @@ export default function BookingFormContainer({
   const [hasAnsweredAddMoreServices, setHasAnsweredAddMoreServices] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-  const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
   const [selectedEmployeeFromTimeSlotAvailability, setSelectedEmployeeFromTimeSlotAvailability] = useState(null);
+  const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
   const [generalError, setGeneralError] = useState(null);
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
 
