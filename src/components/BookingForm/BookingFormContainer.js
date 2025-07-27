@@ -68,6 +68,11 @@ export default function BookingFormContainer({ categories }) {
     return categories.find(category => category.categoryId === categoryId)?.subCategories.find(subCategory => subCategory.subCategoryId === subCategoryId)?.services;
   };
 
+  const onEditCalendarClick = () => {
+    setShowCalendarOverview(false);
+    setShowCalendar(true);
+  };
+
   const onSubmitCustomerFormClick = async (formData) => {
     const appointmentData = {
       ...formData,
@@ -182,6 +187,7 @@ export default function BookingFormContainer({ categories }) {
           services={selectedServices}
           selectedDay={selectedDay}
           selectedTimeSlot={selectedTimeSlot}
+          onChange={onEditCalendarClick}
         />
 
         <CustomerForm
