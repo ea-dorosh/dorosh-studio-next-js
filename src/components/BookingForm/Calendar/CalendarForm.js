@@ -52,6 +52,7 @@ const CalendarForm = forwardRef(function CalendarForm({
   const [openSelects, setOpenSelects] = useState({});
   const [shimmerSlotCount, setShimmerSlotCount] = useState(12);
   const previousPayloadRef = useRef(null);
+  const isFirstLoadRef = useRef(true);
 
   useEffect(() => {
     if (services.length > 0) {
@@ -118,6 +119,7 @@ const CalendarForm = forwardRef(function CalendarForm({
       if (payload.length === 0) return [];
 
       const { daysToHighlight } = await calendarService.fetchTimeSlots(date, payload);
+
       return daysToHighlight;
     } catch (error) {
       console.error(error);
@@ -146,13 +148,22 @@ const CalendarForm = forwardRef(function CalendarForm({
 
       previousPayloadRef.current = JSON.parse(JSON.stringify(currentPayload)); // Deep copy
 
+      // Reset selected time slot when payload changes to prevent using outdated slot data
+      setSelectedTimeSlot(null);
+
+      // Reset first load flag when services/employees change so auto-next-week works again
+      isFirstLoadRef.current = true;
+
       const daysToHighlight = await fetchCalendarDays(currentWeekStart);
 
-      if (daysToHighlight.length === 0) {
-        handleWeekChange(1); // go to next week
+      // If first load and no available days, try next week
+      if (isFirstLoadRef.current && (!daysToHighlight || daysToHighlight.length === 0)) {
+        isFirstLoadRef.current = false;
+        handleWeekChange(1);
         return;
       }
 
+      isFirstLoadRef.current = false;
       setCalendarDays(daysToHighlight || []);
 
       // Set initial selected day if none is selected
@@ -167,8 +178,24 @@ const CalendarForm = forwardRef(function CalendarForm({
         }
       }
     }
+
     updateCalendar();
   }, [services, serviceEmployees, isAnySelectOpen]);
+
+  // Update selectedDay when calendarDays change to ensure it has the latest timeslot data
+  useEffect(() => {
+    if (calendarDays.length > 0) {
+      setSelectedDay(prevSelectedDay => {
+        if (prevSelectedDay) {
+          const updatedDay = calendarDays.find(day => day.day === prevSelectedDay.day);
+          if (updatedDay && JSON.stringify(updatedDay) !== JSON.stringify(prevSelectedDay)) {
+            return updatedDay;
+          }
+        }
+        return prevSelectedDay;
+      });
+    }
+  }, [calendarDays]);
 
   const handleWeekChange = async (direction) => {
     const newStart = currentWeekStart.add(direction, `week`);
