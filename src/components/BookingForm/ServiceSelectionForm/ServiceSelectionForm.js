@@ -1,5 +1,4 @@
 import {
-  Delete as DeleteIcon,
   ExpandMore as ExpandMoreIcon,
 } from '@mui/icons-material';
 import {
@@ -11,7 +10,7 @@ import {
   CardContent,
   Box,
   Chip,
-  IconButton,
+  Button,
 } from "@mui/material";
 import {
   useState,
@@ -30,6 +29,7 @@ export default function ServiceSelectionForm({
   deleteService,
   hasDeleteButton,
   selectedServicesIds,
+  firstService,
 }) {
   useEffect(() => {
     if (serviceData) {
@@ -95,6 +95,23 @@ export default function ServiceSelectionForm({
           p: 0,
         },
       }}>
+
+        {hasDeleteButton && (
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 1,
+            width: '100%',
+            padding: `4px 16px`,
+            borderBottom: `1px solid`,
+            borderColor: `grey.300`,
+          }}>
+            <Typography>{firstService ? `Service 1` : `Service 2`}</Typography>
+
+            <Button size='small' color="error" onClick={deleteService} sx={{p:0, fontWeight: `bold`}}>entfernen</Button>
+          </Box>
+        )}
         <Accordion
           expanded={!selectedCategory ? true : expandedPanel === 'category'}
           onChange={handlePanelChange('category')}
@@ -108,36 +125,9 @@ export default function ServiceSelectionForm({
               },
             }}>
             <Box sx={{ width: `100%`, pr: 3 }}>
-              {!selectedCategory ? (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 1,
-                    width: '100%',
-                  }}
-                >
-                  <Typography sx={{ fontWeight: `bold` }}>Kategorie wählen</Typography>
-
-                  {hasDeleteButton && (
-                    <Box sx={{
-                      margin: `-4px 0`,
-                    }}>
-                      <IconButton
-                        size='small'
-                        color="error"
-                        onClick={deleteService}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </Box>
-                  )}
-                </Box>)
-                :
-                <Typography sx={{ fontWeight: `bold` }}>
-                  {selectedCategory.categoryName}
-                </Typography>
-              }
+              <Typography sx={{ fontWeight: `bold` }}>
+                {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
+              </Typography>
             </Box>
           </AccordionSummary>
 
@@ -184,30 +174,7 @@ export default function ServiceSelectionForm({
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               {!serviceData || expandedPanel === 'service' ?
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: 1,
-                    width: '100%',
-                  }}
-                >
-                  <Typography>Service wählen</Typography>
-
-                  {hasDeleteButton && (
-                    <Box sx={{
-                      margin: `-4px 0`,
-                    }}>
-                      <IconButton
-                        size='small'
-                        color="error"
-                        onClick={deleteService}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </Box>
-                  )}
-                </Box>
+                <Typography>Service wählen</Typography>
                 :
                 <Box
                   sx={{
@@ -238,19 +205,6 @@ export default function ServiceSelectionForm({
                       )}
                     </Box>
                   </Box>
-
-                  {hasDeleteButton && (
-                    <Box sx={{
-                      margin: `-4px 0`,
-                    }}>
-                      <IconButton
-                        size='small'
-                        color="error"
-                        onClick={deleteService}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </Box>
-                  )}
                 </Box>
               }
             </AccordionSummary>

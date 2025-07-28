@@ -8,13 +8,13 @@ import {
 } from "@mui/material";
 import dayjs from 'dayjs';
 import 'dayjs/locale/de';
+import Link from "next/link";
 import { formattedTime } from "@/utils/formatters";
 
 dayjs.locale('de');
 
 export default function Confirmation({
   appointment,
-  company,
 }) {
   return (<>
     <Divider sx={{mt: 2, mb: 2}} />
@@ -58,21 +58,21 @@ export default function Confirmation({
         Mit freundlichen Grüßen,
         <br />
         <br />
-        {company.name} | {company.branches[0].name}
+        {appointment.company.name} | {appointment.company.branches[0].name}
         <br />
-        {company.branches[0].email}
+        {appointment.company.branches[0].email}
         <br />
-        {company.branches[0].phone}
+        {appointment.company.branches[0].phone}
         <br />
-        {company.branches[0].addressStreet}, {company.branches[0].addressZip} {company.branches[0].addressCity}
+        {appointment.company.branches[0].addressStreet}, {appointment.company.branches[0].addressZip} {appointment.company.branches[0].addressCity}
       </Box>
     </Box>
 
     <Divider sx={{mt: 2, mb: 2}} />
 
     <Button
-      component="a"
-      href="/booking"
+      component={Link}
+      href="/"
       sx={{margin: `20px auto`}}
       variant="contained"
     >

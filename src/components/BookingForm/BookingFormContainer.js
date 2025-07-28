@@ -10,8 +10,9 @@ import React from "react";
 import AddServiceQuestion from "./AddServiceQuestion/AddServiceQuestion";
 import CalendarForm from "./Calendar/CalendarForm";
 import CalendarOverview from "./Calendar/CalendarOverview";
-import ServiceSelectionForm from "./ServiceSelectionForm/ServiceSelectionForm";
+import Confirmation from "./Confirmation/Confirmation";
 import CustomerForm from "./CustomerForm/CustomerForm";
+import ServiceSelectionForm from "./ServiceSelectionForm/ServiceSelectionForm";
 import appointmentsService from "@/services/appointments.service";
 
 export default function BookingFormContainer({ categories }) {
@@ -125,6 +126,7 @@ export default function BookingFormContainer({ categories }) {
             }));
           }}
           selectedServicesIds={selectedServices.map(service => service.id)}
+          firstService
         />
 
         {formState.hasSecondService && (<Box mt={2}>
@@ -178,7 +180,7 @@ export default function BookingFormContainer({ categories }) {
         />
       )}
 
-      {showCalendarOverview && (<>
+      {!appointmentConfirmation && showCalendarOverview && (<>
         <CalendarOverview
           services={selectedServices}
           selectedDay={selectedDay}
@@ -187,11 +189,22 @@ export default function BookingFormContainer({ categories }) {
         />
 
         <CustomerForm
-        createAppointment={onSubmitCustomerFormClick}
-        formErrors={createAppointmentErrors}
-      />
+          createAppointment={onSubmitCustomerFormClick}
+          formErrors={createAppointmentErrors}
+        />
+
+        {generalError && (
+          <Typography variant="body1" sx={{
+            color: `red`,
+            textAlign: `center`,
+          }}>
+            {generalError}
+          </Typography>
+        )}
       </>
       )}
+
+      {appointmentConfirmation && <Confirmation appointment={appointmentConfirmation} />}
     </Box>
   );
 }
