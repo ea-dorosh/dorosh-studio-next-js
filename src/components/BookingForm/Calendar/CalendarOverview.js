@@ -6,9 +6,8 @@ import {
   Button,
   Chip,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { forwardRef } from 'react';
 import dayjs from 'dayjs';
+import { forwardRef } from 'react';
 import 'dayjs/locale/de';
 import { formattedTime } from '@/utils/formatters';
 
@@ -20,8 +19,6 @@ const CalendarOverview = forwardRef(function CalendarOverview({
   selectedTimeSlot,
   onChange,
 }, ref) {
-  const theme = useTheme();
-
   const getDateText = () => {
     if (!selectedDay?.day) return `Kein Datum ausgewählt`;
 
@@ -76,7 +73,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
     }
   };
 
-      const getServicePriceInfo = (service) => {
+  const getServicePriceInfo = (service) => {
     if (!service.employees?.length) {
       return { min: 0, max: 0, isRange: false };
     }
@@ -157,7 +154,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           </Typography>
         </Box>
 
-                <Box sx={{ mb: 2 }}>
+        <Box sx={{ mb: 2 }}>
           <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.primary', fontSize: '1rem', fontWeight: 'bold' }}>
             Gewählte Services: ({services.length})
           </Typography>

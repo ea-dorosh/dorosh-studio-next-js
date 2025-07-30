@@ -29,56 +29,56 @@ export default function RootLayout({ children }) {
     <html lang="de">
       <body
         style={{
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '100vh',
-                backgroundColor: "background.paper",
-              }}
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          backgroundColor: "background.paper",
+        }}
       >
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-              <AppBar position="static" sx={{ backgroundColor: 'background.paper' }}>
-                <Toolbar sx={{
-                  justifyContent: 'flex-start',
-                }}>
-                  <LogoLink />
+            <AppBar position="static" sx={{ backgroundColor: 'background.paper' }}>
+              <Toolbar sx={{
+                justifyContent: 'flex-start',
+              }}>
+                <LogoLink />
 
-                  <Box sx={{ marginLeft: `auto` }}>
-                    <Menu links={LINKS} />
-                  </Box>
-                </Toolbar>
-              </AppBar>
+                <Box sx={{ marginLeft: `auto` }}>
+                  <Menu links={LINKS} />
+                </Box>
+              </Toolbar>
+            </AppBar>
 
-              <Box
-                component="main"
-                sx={{
-                  flexGrow: 1,
-                  backgroundColor: "background.paper",
-                }}
-              >
-                {children}
-              </Box>
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                backgroundColor: "background.paper",
+              }}
+            >
+              {children}
+            </Box>
 
-              <Box
-                component="footer"
-                sx={{
-                  py: 3,
-                  px: 2,
-                  mt: 'auto',
-                  textAlign: 'center',
-                  bgcolor: "primary.main",
-                }}
-              >
-                <Typography variant="body2" color="secondary">
-                  {new Date().getFullYear()} Dorosh Studio.
-                </Typography>
+            <Box
+              component="footer"
+              sx={{
+                py: 3,
+                px: 2,
+                mt: 'auto',
+                textAlign: 'center',
+                bgcolor: "primary.main",
+              }}
+            >
+              <Typography variant="body2" color="secondary">
+                {new Date().getFullYear()} Dorosh Studio.
+              </Typography>
 
-                <Link href="/privacy-policy" variant="body2" color="secondary">
+              <Link href="/privacy-policy" variant="body2" color="secondary">
                   Privacy Policy
-                </Link>
-              </Box>
+              </Link>
+            </Box>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

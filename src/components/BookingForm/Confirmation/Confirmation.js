@@ -29,7 +29,7 @@ export default function Confirmation({
       >
         Terminbestätigung
       </Typography>
-{/* export interface CreateAppointmentServiceResponseSuccessType {
+      {/* export interface CreateAppointmentServiceResponseSuccessType {
   date: string;
   lastName: string;
   firstName: string;

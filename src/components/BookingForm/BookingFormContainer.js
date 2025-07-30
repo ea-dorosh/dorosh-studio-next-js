@@ -58,13 +58,11 @@ export default function BookingFormContainer({ categories }) {
   /** Methods */
   const getAvailableServices = (services) => {
     return services;
-    const selectedServiceIds = selectedServices.map(s => s.id);
-    return services.filter(service => !selectedServiceIds.includes(service.id));
   };
 
-  const getAllServices = (categoryId, subCategoryId) => {
-    return categories.find(category => category.categoryId === categoryId)?.subCategories.find(subCategory => subCategory.subCategoryId === subCategoryId)?.services;
-  };
+  // const getAllServices = (categoryId, subCategoryId) => {
+  //   return categories.find(category => category.categoryId === categoryId)?.subCategories.find(subCategory => subCategory.subCategoryId === subCategoryId)?.services;
+  // };
 
   const onEditCalendarClick = () => {
     setShowCalendarOverview(false);

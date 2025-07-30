@@ -1,7 +1,8 @@
-export default function Logo({style}) {
+import Image from 'next/image';
 
+export default function Logo({style}) {
   return (
-    <img
+    <Image
       src="/logo.svg"
       alt="Logo"
       style={style}

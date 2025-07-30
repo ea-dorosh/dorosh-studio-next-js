@@ -22,8 +22,8 @@ import CalendarDay from './CalendarDay';
 import { MOCK_TIME_SLOTS } from './mockTimeSlots';
 import TimeSlotButton from './TimeSlotButton';
 import TimeSlotSkeleton from './TimeSlotSkeleton';
-import { formatMonthYear } from '@/utils/formatters';
 import calendarService from '@/services/calendar.service';
+import { formatMonthYear } from '@/utils/formatters';
 import 'dayjs/locale/de';
 
 dayjs.locale(`de`);
@@ -180,6 +180,7 @@ const CalendarForm = forwardRef(function CalendarForm({
     }
 
     updateCalendar();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [services, serviceEmployees, isAnySelectOpen]);
 
   // Update selectedDay when calendarDays change to ensure it has the latest timeslot data
@@ -195,6 +196,7 @@ const CalendarForm = forwardRef(function CalendarForm({
         return prevSelectedDay;
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarDays]);
 
   const handleWeekChange = async (direction) => {
@@ -282,18 +284,18 @@ const CalendarForm = forwardRef(function CalendarForm({
     return 'Mitarbeiter auswählen';
   };
 
-    const handleEmployeeSelectionChange = (serviceId, event) => {
-      const selectedValues = event.target.value;
-      const service = services.find(s => s.id === serviceId);
-      if (!service) return;
+  const handleEmployeeSelectionChange = (serviceId, event) => {
+    const selectedValues = event.target.value;
+    const service = services.find(s => s.id === serviceId);
+    if (!service) return;
 
-      if (service.employees.length === 1) {
-        const employeeId = service.employees[0].id.toString();
+    if (service.employees.length === 1) {
+      const employeeId = service.employees[0].id.toString();
 
-        if (!selectedValues.includes(employeeId)) {
-          return;
-        }
+      if (!selectedValues.includes(employeeId)) {
+        return;
       }
+    }
 
     const previousValues = serviceEmployees[serviceId] || [];
 
@@ -389,7 +391,7 @@ const CalendarForm = forwardRef(function CalendarForm({
                                 ml: 1,
                                 backgroundColor: `#f0f0f0`,
                                 borderColor: `#f0f0f0`,
-                         }}
+                              }}
                             />
                           </Box>
                         }

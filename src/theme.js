@@ -135,17 +135,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiFormHelperText: {
-      styleOverrides: {
-        root: {
-          fontSize: `0.8rem`,
-          fontFamily: `Verdana, Arial, sans-serif`,
-          marginLeft: 0,
-          marginRight: 0,
-          letterSpacing: `1.2px`,
-        },
-      },
-    },
     MuiAppBar: {
       styleOverrides: {
         root: {
