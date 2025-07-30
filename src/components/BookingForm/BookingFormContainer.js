@@ -87,6 +87,10 @@ export default function BookingFormContainer({ categories }) {
         setGeneralError(errorMessage);
       } else if (data) {
         setAppointmentConfirmation(data);
+
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: `smooth` });
+        }, 0);
       }
     } catch (error) {
       setGeneralError(`Beim Erstellen des Datensatzes ist ein Fehler aufgetreten, bitte versuchen Sie es erneut oder versuchen Sie es später noch einmal.`);

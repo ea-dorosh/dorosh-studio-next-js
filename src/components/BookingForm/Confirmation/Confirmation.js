@@ -29,7 +29,22 @@ export default function Confirmation({
       >
         Terminbestätigung
       </Typography>
-
+{/* export interface CreateAppointmentServiceResponseSuccessType {
+  date: string;
+  lastName: string;
+  firstName: string;
+  service: {
+    id: number;
+    name: string;
+    timeStart: string;
+    secondService?: {
+      id?: number;
+      name?: string;
+      timeStart?: string;
+    };
+  };
+  company: CompanyResponseData;
+} */}
       <Box mt={3}>
         Hallo {appointment.firstName} {appointment.lastName},
       </Box>
@@ -42,16 +57,23 @@ export default function Confirmation({
         <b>Details Ihres Termins:</b>
       </Box>
 
+      {!appointment.service.secondService && (<Box mt={2}>
+        Behandlung: <b>{appointment.service.name}</b>
+      </Box>)}
+
+      {appointment.service.secondService && (<Box mt={2}>
+        Behandlung:
+        <br />
+        - <b>{appointment.service.name}</b><br />
+        - <b>{appointment.service.secondService.name}</b>
+      </Box>)}
+
       <Box mt={2}>
         Datum: <b>{dayjs(appointment.date).format('D. MMMM YYYY')}</b>
       </Box>
 
       <Box mt={2}>
-        Uhrzeit: <b>{formattedTime(appointment.timeStart)} Uhr</b>
-      </Box>
-
-      <Box mt={2}>
-        Behandlung: <b>{appointment.serviceName}</b>
+        Uhrzeit: <b>{formattedTime(appointment.service.timeStart)} Uhr</b>
       </Box>
 
       <Box mt={2}>
@@ -61,22 +83,29 @@ export default function Confirmation({
 
         Mit freundlichen Grüßen,
         <br />
-        {appointment.company.name}
+        {appointment.company.branches[0].name}
         <br />
-        {appointment.company.branches[0].email}
+
+        <a href={`mailto:${appointment.company.branches[0].email}`} style={{color: `inherit`}}>
+          {appointment.company.branches[0].email}
+        </a>
         <br />
-        {appointment.company.branches[0].phone}
+
+        <a href={`tel:${appointment.company.branches[0].phone}`} style={{color: `inherit`}}>
+          {appointment.company.branches[0].phone}
+        </a>
         <br />
+
         {appointment.company.branches[0].addressStreet}, {appointment.company.branches[0].addressZip} {appointment.company.branches[0].addressCity}
       </Box>
     </Box>
 
-    <Divider sx={{mt: 2, mb: 2}} />
+    <Divider sx={{mt: 1, mb: 1}} />
 
     <Button
       component={Link}
       href="/"
-      sx={{margin: `20px auto`}}
+      sx={{margin: `10px auto`}}
       variant="contained"
     >
       Zurück zur Startseite
