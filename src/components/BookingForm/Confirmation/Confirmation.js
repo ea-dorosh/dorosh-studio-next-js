@@ -17,16 +17,20 @@ export default function Confirmation({
   appointment,
 }) {
   return (<>
-    <Divider sx={{mt: 2, mb: 2}} />
+    <Divider sx={{mb: 2}} />
 
     <Box>
       <Typography
-        variant="h4"
+        sx={{
+          fontSize: `1.6rem`,
+          fontWeight: `700`,
+          textAlign: `center`,
+        }}
       >
         Terminbestätigung
       </Typography>
 
-      <Box mt={4}>
+      <Box mt={3}>
         Hallo {appointment.firstName} {appointment.lastName},
       </Box>
 
@@ -57,8 +61,7 @@ export default function Confirmation({
 
         Mit freundlichen Grüßen,
         <br />
-        <br />
-        {appointment.company.name} | {appointment.company.branches[0].name}
+        {appointment.company.name}
         <br />
         {appointment.company.branches[0].email}
         <br />
