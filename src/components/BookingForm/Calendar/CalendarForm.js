@@ -237,6 +237,82 @@ const CalendarForm = forwardRef(function CalendarForm({
       ? `Morgen, am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)},`
       : `Am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)}`;
 
+  const truncateEmployeeName = (firstName, lastName, level = 0) => {
+    switch (level) {
+    case 0:
+      return `${firstName} ${lastName}`;
+    case 1:
+      return firstName;
+    case 2:
+      return `${firstName.substring(0, 3)} ${lastName.substring(0, 3)}`;
+    case 3:
+      return `${firstName.charAt(0)} ${lastName.charAt(0)}`;
+    default:
+      return `${firstName.charAt(0)} ${lastName.charAt(0)}`;
+    }
+  };
+
+  const createAdaptiveChips = (selectedEmployees, service) => {
+    let truncationLevel = 0;
+    const employeeCount = selectedEmployees.length;
+
+    if (employeeCount >= 4) {
+      truncationLevel = 3;
+    } else if (employeeCount === 3) {
+      truncationLevel = 2;
+    } else if (employeeCount === 2) {
+      truncationLevel = 1;
+    }
+
+    const createChips = (level) => {
+      return selectedEmployees.map(empId => {
+        const emp = service.employees.find(e => e.id.toString() === empId.toString());
+        if (!emp) return null;
+
+        const employeeName = truncateEmployeeName(emp.firstName, emp.lastName, level);
+
+        return (
+          <Chip
+            key={`${emp.id}-${level}`}
+            label={`${employeeName} • ${emp.price || 0}€`}
+            size="small"
+            variant="outlined"
+            sx={{
+              height: '23px',
+              fontSize: '0.75rem',
+              mr: 0.5,
+              mb: 0,
+              maxWidth: 'fit-content',
+              '& .MuiChip-label': {
+                px: 1,
+                py: 0,
+                lineHeight: '23px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }
+            }}
+          />
+        );
+      }).filter(chip => chip);
+    };
+
+    // Создаем чипсы с вычисленным уровнем сокращения
+    const chips = createChips(truncationLevel);
+
+    return (
+      <Box sx={{
+        display: 'flex',
+        flexWrap: 'nowrap', // Запрещаем перенос строк
+        gap: 0.5,
+        overflow: 'hidden',
+        alignItems: 'center',
+        minHeight: '23px' // Минимальная высота контейнера
+      }}>
+        {chips}
+      </Box>
+    );
+  };
+
   const getEmployeeLabel = (service) => {
     const selectedEmployees = serviceEmployees[service.id] || [];
 
@@ -267,26 +343,7 @@ const CalendarForm = forwardRef(function CalendarForm({
       return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName} (${selectedEmployee.price || 0}€)` : 'Mitarbeiter';
     }
     if (realEmployees.length > 1) {
-      const selectedEmployeeChips = realEmployees.map(empId => {
-        const emp = service.employees.find(e => e.id.toString() === empId.toString());
-        if (!emp) return null;
-
-        return (
-          <Chip
-            key={emp.id}
-            label={`${emp.firstName} ${emp.lastName} • ${emp.price || 0}€`}
-            size="small"
-            variant="outlined"
-            sx={{ flex: 1, mr: 0.5, mb: 0.5 }}
-          />
-        );
-      }).filter(chip => chip);
-
-      return (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-          {selectedEmployeeChips}
-        </Box>
-      );
+      return createAdaptiveChips(realEmployees, service);
     }
     return 'Mitarbeiter auswählen';
   };
@@ -362,6 +419,15 @@ const CalendarForm = forwardRef(function CalendarForm({
                 onOpen={() => setOpenSelects(prev => ({ ...prev, [service.id]: true }))}
                 onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
                 renderValue={() => getEmployeeLabel(service)}
+                sx={{
+                  minHeight: '43px', // Фиксированная высота (23px контент + 20px паддинги)
+                  '& .MuiSelect-select': {
+                    minHeight: '23px !important',
+                    display: 'flex',
+                    alignItems: 'center',
+                    py: '10px'
+                  }
+                }}
               >
                 {service.employees.length > 1 && (
                   <MenuItem key="all" value="all">
