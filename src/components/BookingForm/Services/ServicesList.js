@@ -9,7 +9,12 @@ import {
 } from "@mui/material";
 import { formatTimeToString } from "@/utils/formatters";
 
-export default function ServicesList({ services, onServiceSelect, selectedServicesIds }) {
+export default function ServicesList({
+  services,
+  onServiceSelect,
+  selectedServicesIds,
+  selectedServiceId,
+}) {
   if (services.length === 0) {
     return (
       <Box sx={{ textAlign: 'center', py: 3 }}>
@@ -85,9 +90,12 @@ export default function ServicesList({ services, onServiceSelect, selectedServic
                     size="small"
                     onClick={() => onServiceSelect(service)}
                     sx={{ minWidth: 120 }}
-                    disabled={selectedServicesIds.includes(service.id)}
+                    disabled={selectedServicesIds.includes(service.id) && selectedServiceId !== service.id}
                   >
-                    {selectedServicesIds.includes(service.id) ? `Ausgewählt` : `Auswählen`}
+                    {selectedServiceId === service.id ?
+                      `Ausgewählt` :
+                      selectedServicesIds.includes(service.id) ? `Ausgewählt in anderem Service` : `Auswählen`
+                    }
                   </Button>
                 </Box>
               </Box>

@@ -98,18 +98,18 @@ export default function ServiceSelectionForm({
 
         {hasDeleteButton && (
           <Box sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            display: `flex`,
+            justifyContent: `space-between`,
+            alignItems: `center`,
             gap: 1,
-            width: '100%',
+            width: `100%`,
             padding: `4px 16px`,
             borderBottom: `1px solid`,
             borderColor: `grey.300`,
           }}>
             <Typography>{firstService ? `Service 1` : `Service 2`}</Typography>
 
-            <Button size='small' color="error" onClick={deleteService} sx={{p:0, fontWeight: `bold`}}>entfernen</Button>
+            <Button size='small' color="error" onClick={deleteService} sx={{p:0, fontWeight: `bold`}}>löschen</Button>
           </Box>
         )}
         <Accordion
@@ -214,6 +214,7 @@ export default function ServiceSelectionForm({
                 services={getAvailableServices(selectedSubCategory.services)}
                 onServiceSelect={onServiceSelectInternal}
                 selectedServicesIds={selectedServicesIds}
+                selectedServiceId={serviceData?.id}
               />
             </AccordionDetails>
           </Accordion>
