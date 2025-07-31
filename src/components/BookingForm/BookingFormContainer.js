@@ -18,6 +18,7 @@ import appointmentsService from "@/services/appointments.service";
 export default function BookingFormContainer({ categories }) {
   const theme = useTheme();
   const calendarRef = useRef(null);
+  const firstServiceSelectionRef = useRef(null);
 
   // console.log(`categories: `, JSON.stringify(categories, null, 2));
 
@@ -134,9 +135,11 @@ export default function BookingFormContainer({ categories }) {
         </Typography>
 
         <ServiceSelectionForm
+          ref={firstServiceSelectionRef}
           categories={categories}
           onServiceSelect={(service) => {
             setFormState(prev => ({ ...prev, firstService: service }));
+            firstServiceSelectionRef.current?.scrollIntoView({ behavior: `smooth`, block: `start` });
           }}
           getAvailableServices={getAvailableServices}
           serviceData={formState.firstService}
@@ -158,6 +161,7 @@ export default function BookingFormContainer({ categories }) {
             categories={categories}
             onServiceSelect={(service) => {
               setFormState(prev => ({ ...prev, secondService: service }));
+              firstServiceSelectionRef.current?.scrollIntoView({ behavior: `smooth`, block: `start` });
             }}
             hasDeleteButton
             deleteService={() => {

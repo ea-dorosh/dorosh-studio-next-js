@@ -15,13 +15,14 @@ import {
 import {
   useState,
   useEffect,
+  forwardRef,
 } from "react";
 import CategoryForm from "../Categories/CategoryForm";
 import ServicesList from "../Services/ServicesList";
 import SubCategoryForm from "../SubCategories/SubCategoryForm";
 import { formatTimeToString } from "@/utils/formatters";
 
-export default function ServiceSelectionForm({
+const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
   categories,
   onServiceSelect,
   getAvailableServices,
@@ -30,7 +31,7 @@ export default function ServiceSelectionForm({
   hasDeleteButton,
   selectedServicesIds,
   firstService,
-}) {
+}, ref) {
   useEffect(() => {
     if (serviceData) {
       const category = categories.find(category => category.categoryId === serviceData?.categoryId);
@@ -78,6 +79,7 @@ export default function ServiceSelectionForm({
 
   return (
     <Card
+      ref={ref}
       sx={{
         boxShadow: `none`,
         overflow: `unset`,
@@ -222,4 +224,6 @@ export default function ServiceSelectionForm({
       </CardContent>
     </Card>
   );
-}
+});
+
+export default ServiceSelectionForm;
