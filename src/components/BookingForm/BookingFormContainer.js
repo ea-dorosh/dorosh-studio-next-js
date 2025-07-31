@@ -36,6 +36,7 @@ export default function BookingFormContainer({ categories }) {
   const [createAppointmentErrors, setCreateAppointmentErrors] = useState(null);
   const [generalError, setGeneralError] = useState(null);
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
+  const [serviceEmployees, setServiceEmployees] = useState({});
 
   /** Watch */
   useEffect(() => {
@@ -53,7 +54,28 @@ export default function BookingFormContainer({ categories }) {
       updatedServices.push(formState.secondService);
     }
     setSelectedServices(updatedServices);
-  }, [formState]);
+
+    // Initialize serviceEmployees for new services
+    if (updatedServices.length > 0) {
+      const newServiceEmployees = { ...serviceEmployees };
+      let hasChanges = false;
+
+      updatedServices.forEach(service => {
+        if (!newServiceEmployees[service?.id]) {
+          if (service?.employees?.length === 1) {
+            newServiceEmployees[service.id] = [service.employees[0].id.toString()];
+          } else {
+            newServiceEmployees[service.id] = ['all'];
+          }
+          hasChanges = true;
+        }
+      });
+
+      if (hasChanges) {
+        setServiceEmployees(newServiceEmployees);
+      }
+    }
+  }, [formState, serviceEmployees]);
 
   /** Methods */
   const getAvailableServices = (services) => {
@@ -171,6 +193,8 @@ export default function BookingFormContainer({ categories }) {
           setSelectedDay={setSelectedDay}
           selectedTimeSlot={selectedTimeSlot}
           setSelectedTimeSlot={setSelectedTimeSlot}
+          serviceEmployees={serviceEmployees}
+          setServiceEmployees={setServiceEmployees}
           onNextStep={() => {
             setShowCalendarOverview(true);
             setShowCalendar(false);

@@ -20,7 +20,7 @@ export default function TimeSlotButton({ slot, selectedTimeSlot, setSelectedTime
         borderColor: `${slot.disabled ? 'lightgrey' : 'rgba(0, 0, 0, 0.2)'} !important`,
         fontSize: '1rem',
         color: `${
-          slot.startTime === selectedTimeSlot?.startTime
+          slot.disabled ? `#c0c0c0` :slot.startTime === selectedTimeSlot?.startTime
             ? theme.palette.primary.contrastText
             : theme.palette.primary.main
         } !important`,

@@ -78,7 +78,22 @@ const CalendarOverview = forwardRef(function CalendarOverview({
       return { min: 0, max: 0, isRange: false };
     }
 
-    const prices = service.employees.map(emp => emp.price || 0);
+    // Filter employees based on selectedTimeSlot.employeeIds if available
+    let filteredEmployees = service.employees;
+
+    if (selectedTimeSlot?.employeeIds?.length > 0) {
+      // Filter employees that are in the selectedTimeSlot.employeeIds
+      filteredEmployees = service.employees.filter(emp =>
+        selectedTimeSlot.employeeIds.includes(emp.id)
+      );
+
+      // If no employees match (edge case), fall back to all employees
+      if (filteredEmployees.length === 0) {
+        filteredEmployees = service.employees;
+      }
+    }
+
+    const prices = filteredEmployees.map(emp => emp.price || 0);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
 

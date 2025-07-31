@@ -39,6 +39,8 @@ const CalendarForm = forwardRef(function CalendarForm({
   setSelectedDay,
   selectedTimeSlot,
   setSelectedTimeSlot,
+  serviceEmployees,
+  setServiceEmployees,
   onNextStep,
 }, ref) {
   const [calendarDays, setCalendarDays] = useState([]);
@@ -48,7 +50,6 @@ const CalendarForm = forwardRef(function CalendarForm({
   );
   const [fetchCalendarDaysError, setFetchCalendarDaysError] = useState(null);
   const [timeSlotError, setTimeSlotError] = useState(null);
-  const [serviceEmployees, setServiceEmployees] = useState({});
   const [openSelects, setOpenSelects] = useState({});
   const [shimmerSlotCount, setShimmerSlotCount] = useState(12);
   const previousPayloadRef = useRef(null);
@@ -56,32 +57,31 @@ const CalendarForm = forwardRef(function CalendarForm({
 
   useEffect(() => {
     if (services.length > 0) {
-      setServiceEmployees(prevServiceEmployees => {
-        const newServiceEmployees = { ...prevServiceEmployees };
-        let hasChanges = false;
+      const newServiceEmployees = { ...serviceEmployees };
+      let hasChanges = false;
 
-        services.forEach(service => {
-          const currentSelection = newServiceEmployees[service?.id] || [];
+      services.forEach(service => {
+        const currentSelection = newServiceEmployees[service?.id] || [];
 
-          const needsInit = currentSelection.length === 0;
-          const needsCorrection = service?.employees?.length === 1 && currentSelection.includes('all');
+        const needsInit = currentSelection.length === 0;
+        const needsCorrection = service?.employees?.length === 1 && currentSelection.includes('all');
 
-          if (needsInit || needsCorrection) {
-            if (service?.employees?.length === 1) {
-              newServiceEmployees[service?.id] = [service.employees[0].id.toString()];
-            } else {
-              newServiceEmployees[service?.id] = ['all'];
-            }
-            hasChanges = true;
+        if (needsInit || needsCorrection) {
+          if (service?.employees?.length === 1) {
+            newServiceEmployees[service?.id] = [service.employees[0].id.toString()];
+          } else {
+            newServiceEmployees[service?.id] = ['all'];
           }
-        });
-
-
-
-        return hasChanges ? newServiceEmployees : prevServiceEmployees;
+          hasChanges = true;
+        }
       });
+
+      if (hasChanges) {
+        setServiceEmployees(newServiceEmployees);
+      }
     }
-  }, [services]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [services, setServiceEmployees]);
 
   const createServicesPayload = () => {
     const payload = services?.map(service => {
@@ -149,7 +149,14 @@ const CalendarForm = forwardRef(function CalendarForm({
       previousPayloadRef.current = JSON.parse(JSON.stringify(currentPayload)); // Deep copy
 
       // Reset selected time slot when payload changes to prevent using outdated slot data
-      setSelectedTimeSlot(null);
+      // BUT only if we don't have a valid selectedTimeSlot that matches current payload
+      if (selectedTimeSlot) {
+        // Check if current selectedTimeSlot is still valid for the new payload
+        const matchingService = currentPayload.find(p => p.serviceId === selectedTimeSlot.serviceId);
+        if (!matchingService || !selectedTimeSlot.employeeIds?.every(id => matchingService.employeeIds.includes(id))) {
+          setSelectedTimeSlot(null);
+        }
+      }
 
       // Reset first load flag when services/employees change so auto-next-week works again
       isFirstLoadRef.current = true;
