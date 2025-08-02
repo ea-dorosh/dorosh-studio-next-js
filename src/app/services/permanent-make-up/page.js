@@ -6,12 +6,12 @@ import {
 import SubCategoryCardInfo from "@/components/SubCategoryCardInfo/SubCategoryCardInfo";
 
 export const metadata = {
-  title: "Permanent Make-up München - Dorosh Studio | Powder Brows, Hairstroke, Velvet Lips",
+  title: "Permanent Make-up München - MOOD BEAUTY | Powder Brows, Hairstroke, Velvet Lips",
   description: "Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik. Jetzt Termin vereinbaren!",
-  keywords: "Permanent Make-up München, Powder Brows München, Hairstroke München, Velvet Lips München, Wimpernkranz München, Augenbrauen München, Lippenpigmentierung München, Dorosh Studio, Schönheitsstudio München",
-  authors: [{ name: "Dorosh Studio" }],
-  creator: "Dorosh Studio",
-  publisher: "Dorosh Studio",
+  keywords: "Permanent Make-up München, Powder Brows München, Hairstroke München, Velvet Lips München, Wimpernkranz München, Augenbrauen München, Lippenpigmentierung München, MOOD BEAUTY, Schönheitsstudio München, Natalia Dorosh",
+  authors: [{ name: "Natalia Dorosh" }],
+  creator: "Natalia Dorosh",
+  publisher: "MOOD BEAUTY",
   formatDetection: {
     email: false,
     address: false,
@@ -22,10 +22,10 @@ export const metadata = {
     canonical: "/services/permanent-make-up",
   },
   openGraph: {
-    title: "Permanent Make-up München - Dorosh Studio",
+    title: "Permanent Make-up München - MOOD BEAUTY",
     description: "Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik.",
     url: "https://dorosh-studio.de/services/permanent-make-up",
-    siteName: "Dorosh Studio",
+    siteName: "MOOD BEAUTY",
     locale: "de_DE",
     type: "website",
     images: [
@@ -39,7 +39,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Permanent Make-up München - Dorosh Studio",
+    title: "Permanent Make-up München - MOOD BEAUTY",
     description: "Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz.",
     images: ["/images/services-page/service-brows.jpg"],
   },

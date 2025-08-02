@@ -25,6 +25,8 @@ export default function LogoLink() {
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 1201,
+            width: "160px",
+            height: "47px",
           }}
         />
       ) : (
@@ -39,6 +41,8 @@ export default function LogoLink() {
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 1201,
+              width: "160px",
+              height: "47px",
             }}
           />
         </Link>

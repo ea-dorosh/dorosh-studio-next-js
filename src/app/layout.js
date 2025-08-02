@@ -11,17 +11,20 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import * as React from "react";
 import LogoLink from "@/components/LogoLink/LogoLink";
 import Menu from "@/components/Menu/Menu";
+import CookieBanner from "@/components/CookieBanner/CookieBanner";
 import theme from "@/theme";
 
 export const metadata = {
-  title: "Dorosh Studio Permanent Make-Up München",
-  description: "Permanent Make-Up in München",
+  title: "MOOD BEAUTY - Permanent Make-Up München | Natalia Dorosh",
+  description: "Professionelles Permanent Make-Up in München. Powder Brows, Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.",
 };
 
 const LINKS = [
   { text: "Home", href: "/" },
   { text: "Unsere Services", href: "/services" },
   { text: "Online Termin", href: "/booking" },
+  { text: "Datenschutz", href: "/datenschutz", subLink: true },
+  { text: "Impressum", href: "/impressum", subLink: true },
 ];
 
 export default function RootLayout({ children }) {
@@ -72,13 +75,21 @@ export default function RootLayout({ children }) {
               }}
             >
               <Typography variant="body2" color="secondary">
-                {new Date().getFullYear()} Dorosh Studio.
+                {new Date().getFullYear()} MOOD BEAUTY - Natalia Dorosh.
               </Typography>
 
-              <Link href="/privacy-policy" variant="body2" color="secondary">
-                  Privacy Policy
-              </Link>
+              <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 2, mb: 1 }}>
+                <Link href="/impressum" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
+                    Impressum
+                </Link>
+
+                <Link href="/datenschutz" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
+                    Datenschutz
+                </Link>
+              </Box>
             </Box>
+
+            <CookieBanner />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

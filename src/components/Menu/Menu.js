@@ -71,7 +71,7 @@ export default function Menu({ links }) {
         <List sx={{
           paddingTop: `170px`,
         }}>
-          {links.map(({ text, href }) => (
+          {links.filter(({ subLink }) => !subLink).map(({ text, href }) => (
             <ListItem
               key={href}
               disablePadding
@@ -86,7 +86,28 @@ export default function Menu({ links }) {
                   color="primary"
                   sx={{
                     "& .MuiTypography-root": {
-                      fontSize: `2rem`,
+                      fontSize: `1.8rem`,
+                      textAlign: `center`,
+                    },
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
+        <List sx={{
+          paddingTop: `100px`,
+        }}>
+          {links.filter(({ subLink }) => subLink).map(({ text, href }) => (
+            <ListItem key={href} disablePadding onClick={handleClose}>
+              <ListItemButton component={Link} href={href}>
+                <ListItemText
+                  primary={text}
+                  color="primary"
+                  sx={{
+                    "& .MuiTypography-root": {
+                      fontSize: `1.4rem`,
                       textAlign: `center`,
                     },
                   }}
