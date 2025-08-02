@@ -120,7 +120,7 @@ export default function DatenschutzPage() {
           <Typography variant="body2" sx={body2Style}>
             <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an schneller, sicherer und stabiler Website-Bereitstellung)<br />
             <b>Aufbewahrungsdauer:</b> Log-Daten werden von Cloudflare nach maximal 30 Tagen gelöscht<br />
-            <b>Datenübertragung:</b> Cloudflare verfügt über EU-Datenschutz-Zertifizierungen und entspricht den Adequacy Decisions der EU-Kommission für Datenübertragungen
+            <b>Datenübertragung in Drittländer:</b> Die Datenübertragung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework und angemessener Garantien gemäß Art. 46 DSGVO. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert.
           </Typography>
         </Box>
 
