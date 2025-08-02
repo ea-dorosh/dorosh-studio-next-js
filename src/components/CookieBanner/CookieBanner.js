@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -8,7 +9,6 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import React, { useState, useEffect } from 'react';
 
 const COOKIE_CONSENT_NAME = 'cookieConsent';
 
@@ -32,14 +32,22 @@ const getCookie = (name) => {
 
 const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
+  // First useEffect to set client flag
   useEffect(() => {
-    // Check if user has already given consent via cookie
-    const consent = getCookie(COOKIE_CONSENT_NAME);
-    if (!consent) {
-      setShowBanner(true);
-    }
+    setIsClient(true);
   }, []);
+
+  // Second useEffect to check consent only after client hydration
+  useEffect(() => {
+    if (isClient) {
+      const consent = getCookie(COOKIE_CONSENT_NAME);
+      if (!consent) {
+        setShowBanner(true);
+      }
+    }
+  }, [isClient]);
 
   const handleAccept = () => {
     // Save consent to cookie with 1 year expiration
@@ -47,7 +55,8 @@ const CookieBanner = () => {
     setShowBanner(false);
   };
 
-  if (!showBanner) {
+  // Don't render anything until client hydration is complete
+  if (!isClient || !showBanner) {
     return null;
   }
 
