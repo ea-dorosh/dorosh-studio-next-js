@@ -104,7 +104,7 @@ export default function ContactSection() {
         <Button
           variant="plain"
           color="primary"
-          href="https://goo.gl/maps/7jed5oouJkNUf3xA8"
+          href="https://maps.app.goo.gl/7jed5oouJkNUf3xA8"
           sx={{textAlign: 'center'}}
         >
           Theresienstraße 38, <br/> 80333 München

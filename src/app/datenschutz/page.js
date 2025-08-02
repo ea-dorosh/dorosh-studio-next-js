@@ -1,154 +1,238 @@
-import { Container, Typography, Box } from '@mui/material';
+import {
+  Container,
+  Typography,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
 
 export const metadata = {
   title: "Datenschutzerklärung - MOOD BEAUTY | Natalia Dorosh",
   description: "Datenschutzerklärung und Informationen zum Schutz Ihrer Daten bei MOOD BEAUTY München",
 };
 
+const listItemStyle = {
+  display: 'list-item',
+  listStyleType: 'disc',
+  marginLeft: 2,
+  padding: 0,
+  paddingLeft: 1,
+};
+
+const headlineH2Style = {
+  mt: 4,
+  mb: 2,
+  fontSize: `20px !important`,
+  fontWeight: `bold`,
+  fontFamily: `"Montserrat", sans-serif`,
+};
+
+const headlineH3Style = {
+  mt: 3,
+  mb: 1,
+  fontSize: `18px !important`,
+  fontWeight: `bold`,
+  fontFamily: `"Montserrat", sans-serif`,
+};
+
+const body2Style = {
+  mb: 2,
+  fontSize: 16,
+};
+
 export default function DatenschutzPage() {
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+<Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ maxWidth: 800, mx: 'auto' }}>
         <Typography variant="h1" gutterBottom fontSize={28}>
           Datenschutzerklärung
         </Typography>
 
-        <Typography variant="h3" sx={{ mt: 4, mb: 2 }}>
-          1. Datenschutz auf einen Blick
-        </Typography>
+        {/* Section 1 */}
+        <Box>
+          <Typography variant="h2" sx={headlineH2Style}>
+            1. Verantwortlicher und Datenschutzbeauftragter
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            1.1 Verantwortlicher
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Natalia Dorosh<br />
+            Otl-Aicher Str. 46<br />
+            80807 München<br />
+            E-Mail: moodbeauty.de@gmail.com
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            1.2 Datenschutzbeauftragter
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Nicht bestellt
+          </Typography>
+        </Box>
 
-        <Typography variant="h4" sx={{ mt: 3, mb: 1 }}>
-          Allgemeine Hinweise
-        </Typography>
+        {/* Section 2 */}
+        <Box>
+          <Typography variant="h2" sx={headlineH2Style}>
+            2. Hosting & Auftragsverarbeitung
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            2.1 Hosting
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Unsere Website (https://moodbeauty.de) und unsere interne CRM (Node.js-Backend mit MySQL) laufen auf
+            Servern von <b>Amazon Web Services (AWS)</b> in der Region <b>Frankfurt (eu-central-1)</b>.
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            2.2 Auftragsverarbeitung
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Als Auftragsverarbeiter fungiert<br />
+            Amazon Web Services, Inc., EMEA SARL,<br />
+            38 avenue John F. Kennedy,<br />
+            L-1855 Luxembourg.<br />
+            Ein <b>AWS Data Processing Addendum (DPA)</b> ist Teil der AWS Customer Agreement und kann in der
+            AWS-Konsole unter <b>Artifact → Agreements → AWS Data Processing Addendum</b> eingesehen werden.
+          </Typography>
+        </Box>
 
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
-          personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene
-          Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
-        </Typography>
+        {/* Section 3 */}
+        <Box>
+          <Typography variant="h2" sx={headlineH2Style}>
+            3. Verarbeitung Ihrer Daten in unserem CRM-System
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            3.1 Kategorien personenbezogener Daten
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Wir speichern in unserem internen CRM-System die folgenden Daten:
+          </Typography>
 
-        <Typography variant="h4" sx={{ mt: 3, mb: 1 }}>
-          Datenerfassung auf dieser Website
-        </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            Kundendaten
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Vor- und Nachname (first_name, last_name)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="E‑Mail-Adresse (email)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Telefonnummer (phone)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Optional: Adresse (Straße, PLZ, Ort, Land) - nur für Rechnungsstellung" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Aufnahmedatum (added_date)" /></ListItem>
+          </List>
 
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          <strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong><br />
-          Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber.
-          Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.
-        </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            Termindaten
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Termin-ID (id)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Datum und Uhrzeit (date, time_start, time_end)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Leistung (service_name, service_duration)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Verweis auf Kunde (customer_id) und Duplikate (customer_first_name, customer_last_name, customer_email, customer_phone)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Status des Termins (status)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Nachricht / Gesamtsumme (order_message, order_total)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Google Calendar Event (google_calendar_event_id)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Standort (location, location_id)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Erstellt am (created_date)" /></ListItem>
+          </List>
 
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          <strong>Wie erfassen wir Ihre Daten?</strong><br />
-          Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen.
-          Hierbei kann es sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben.
-        </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            3.2 Zwecke und Rechtsgrundlage
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Durchführung des Vertrags und Erbringung der Leistungen (Art. 6 Abs. 1 lit. b DSGVO)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Verwaltung und Dokumentation von Terminen und Kundenkommunikation" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Rechnungsstellung gegenüber Kunden" /></ListItem>
+          </List>
 
-        <Typography variant="h3" sx={{ mt: 4, mb: 2 }}>
-          2. Hosting
-        </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            3.3 Aufbewahrungsdauer
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Aktive Daten: solange Vertragsverhältnis besteht" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Rechnungsrelevante Daten: 10 Jahre ab Ende des Kalenderjahres (Abgabenordnung)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Sonstige Korrespondenzdaten: 6 Jahre ab Ende des Kalenderjahres (Handelsgesetzbuch)" /></ListItem>
+          </List>
 
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Wir hosten die Inhalte unserer Website bei folgendem Anbieter:
-        </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            3.4 Zugriff auf die Daten
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Der Zugriff ist ausschließlich möglich für:<br />
+            • die Betreiberin (Natalia Dorosh)<br />
+            • autorisierte Mitarbeiter:innen des Salons
+          </Typography>
+        </Box>
 
-        <Typography variant="h4" sx={{ mt: 3, mb: 1 }}>
-          Externes Hosting
-        </Typography>
+        {/* Section 4: Website Processing */}
+        <Box>
+          <Typography variant="h2" sx={headlineH2Style}>
+            4. Datenerfassung auf dieser Website
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            4.1 Server-Log-Dateien
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Unser Hosting-Provider erhebt und speichert automatisch Log-Daten (Browsertyp/-version, Betriebssystem, Referrer-URL, Hostname des Rechners, Uhrzeit der Anfrage, IP-Adresse).<br />
+            Verarbeitung gem. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Sicherheit und Stabilität).
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            4.2 Kontaktformular
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Über unser Kontaktformular erhobene Daten (z.B. Name, E-Mail, Betreff, Nachricht) speichern wir zur Bearbeitung Ihrer Anfrage.<br />
+            Verarbeitung gem. Art. 6 Abs. 1 lit. b DSGVO (Notwendigkeit zur Vertragserfüllung/Kommunikation).
+          </Typography>
+        </Box>
 
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser
-          Website erfasst werden, werden auf den Servern des Hosters / der Hoster gespeichert.
-        </Typography>
+        {/* Section 5: Cookies */}
+        <Box>
+          <Typography variant="h2" sx={headlineH2Style}>
+            5. Cookies
+          </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            5.1 Technisch notwendige Cookies
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="cookieConsent (Speicherung Ihrer Cookie-Einwilligung)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Session-Cookies (Sitzungsmanagement)" /></ListItem>
+          </List>
+          <Typography variant="body2" sx={body2Style}>
+            Verarbeitung gem. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Funktionalität).
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Sie können Cookies in Ihren Browsereinstellungen jederzeit deaktivieren; dies kann die Funktionalität der Website einschränken.
+          </Typography>
+        </Box>
 
-        <Typography variant="h3" sx={{ mt: 4, mb: 2 }}>
-          3. Allgemeine Hinweise und Pflichtinformationen
-        </Typography>
+        {/* Section 6: Your Rights */}
+        <Box>
+          <Typography variant="h2" sx={headlineH2Style}>
+            6. Ihre Rechte
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Auskunft (Art. 15 DSGVO)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Berichtigung (Art. 16 DSGVO)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Löschung (Art. 17 DSGVO)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Einschränkung der Verarbeitung (Art. 18 DSGVO)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Datenübertragbarkeit (Art. 20 DSGVO)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Widerruf von Einwilligungen (Art. 7 Abs. 3 DSGVO)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)" /></ListItem>
+          </List>
+          <Typography variant="body2" sx={body2Style}>
+            Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: moodbeauty.de@gmail.com
+          </Typography>
+        </Box>
 
-        <Typography variant="h4" sx={{ mt: 3, mb: 1 }}>
-          Datenschutz
-        </Typography>
+        {/* Section 7: Update */}
+        <Box>
+          <Typography variant="h2" sx={headlineH2Style}>
+            7. Aktualisierung
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Diese Datenschutzerklärung wird bei Bedarf, spätestens jedoch einmal jährlich, überprüft und aktualisiert.<br />
+            Datum letzte Aktualisierung: 02.08.2025
+          </Typography>
+        </Box>
 
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst.
-          Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der
-          gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
-        </Typography>
-
-        <Typography variant="h4" sx={{ mt: 3, mb: 1 }}>
-          Cookies
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Unsere Website verwendet Cookies. Bei Cookies handelt es sich um kleine Textdateien,
-          die auf Ihrem Rechner abgelegt werden und die Ihr Browser speichert.
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          <strong>Technisch notwendige Cookies:</strong><br />
-          Diese Website verwendet ausschließlich technisch notwendige Cookies. Dazu gehört:
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2, ml: 2 }}>
-          • Cookie-Einverständnis (cookieConsent): Speichert Ihre Zustimmung zu unseren Cookies<br />
-          • Session-Cookies: Ermöglichen die Grundfunktionen der Website
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Diese Cookies sind für das Funktionieren der Website erforderlich und können
-          nicht deaktiviert werden.
-        </Typography>
-
-        <Typography variant="h3" sx={{ mt: 4, mb: 2 }}>
-          4. Datenerfassung auf dieser Website
-        </Typography>
-
-        <Typography variant="h4" sx={{ mt: 3, mb: 1 }}>
-          Server-Log-Dateien
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Der Provider der Seiten erhebt und speichert automatisch Informationen in
-          so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt.
-          Dies sind:
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2, ml: 2 }}>
-          • Browsertyp und Browserversion<br />
-          • verwendetes Betriebssystem<br />
-          • Referrer URL<br />
-          • Hostname des zugreifenden Rechners<br />
-          • Uhrzeit der Serveranfrage<br />
-          • IP-Adresse
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.
-        </Typography>
-
-        <Typography variant="h4" sx={{ mt: 3, mb: 1 }}>
-          Kontaktformular
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben
-          aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten
-          zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
-        </Typography>
-
-        <Typography variant="h3" sx={{ mt: 4, mb: 2 }}>
-          5. Ihre Rechte
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger
-          und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben
-          außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen.
-        </Typography>
-
-        <Typography variant="body2" sx={{ mt: 4, color: 'text.secondary' }}>
-          Diese Datenschutzerklärung wurde erstellt am {new Date().toLocaleDateString('de-DE')}.
-          Bei Fragen zum Datenschutz kontaktieren Sie uns über die im Impressum angegebenen Kontaktdaten.
-        </Typography>
       </Box>
     </Container>
   );
