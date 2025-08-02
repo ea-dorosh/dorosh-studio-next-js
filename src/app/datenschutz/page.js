@@ -12,41 +12,41 @@ export const metadata = {
   description: "Datenschutzerklärung und Informationen zum Schutz Ihrer Daten bei MOOD BEAUTY München",
 };
 
-const listItemStyle = {
-  display: 'list-item',
-  listStyleType: 'disc',
-  marginLeft: 2,
-  padding: 0,
-  paddingLeft: 2,
-  hyphens: 'auto',
-  width: 'calc(100% - 16px)',
-};
-
-const headlineH2Style = {
-  mt: 4,
-  mb: 2,
-  fontSize: `20px !important`,
-  fontWeight: `bold`,
-  fontFamily: `"Montserrat", sans-serif`,
-  hyphens: 'auto',
-};
-
-const headlineH3Style = {
-  mt: 3,
-  mb: 1,
-  fontSize: `18px !important`,
-  fontWeight: `bold`,
-  fontFamily: `"Montserrat", sans-serif`,
-  hyphens: 'auto',
-};
-
-const body2Style = {
-  mb: 2,
-  fontSize: 16,
-  hyphens: 'auto',
-};
-
 export default function DatenschutzPage() {
+  const listItemStyle = {
+    display: 'list-item',
+    listStyleType: 'disc',
+    marginLeft: 2,
+    padding: 0,
+    paddingLeft: 2,
+    hyphens: 'auto',
+    width: 'calc(100% - 16px)',
+  };
+
+  const headlineH2Style = {
+    mt: 4,
+    mb: 2,
+    fontSize: `20px !important`,
+    fontWeight: `bold`,
+    fontFamily: `"Montserrat", sans-serif`,
+    hyphens: 'auto',
+  };
+
+  const headlineH3Style = {
+    mt: 3,
+    mb: 1,
+    fontSize: `18px !important`,
+    fontWeight: `bold`,
+    fontFamily: `"Montserrat", sans-serif`,
+    hyphens: 'auto',
+  };
+
+  const body2Style = {
+    mb: 2,
+    fontSize: 16,
+    hyphens: 'auto',
+  };
+
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ maxWidth: 800, mx: 'auto' }}>

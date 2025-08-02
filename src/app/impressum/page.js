@@ -6,21 +6,21 @@ export const metadata = {
   description: "Impressum und rechtliche Informationen zu MOOD BEAUTY München",
 };
 
-// Stil-Definitionen
-const containerStyle = { py: 4, hyphens: 'auto', };
-const innerBoxStyle = { maxWidth: 800, mx: 'auto', hyphens: 'auto', };
-const titleStyle = { fontSize: 28, mb: 2, hyphens: 'auto', };
-const sectionHeadingStyle = {
-  mt: 4,
-  mb: 2,
-  fontSize: '20px !important',
-  fontWeight: 'bold',
-  fontFamily: '"Montserrat", sans-serif',
-  hyphens: 'auto',
-};
-const bodyTextStyle = { mb: 2, fontSize: 16 };
-
 export default function ImpressumPage() {
+
+  const containerStyle = { py: 4, hyphens: 'auto', };
+  const innerBoxStyle = { maxWidth: 800, mx: 'auto', hyphens: 'auto', };
+  const titleStyle = { fontSize: 28, mb: 2, hyphens: 'auto', };
+  const sectionHeadingStyle = {
+    mt: 4,
+    mb: 2,
+    fontSize: '20px !important',
+    fontWeight: 'bold',
+    fontFamily: '"Montserrat", sans-serif',
+    hyphens: 'auto',
+  };
+  const bodyTextStyle = { mb: 2, fontSize: 16 };
+
   return (
     <Container maxWidth="lg" sx={containerStyle}>
       <Box sx={innerBoxStyle}>
