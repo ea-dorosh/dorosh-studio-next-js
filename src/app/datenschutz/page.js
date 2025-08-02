@@ -43,7 +43,7 @@ const body2Style = {
 
 export default function DatenschutzPage() {
   return (
-<Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ maxWidth: 800, mx: 'auto' }}>
         <Typography variant="h1" gutterBottom fontSize={28}>
           Datenschutzerklärung

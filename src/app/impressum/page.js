@@ -1,5 +1,5 @@
-import React from 'react';
 import { Container, Typography, Box } from '@mui/material';
+import React from 'react';
 
 export const metadata = {
   title: "Impressum - MOOD BEAUTY | Natalia Dorosh",
@@ -14,13 +14,6 @@ const sectionHeadingStyle = {
   mt: 4,
   mb: 2,
   fontSize: '20px !important',
-  fontWeight: 'bold',
-  fontFamily: '"Montserrat", sans-serif',
-};
-const subHeadingStyle = {
-  mt: 3,
-  mb: 1,
-  fontSize: '18px !important',
   fontWeight: 'bold',
   fontFamily: '"Montserrat", sans-serif',
 };
