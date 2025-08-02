@@ -131,7 +131,7 @@ const theme = createTheme({
         sizeSmall: {
           fontSize: `.8rem`,
           padding: `5px 20px`,
-          textTransform: `lowercase`,
+          textTransform: `capitalize`,
         },
       },
     },

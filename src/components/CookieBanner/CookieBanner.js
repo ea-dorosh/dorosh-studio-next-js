@@ -7,7 +7,11 @@ import {
   Backdrop,
   Card,
   CardContent,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useState, useEffect } from 'react';
 
 const COOKIE_CONSENT_NAME = 'cookieConsent';
@@ -65,7 +69,7 @@ const CookieBanner = () => {
       open={showBanner}
       sx={{
         zIndex: 9999,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
       }}
     >
       <Card
@@ -74,40 +78,95 @@ const CookieBanner = () => {
           bottom: 20,
           left: '50%',
           transform: 'translateX(-50%)',
-          maxWidth: 600,
+          maxWidth: 650,
           width: '90%',
           boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.3)',
           borderRadius: '16px',
         }}
       >
-        <CardContent sx={{ p: 3 }}>
-          <Typography variant="h4" gutterBottom>
+        <CardContent sx={{ p: 3, pb: 0 }}>
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
             Cookie-Hinweis
           </Typography>
 
           <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.6 }}>
-            Wir verwenden technisch notwendige Cookies, um Ihnen die bestmögliche
-            Nutzung unserer Website zu ermöglichen. Diese Cookies sind für das
-            Funktionieren der Website erforderlich und können nicht deaktiviert werden.
+            Diese Website verwendet technisch notwendige Cookies für die
+            Grundfunktionen unseres Online-Buchungssystems. Ohne diese
+            Cookies können Sie keine Termine buchen oder sich anmelden.
           </Typography>
 
-          <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>
-            Weitere Informationen finden Sie in unserer{' '}
-            <Typography
-              component="a"
-              href="/datenschutz"
+          {/* ACCORDION WITH COOKIE DETAILS */}
+          <Accordion
+            sx={{
+              mb: 2,
+              boxShadow: 'none',
+              border: '1px solid',
+              borderColor: 'divider',
+              borderRadius: '8px !important',
+              '&:before': { display: 'none' },
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
               sx={{
-                color: 'primary.main',
-                textDecoration: 'underline',
-                fontWeight: 500,
+                backgroundColor: 'grey.50',
+                borderRadius: '8px',
+                minHeight: '48px',
+                '&.Mui-expanded': {
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 0,
+                }
               }}
             >
-              Datenschutzerklärung
-            </Typography>
-            .
-          </Typography>
+              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                Details zu verwendeten Cookies
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ pt: 2 }}>
+              <Typography variant="body2" sx={{ mb: 2, fontSize: '0.9rem', color: 'text.secondary' }}>
+                <strong>Verwendete Cookies:</strong><br />
+                • <strong>cookieConsent:</strong> Speichert Ihre Cookie-Einwilligung (365 Tage)<br />
+                • <strong>Session-Cookies:</strong> Für Anmeldung und Buchungssystem (bis Session-Ende)<br />
+                • <strong>Cloudflare-Cookies:</strong> Für Website-Sicherheit und Performance
+              </Typography>
 
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography variant="body2" sx={{ mb: 2, fontSize: '0.85rem', color: 'text.secondary' }}>
+                <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Funktionalität)
+              </Typography>
+
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                Weitere Informationen finden Sie in unserer{' '}
+                <Typography
+                  component="a"
+                  href="/datenschutz"
+                  target="_blank"
+                  sx={{
+                    color: 'primary.main',
+                    textDecoration: 'underline',
+                    fontWeight: 500,
+                  }}
+                >
+                  Datenschutzerklärung
+                </Typography>
+                .
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, justifyContent: 'center', mt: 2 }}>
+            <Button
+              variant="outlined"
+              onClick={() => window.open('/datenschutz', '_blank')}
+              sx={{
+                px: 3,
+                py: 1.5,
+                fontSize: '1rem',
+                order: { xs: 2, sm: 1 }
+              }}
+              size="small"
+            >
+              Datenschutzerklärung
+            </Button>
             <Button
               variant="contained"
               onClick={handleAccept}
@@ -116,12 +175,26 @@ const CookieBanner = () => {
                 py: 1.5,
                 fontSize: '1.1rem',
                 fontWeight: 600,
+                order: { xs: 1, sm: 2 }
               }}
+              size="small"
             >
-              Cookies akzeptieren
+              Alle Cookies akzeptieren
             </Button>
           </Box>
         </CardContent>
+
+        <Typography variant="caption" sx={{
+            display: 'block',
+            textAlign: 'left',
+            m: 0,
+            color: 'text.secondary',
+            fontStyle: 'italic',
+            fontSize: '0.8rem',
+            padding: `10px 24px`
+          }}>
+            Hinweis: Die Website funktioniert nur mit aktivierten Cookies
+          </Typography>
       </Card>
     </Backdrop>
   );
