@@ -4,8 +4,8 @@ import {
   Box,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { MOCK_TIME_SLOTS } from './mockTimeSlots';
-import TimeSlotButton from './TimeSlotButton';
+import TimeSlotButton from '@/components/BookingForm/CalendarForm/TimeSlotButton/TimeSlotButton';
+import { MOCK_TIME_SLOTS } from '@/components/BookingForm/CalendarForm/TimeSlotSection/mockTimeSlots';
 import 'dayjs/locale/de';
 
 dayjs.locale(`de`);
@@ -26,7 +26,6 @@ export default function TimeSlotSection({
       ? `Morgen, am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)},`
       : `Am ${dayjs(selectedDay?.day)?.format(`D. MMMM`)}`;
 
-  // Если есть доступные временные слоты
   if (selectedDay.availableTimeslots.length > 0) {
     return (
       <Box

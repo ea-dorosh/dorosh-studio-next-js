@@ -3,7 +3,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import ServicesCard from "./ServiceCard/ServicesCard";
+import ServicesCard from "@/components/ServicesSection/ServiceCard/ServiceCard";
 
 export default function ServicesSection() {
 

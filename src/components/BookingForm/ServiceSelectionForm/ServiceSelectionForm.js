@@ -17,9 +17,9 @@ import {
   useEffect,
   forwardRef,
 } from "react";
-import CategoryForm from "../Categories/CategoryForm";
-import ServicesList from "../Services/ServicesList";
-import SubCategoryForm from "../SubCategories/SubCategoryForm";
+import CategoryForm from "@/components/BookingForm/CategoryForm/CategoryForm";
+import ServicesList from "@/components/BookingForm/ServicesList/ServicesList";
+import SubCategoryForm from "@/components/BookingForm/SubCategoryForm/SubCategoryForm";
 import { formatTimeToString } from "@/utils/formatters";
 
 const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({

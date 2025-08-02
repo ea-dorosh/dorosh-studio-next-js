@@ -7,10 +7,10 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { useEffect, useState, forwardRef, useRef } from 'react';
-import CalendarGrid from './CalendarGrid';
-import EmployeeSelector from './EmployeeSelector';
-import TimeSlotSection from './TimeSlotSection';
-import TimeSlotSkeleton from './TimeSlotSkeleton';
+import CalendarGrid from './CalendarGrid/CalendarGrid';
+import EmployeeSelector from './EmployeeSelector/EmployeeSelector';
+import TimeSlotSection from './TimeSlotSection/TimeSlotSection';
+import TimeSlotSkeleton from './TimeSlotSkeleton/TimeSlotSkeleton';
 import calendarService from '@/services/calendar.service';
 import 'dayjs/locale/de';
 

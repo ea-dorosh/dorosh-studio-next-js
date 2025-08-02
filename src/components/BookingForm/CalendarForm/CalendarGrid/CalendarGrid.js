@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import CalendarDay from './CalendarDay';
+import CalendarDay from '@/components/BookingForm/CalendarForm/CalendarDay/CalendarDay';
 import { formatMonthYear } from '@/utils/formatters';
 import 'dayjs/locale/de';
 

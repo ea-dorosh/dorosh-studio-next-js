@@ -7,12 +7,12 @@ import {
 import { useTheme } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
-import AddServiceQuestion from "./AddServiceQuestion/AddServiceQuestion";
-import CalendarForm from "./Calendar/CalendarForm";
-import CalendarOverview from "./Calendar/CalendarOverview";
-import Confirmation from "./Confirmation/Confirmation";
-import CustomerForm from "./CustomerForm/CustomerForm";
-import ServiceSelectionForm from "./ServiceSelectionForm/ServiceSelectionForm";
+import AddServiceQuestion from "@/components/BookingForm/AddServiceQuestion/AddServiceQuestion";
+import CalendarForm from "@/components/BookingForm/CalendarForm/CalendarForm";
+import CalendarOverview from "@/components/BookingForm/CalendarOverview/CalendarOverview";
+import Confirmation from "@/components/BookingForm/Confirmation/Confirmation";
+import CustomerForm from "@/components/BookingForm/CustomerForm/CustomerForm";
+import ServiceSelectionForm from "@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm";
 import appointmentsService from "@/services/appointments.service";
 
 export default function BookingFormContainer({ categories }) {

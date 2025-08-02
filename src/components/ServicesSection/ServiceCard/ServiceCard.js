@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Image from 'next/image';
 import Link from "next/link";
 
-export default function ServicesCard({
+export default function ServiceCard({
   title,
   subtitle,
   linkHref,

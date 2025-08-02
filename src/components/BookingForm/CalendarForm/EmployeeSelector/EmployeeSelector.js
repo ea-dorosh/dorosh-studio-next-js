@@ -11,7 +11,6 @@ import {
   Chip,
 } from '@mui/material';
 
-// Функция для сокращения имени работника
 const truncateEmployeeName = (firstName, lastName, level = 0) => {
   switch (level) {
   case 0:
@@ -27,7 +26,6 @@ const truncateEmployeeName = (firstName, lastName, level = 0) => {
   }
 };
 
-// Функция для создания чипсов с адаптивным сокращением
 const createAdaptiveChips = (selectedEmployees, service) => {
   let truncationLevel = 0;
   const employeeCount = selectedEmployees.length;

@@ -76,9 +76,9 @@ export default function ContactSection() {
         <Button
           variant="plain"
           color="primary"
-          href="mailto:doroshstudio@gmail.com"
+          href="mailto:moodbeauty.de@gmail.com"
         >
-          doroshstudio@gmail.com
+          moodbeauty.de@gmail.com
         </Button>
       </Box>
 
@@ -107,7 +107,7 @@ export default function ContactSection() {
           href="https://goo.gl/maps/7jed5oouJkNUf3xA8"
           sx={{textAlign: 'center'}}
         >
-          Franz-Joseph-Straße 20, <br/> 80801 München
+          Theresienstraße 38, <br/> 80333 München
         </Button>
       </Box>
 
