@@ -63,10 +63,10 @@ export default function DatenschutzPage() {
             1.1 Verantwortlicher
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Natalia Dorosh<br />
-            Otl-Aicher Str. 46<br />
-            80807 München<br />
-            E-Mail: moodbeauty.de@gmail.com
+            {'Natalia Dorosh'}<br />
+            {'Otl-Aicher Str. 46'}<br />
+            {'80807 München'}<br />
+            {'E-Mail: moodbeauty.de@gmail.com'}
           </Typography>
           <Typography variant="h3" sx={headlineH3Style}>
             1.2 Datenschutzbeauftragter
@@ -85,19 +85,21 @@ export default function DatenschutzPage() {
             2.1 Hosting
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Unsere Website (https://moodbeauty.de) und unsere interne CRM (Node.js-Backend mit MySQL) laufen auf
-            Servern von <b>Amazon Web Services (AWS)</b> in der Region <b>Frankfurt (eu-central-1)</b>.
+            {'Unsere Website (https://moodbeauty.de) und unsere interne CRM (Node.js-Backend mit MySQL) laufen auf Servern von '}
+            <b>Amazon Web Services (AWS)</b>
+            {' in der Region '}
+            <b>Frankfurt (eu-central-1)</b>
+            {'.'}
           </Typography>
           <Typography variant="h3" sx={headlineH3Style}>
             2.2 Auftragsverarbeitung
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Als Auftragsverarbeiter fungiert<br />
-            Amazon Web Services, Inc., EMEA SARL,<br />
-            38 avenue John F. Kennedy,<br />
-            L-1855 Luxembourg.<br />
-            Ein <b>AWS Data Processing Addendum (DPA)</b> ist Teil der AWS Customer Agreement und kann in der
-            AWS-Konsole unter <b>Artifact → Agreements → AWS Data Processing Addendum</b> eingesehen werden.
+            {'Als Auftragsverarbeiter fungiert'}<br />
+            {'Amazon Web Services, Inc., EMEA SARL,'}<br />
+            {'38 avenue John F. Kennedy,'}<br />
+            {'L-1855 Luxembourg.'}<br />
+            {'Ein '}<b>AWS Data Processing Addendum (DPA)</b>{' ist Teil der AWS Customer Agreement und kann in der AWS-Konsole unter '}<b>Artifact → Agreements → AWS Data Processing Addendum</b>{' eingesehen werden.'}
           </Typography>
 
           <Typography variant="h3" sx={headlineH3Style}>
@@ -123,9 +125,9 @@ export default function DatenschutzPage() {
             <ListItem sx={listItemStyle}><ListItemText primary="HTTP-Request-Daten" /></ListItem>
           </List>
           <Typography variant="body2" sx={body2Style}>
-            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an schneller, sicherer und stabiler Website-Bereitstellung)<br />
-            <b>Aufbewahrungsdauer:</b> Log-Daten werden von Cloudflare nach maximal 30 Tagen gelöscht<br />
-            <b>Datenübertragung in Drittländer:</b> Die Datenübertragung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework und angemessener Garantien gemäß Art. 46 DSGVO. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert.
+            <b>Rechtsgrundlage:</b>{' Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an schneller, sicherer und stabiler Website-Bereitstellung)'}<br />
+            <b>Aufbewahrungsdauer:</b>{' Log-Daten werden von Cloudflare nach maximal 30 Tagen gelöscht'}<br />
+            <b>Datenübertragung in Drittländer:</b>{' Die Datenübertragung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework und angemessener Garantien gemäß Art. 46 DSGVO. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert.'}
           </Typography>
 
           <Typography variant="h3" sx={headlineH3Style}>
@@ -139,26 +141,26 @@ export default function DatenschutzPage() {
             WhatsApp Business
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            <b>Anbieter:</b> Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland<br />
-            <b>Datenverarbeitung:</b> Nachrichten, Telefonnummern, Profilbilder, Zeitstempel<br />
-            <b>Zweck:</b> Kundenbetreuung, Terminanfragen und -bestätigungen<br />
-            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an effizienter Kundenkommunikation)
+            <b>Anbieter:</b>{' Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland'}<br />
+            <b>Datenverarbeitung:</b>{' Nachrichten, Telefonnummern, Profilbilder, Zeitstempel'}<br />
+            <b>Zweck:</b>{' Kundenbetreuung, Terminanfragen und -bestätigungen'}<br />
+            <b>Rechtsgrundlage:</b>{' Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an effizienter Kundenkommunikation)'}
           </Typography>
 
           <Typography variant="h4" sx={{ ...headlineH3Style, fontSize: '16px !important', mt: 2, mb: 1 }}>
             Instagram und Facebook
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            <b>Anbieter:</b> Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland<br />
-            <b>Datenverarbeitung:</b> Nachrichten, Benutzernamen, Profilangaben, Interaktionen<br />
-            <b>Zweck:</b> Kundenbetreuung, Terminanfragen, Präsentation unserer Dienstleistungen<br />
-            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Kundenkommunikation und Marketing)
+            <b>Anbieter:</b>{' Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland'}<br />
+            <b>Datenverarbeitung:</b>{' Nachrichten, Benutzernamen, Profilangaben, Interaktionen'}<br />
+            <b>Zweck:</b>{' Kundenbetreuung, Terminanfragen, Präsentation unserer Dienstleistungen'}<br />
+            <b>Rechtsgrundlage:</b>{' Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Kundenkommunikation und Marketing)'}
           </Typography>
 
           <Typography variant="body2" sx={body2Style}>
-            <b>Datenübertragung in Drittländer:</b> Meta-Dienste übertragen Daten in die USA auf Grundlage von Standardvertragsklauseln und angemessenen Garantien gemäß Art. 46 DSGVO.<br />
-            <b>Aufbewahrungsdauer:</b> Kommunikationsdaten werden solange gespeichert, bis Sie um Löschung bitten oder kein berechtigtes Interesse an der Aufbewahrung mehr besteht. Relevante Kundendaten können in unser CRM-System übertragen werden.<br />
-            <b>Datenschutzerklärung von Meta:</b> https://www.facebook.com/privacy/policy/
+            <b>Datenübertragung in Drittländer:</b>{' Meta-Dienste übertragen Daten in die USA auf Grundlage von Standardvertragsklauseln und angemessenen Garantien gemäß Art. 46 DSGVO.'}<br />
+            <b>Aufbewahrungsdauer:</b>{' Kommunikationsdaten werden solange gespeichert, bis Sie um Löschung bitten oder kein berechtigtes Interesse an der Aufbewahrung mehr besteht. Relevante Kundendaten können in unser CRM-System übertragen werden.'}<br />
+            <b>Datenschutzerklärung von Meta:</b>{' https://www.facebook.com/privacy/policy/'}
           </Typography>
         </Box>
 
@@ -225,9 +227,9 @@ export default function DatenschutzPage() {
             3.4 Zugriff auf die Daten
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Der Zugriff ist ausschließlich möglich für:<br />
-            • die Betreiberin (Natalia Dorosh)<br />
-            • autorisierte Mitarbeiter:innen des Salons
+            {'Der Zugriff ist ausschließlich möglich für:'}<br />
+            {'• die Betreiberin (Natalia Dorosh)'}<br />
+            {'• autorisierte Mitarbeiter:innen des Salons'}
           </Typography>
         </Box>
 
@@ -240,15 +242,15 @@ export default function DatenschutzPage() {
             4.1 Server-Log-Dateien
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Unser Hosting-Provider erhebt und speichert automatisch Log-Daten (Browsertyp/-version, Betriebssystem, Referrer-URL, Hostname des Rechners, Uhrzeit der Anfrage, IP-Adresse).<br />
-            Verarbeitung gem. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Sicherheit und Stabilität).
+            {'Unser Hosting-Provider erhebt und speichert automatisch Log-Daten (Browsertyp/-version, Betriebssystem, Referrer-URL, Hostname des Rechners, Uhrzeit der Anfrage, IP-Adresse).'}<br />
+            {'Verarbeitung gem. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Sicherheit und Stabilität).'}
           </Typography>
           <Typography variant="h3" sx={headlineH3Style}>
             4.2 Kontaktformular
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Über unser Kontaktformular erhobene Daten (z.B. Name, E-Mail, Betreff, Nachricht) speichern wir zur Bearbeitung Ihrer Anfrage.<br />
-            Verarbeitung gem. Art. 6 Abs. 1 lit. b DSGVO (Notwendigkeit zur Vertragserfüllung/Kommunikation).
+            {'Über unser Kontaktformular erhobene Daten (z.B. Name, E-Mail, Betreff, Nachricht) speichern wir zur Bearbeitung Ihrer Anfrage.'}<br />
+            {'Verarbeitung gem. Art. 6 Abs. 1 lit. b DSGVO (Notwendigkeit zur Vertragserfüllung/Kommunikation).'}
           </Typography>
           <Typography variant="h3" sx={headlineH3Style}>
             4.3 E-Mail- und SMS-Kommunikation
@@ -263,9 +265,9 @@ export default function DatenschutzPage() {
             <ListItem sx={listItemStyle}><ListItemText primary="SMS-Erinnerungen bei besonderen Umständen (z.B. wenn telefonisch nicht erreichbar)" /></ListItem>
           </List>
           <Typography variant="body2" sx={body2Style}>
-            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) und Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an ordnungsgemäßer Terminverwaltung)<br />
-            <b>SMS-Versand:</b> Erfolgt über unsere eigenen Mobilgeräte oder Standard-SMS-Dienste ohne Weitergabe an Dritte<br />
-            <b>Widerspruch:</b> Sie können jederzeit per E-Mail an moodbeauty.de@gmail.com der Zusendung von Erinnerungen widersprechen
+            <b>Rechtsgrundlage:</b>{' Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) und Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an ordnungsgemäßer Terminverwaltung)'}<br />
+            <b>SMS-Versand:</b>{' Erfolgt über unsere eigenen Mobilgeräte oder Standard-SMS-Dienste ohne Weitergabe an Dritte'}<br />
+            <b>Widerspruch:</b>{' Sie können jederzeit per E-Mail an moodbeauty.de@gmail.com der Zusendung von Erinnerungen widersprechen'}
           </Typography>
         </Box>
 
@@ -304,8 +306,8 @@ export default function DatenschutzPage() {
             <ListItem sx={listItemStyle}><ListItemText primary="Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)" /></ListItem>
           </List>
           <Typography variant="body2" sx={body2Style}>
-            Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: moodbeauty.de@gmail.com<br />
-            <b>Löschung von Daten:</b> Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff &quot;Datenlöschung&quot; mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.
+            {'Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: moodbeauty.de@gmail.com'}<br />
+            <b>Löschung von Daten:</b>{' Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff "Datenlöschung" mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.'}
           </Typography>
         </Box>
 
@@ -315,8 +317,8 @@ export default function DatenschutzPage() {
             7. Aktualisierung
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Diese Datenschutzerklärung wird bei Bedarf, spätestens jedoch einmal jährlich, überprüft und aktualisiert.<br />
-            Datum letzte Aktualisierung: 02.08.2025
+            {'Diese Datenschutzerklärung wird bei Bedarf, spätestens jedoch einmal jährlich, überprüft und aktualisiert.'}<br />
+            {'Datum letzte Aktualisierung: 02.08.2025'}
           </Typography>
         </Box>
 
