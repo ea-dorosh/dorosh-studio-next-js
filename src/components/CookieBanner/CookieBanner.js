@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -9,6 +8,7 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 
 const COOKIE_CONSENT_NAME = 'cookieConsent';
 
