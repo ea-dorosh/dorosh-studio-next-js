@@ -45,7 +45,7 @@ export default function ImpressumPage() {
         </Typography>
         <Typography variant="body1" sx={bodyTextStyle}>
           Telefon: 0152 073 89 443<br />
-          E-Mail: moodbeauty.de@gmail.com
+          E-Mail: <span suppressHydrationWarning>moodbeauty.de@gmail.com</span>
         </Typography>
 
         <Typography variant="h2" sx={sectionHeadingStyle}>

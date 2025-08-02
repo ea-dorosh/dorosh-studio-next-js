@@ -64,7 +64,7 @@ export default function DatenschutzPage() {
             Natalia Dorosh<br />
             Otl-Aicher Str. 46<br />
             80807 München<br />
-            E-Mail: moodbeauty.de@gmail.com
+            E-Mail: <span suppressHydrationWarning>moodbeauty.de@gmail.com</span>
           </Typography>
           <Typography variant="h3" sx={headlineH3Style}>
             1.2 Datenschutzbeauftragter
@@ -263,7 +263,7 @@ export default function DatenschutzPage() {
           <Typography variant="body2" sx={body2Style}>
             <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) und Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an ordnungsgemäßer Terminverwaltung)<br />
             <b>SMS-Versand:</b> Erfolgt über unsere eigenen Mobilgeräte oder Standard-SMS-Dienste ohne Weitergabe an Dritte<br />
-            <b>Widerspruch:</b> Sie können jederzeit per E-Mail an moodbeauty.de@gmail.com der Zusendung von Erinnerungen widersprechen
+            <b>Widerspruch:</b> Sie können jederzeit per E-Mail an <span suppressHydrationWarning>moodbeauty.de@gmail.com</span> der Zusendung von Erinnerungen widersprechen
           </Typography>
         </Box>
 
@@ -302,7 +302,7 @@ export default function DatenschutzPage() {
             <ListItem sx={listItemStyle}><ListItemText primary="Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)" /></ListItem>
           </List>
           <Typography variant="body2" sx={body2Style}>
-            Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: moodbeauty.de@gmail.com<br />
+            Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: <span suppressHydrationWarning>moodbeauty.de@gmail.com</span><br />
             <b>Löschung von Daten:</b> Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff &quot;Datenlöschung&quot; mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.
           </Typography>
         </Box>
