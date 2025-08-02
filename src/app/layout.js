@@ -9,9 +9,9 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import * as React from "react";
+import CookieBanner from "@/components/CookieBanner/CookieBanner";
 import LogoLink from "@/components/LogoLink/LogoLink";
 import Menu from "@/components/Menu/Menu";
-import CookieBanner from "@/components/CookieBanner/CookieBanner";
 import theme from "@/theme";
 
 export const metadata = {
