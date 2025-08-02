@@ -1,5 +1,6 @@
 'use client';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Box,
   Typography,
@@ -11,7 +12,6 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useState, useEffect } from 'react';
 
 const COOKIE_CONSENT_NAME = 'cookieConsent';
@@ -185,16 +185,16 @@ const CookieBanner = () => {
         </CardContent>
 
         <Typography variant="caption" sx={{
-            display: 'block',
-            textAlign: 'left',
-            m: 0,
-            color: 'text.secondary',
-            fontStyle: 'italic',
-            fontSize: '0.8rem',
-            padding: `10px 24px`
-          }}>
+          display: 'block',
+          textAlign: 'left',
+          m: 0,
+          color: 'text.secondary',
+          fontStyle: 'italic',
+          fontSize: '0.8rem',
+          padding: `10px 24px`
+        }}>
             Hinweis: Die Website funktioniert nur mit aktivierten Cookies
-          </Typography>
+        </Typography>
       </Card>
     </Backdrop>
   );

@@ -300,7 +300,7 @@ export default function DatenschutzPage() {
           </List>
           <Typography variant="body2" sx={body2Style}>
             Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: moodbeauty.de@gmail.com<br />
-            <b>Löschung von Daten:</b> Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff "Datenlöschung" mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.
+            <b>Löschung von Daten:</b> Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff &quot;Datenlöschung&quot; mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.
           </Typography>
         </Box>
 
