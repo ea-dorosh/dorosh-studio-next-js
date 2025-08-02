@@ -122,6 +122,39 @@ export default function DatenschutzPage() {
             <b>Aufbewahrungsdauer:</b> Log-Daten werden von Cloudflare nach maximal 30 Tagen gelöscht<br />
             <b>Datenübertragung in Drittländer:</b> Die Datenübertragung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework und angemessener Garantien gemäß Art. 46 DSGVO. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert.
           </Typography>
+
+          <Typography variant="h3" sx={headlineH3Style}>
+            2.4 Soziale Netzwerke und Messaging-Dienste
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Wir nutzen verschiedene Kommunikationskanäle für Kundenanfragen und Terminbuchungen:
+          </Typography>
+
+          <Typography variant="h4" sx={{ ...headlineH3Style, fontSize: '16px !important', mt: 2, mb: 1 }}>
+            WhatsApp Business
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            <b>Anbieter:</b> Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland<br />
+            <b>Datenverarbeitung:</b> Nachrichten, Telefonnummern, Profilbilder, Zeitstempel<br />
+            <b>Zweck:</b> Kundenbetreuung, Terminanfragen und -bestätigungen<br />
+            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an effizienter Kundenkommunikation)
+          </Typography>
+
+          <Typography variant="h4" sx={{ ...headlineH3Style, fontSize: '16px !important', mt: 2, mb: 1 }}>
+            Instagram und Facebook
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            <b>Anbieter:</b> Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland<br />
+            <b>Datenverarbeitung:</b> Nachrichten, Benutzernamen, Profilangaben, Interaktionen<br />
+            <b>Zweck:</b> Kundenbetreuung, Terminanfragen, Präsentation unserer Dienstleistungen<br />
+            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Kundenkommunikation und Marketing)
+          </Typography>
+
+          <Typography variant="body2" sx={body2Style}>
+            <b>Datenübertragung in Drittländer:</b> Meta-Dienste übertragen Daten in die USA auf Grundlage von Standardvertragsklauseln und angemessenen Garantien gemäß Art. 46 DSGVO.<br />
+            <b>Aufbewahrungsdauer:</b> Kommunikationsdaten werden solange gespeichert, bis Sie um Löschung bitten oder kein berechtigtes Interesse an der Aufbewahrung mehr besteht. Relevante Kundendaten können in unser CRM-System übertragen werden.<br />
+            <b>Datenschutzerklärung von Meta:</b> https://www.facebook.com/privacy/policy/
+          </Typography>
         </Box>
 
         {/* Section 3 */}
