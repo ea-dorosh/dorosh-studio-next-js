@@ -94,6 +94,34 @@ export default function DatenschutzPage() {
             Ein <b>AWS Data Processing Addendum (DPA)</b> ist Teil der AWS Customer Agreement und kann in der
             AWS-Konsole unter <b>Artifact → Agreements → AWS Data Processing Addendum</b> eingesehen werden.
           </Typography>
+
+          <Typography variant="h3" sx={headlineH3Style}>
+            2.3 Content Delivery Network (CDN) und Website-Sicherheit
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Wir verwenden die Dienste der <b>Cloudflare Germany GmbH</b>, Rosental 7, c/o Mindspace, 80331 München für:
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Content Delivery Network (CDN)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="DDoS-Schutz und Website-Sicherheit" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="DNS-Services" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Performance-Optimierung" /></ListItem>
+          </List>
+          <Typography variant="body2" sx={body2Style}>
+            Dabei werden folgende Daten verarbeitet:
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="IP-Adresse des Besuchers" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Browser-Informationen (User-Agent)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Referrer-URL" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Zeitstempel des Zugriffs" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="HTTP-Request-Daten" /></ListItem>
+          </List>
+          <Typography variant="body2" sx={body2Style}>
+            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an schneller, sicherer und stabiler Website-Bereitstellung)<br />
+            <b>Aufbewahrungsdauer:</b> Log-Daten werden von Cloudflare nach maximal 30 Tagen gelöscht<br />
+            <b>Datenübertragung:</b> Cloudflare verfügt über EU-Datenschutz-Zertifizierungen und entspricht den Adequacy Decisions der EU-Kommission für Datenübertragungen
+          </Typography>
         </Box>
 
         {/* Section 3 */}
