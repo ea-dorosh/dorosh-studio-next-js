@@ -12,6 +12,8 @@ export const metadata = {
   description: "Datenschutzerklärung und Informationen zum Schutz Ihrer Daten bei MOOD BEAUTY München",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default function DatenschutzPage() {
   const listItemStyle = {
     display: 'list-item',

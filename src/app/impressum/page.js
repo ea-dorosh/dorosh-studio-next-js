@@ -6,6 +6,8 @@ export const metadata = {
   description: "Impressum und rechtliche Informationen zu MOOD BEAUTY München",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default function ImpressumPage() {
 
   const containerStyle = { py: 4 };
