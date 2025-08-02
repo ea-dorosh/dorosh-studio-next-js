@@ -8,16 +8,15 @@ export const metadata = {
 
 export default function ImpressumPage() {
 
-  const containerStyle = { py: 4, hyphens: 'auto', };
-  const innerBoxStyle = { maxWidth: 800, mx: 'auto', hyphens: 'auto', };
-  const titleStyle = { fontSize: 28, mb: 2, hyphens: 'auto', };
+  const containerStyle = { py: 4 };
+  const innerBoxStyle = { maxWidth: 800, mx: 'auto' };
+  const titleStyle = { fontSize: 28, mb: 2 };
   const sectionHeadingStyle = {
     mt: 4,
     mb: 2,
     fontSize: '20px !important',
     fontWeight: 'bold',
     fontFamily: '"Montserrat", sans-serif',
-    hyphens: 'auto',
   };
   const bodyTextStyle = { mb: 2, fontSize: 16 };
 
@@ -82,7 +81,7 @@ export default function ImpressumPage() {
         </Typography>
 
         <Typography variant="h2" sx={sectionHeadingStyle}>
-          Verbraucherstreitbeilegung/Universalschlichtungsstelle
+          Verbraucherstreitbeilegung/<br />Universalschlichtungsstelle
         </Typography>
         <Typography variant="body1" sx={bodyTextStyle}>
           Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.

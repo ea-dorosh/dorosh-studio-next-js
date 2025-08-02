@@ -19,7 +19,6 @@ export default function DatenschutzPage() {
     marginLeft: 2,
     padding: 0,
     paddingLeft: 2,
-    hyphens: 'auto',
     width: 'calc(100% - 16px)',
   };
 
@@ -29,7 +28,6 @@ export default function DatenschutzPage() {
     fontSize: `20px !important`,
     fontWeight: `bold`,
     fontFamily: `"Montserrat", sans-serif`,
-    hyphens: 'auto',
   };
 
   const headlineH3Style = {
@@ -38,13 +36,11 @@ export default function DatenschutzPage() {
     fontSize: `18px !important`,
     fontWeight: `bold`,
     fontFamily: `"Montserrat", sans-serif`,
-    hyphens: 'auto',
   };
 
   const body2Style = {
     mb: 2,
     fontSize: 16,
-    hyphens: 'auto',
   };
 
   return (
