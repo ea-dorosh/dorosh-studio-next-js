@@ -99,7 +99,7 @@ export default function DatenschutzPage() {
             2.3 Content Delivery Network (CDN) und Website-Sicherheit
           </Typography>
           <Typography variant="body2" sx={body2Style}>
-            Wir verwenden die Dienste der <b>Cloudflare Germany GmbH</b>, Rosental 7, c/o Mindspace, 80331 München für:
+            Wir verwenden die Dienste der <b>Cloudflare, Inc.</b>, 101 Townsend Street, San Francisco, CA 94107, USA für:
           </Typography>
           <List>
             <ListItem sx={listItemStyle}><ListItemText primary="Content Delivery Network (CDN)" /></ListItem>
@@ -202,6 +202,9 @@ export default function DatenschutzPage() {
             <ListItem sx={listItemStyle}><ListItemText primary="Durchführung des Vertrags und Erbringung der Leistungen (Art. 6 Abs. 1 lit. b DSGVO)" /></ListItem>
             <ListItem sx={listItemStyle}><ListItemText primary="Verwaltung und Dokumentation von Terminen und Kundenkommunikation" /></ListItem>
             <ListItem sx={listItemStyle}><ListItemText primary="Rechnungsstellung gegenüber Kunden" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Versendung von Terminbestätigungen und -erinnerungen per E-Mail" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Versendung von SMS-Erinnerungen bei Bedarf (z.B. bei nicht erreichbaren Kunden)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Information über Terminänderungen oder -absagen" /></ListItem>
           </List>
 
           <Typography variant="h3" sx={headlineH3Style}>
@@ -242,6 +245,23 @@ export default function DatenschutzPage() {
             Über unser Kontaktformular erhobene Daten (z.B. Name, E-Mail, Betreff, Nachricht) speichern wir zur Bearbeitung Ihrer Anfrage.<br />
             Verarbeitung gem. Art. 6 Abs. 1 lit. b DSGVO (Notwendigkeit zur Vertragserfüllung/Kommunikation).
           </Typography>
+          <Typography variant="h3" sx={headlineH3Style}>
+            4.3 E-Mail- und SMS-Kommunikation
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Wir verwenden Ihre Kontaktdaten für folgende geschäftliche Kommunikation:
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Terminbestätigungen per E-Mail" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Erinnerungen an bevorstehende Termine per E-Mail oder SMS" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Mitteilungen über Terminänderungen oder -absagen" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="SMS-Erinnerungen bei besonderen Umständen (z.B. wenn telefonisch nicht erreichbar)" /></ListItem>
+          </List>
+          <Typography variant="body2" sx={body2Style}>
+            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) und Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an ordnungsgemäßer Terminverwaltung)<br />
+            <b>SMS-Versand:</b> Erfolgt über unsere eigenen Mobilgeräte oder Standard-SMS-Dienste ohne Weitergabe an Dritte<br />
+            <b>Widerspruch:</b> Sie können jederzeit per E-Mail an moodbeauty.de@gmail.com der Zusendung von Erinnerungen widersprechen
+          </Typography>
         </Box>
 
         {/* Section 5: Cookies */}
@@ -279,7 +299,8 @@ export default function DatenschutzPage() {
             <ListItem sx={listItemStyle}><ListItemText primary="Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)" /></ListItem>
           </List>
           <Typography variant="body2" sx={body2Style}>
-            Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: moodbeauty.de@gmail.com
+            Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: moodbeauty.de@gmail.com<br />
+            <b>Löschung von Daten:</b> Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff "Datenlöschung" mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.
           </Typography>
         </Box>
 
