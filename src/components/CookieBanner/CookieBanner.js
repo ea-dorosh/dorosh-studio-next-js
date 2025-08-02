@@ -73,6 +73,8 @@ const CookieBanner = () => {
           width: '90%',
           boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.3)',
           borderRadius: '16px',
+          maxHeight: '90vh',
+          overflowY: 'auto',
         }}
       >
         <CardContent sx={{ p: 3, pb: 0 }}>
