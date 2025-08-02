@@ -36,22 +36,14 @@ const getCookie = (name) => {
 
 const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
-  // First useEffect to set client flag
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // Second useEffect to check consent only after client hydration
-  useEffect(() => {
-    if (isClient) {
-      const consent = getCookie(COOKIE_CONSENT_NAME);
-      if (!consent) {
-        setShowBanner(true);
-      }
+    // Check if user has already given consent via cookie
+    const consent = getCookie(COOKIE_CONSENT_NAME);
+    if (!consent) {
+      setShowBanner(true);
     }
-  }, [isClient]);
+  }, []);
 
   const handleAccept = () => {
     // Save consent to cookie with 1 year expiration
@@ -59,8 +51,7 @@ const CookieBanner = () => {
     setShowBanner(false);
   };
 
-  // Don't render anything until client hydration is complete
-  if (!isClient || !showBanner) {
+  if (!showBanner) {
     return null;
   }
 

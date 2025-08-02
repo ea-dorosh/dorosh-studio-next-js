@@ -17,7 +17,9 @@ const listItemStyle = {
   listStyleType: 'disc',
   marginLeft: 2,
   padding: 0,
-  paddingLeft: 1,
+  paddingLeft: 2,
+  hyphens: 'auto',
+  width: 'calc(100% - 16px)',
 };
 
 const headlineH2Style = {
@@ -26,6 +28,7 @@ const headlineH2Style = {
   fontSize: `20px !important`,
   fontWeight: `bold`,
   fontFamily: `"Montserrat", sans-serif`,
+  hyphens: 'auto',
 };
 
 const headlineH3Style = {
@@ -34,11 +37,13 @@ const headlineH3Style = {
   fontSize: `18px !important`,
   fontWeight: `bold`,
   fontFamily: `"Montserrat", sans-serif`,
+  hyphens: 'auto',
 };
 
 const body2Style = {
   mb: 2,
   fontSize: 16,
+  hyphens: 'auto',
 };
 
 export default function DatenschutzPage() {

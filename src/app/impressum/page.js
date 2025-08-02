@@ -7,15 +7,16 @@ export const metadata = {
 };
 
 // Stil-Definitionen
-const containerStyle = { py: 4 };
-const innerBoxStyle = { maxWidth: 800, mx: 'auto' };
-const titleStyle = { fontSize: 28, mb: 2 };
+const containerStyle = { py: 4, hyphens: 'auto', };
+const innerBoxStyle = { maxWidth: 800, mx: 'auto', hyphens: 'auto', };
+const titleStyle = { fontSize: 28, mb: 2, hyphens: 'auto', };
 const sectionHeadingStyle = {
   mt: 4,
   mb: 2,
   fontSize: '20px !important',
   fontWeight: 'bold',
   fontFamily: '"Montserrat", sans-serif',
+  hyphens: 'auto',
 };
 const bodyTextStyle = { mb: 2, fontSize: 16 };
 
