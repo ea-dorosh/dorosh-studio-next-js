@@ -21,6 +21,7 @@ export const metadata = {
 
 const LINKS = [
   { text: "Home", href: "/" },
+  { text: "Über uns", href: "/ueber-uns" },
   { text: "Unsere Services", href: "/services" },
   { text: "Online Termin", href: "/booking" },
   { text: "Datenschutz", href: "/datenschutz", subLink: true },

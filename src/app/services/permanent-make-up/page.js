@@ -17,14 +17,14 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://dorosh-studio.de"),
+  metadataBase: new URL("https://moodbeauty.de"),
   alternates: {
     canonical: "/services/permanent-make-up",
   },
   openGraph: {
     title: "Permanent Make-up München - MOOD BEAUTY",
     description: "Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik.",
-    url: "https://dorosh-studio.de/services/permanent-make-up",
+    url: "https://moodbeauty.de/services/permanent-make-up",
     siteName: "MOOD BEAUTY",
     locale: "de_DE",
     type: "website",

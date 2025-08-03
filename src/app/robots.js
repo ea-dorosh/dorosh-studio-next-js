@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://dorosh-studio.de'}/sitemap.xml`,
+    sitemap: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://moodbeauty.de'}/sitemap.xml`,
   };
 }

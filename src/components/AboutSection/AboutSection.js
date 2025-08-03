@@ -7,8 +7,10 @@ import {
   List,
   ListItemText,
   ListItemIcon,
+  Button,
 } from "@mui/material";
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AboutSection() {
 
@@ -51,7 +53,7 @@ export default function AboutSection() {
           component="p"
           marginTop={2}
         >
-          MOOD ist mehr als ein Beautystudio – es ist ein Raum für Stimmung, Pflege und Ästhetik.
+          MOOD ist mehr als ein Beautystudio - es ist ein Raum für Stimmung, Pflege und Ästhetik.
           <br />
           <br />
           Wir glauben, dass Schönheit kein Standard ist.
@@ -108,7 +110,7 @@ export default function AboutSection() {
           color="primary"
           component="p"
         >
-          – in einer ruhigen, makellos sauberen und inspirierenden Atmosphäre.
+          - in einer ruhigen, makellos sauberen und inspirierenden Atmosphäre.
         </Typography>
 
 
@@ -120,10 +122,6 @@ export default function AboutSection() {
           Worauf wir besonderen Wert legen:
         </Typography>
 
-        {/* •	Höchste Hygienestandards,
-            •	Qualitativ hochwertige Produkte,
-            •	Minimalistisches, durchdachtes Design,
-            •	Und vor allem: dein Wohlbefinden. */}
         <List>
           <ListItem sx={{padding: 0}}>
             <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
@@ -168,11 +166,30 @@ export default function AboutSection() {
           marginTop={2}
         >
           MOOD folgt keinen Trends.<br />
-          MOOD folgt dir – und dem Gefühl, das du heute leben willst.
+          MOOD folgt dir - und dem Gefühl, das du heute leben willst.
           <br />
           <br />
           Willkommen in deiner Stimmung.
         </Typography>
+
+        <Box sx={{ textAlign: 'center', marginTop: 4 }}>
+          <Button
+            component={Link}
+            href="/ueber-uns"
+            variant="contained"
+            sx={{
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'info.main',
+              },
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+            }}
+          >
+            Mehr über uns erfahren
+          </Button>
+        </Box>
       </Container>
     </Box>
   );

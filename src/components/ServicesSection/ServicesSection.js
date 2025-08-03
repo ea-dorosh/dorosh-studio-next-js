@@ -13,7 +13,7 @@ export default function ServicesSection() {
       component="section"
     >
       <Container sx={{
-        padding: `0 32px`,
+        padding: `12px 32px 0 32px`,
       }}>
         <Typography
           variant="h2"
