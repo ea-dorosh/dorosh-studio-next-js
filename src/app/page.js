@@ -7,9 +7,9 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import AboutSection from "@/components/AboutSection/AboutSection";
 import ContactSection from "@/components/ContactSection/ContactSection";
-import ServicesSection from "@/components/ServicesSection/ServicesSection";
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 import PerformanceMonitor from '@/components/PerformanceMonitor/PerformanceMonitor';
+import ServicesSection from "@/components/ServicesSection/ServicesSection";
 
 
 export default function HomePage() {

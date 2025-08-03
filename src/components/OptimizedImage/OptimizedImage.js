@@ -1,8 +1,8 @@
 'use client';
 
+import { Box, Skeleton } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Box, Skeleton } from '@mui/material';
 
 export default function OptimizedImage({
   src,
