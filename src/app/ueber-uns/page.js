@@ -1,3 +1,4 @@
+import { FiberManualRecord as FiberManualRecordIcon } from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -8,7 +9,6 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import { FiberManualRecord as FiberManualRecordIcon } from '@mui/icons-material';
 
 export const metadata = {
   title: "Über MOOD Beauty Studio München - Permanent Make-up & Maniküre",
