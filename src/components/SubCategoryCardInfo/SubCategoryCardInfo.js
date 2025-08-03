@@ -3,8 +3,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import Image from 'next/image';
 import Link from "next/link";
+import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export default function SubCategoryCardInfo({
   id,
@@ -14,15 +14,6 @@ export default function SubCategoryCardInfo({
   imageAlt,
   children,
 }) {
-  const imageStyles = {
-    position: 'absolute',
-    width: '100%',
-    height: 'auto',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  };
-
   return (
     <Box
       id={id}
@@ -37,71 +28,72 @@ export default function SubCategoryCardInfo({
         sx={{
           position: 'relative',
           width: '100%',
-          paddingTop: '90%',
+          paddingTop: '67%',
           overflow: 'hidden',
           borderRadius: `16px`,
         }}
       >
-        <Image
+        <OptimizedImage
           src={imageSrc}
           alt={imageAlt}
-          width="300"
-          height="200"
-          style={imageStyles}
+          fill
+          sizes="(max-width: 768px) 100vw, 300px"
+          quality={80}
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
         />
       </Box>
 
-      <Typography
-        variant="h3"
-        color={"primary"}
-        sx={{
-          fontWeight: `bold`,
-          fontSize: `1.6rem`,
-          marginTop: `8px`,
-          marginBottom: `8px`,
-        }}
-      >
-        {title}
-      </Typography>
-
       <Box sx={{
-        display: `flex`,
-        justifyContent: `space-between`,
-        alignItems: `center`,
-        marginTop: `8px`,
-        marginBottom: `16px`,
+        padding: `16px 0px 0px 0px`,
       }}>
-        {price && (
-          <Typography
-            variant="h6"
-            color={"primary"}
-          >
-            {price} €
-          </Typography>
-        )}
-      </Box>
+        <Typography
+          variant="h3"
+          aria-label={title}
+          sx={{
+            fontSize: `1.3rem`,
+            fontWeight: `600`,
+            marginBottom: `8px`,
+          }}
+        >
+          {title}
+        </Typography>
 
-      {children && (
-        <Box>
+        <Typography
+          aria-label={`Preis: ${price} Euro`}
+          sx={{
+            fontSize: `1.2rem`,
+            fontWeight: `bold`,
+            color: `primary.main`,
+            marginBottom: `12px`,
+          }}
+        >
+          {price}€
+        </Typography>
+
+        <Typography
+          sx={{
+            lineHeight: 1.6,
+            marginBottom: `16px`,
+          }}
+        >
           {children}
-        </Box>
-      )}
+        </Typography>
 
-      <Box
-        sx={{
-          padding: `12px 0 0 0`,
-        }}
-      >
         <Button
           component={Link}
           href="/booking"
-          variant="contained"
-          color="primary"
           sx={{
-            width: `200px`,
+            marginTop: `8px`,
+            width: `100%`,
           }}
+          color="info"
+          size="medium"
+          variant="contained"
         >
-          Online Termine
+          Jetzt buchen
         </Button>
       </Box>
     </Box>

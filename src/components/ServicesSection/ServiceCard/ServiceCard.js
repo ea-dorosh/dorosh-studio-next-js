@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Image from 'next/image';
 import Link from "next/link";
+import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export default function ServiceCard({
   title,
@@ -31,10 +31,12 @@ export default function ServiceCard({
           overflow: 'hidden',
         }}
       >
-        <Image
+        <OptimizedImage
           src={imageSrc}
           alt={imageAlt}
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          quality={80}
           style={{
             objectFit: `cover`,
             objectPosition: `center 0px`,

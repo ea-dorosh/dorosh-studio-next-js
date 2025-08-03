@@ -9,8 +9,8 @@ import {
   ListItemIcon,
   Button,
 } from "@mui/material";
-import Image from 'next/image';
 import Link from 'next/link';
+import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export default function AboutSection() {
 
@@ -23,18 +23,27 @@ export default function AboutSection() {
       }}
     >
       <Container>
-        <Image
-          src="/images/promo-image.avif"
-          alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
-          style={{
-            width: `80%`,
-            height: `auto`,
-            display: `block`,
-            margin: `0 auto`,
+        <Box
+          sx={{
+            position: 'relative',
+            width: '80%',
+            margin: '0 auto',
+            aspectRatio: '1/1',
+            maxWidth: '500px',
           }}
-          width={512}
-          height={512}
-        />
+        >
+          <OptimizedImage
+            src="/images/promo-image.avif"
+            alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
+            fill
+            sizes="(max-width: 768px) 80vw, 50vw"
+            quality={85}
+            style={{
+              objectFit: 'cover',
+              borderRadius: '8px',
+            }}
+          />
+        </Box>
 
         <Typography
           variant="h2"

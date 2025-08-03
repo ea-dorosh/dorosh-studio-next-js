@@ -31,6 +31,12 @@ const LINKS = [
 export default function RootLayout({ children }) {
   return (
     <html lang="de">
+      <head>
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      </head>
       <body
         style={{
           display: 'flex',
@@ -81,11 +87,11 @@ export default function RootLayout({ children }) {
 
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 2, mb: 1 }}>
                 <Link href="/impressum" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
-                    Impressum
+                  Impressum
                 </Link>
 
                 <Link href="/datenschutz" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
-                    Datenschutz
+                  Datenschutz
                 </Link>
               </Box>
             </Box>

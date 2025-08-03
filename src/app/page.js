@@ -4,42 +4,43 @@ import {
   Typography,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import Image from 'next/image';
 import Link from "next/link";
-import * as React from "react";
 import AboutSection from "@/components/AboutSection/AboutSection";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import ServicesSection from "@/components/ServicesSection/ServicesSection";
+import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
+import PerformanceMonitor from '@/components/PerformanceMonitor/PerformanceMonitor';
 
 
 export default function HomePage() {
   return (
     <>
+      <PerformanceMonitor />
       <Box
         component="section"
       >
         <Box sx={{
           position: `relative`,
           width: `100%`,
+          minHeight: {
+            xs: '400px',
+            sm: '500px',
+            md: '600px',
+          },
           overflow: `hidden`,
           backgroundColor: `#e1dbd6`,
         }}>
-          <Image
+          <OptimizedImage
             src="/images/main-top-image.avif"
             alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
             priority
+            fill
+            sizes="100vw"
+            quality={90}
             style={{
               objectFit: `cover`,
-              position: `absolute`,
-              top: `50%`,
-              left: `50%`,
-              transform: `translate(-50%, -50%)`,
               zIndex: `0`,
-              width: `100%`,
-              height: `100%`,
             }}
-            width={512}
-            height={512}
           />
 
           <Container sx={{
