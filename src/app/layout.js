@@ -75,7 +75,7 @@ export default function RootLayout({ children }) {
               }}
             >
               <Typography variant="body2" color="secondary">
-                <span suppressHydrationWarning>{new Date().getFullYear()}</span> MOOD BEAUTY - Natalia Dorosh.
+                <span suppressHydrationWarning>{new Date().getFullYear()}</span> MOOD BEAUTY - Natalia Dorosh
               </Typography>
 
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 2, mb: 1 }}>

@@ -5,7 +5,6 @@ import {
   Box,
   Typography,
   Button,
-  Backdrop,
   Card,
   CardContent,
   Accordion,
@@ -56,21 +55,25 @@ const CookieBanner = () => {
   }
 
   return (
-    <Backdrop
-      open={showBanner}
+    <Box
       sx={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 9999,
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        padding: '20px',
       }}
     >
       <Card
         sx={{
-          position: 'fixed',
-          bottom: 20,
-          left: '50%',
-          transform: 'translateX(-50%)',
           maxWidth: 650,
-          width: '90%',
+          width: '100%',
           boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.3)',
           borderRadius: '16px',
           maxHeight: '90vh',
@@ -184,12 +187,13 @@ const CookieBanner = () => {
           color: 'text.secondary',
           fontStyle: 'italic',
           fontSize: '0.8rem',
-          padding: `10px 24px`
+          padding: `10px 24px`,
+          fontFamily: 'Montserrat, sans-serif',
         }}>
             Hinweis: Die Website funktioniert nur mit aktivierten Cookies
         </Typography>
       </Card>
-    </Backdrop>
+    </Box>
   );
 };
 
