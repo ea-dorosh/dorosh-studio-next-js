@@ -25,11 +25,11 @@ export default function AboutSection() {
       <Container>
         <Box
           sx={{
-            position: 'relative',
-            width: '80%',
-            margin: '0 auto',
-            aspectRatio: '1/1',
-            maxWidth: '500px',
+            position: `relative`,
+            width: `80%`,
+            margin: `0 auto`,
+            aspectRatio: `1/1`,
+            maxWidth: `500px`,
           }}
         >
           <OptimizedImage
@@ -39,8 +39,8 @@ export default function AboutSection() {
             sizes="(max-width: 768px) 80vw, 50vw"
             quality={85}
             style={{
-              objectFit: 'cover',
-              borderRadius: '8px',
+              objectFit: `cover`,
+              borderRadius: `8px`,
             }}
           />
         </Box>
@@ -49,8 +49,8 @@ export default function AboutSection() {
           variant="h2"
           color="primary"
           sx={{
-            fontSize: '2.2rem',
-            textAlign: 'center',
+            fontSize: `2.2rem`,
+            textAlign: `center`,
             marginTop: `24px`,
           }}
         >
