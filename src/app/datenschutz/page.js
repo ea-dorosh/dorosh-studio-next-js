@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import {
   Container,
   Typography,
@@ -52,7 +53,6 @@ export default function DatenschutzPage() {
           Datenschutzerklärung
         </Typography>
 
-        {/* Section 1 */}
         <Box>
           <Typography variant="h2" sx={headlineH2Style}>
             1. Verantwortlicher und Datenschutzbeauftragter
@@ -74,7 +74,6 @@ export default function DatenschutzPage() {
           </Typography>
         </Box>
 
-        {/* Section 2 */}
         <Box>
           <Typography variant="h2" sx={headlineH2Style}>
             2. Hosting & Auftragsverarbeitung
@@ -229,7 +228,6 @@ export default function DatenschutzPage() {
           </Typography>
         </Box>
 
-        {/* Section 4: Website Processing */}
         <Box>
           <Typography variant="h2" sx={headlineH2Style}>
             4. Datenerfassung auf dieser Website
@@ -265,9 +263,41 @@ export default function DatenschutzPage() {
             <b>SMS-Versand:</b> Erfolgt über unsere eigenen Mobilgeräte oder Standard-SMS-Dienste ohne Weitergabe an Dritte<br />
             <b>Widerspruch:</b> Sie können jederzeit per E-Mail an <span suppressHydrationWarning>moodbeauty.de@gmail.com</span> der Zusendung von Erinnerungen widersprechen
           </Typography>
+
+          <Typography variant="h3" sx={headlineH3Style}>
+            4.4 QR-Code-Tracking
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Wir verwenden anonyme QR-Code-Verfolgung zur Analyse der Nutzung unserer Marketing-Materialien:
+          </Typography>
+          <List>
+            <ListItem sx={listItemStyle}><ListItemText primary="Anzahl der QR-Code-Scans (ohne Personenbezug)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Zeitstempel des Scans" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="Quelle des QR-Codes (z.B. 'public' für öffentliche Materialien)" /></ListItem>
+          </List>
+          <Typography variant="body2" sx={body2Style}>
+            <b>Zweck:</b> Statistische Auswertung der Wirksamkeit unserer Marketing-Materialien<br />
+            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Marketing-Analyse)<br />
+            <b>Datenart:</b> Ausschließlich anonyme, nicht-personenbezogene Statistikdaten<br />
+            <b>Aufbewahrungsdauer:</b> 12 Monate für statistische Zwecke
+          </Typography>
+
+          <Typography variant="h3" sx={headlineH3Style}>
+            4.5 Google Web Fonts
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            Diese Website nutzt zur einheitlichen Darstellung von Schriftarten so genannte Web Fonts, die von Google bereitgestellt werden. Beim Aufruf einer Seite lädt Ihr Browser die benötigten Web Fonts in ihren Browsercache, um Texte und Schriftarten korrekt anzuzeigen.
+          </Typography>
+          <Typography variant="body2" sx={body2Style}>
+            <b>Anbieter:</b> Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA<br />
+            <b>Datenverarbeitung:</b> IP-Adresse, Browser-Informationen (User-Agent), Referrer-URL, Zeitstempel<br />
+            <b>Zweck:</b> Einheitliche Darstellung von Schriftarten auf unserer Website<br />
+            <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an ansprechender Website-Gestaltung)<br />
+            <b>Datenübertragung in Drittländer:</b> Die Datenübertragung in die USA erfolgt auf Grundlage des EU-US Data Privacy Framework und angemessener Garantien gemäß Art. 46 DSGVO<br />
+            <b>Datenschutzerklärung von Google:</b> https://policies.google.com/privacy
+          </Typography>
         </Box>
 
-        {/* Section 5: Cookies */}
         <Box>
           <Typography variant="h2" sx={headlineH2Style}>
             5. Cookies
@@ -287,7 +317,6 @@ export default function DatenschutzPage() {
           </Typography>
         </Box>
 
-        {/* Section 6: Your Rights */}
         <Box>
           <Typography variant="h2" sx={headlineH2Style}>
             6. Ihre Rechte
@@ -307,7 +336,6 @@ export default function DatenschutzPage() {
           </Typography>
         </Box>
 
-        {/* Section 7: Update */}
         <Box>
           <Typography variant="h2" sx={headlineH2Style}>
             7. Aktualisierung
