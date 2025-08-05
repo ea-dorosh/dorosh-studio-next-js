@@ -12,8 +12,30 @@ export const metadata = {
   },
 };
 
-export default async function BookingPage() {
+async function trackQrScan(searchParams) {
+  const source = searchParams?.source;
+
+  if (source === 'public') {
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}api/public/tracking/qr-scan`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          trackedAt: new Date().toISOString(),
+          source: 'server-side'
+        }),
+      });
+    } catch (error) {
+      console.error('QR tracking error:', error);
+    }
+  }
+}
+
+export default async function BookingPage({ searchParams }) {
   const categories = await servicesService.getServices();
+  await trackQrScan(searchParams);
 
   return (
     <BookingFormContainer categories={categories} />
