@@ -3,6 +3,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
+import CategoryInfo from "@/components/CategoryInfo/CategoryInfo";
 import SubCategoryCardInfo from "@/components/SubCategoryCardInfo/SubCategoryCardInfo";
 
 export const metadata = {
@@ -83,26 +84,31 @@ export default async function CategoryPage() {
           Unsere Services
         </Typography>
 
-        <Typography
-          variant="h2"
-          color="primary"
-          sx={{
-            textAlign: `center`,
-            marginTop: `18px`,
-            marginBottom: `18px`,
-            textTransform: `uppercase`,
-            fontSize: `1.8rem`,
-            fontWeight: `bold`,
-          }}
-        >
-          Permanent Make-up
-        </Typography>
+        <CategoryInfo
+          title="Permanent Make-up in München"
+          subtitle="Natürliche Schönheit ohne Aufwand"
+          description="Permanent Make-up in München ist eine einfache Möglichkeit, Ihre natürliche Schönheit zu unterstreichen und dabei täglich Zeit zu sparen. Im Studio Mood Beauty spezialisieren wir uns auf schonende, natürliche Techniken, die Ihre Gesichtszüge harmonisch betonen und sich nach 1,5 bis 2 Jahren vollständig und rückstandslos aus der Haut abbauen - ohne Flecken oder Farbveränderungen."
+          services={[
+            "Permanent Make-up für die Augenbrauen - sanftes Powder Brows und Soft Shading für eine natürlich volle Form",
+            "Permanent Make-up für die Lippen - Aquarelltechnik mit dem Effekt von dezent getönten, \"geküssten Lippen\"",
+            "Permanent Make-up für die Augenlider - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick"
+          ]}
+          advantages={[
+            "Maximale Natürlichkeit - niemand wird merken, dass es Permanent Make-up ist",
+            "Der Farbstoff baut sich vollständig innerhalb von 1,5 bis 2 Jahren ab",
+            "Ideal für alle, die natürliche Ergebnisse bevorzugen",
+            "Keine Farbveränderungen im Laufe der Zeit",
+            "Minimaler Heilungsprozess ohne Schorfbildung oder starke Schwellungen"
+          ]}
+          conclusion="Wir arbeiten ausschließlich mit zertifizierten, europäischen Pigmenten und halten höchste Hygienestandards ein. Jede Behandlung beginnt mit einer ausführlichen Beratung, bei der wir gemeinsam die passende Form und Farbe für Ihren Typ auswählen. Erleben Sie, wie es ist, jeden Tag frisch, gepflegt und natürlich schön auszusehen."
+        />
 
         <Box
           sx={{
             display: `flex`,
             flexDirection: `column`,
             gap: `16px`,
+            marginTop: `32px`,
           }}
         >
           <SubCategoryCardInfo
@@ -111,6 +117,7 @@ export default async function CategoryPage() {
             price="350"
             imageSrc="/images/services-page/service-brows.jpg"
             imageAlt="Permanent Make-up Powder Brows"
+            detailsHref="/services/permanent-make-up/powder-brows"
           >
             Powder Brows, Pudertechnik, Ombre Brows. Hochwertiges Permanent Make-Up hält 1,5-2 Jahre & die Augenbrauen wirken sehr natürlich, sehen dicht und voll aus.
           </SubCategoryCardInfo>
@@ -121,6 +128,7 @@ export default async function CategoryPage() {
             price="350"
             imageSrc="/images/services-page/service-hairstroke.webp"
             imageAlt="Permanent Make-up Hairstroke Brows"
+            detailsHref="/services/permanent-make-up/hairstroke"
           >
             Permanent Augenbrauen Make-Up in Haar Technik.
             <br/>
@@ -135,6 +143,7 @@ export default async function CategoryPage() {
             price="350"
             imageSrc="/images/services-page/service-lips.webp"
             imageAlt="Permanent Make-up Velvet Lips"
+            detailsHref="/services/permanent-make-up/velvet-lips"
           >
             Lippenpigmentierung.Velvet Lips, Nude Lips, Lipstick Effect Es sieht sehr harmonisch & natürlich aus.
             <br/>
@@ -147,6 +156,7 @@ export default async function CategoryPage() {
             price="250"
             imageSrc="/images/services-page/service-wimpernkranz.webp"
             imageAlt="Permanent Make-up Wimpernkranz"
+            detailsHref="/services/permanent-make-up/wimpernkranz"
           >
             Der Effekt eines frisch geöffneten Looks Schmerlos und sicher Bechandlung.
             <br/>

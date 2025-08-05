@@ -13,6 +13,7 @@ export default function SubCategoryCardInfo({
   imageSrc,
   imageAlt,
   children,
+  detailsHref,
 }) {
   return (
     <Box
@@ -82,19 +83,35 @@ export default function SubCategoryCardInfo({
           {children}
         </Typography>
 
-        <Button
-          component={Link}
-          href="/booking"
-          sx={{
-            marginTop: `8px`,
-            width: `100%`,
-          }}
-          color="info"
-          size="medium"
-          variant="contained"
-        >
-          Jetzt buchen
-        </Button>
+        <Box sx={{ display: `flex`, gap: `12px`, marginTop: `16px` }}>
+          <Button
+            component={Link}
+            href="/booking"
+            sx={{
+              flex: 1,
+            }}
+            color="info"
+            size="medium"
+            variant="contained"
+          >
+            Jetzt buchen
+          </Button>
+
+          {detailsHref && (
+            <Button
+              component={Link}
+              href={detailsHref}
+              sx={{
+                flex: 1,
+              }}
+              color="primary"
+              size="medium"
+              variant="outlined"
+            >
+              Details
+            </Button>
+          )}
+        </Box>
       </Box>
     </Box>
   );
