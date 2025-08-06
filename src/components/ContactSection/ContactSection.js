@@ -19,8 +19,8 @@ export default function ContactSection() {
         variant="h2"
         color="primary"
         sx={{
-          fontSize: '2.2rem',
-          textAlign: 'center',
+          fontSize: `2.2rem`,
+          textAlign: `center`,
         }}
       >
         Unsere Kontakte
@@ -31,8 +31,8 @@ export default function ContactSection() {
           display: `flex`,
           flexDirection: `column`,
           alignItems: `center`,
-          fontSize: '1rem',
-          lineHeight: '1.5',
+          fontSize: `1rem`,
+          lineHeight: `1.5`,
         }}
         color="primary"
       >
@@ -40,7 +40,7 @@ export default function ContactSection() {
           variant="caption"
           component="span"
           marginTop={2}
-          sx={{fontSize: '14px',}}
+          sx={{ fontSize: `14px` }}
         >
           Call
         </Typography>
@@ -68,7 +68,7 @@ export default function ContactSection() {
           variant="caption"
           component="span"
           marginTop={2}
-          sx={{fontSize: '14px',}}
+          sx={{ fontSize: `14px` }}
         >
           Email
         </Typography>
@@ -96,7 +96,7 @@ export default function ContactSection() {
           variant="caption"
           component="span"
           marginTop={2}
-          sx={{fontSize: '14px',}}
+          sx={{ fontSize: `14px` }}
         >
           Adresse
         </Typography>
@@ -105,7 +105,10 @@ export default function ContactSection() {
           variant="plain"
           color="primary"
           href="https://maps.app.goo.gl/7jed5oouJkNUf3xA8"
-          sx={{textAlign: 'center'}}
+          sx={{
+            textAlign: `center`,
+            textTransform: `capitalize`,
+          }}
         >
           Theresienstraße 38, <br/> 80333 München
         </Button>
@@ -125,7 +128,7 @@ export default function ContactSection() {
           variant="caption"
           component="span"
           marginTop={2}
-          sx={{fontSize: '14px',}}
+          sx={{ fontSize: `14px` }}
         >
           Follow
         </Typography>
@@ -135,8 +138,8 @@ export default function ContactSection() {
             size="large"
             color="primary"
             sx={{
-              padding: '6px',
-              minWidth: 'auto',
+              padding: `6px`,
+              minWidth: `auto`,
             }}
             href="https://www.facebook.com/dorosh.studio"
           >
@@ -148,8 +151,8 @@ export default function ContactSection() {
             color="primary"
             href="https://www.instagram.com/dorosh_studio/"
             sx={{
-              padding: '6px',
-              minWidth: 'auto',
+              padding: `6px`,
+              minWidth: `auto`,
             }}
           >
             <InstagramIcon />
