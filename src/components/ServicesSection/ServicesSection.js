@@ -13,14 +13,14 @@ export default function ServicesSection() {
       component="section"
     >
       <Container sx={{
-        padding: `12px 32px 0 32px`,
+        padding: `18px 32px 0 32px`,
       }}>
         <Typography
           variant="h2"
           color="primary"
           sx={{
-            fontSize: '2.2rem',
-            textAlign: 'center',
+            fontSize: `2.2rem`,
+            textAlign: `center`,
             marginTop: `18px`,
             marginBottom: `18px`,
           }}
@@ -38,7 +38,7 @@ export default function ServicesSection() {
           <ServicesCard
             title="Permanent Make-up"
             subtitle="Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke"
-            linkHref="/services#permanent-make-up"
+            linkHref="/services/permanent-make-up"
             imageSrc="/images/services/permanent-make-up.avif"
             imageAlt="Frau mit Permanent Make-up"
           />
@@ -46,7 +46,7 @@ export default function ServicesSection() {
           <ServicesCard
             title="Nails"
             subtitle="Manicure & Pedicure"
-            linkHref="/services#nails"
+            linkHref="/services/nails"
             imageSrc="/images/services/manikure.avif"
             imageAlt="Hände mit Manikur"
           />

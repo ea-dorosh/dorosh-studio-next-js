@@ -56,7 +56,7 @@ export const metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code", // Замените на ваш код
+    google: "your-google-verification-code",
   },
 };
 
@@ -119,7 +119,29 @@ export default async function CategoryPage() {
             imageAlt="Permanent Make-up Powder Brows"
             detailsHref="/services/permanent-make-up/powder-brows"
           >
-            Powder Brows, Pudertechnik, Ombre Brows. Hochwertiges Permanent Make-Up hält 1,5-2 Jahre & die Augenbrauen wirken sehr natürlich, sehen dicht und voll aus.
+            Natürlicher Brauen-Look mit weicher Schattierung
+            <br/>
+            <br/>
+            Powder Brows sind eine moderne Form des permanenten Augenbrauen-Make-ups. Die Technik erzeugt einen sanften, pudrigen Effekt - wie leicht geschminkt, aber dauerhaft gepflegt. Ideal bei ungleichmäßiger Form oder lückenhaften Brauen.
+            <br/>
+            <br/>
+            Vorteile:
+            <br/>
+            • Zarter, natürlicher Look ohne harte Konturen
+            <br/>
+            • Farbton und Intensität werden individuell angepasst
+            <br/>
+            • Für alle Hauttypen geeignet
+            <br/>
+            • Hält 1,5–2 Jahre und verblasst gleichmäßig ohne Rückstände
+            <br/>
+            • Schmerzarm & hygienisch - perfekte Behandlung bei Mood Beauty in München
+            <br/>
+            <br/>
+            Behandelt von: Natalia Dorosh (seit 2017)
+            <br/>
+            <br/>
+            Jetzt Termin vereinbaren bei Mood Beauty München
           </SubCategoryCardInfo>
 
           <SubCategoryCardInfo
@@ -130,11 +152,31 @@ export default async function CategoryPage() {
             imageAlt="Permanent Make-up Hairstroke Brows"
             detailsHref="/services/permanent-make-up/hairstroke"
           >
-            Permanent Augenbrauen Make-Up in Haar Technik.
+            Natürlich. Schmerzfrei.
             <br/>
-            Die natürlichste und realistischste Technik.
             <br/>
-            Nicht zu verwechseln mit Microblading! Hairstroke - eine leichte, oberflächliche Technik ohne Hauttrauma
+            Hairstroke ist eine maschinelle Technik des permanenten Augenbrauen-Make-ups, bei der feine Linien wie echte Härchen pigmentiert werden - ganz ohne Hautschnitte.
+            <br/>
+            <br/>
+            Warum Hairstroke?
+            <br/>
+            • Natürlicher Härchen-Effekt - kaum von echten Brauen zu unterscheiden
+            <br/>
+            • Keine Schnitte, keine Verletzungen, keine Narben
+            <br/>
+            • Schmerzarm und oberflächlich - ideal für empfindliche Haut
+            <br/>
+            • Farbe verblasst gleichmäßig und vollständig nach 1–1,5 Jahren
+            <br/>
+            • Sanfte Heilung - ohne Krusten oder Schwellung
+            <br/>
+            <br/>
+            Behandlerin: Natalia Dorosh (seit 2017)
+            <br/>
+            Studio Mood Beauty, München
+            <br/>
+            <br/>
+            Jetzt Termin buchen - für dauerhaft natürliche Augenbrauen ohne tägliches Nachzeichnen.
           </SubCategoryCardInfo>
 
           <SubCategoryCardInfo
@@ -145,9 +187,33 @@ export default async function CategoryPage() {
             imageAlt="Permanent Make-up Velvet Lips"
             detailsHref="/services/permanent-make-up/velvet-lips"
           >
-            Lippenpigmentierung.Velvet Lips, Nude Lips, Lipstick Effect Es sieht sehr harmonisch & natürlich aus.
+            Natürliche Lippenfarbe - ganz ohne Schmerzen oder harte Konturen
             <br/>
-            Schmerzfreie Behandlung. Auf jede Kundin tüchtig abgestimmte Pigmentfarbe & Formkorrektur.
+            <br/>
+            Velvet Lips ist eine sanfte Form des permanenten Lippen-Make-ups, bei der die Lippen wie zart getönt wirken. Kein starker Rand, kein &ldquo;geschminkter&rdquo; Look - nur gepflegte, ebenmäßige Farbe für jeden Tag.
+            <br/>
+            <br/>
+            Warum Velvet Lips?
+            <br/>
+            • Oberflächliche Technik - nahezu schmerzfrei
+            <br/>
+            • Aquarellähnlicher Effekt ohne harte Linien
+            <br/>
+            • Ideal auch bei unscharfem Lippenrand
+            <br/>
+            • Große Farbauswahl - für jeden Geschmack
+            <br/>
+            • Hält 1,5–2 Jahre und verblasst rückstandslos
+            <br/>
+            • Schnelle Heilung - ohne starke Schwellung oder Krusten
+            <br/>
+            <br/>
+            Behandlerin: Natalia Dorosh (seit 2017)
+            <br/>
+            Studio Mood Beauty, München
+            <br/>
+            <br/>
+            Jetzt Termin sichern - für dauerhaft schöne, natürlich wirkende Lippen.
           </SubCategoryCardInfo>
 
           <SubCategoryCardInfo
