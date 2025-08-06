@@ -136,12 +136,6 @@ export default async function CategoryPage() {
             • Hält 1,5–2 Jahre und verblasst gleichmäßig ohne Rückstände
             <br/>
             • Schmerzarm & hygienisch - perfekte Behandlung bei Mood Beauty in München
-            <br/>
-            <br/>
-            Behandelt von: Natalia Dorosh (seit 2017)
-            <br/>
-            <br/>
-            Jetzt Termin vereinbaren bei Mood Beauty München
           </SubCategoryCardInfo>
 
           <SubCategoryCardInfo
@@ -169,14 +163,6 @@ export default async function CategoryPage() {
             • Farbe verblasst gleichmäßig und vollständig nach 1–1,5 Jahren
             <br/>
             • Sanfte Heilung - ohne Krusten oder Schwellung
-            <br/>
-            <br/>
-            Behandlerin: Natalia Dorosh (seit 2017)
-            <br/>
-            Studio Mood Beauty, München
-            <br/>
-            <br/>
-            Jetzt Termin buchen - für dauerhaft natürliche Augenbrauen ohne tägliches Nachzeichnen.
           </SubCategoryCardInfo>
 
           <SubCategoryCardInfo
@@ -206,14 +192,6 @@ export default async function CategoryPage() {
             • Hält 1,5–2 Jahre und verblasst rückstandslos
             <br/>
             • Schnelle Heilung - ohne starke Schwellung oder Krusten
-            <br/>
-            <br/>
-            Behandlerin: Natalia Dorosh (seit 2017)
-            <br/>
-            Studio Mood Beauty, München
-            <br/>
-            <br/>
-            Jetzt Termin sichern - für dauerhaft schöne, natürlich wirkende Lippen.
           </SubCategoryCardInfo>
 
           <SubCategoryCardInfo
