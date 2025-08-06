@@ -1,6 +1,9 @@
 import BookingFormContainer from "@/components/BookingForm/BookingFormContainer";
 import servicesService from "@/services/services.service";
 
+// Revalidate every hour
+export const revalidate = 3600; // 1 hour = 3600 seconds
+
 export const metadata = {
   title: "Online Termin buchen - MOOD BEAUTY München | Natalia Dorosh",
   description: "Buchen Sie Ihren Termin für Permanent Make-Up, Nail Art und andere Schönheitsbehandlungen in München. Kostenlose Beratung verfügbar.",
@@ -15,7 +18,7 @@ export const metadata = {
 async function trackQrScan(searchParams) {
   const source = searchParams?.source;
 
-  if (source === 'public') {
+  if (source === `public`) {
     try {
       await fetch(`${process.env.REACT_APP_API_URL}api/public/tracking/qr-scan`, {
         method: 'POST',
@@ -24,11 +27,11 @@ async function trackQrScan(searchParams) {
         },
         body: JSON.stringify({
           trackedAt: new Date().toISOString(),
-          source: 'server-side'
+          source: `server-side`
         }),
       });
     } catch (error) {
-      console.error('QR tracking error:', error);
+      console.error(`QR tracking error:`, error);
     }
   }
 }
