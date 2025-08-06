@@ -152,28 +152,23 @@ const CookieBanner = () => {
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, justifyContent: 'center', mt: 2 }}>
             <Button
               variant="outlined"
+              color="primary"
+              size="medium"
               onClick={() => window.open('/datenschutz', '_blank')}
               sx={{
-                px: 3,
-                py: 1.5,
-                fontSize: '1rem',
                 order: { xs: 2, sm: 1 }
               }}
-              size="small"
             >
               Datenschutzerklärung
             </Button>
             <Button
               variant="contained"
+              color="primary"
+              size="medium"
               onClick={handleAccept}
               sx={{
-                px: 4,
-                py: 1.5,
-                fontSize: '1.1rem',
-                fontWeight: 600,
                 order: { xs: 1, sm: 2 }
               }}
-              size="small"
             >
               Alle Cookies akzeptieren
             </Button>

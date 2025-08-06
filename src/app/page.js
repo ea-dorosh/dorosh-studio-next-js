@@ -88,11 +88,8 @@ export default function HomePage() {
                 component={Link}
                 href="/services"
                 color="secondary"
-                size="large"
+                size="medium"
                 variant="contained"
-                sx={{
-                  width: `150px`,
-                }}
               >
                 Services
               </Button>
@@ -101,11 +98,8 @@ export default function HomePage() {
                 component={Link}
                 href="/booking"
                 color="secondary"
-                size="large"
+                size="medium"
                 variant="contained"
-                sx={{
-                  width: `150px`,
-                }}
               >
                 Termin
               </Button>

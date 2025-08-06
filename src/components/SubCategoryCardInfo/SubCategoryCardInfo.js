@@ -87,12 +87,10 @@ export default function SubCategoryCardInfo({
           <Button
             component={Link}
             href="/booking"
-            sx={{
-              flex: 1,
-            }}
-            color="info"
-            size="medium"
+            color="primary"
+            size="small"
             variant="contained"
+            sx={{ flex: 1 }}
           >
             Jetzt buchen
           </Button>
@@ -101,12 +99,10 @@ export default function SubCategoryCardInfo({
             <Button
               component={Link}
               href={detailsHref}
-              sx={{
-                flex: 1,
-              }}
               color="primary"
-              size="medium"
+              size="small"
               variant="outlined"
+              sx={{ flex: 1 }}
             >
               Details
             </Button>

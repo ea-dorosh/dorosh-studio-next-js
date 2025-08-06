@@ -156,17 +156,6 @@ export default function CategoryInfo({
           variant="contained"
           color="primary"
           size="large"
-          sx={{
-            padding: `12px 32px`,
-            fontSize: `1.1rem`,
-            fontWeight: `600`,
-            borderRadius: `8px`,
-            textTransform: `none`,
-            boxShadow: `0 4px 12px rgba(0, 0, 0, 0.15)`,
-            '&:hover': {
-              boxShadow: `0 6px 16px rgba(0, 0, 0, 0.2)`,
-            }
-          }}
         >
           {ctaText}
         </Button>

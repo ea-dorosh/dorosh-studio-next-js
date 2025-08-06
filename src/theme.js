@@ -110,30 +110,89 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: `9999px`,
-          padding: '2px 15px',
-          fontSize: '1.2rem',
           fontFamily: montserrat.style.fontFamily,
+          fontWeight: 500,
+          textTransform: 'none',
+          boxShadow: 'none',
+          transition: 'all 0.2s ease-in-out',
+          '&:hover': {
+            boxShadow: 'none',
+            transform: 'translateY(-1px)',
+          },
         },
-        primary: {
-          backgroundColor: COLORS.GOLD,
-          color: COLORS.BLACK,
+        // Size variants
+        sizeSmall: {
+          fontSize: '0.95rem',
+          padding: '6px 18px',
+          minWidth: '80px',
+          height: '36px',
         },
+        sizeMedium: {
+          fontSize: '1.1rem',
+          padding: '6px 20px',
+          minWidth: '120px',
+          height: '44px',
+        },
+        sizeLarge: {
+          fontSize: '1.3rem',
+          padding: '10px 28px',
+          minWidth: '150px',
+          height: '52px',
+        },
+        // Variants
         contained: {
-          textTransform: `capitalize`,
+          border: '1px solid transparent',
+          '&.MuiButton-containedPrimary': {
+            backgroundColor: COLORS.BLACK,
+            color: COLORS.WHITE,
+            borderColor: COLORS.BLACK,
+            '&:hover': {
+              backgroundColor: COLORS.CHARCOAL,
+            },
+          },
+          '&.MuiButton-containedSecondary': {
+            backgroundColor: COLORS.WHITE,
+            color: COLORS.BLACK,
+            borderColor: COLORS.BLACK,
+            '&:hover': {
+              backgroundColor: COLORS.LIGHT_GRAY,
+            },
+          },
         },
-        plain : {
+        outlined: {
+          borderWidth: '1px',
+          '&.MuiButton-outlinedPrimary': {
+            borderColor: COLORS.BLACK,
+            color: COLORS.BLACK,
+            '&:hover': {
+              borderColor: COLORS.BLACK,
+              backgroundColor: alpha(COLORS.BLACK, 0.04),
+            },
+          },
+          '&.MuiButton-outlinedSecondary': {
+            borderColor: COLORS.WHITE,
+            color: COLORS.WHITE,
+            '&:hover': {
+              borderColor: COLORS.WHITE,
+              backgroundColor: alpha(COLORS.WHITE, 0.08),
+            },
+          },
+        },
+        // Custom variant for plain style
+        plain: {
           color: `inherit`,
           fontSize: `inherit`,
           fontWeight: `500`,
           backgroundColor: `transparent`,
           padding: 0,
+          minWidth: 'unset',
+          borderRadius: 0,
           fontFamily: cormorantGaramond.style.fontFamily,
           textTransform: `lowercase`,
-        },
-        sizeSmall: {
-          fontSize: `.8rem`,
-          padding: `5px 20px`,
-          textTransform: `capitalize`,
+          '&:hover': {
+            backgroundColor: 'transparent',
+            transform: 'none',
+          },
         },
       },
     },
@@ -339,7 +398,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiInputLabel-root': {
-            display: 'none', // Скрываем стандартный floating label
+            display: 'none',
           },
         },
       },

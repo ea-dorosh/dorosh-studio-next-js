@@ -186,15 +186,8 @@ export default function AboutSection() {
             component={Link}
             href="/ueber-uns"
             variant="contained"
-            sx={{
-              backgroundColor: 'primary.main',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'info.main',
-              },
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-            }}
+            color="primary"
+            size="large"
           >
             Mehr über uns erfahren
           </Button>

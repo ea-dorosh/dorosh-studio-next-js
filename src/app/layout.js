@@ -9,6 +9,7 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import * as React from "react";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import CookieBanner from "@/components/CookieBanner/CookieBanner";
 import LogoLink from "@/components/LogoLink/LogoLink";
 import Menu from "@/components/Menu/Menu";
@@ -60,6 +61,8 @@ export default function RootLayout({ children }) {
                 </Box>
               </Toolbar>
             </AppBar>
+
+            <Breadcrumbs />
 
             <Box
               component="main"

@@ -223,17 +223,9 @@ export default function VelvetLipsPage() {
               href="/booking"
               variant="contained"
               color="primary"
-              size="large"
+              size="medium"
               sx={{
-                padding: `12px 32px`,
-                fontSize: `1.1rem`,
-                fontWeight: `600`,
-                borderRadius: `8px`,
-                textTransform: `none`,
-                boxShadow: `0 4px 12px rgba(0, 0, 0, 0.15)`,
-                '&:hover': {
-                  boxShadow: `0 6px 16px rgba(0, 0, 0, 0.2)`,
-                }
+                width: `304px`, // same as next button
               }}
             >
               Jetzt Termin vereinbaren
@@ -244,14 +236,7 @@ export default function VelvetLipsPage() {
               href="/services/permanent-make-up"
               variant="outlined"
               color="primary"
-              size="large"
-              sx={{
-                padding: `12px 32px`,
-                fontSize: `1.1rem`,
-                fontWeight: `600`,
-                borderRadius: `8px`,
-                textTransform: `none`,
-              }}
+              size="medium"
             >
               Zurück zu Permanent Make-up
             </Button>
