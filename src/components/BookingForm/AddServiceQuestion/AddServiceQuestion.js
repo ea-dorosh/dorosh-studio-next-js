@@ -6,7 +6,13 @@ import {
 
 export default function AddServiceQuestion({ onAddService }) {
   return (
-    <Box sx={{ display: `flex`, gap: 2, justifyContent: `flex-end`, alignItems: `center`, mt: 1 }}>
+    <Box sx={{
+      display: `flex`,
+      gap: 2,
+      justifyContent: `flex-end`,
+      alignItems: `center`,
+      mt: 1, 
+    }}>
       <Button
         variant="outlined"
         size="small"

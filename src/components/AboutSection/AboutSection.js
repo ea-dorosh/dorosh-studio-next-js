@@ -18,9 +18,7 @@ export default function AboutSection() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{
-        padding: `24px 0`,
-      }}
+      sx={{padding: `24px 0`}}
     >
       <Container>
         <Box
@@ -79,7 +77,11 @@ export default function AboutSection() {
 
         <List>
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -88,7 +90,11 @@ export default function AboutSection() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -97,7 +103,11 @@ export default function AboutSection() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -106,7 +116,11 @@ export default function AboutSection() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -133,7 +147,11 @@ export default function AboutSection() {
 
         <List>
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -142,7 +160,11 @@ export default function AboutSection() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -151,7 +173,11 @@ export default function AboutSection() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -160,7 +186,11 @@ export default function AboutSection() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText>
@@ -181,7 +211,10 @@ export default function AboutSection() {
           Willkommen in deiner Stimmung.
         </Typography>
 
-        <Box sx={{ textAlign: `center`, marginTop: 4 }}>
+        <Box sx={{
+          textAlign: `center`,
+          marginTop: 4, 
+        }}>
           <Button
             component={Link}
             href="/ueber-uns"

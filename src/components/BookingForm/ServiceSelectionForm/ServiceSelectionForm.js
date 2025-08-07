@@ -93,9 +93,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
       <CardContent sx={{
         p: 0,
 
-        '&:last-child': {
-          p: 0,
-        },
+        '&:last-child': {p: 0},
       }}>
 
         {hasDeleteButton && (
@@ -111,7 +109,10 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
           }}>
             <Typography>{firstService ? `Service 1` : `Service 2`}</Typography>
 
-            <Button size='small' color="error" onClick={deleteService} sx={{p:0, fontWeight: `bold`}}>löschen</Button>
+            <Button size='small' color="error" onClick={deleteService} sx={{
+              p:0,
+              fontWeight: `bold`,
+            }}>löschen</Button>
           </Box>
         )}
         <Accordion
@@ -126,7 +127,10 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 alignItems: `center`,
               },
             }}>
-            <Box sx={{ width: `100%`, pr: 3 }}>
+            <Box sx={{
+              width: `100%`,
+              pr: 3, 
+            }}>
               <Typography sx={{ fontWeight: `bold` }}>
                 {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
               </Typography>
@@ -187,10 +191,18 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                     width: `100%`,
                   }}
                 >
-                  <Box sx={{ display: `flex`, flexDirection: `column`, gap: 1 }}>
+                  <Box sx={{
+                    display: `flex`,
+                    flexDirection: `column`,
+                    gap: 1, 
+                  }}>
                     <Typography>{serviceData.name}</Typography>
 
-                    <Box sx={{ display: `flex`, gap: 1, flexWrap: `wrap` }}>
+                    <Box sx={{
+                      display: `flex`,
+                      gap: 1,
+                      flexWrap: `wrap`, 
+                    }}>
                       <Chip
                         label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
                         size="small"

@@ -1,7 +1,9 @@
 import { Badge, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-export default function CalendarDay({ isHighlighted, day, onClick, selectedDay }) {
+export default function CalendarDay({
+  isHighlighted, day, onClick, selectedDay, 
+}) {
   const theme = useTheme();
   const isSelected = selectedDay?.day === day.format(`YYYY-MM-DD`);
 

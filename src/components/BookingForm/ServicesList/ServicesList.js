@@ -17,7 +17,10 @@ export default function ServicesList({
 }) {
   if (services.length === 0) {
     return (
-      <Box sx={{ textAlign: `center`, py: 3 }}>
+      <Box sx={{
+        textAlign: `center`,
+        py: 3, 
+      }}>
         <Typography variant="body1" color="text.secondary">
           Alle Services aus dieser Kategorie wurden bereits ausgewählt.
         </Typography>
@@ -41,9 +44,7 @@ export default function ServicesList({
             <CardContent sx={{
               p: `0`,
 
-              '&:last-child': {
-                p: `0`,
-              },
+              '&:last-child': {p: `0`},
             }}>
               <Box>
 
@@ -51,7 +52,12 @@ export default function ServicesList({
                   {service.name}
                 </Typography>
 
-                <Box sx={{ display: `flex`, gap: 1, mb: 2, flexWrap: `wrap` }}>
+                <Box sx={{
+                  display: `flex`,
+                  gap: 1,
+                  mb: 2,
+                  flexWrap: `wrap`, 
+                }}>
                   <Chip
                     label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
                     size="small"
@@ -82,7 +88,12 @@ export default function ServicesList({
                   </Typography>
                 )}
 
-                <Box sx={{ display: `flex`, justifyContent: `space-between`, alignItems: `flex-start`, gap: 2 }}>
+                <Box sx={{
+                  display: `flex`,
+                  justifyContent: `space-between`,
+                  alignItems: `flex-start`,
+                  gap: 2, 
+                }}>
 
 
                   <Button

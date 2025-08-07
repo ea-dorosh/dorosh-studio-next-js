@@ -75,7 +75,11 @@ const CalendarOverview = forwardRef(function CalendarOverview({
 
   const getServicePriceInfo = (service) => {
     if (!service.employees?.length) {
-      return { min: 0, max: 0, isRange: false };
+      return {
+        min: 0,
+        max: 0,
+        isRange: false, 
+      };
     }
 
     // Filter employees based on selectedTimeSlot.employeeIds if available
@@ -100,12 +104,16 @@ const CalendarOverview = forwardRef(function CalendarOverview({
     return {
       min: minPrice,
       max: maxPrice,
-      isRange: minPrice !== maxPrice
+      isRange: minPrice !== maxPrice,
     };
   };
 
   const getTotalPriceInfo = () => {
-    if (!services.length) return { min: 0, max: 0, isRange: false };
+    if (!services.length) return {
+      min: 0,
+      max: 0,
+      isRange: false, 
+    };
 
     let totalMin = 0;
     let totalMax = 0;
@@ -121,7 +129,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
     return {
       min: totalMin,
       max: totalMax,
-      isRange: hasRange || totalMin !== totalMax
+      isRange: hasRange || totalMin !== totalMax,
     };
   };
 
@@ -142,15 +150,28 @@ const CalendarOverview = forwardRef(function CalendarOverview({
       scrollMarginTop: `100px`,
     }} ref={ref}>
       <CardContent>
-        <Box sx={{ display: `flex`, justifyContent: `space-between`, alignItems: `flex-start`, mb: 2 }}>
-          <Typography variant="h6" sx={{ color: `text.primary`, fontSize: `1.1rem`, fontWeight: `bold` }}>
+        <Box sx={{
+          display: `flex`,
+          justifyContent: `space-between`,
+          alignItems: `flex-start`,
+          mb: 2, 
+        }}>
+          <Typography variant="h6" sx={{
+            color: `text.primary`,
+            fontSize: `1.1rem`,
+            fontWeight: `bold`, 
+          }}>
             Gewählter Termin
           </Typography>
 
           {onChange && (
             <Button
               onClick={onChange}
-              sx={{ fontWeight: `bold`, p: 0, minWidth: `0` }}
+              sx={{
+                fontWeight: `bold`,
+                p: 0,
+                minWidth: `0`, 
+              }}
               size="small"
               color="success"
             >
@@ -160,33 +181,60 @@ const CalendarOverview = forwardRef(function CalendarOverview({
         </Box>
 
         <Box sx={{ mb: 2 }}>
-          <Typography variant="body1" sx={{ mb: 1, color: `text.primary`, fontSize: `1rem` }}>
+          <Typography variant="body1" sx={{
+            mb: 1,
+            color: `text.primary`,
+            fontSize: `1rem`, 
+          }}>
             <b>Datum:</b> {getDateText()}
           </Typography>
 
-          <Typography variant="body1" sx={{ mb: 1, color: `text.primary`, fontSize: `1rem` }}>
+          <Typography variant="body1" sx={{
+            mb: 1,
+            color: `text.primary`,
+            fontSize: `1rem`, 
+          }}>
             <b>Uhrzeit:</b> {getTimeText()}
           </Typography>
         </Box>
 
         <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle2" sx={{ mb: 1, color: `text.primary`, fontSize: `1rem`, fontWeight: `bold` }}>
+          <Typography variant="subtitle2" sx={{
+            mb: 1,
+            color: `text.primary`,
+            fontSize: `1rem`,
+            fontWeight: `bold`, 
+          }}>
             Gewählte Services: ({services.length})
           </Typography>
 
           {services.length === 0 ? (
-            <Typography variant="body2" sx={{ color: `text.secondary`, ml: 1 }}>
+            <Typography variant="body2" sx={{
+              color: `text.secondary`,
+              ml: 1, 
+            }}>
               Keine Services ausgewählt
             </Typography>
           ) : (
             services.map((service, index) => {
               const priceInfo = getServicePriceInfo(service);
               return (
-                <Box key={index} sx={{ ml: 1, mb: 0.5, display: `flex`, justifyContent: `space-between`, alignItems: `flex-start`, gap: 2 }}>
+                <Box key={index} sx={{
+                  ml: 1,
+                  mb: 0.5,
+                  display: `flex`,
+                  justifyContent: `space-between`,
+                  alignItems: `flex-start`,
+                  gap: 2, 
+                }}>
                   <Typography variant="body2" sx={{ color: `text.secondary` }}>
                     {service.name || `Unnamed Service`}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: `text.primary`, fontWeight: `bold`, whiteSpace: `nowrap` }}>
+                  <Typography variant="body2" sx={{
+                    color: `text.primary`,
+                    fontWeight: `bold`,
+                    whiteSpace: `nowrap`, 
+                  }}>
                     {formatPrice(priceInfo)}
                   </Typography>
                 </Box>
@@ -195,7 +243,11 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           )}
         </Box>
 
-        <Box sx={{ gap: 1, display: `flex`, flexWrap: `wrap` }}>
+        <Box sx={{
+          gap: 1,
+          display: `flex`,
+          flexWrap: `wrap`, 
+        }}>
           <Chip
             label={<>Services: <b>{services.length}</b></>}
             size="small"

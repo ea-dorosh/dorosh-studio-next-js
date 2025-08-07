@@ -26,7 +26,7 @@ export default function CalendarGrid({
   setSelectedTimeSlot,
   setTimeSlotError,
   onWeekChange,
-  fetchCalendarDaysError
+  fetchCalendarDaysError,
 }) {
   return (
     <Box

@@ -62,7 +62,11 @@ export const formatPrice = (price) => {
  */
 export const formatIsoDate = (dateString) => {
   const date = new Date(dateString);
-  const options = { month: `short`, year: `2-digit`, day: `2-digit` };
+  const options = {
+    month: `short`,
+    year: `2-digit`,
+    day: `2-digit`, 
+  };
   const formattedDate = date.toLocaleDateString(`en-GB`, options);
   const [day, month, year] = formattedDate.split(` `);
 

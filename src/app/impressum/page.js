@@ -26,7 +26,10 @@ export default function ImpressumPage() {
     fontWeight: `bold`,
     fontFamily: `"Montserrat", sans-serif`,
   };
-  const bodyTextStyle = { mb: 2, fontSize: 16 };
+  const bodyTextStyle = {
+    mb: 2,
+    fontSize: 16, 
+  };
 
   return (
     <Container maxWidth="lg" sx={containerStyle}>

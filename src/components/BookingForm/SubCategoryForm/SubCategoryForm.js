@@ -7,7 +7,9 @@ import {
   Button,
 } from "@mui/material";
 
-export default function SubCategoryForm({ subCategories, onSubCategorySelect, selectedSubCategory }) {
+export default function SubCategoryForm({
+  subCategories, onSubCategorySelect, selectedSubCategory, 
+}) {
   return (
     <Grid container spacing={2}>
       {subCategories.map((subCategory) => (
@@ -31,9 +33,7 @@ export default function SubCategoryForm({ subCategories, onSubCategorySelect, se
             <CardContent sx={{
               p: `8px`,
 
-              '&:last-child': {
-                p: `8px`,
-              },
+              '&:last-child': {p: `8px`},
             }}>
               <Typography
                 variant="h6"
@@ -42,7 +42,7 @@ export default function SubCategoryForm({ subCategories, onSubCategorySelect, se
                 sx={{
                   color: selectedSubCategory?.subCategoryId === subCategory.subCategoryId
                     ? `primary.main`
-                    : `text.primary`
+                    : `text.primary`,
                 }}
               >
                 {subCategory.subCategoryName}

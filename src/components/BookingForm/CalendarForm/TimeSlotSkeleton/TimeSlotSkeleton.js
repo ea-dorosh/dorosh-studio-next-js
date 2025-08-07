@@ -1,6 +1,8 @@
 import { Box, Skeleton } from '@mui/material';
 
-export default function TimeSlotSkeleton({ count = 12, showDateText = true, showButton = true }) {
+export default function TimeSlotSkeleton({
+  count = 12, showDateText = true, showButton = true, 
+}) {
   return (
     <Box>
       {showDateText && (
@@ -9,9 +11,7 @@ export default function TimeSlotSkeleton({ count = 12, showDateText = true, show
             variant="text"
             width="100%"
             height={48}
-            sx={{
-              backgroundColor: `rgba(0, 0, 0, 0.06)`,
-            }}
+            sx={{backgroundColor: `rgba(0, 0, 0, 0.06)`}}
             animation="wave"
           />
         </Box>
@@ -41,7 +41,11 @@ export default function TimeSlotSkeleton({ count = 12, showDateText = true, show
       </Box>
 
       {showButton && (
-        <Box sx={{ display: `flex`, justifyContent: `center`, mt: 2 }}>
+        <Box sx={{
+          display: `flex`,
+          justifyContent: `center`,
+          mt: 2, 
+        }}>
           <Skeleton
             variant="rectangular"
             width={300}

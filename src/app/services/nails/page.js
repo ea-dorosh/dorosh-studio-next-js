@@ -18,9 +18,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {
-    canonical: `/services/nails`,
-  },
+  alternates: {canonical: `/services/nails`},
   openGraph: {
     title: `Maniküre und Pediküre München - MOOD BEAUTY`,
     description: `Professionelle Maniküre und Pediküre in München. Höchste Hygienestandards, sanfte Behandlung und hochwertige Produkte.`,
@@ -54,9 +52,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: `your-google-verification-code`,
-  },
+  verification: {google: `your-google-verification-code`},
 };
 
 export default async function NailsPage() {
@@ -64,9 +60,7 @@ export default async function NailsPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{
-        paddingBottom: `32px`,
-      }}
+      sx={{paddingBottom: `32px`}}
     >
       <Container>
         <Typography
@@ -93,14 +87,14 @@ export default async function NailsPage() {
             `Gel-Lack (Shellac) - langlebig und schonend`,
             `Nagelpflege und Aufbau brüchiger Nägel`,
             `Maniküre und Pediküre für Frauen und Männer`,
-            `Pflege für Nägel und Haut mit wohltuender Wirkung`
+            `Pflege für Nägel und Haut mit wohltuender Wirkung`,
           ]}
           advantages={[
             `Absolute Hygiene und Sicherheit - alle Instrumente werden mehrfach desinfiziert und sterilisiert`,
             `Sanfte und sorgfältige Behandlung - keine Schmerzen, kein unangenehmes Gefühl`,
             `Verwendung von hochwertigen Produkten europäischer Marken`,
             `Individuelle Betreuung mit Achtsamkeit und Präzision`,
-            `Perfekt für alle, die Maniküre und Pediküre in München mit höchsten Hygienestandards suchen`
+            `Perfekt für alle, die Maniküre und Pediküre in München mit höchsten Hygienestandards suchen`,
           ]}
           conclusion="Unsere Fachkräfte arbeiten achtsam und präzise, mit viel Feingefühl für empfindliche Haut und individuelle Bedürfnisse. Wir verbinden sichtbare Pflegeergebnisse mit echtem Wohlgefühl und respektvollem Umgang."
         />

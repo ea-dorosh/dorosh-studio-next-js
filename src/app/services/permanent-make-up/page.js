@@ -19,9 +19,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {
-    canonical: `/services/permanent-make-up`,
-  },
+  alternates: {canonical: `/services/permanent-make-up`},
   openGraph: {
     title: `Permanent Make-up München - MOOD BEAUTY`,
     description: `Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik.`,
@@ -55,9 +53,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: `your-google-verification-code`,
-  },
+  verification: {google: `your-google-verification-code`},
 };
 
 export default async function CategoryPage() {
@@ -65,9 +61,7 @@ export default async function CategoryPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{
-        paddingBottom: `32px`,
-      }}
+      sx={{paddingBottom: `32px`}}
     >
       <Container>
         <Typography
@@ -91,14 +85,14 @@ export default async function CategoryPage() {
           services={[
             `Permanent Make-up für die Augenbrauen - sanftes Powder Brows und Soft Shading für eine natürlich volle Form`,
             `Permanent Make-up für die Lippen - Aquarelltechnik mit dem Effekt von dezent getönten, "geküssten Lippen"`,
-            `Permanent Make-up für die Augenlider - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick`
+            `Permanent Make-up für die Augenlider - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick`,
           ]}
           advantages={[
             `Maximale Natürlichkeit - niemand wird merken, dass es Permanent Make-up ist`,
             `Der Farbstoff baut sich vollständig innerhalb von 1,5 bis 2 Jahren ab`,
             `Ideal für alle, die natürliche Ergebnisse bevorzugen`,
             `Keine Farbveränderungen im Laufe der Zeit`,
-            `Minimaler Heilungsprozess ohne Schorfbildung oder starke Schwellungen`
+            `Minimaler Heilungsprozess ohne Schorfbildung oder starke Schwellungen`,
           ]}
           conclusion="Wir arbeiten ausschließlich mit zertifizierten, europäischen Pigmenten und halten höchste Hygienestandards ein. Jede Behandlung beginnt mit einer ausführlichen Beratung, bei der wir gemeinsam die passende Form und Farbe für Ihren Typ auswählen. Erleben Sie, wie es ist, jeden Tag frisch, gepflegt und natürlich schön auszusehen."
         />

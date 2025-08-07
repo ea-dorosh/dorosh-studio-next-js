@@ -20,7 +20,7 @@ const CustomerForm = forwardRef(function CustomerForm({
   });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
 
     if(formErrors && formErrors[name]) {
       delete formErrors[name];
@@ -35,13 +35,15 @@ const CustomerForm = forwardRef(function CustomerForm({
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    createAppointment({
-      ...formData,
-    });
+    createAppointment({...formData});
   };
 
   return (<Box ref={ref} mt={3} mb={3}>
-    <Typography variant="h5" sx={{ textAlign: `center`, fontSize: `1.5rem`, fontFamily: `cormorantGaramond`}}>
+    <Typography variant="h5" sx={{
+      textAlign: `center`,
+      fontSize: `1.5rem`,
+      fontFamily: `cormorantGaramond`,
+    }}>
       Kundendetails
     </Typography>
 

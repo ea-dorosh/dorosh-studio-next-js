@@ -20,9 +20,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {
-    canonical: `/services/permanent-make-up/wimpernkranz`,
-  },
+  alternates: {canonical: `/services/permanent-make-up/wimpernkranz`},
   openGraph: {
     title: `Wimpernkranz München - MOOD BEAUTY`,
     description: `Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick.`,
@@ -56,9 +54,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: `your-google-verification-code`,
-  },
+  verification: {google: `your-google-verification-code`},
 };
 
 export default function WimpernkranzPage() {
@@ -66,9 +62,7 @@ export default function WimpernkranzPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{
-        paddingBottom: `32px`,
-      }}
+      sx={{paddingBottom: `32px`}}
     >
       <Container>
         <Typography
@@ -125,7 +119,11 @@ export default function WimpernkranzPage() {
         </Box>
 
         {/* Заглушка */}
-        <Box sx={{ maxWidth: `800px`, margin: `0 auto`, textAlign: `center` }}>
+        <Box sx={{
+          maxWidth: `800px`,
+          margin: `0 auto`,
+          textAlign: `center`,
+        }}>
           <Typography
             sx={{
               lineHeight: 1.8,
@@ -149,16 +147,19 @@ export default function WimpernkranzPage() {
           </Typography>
 
           {/* Кнопки */}
-          <Box sx={{ display: `flex`, gap: `16px`, justifyContent: `center`, flexWrap: `wrap` }}>
+          <Box sx={{
+            display: `flex`,
+            gap: `16px`,
+            justifyContent: `center`,
+            flexWrap: `wrap`,
+          }}>
             <Button
               component={Link}
               href="/booking"
               variant="contained"
               color="primary"
               size="medium"
-              sx={{
-                width: `304px`, // same as next button
-              }}
+              sx={{ width: `304px` }} // same as next button
             >
               Jetzt Termin vereinbaren
             </Button>

@@ -12,9 +12,7 @@ export default function ServicesSection() {
       bgcolor="background.default"
       component="section"
     >
-      <Container sx={{
-        padding: `18px 32px 0 32px`,
-      }}>
+      <Container sx={{padding: `18px 32px 0 32px`}}>
         <Typography
           variant="h2"
           color="primary"

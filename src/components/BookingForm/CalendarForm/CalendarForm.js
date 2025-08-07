@@ -79,7 +79,7 @@ const CalendarForm = forwardRef(function CalendarForm({
 
       return {
         serviceId: service.id,
-        employeeIds: employeeIds.sort() // Sort for consistent comparison
+        employeeIds: employeeIds.sort(), // Sort for consistent comparison
       };
     });
 
@@ -225,14 +225,18 @@ const CalendarForm = forwardRef(function CalendarForm({
       const formattedDate = defaultDate.format(`YYYY-MM-DD`);
       setSelectedDay({
         day: formattedDate,
-        availableTimeslots: []
+        availableTimeslots: [],
       });
     }
   };
 
   return (
     <Box ref={ref} mt={2}>
-      <Typography variant="h5" sx={{ textAlign: `center`, fontSize: `1.5rem`, fontFamily: `cormorantGaramond`}}>
+      <Typography variant="h5" sx={{
+        textAlign: `center`,
+        fontSize: `1.5rem`,
+        fontFamily: `cormorantGaramond`,
+      }}>
         Datum und Zeit auswählen
       </Typography>
 

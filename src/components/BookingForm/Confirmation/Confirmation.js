@@ -13,9 +13,7 @@ import { formattedTime } from "@/utils/formatters";
 
 dayjs.locale(`de`);
 
-export default function Confirmation({
-  appointment,
-}) {
+export default function Confirmation({appointment}) {
   return (<>
     <Divider sx={{mb: 2}} />
 
@@ -100,7 +98,10 @@ export default function Confirmation({
       </Box>
     </Box>
 
-    <Divider sx={{mt: 1, mb: 1}} />
+    <Divider sx={{
+      mt: 1,
+      mb: 1,
+    }} />
 
     <Button
       component={Link}

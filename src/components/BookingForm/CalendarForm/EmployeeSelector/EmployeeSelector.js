@@ -62,8 +62,8 @@ const createAdaptiveChips = (selectedEmployees, service) => {
               py: 0,
               lineHeight: `23px`,
               overflow: `hidden`,
-              textOverflow: `ellipsis`
-            }
+              textOverflow: `ellipsis`,
+            },
           }}
         />
       );
@@ -79,7 +79,7 @@ const createAdaptiveChips = (selectedEmployees, service) => {
       gap: 0.5,
       overflow: `hidden`,
       alignItems: `center`,
-      minHeight: `23px`
+      minHeight: `23px`,
     }}>
       {chips}
     </Box>
@@ -126,7 +126,7 @@ export default function EmployeeSelector({
   serviceEmployees,
   setServiceEmployees,
   openSelects, // eslint-disable-line no-unused-vars
-  setOpenSelects
+  setOpenSelects,
 }) {
   const handleEmployeeSelectionChange = (serviceId, event) => {
     const selectedValues = event.target.value;
@@ -191,8 +191,14 @@ export default function EmployeeSelector({
                   return currentSelection.map(id => id.toString());
                 })()}
                 onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
-                onOpen={() => setOpenSelects(prev => ({ ...prev, [service.id]: true }))}
-                onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
+                onOpen={() => setOpenSelects(prev => ({
+                  ...prev,
+                  [service.id]: true, 
+                }))}
+                onClose={() => setOpenSelects(prev => ({
+                  ...prev,
+                  [service.id]: false, 
+                }))}
                 renderValue={() => getEmployeeLabel(service, serviceEmployees)}
                 sx={{
                   minHeight: `43px`,
@@ -200,8 +206,8 @@ export default function EmployeeSelector({
                     minHeight: `23px !important`,
                     display: `flex`,
                     alignItems: `center`,
-                    py: `10px`
-                  }
+                    py: `10px`,
+                  },
                 }}
               >
                 {service.employees.length > 1 && (
@@ -229,7 +235,11 @@ export default function EmployeeSelector({
                       )}
                       <ListItemText
                         primary={
-                          <Box sx={{ display: `flex`, justifyContent: `space-between`, width: `100%` }}>
+                          <Box sx={{
+                            display: `flex`,
+                            justifyContent: `space-between`,
+                            width: `100%`, 
+                          }}>
                             <span>{`${employee.firstName} ${employee.lastName}`}</span>
                             <Chip
                               label={`${employee.price || 0}€`}

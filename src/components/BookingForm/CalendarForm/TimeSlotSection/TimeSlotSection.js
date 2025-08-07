@@ -14,7 +14,7 @@ export default function TimeSlotSection({
   selectedDay,
   selectedTimeSlot,
   setSelectedTimeSlot,
-  setTimeSlotError
+  setTimeSlotError,
 }) {
   if (!selectedDay) {
     return null;

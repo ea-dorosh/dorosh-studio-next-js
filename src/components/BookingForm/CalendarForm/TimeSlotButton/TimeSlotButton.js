@@ -2,7 +2,9 @@ import { Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { formattedTime } from '@/utils/formatters';
 
-export default function TimeSlotButton({ slot, selectedTimeSlot, setSelectedTimeSlot }) {
+export default function TimeSlotButton({
+  slot, selectedTimeSlot, setSelectedTimeSlot, 
+}) {
   const theme = useTheme();
 
   return (

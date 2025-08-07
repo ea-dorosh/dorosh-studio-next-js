@@ -20,9 +20,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {
-    canonical: `/services/permanent-make-up/velvet-lips`,
-  },
+  alternates: {canonical: `/services/permanent-make-up/velvet-lips`},
   openGraph: {
     title: `Velvet Lips München - MOOD BEAUTY`,
     description: `Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen.`,
@@ -56,9 +54,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: `your-google-verification-code`,
-  },
+  verification: {google: `your-google-verification-code`},
 };
 
 export default function VelvetLipsPage() {
@@ -66,9 +62,7 @@ export default function VelvetLipsPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{
-        paddingBottom: `32px`,
-      }}
+      sx={{paddingBottom: `32px`}}
     >
       <Container>
         <Typography
@@ -123,7 +117,10 @@ export default function VelvetLipsPage() {
           />
         </Box>
 
-        <Box sx={{ maxWidth: `800px`, margin: `0 auto` }}>
+        <Box sx={{
+          maxWidth: `800px`,
+          margin: `0 auto`,
+        }}>
           <Typography
             sx={{
               lineHeight: 1.8,
@@ -146,17 +143,32 @@ export default function VelvetLipsPage() {
           >
             Diese Behandlung eignet sich ideal für alle, die:
           </Typography>
-          <Box component="ul" sx={{ marginBottom: `32px`, paddingLeft: `24px` }}>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+          <Box component="ul" sx={{
+            marginBottom: `32px`,
+            paddingLeft: `24px`,
+          }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               ihrer natürlichen Lippenfarbe mehr Frische verleihen möchten
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               regelmäßig Lippenstift nachziehen müssen und sich mehr Komfort wünschen
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               Form und Ton der Lippen sanft ausgleichen möchten
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               ein dauerhaft gepflegtes, unaufdringliches Ergebnis bevorzugen
             </Typography>
           </Box>
@@ -172,23 +184,44 @@ export default function VelvetLipsPage() {
           >
             Vorteile von Velvet Lips:
           </Typography>
-          <Box component="ul" sx={{ marginBottom: `32px`, paddingLeft: `24px` }}>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+          <Box component="ul" sx={{
+            marginBottom: `32px`,
+            paddingLeft: `24px`,
+          }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               Aquarellähnlicher Farbeffekt mit weichen Übergängen
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               Große Farbauswahl - für jeden Geschmack die passende Nuance
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               Geeignet auch bei unregelmäßigem oder wenig definiertem Lippenrand
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               Oberflächliche und nahezu schmerzfreie Methode
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               Pigment baut sich gleichmäßig ab und verschwindet nach 1,5-2 Jahren rückstandslos
             </Typography>
-            <Typography component="li" sx={{ marginBottom: `8px`, lineHeight: 1.6 }}>
+            <Typography component="li" sx={{
+              marginBottom: `8px`,
+              lineHeight: 1.6,
+            }}>
               Sanfter Heilungsverlauf ohne starke Schwellung oder Schorfbildung
             </Typography>
           </Box>
@@ -217,16 +250,19 @@ export default function VelvetLipsPage() {
             Velvet Lips steht für natürlich schöne, gepflegte Lippen - Tag für Tag, ganz ohne Schminke.
           </Typography>
 
-          <Box sx={{ display: `flex`, gap: `16px`, justifyContent: `center`, flexWrap: `wrap` }}>
+          <Box sx={{
+            display: `flex`,
+            gap: `16px`,
+            justifyContent: `center`,
+            flexWrap: `wrap`,
+          }}>
             <Button
               component={Link}
               href="/booking"
               variant="contained"
               color="primary"
               size="medium"
-              sx={{
-                width: `304px`, // same as next button
-              }}
+              sx={{ width: `304px` }} // same as next button
             >
               Jetzt Termin vereinbaren
             </Button>

@@ -7,7 +7,9 @@ import {
   Button,
 } from "@mui/material";
 
-export default function CategoryForm({ categories, onCategorySelect, selectedCategory }) {
+export default function CategoryForm({
+  categories, onCategorySelect, selectedCategory, 
+}) {
 
   return (
     <Grid container spacing={2}>
@@ -27,15 +29,16 @@ export default function CategoryForm({ categories, onCategorySelect, selectedCat
                 height="140"
                 image={category.categoryImage}
                 alt={category.categoryName}
-                sx={{ objectFit: `cover`, borderRadius: `12px` }}
+                sx={{
+                  objectFit: `cover`,
+                  borderRadius: `12px`, 
+                }}
               />
             )}
             <CardContent sx={{
               p: `8px`,
 
-              '&:last-child': {
-                p: `8px`,
-              },
+              '&:last-child': {p: `8px`},
             }}>
               <Typography
                 variant="h6"
@@ -44,7 +47,7 @@ export default function CategoryForm({ categories, onCategorySelect, selectedCat
                 sx={{
                   color: selectedCategory?.categoryId === category.categoryId
                     ? `primary.main`
-                    : `text.primary`
+                    : `text.primary`,
                 }}
               >
                 {category.categoryName}

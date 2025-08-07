@@ -22,12 +22,10 @@ async function trackQrScan(searchParams) {
     try {
       await fetch(`${process.env.REACT_APP_API_URL}api/public/tracking/qr-scan`, {
         method: `POST`,
-        headers: {
-          'Content-Type': `application/json`,
-        },
+        headers: {'Content-Type': `application/json`},
         body: JSON.stringify({
           trackedAt: new Date().toISOString(),
-          source: `server-side`
+          source: `server-side`,
         }),
       });
     } catch (error) {

@@ -18,7 +18,7 @@ export default function CategoryInfo({
   advantages,
   conclusion,
   ctaText = `Jetzt Termin vereinbaren`,
-  ctaHref = `/booking`
+  ctaHref = `/booking`,
 }) {
   return (
     <Box
@@ -91,7 +91,7 @@ export default function CategoryInfo({
                     '& .MuiListItemText-primary': {
                       fontSize: `1rem`,
                       lineHeight: 1.6,
-                    }
+                    },
                   }}
                 />
               </ListItem>
@@ -125,7 +125,7 @@ export default function CategoryInfo({
                     '& .MuiListItemText-primary': {
                       fontSize: `1rem`,
                       lineHeight: 1.6,
-                    }
+                    },
                   }}
                 />
               </ListItem>

@@ -23,9 +23,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {
-    canonical: `/ueber-uns`,
-  },
+  alternates: {canonical: `/ueber-uns`},
   openGraph: {
     title: `Über MOOD Beauty Studio München - Permanent Make-up & Maniküre`,
     description: `MOOD Beauty Studio - Ihr modernes Kosmetikstudio in München. Spezialisiert auf Permanent Make-up und ästhetische Maniküre. Natürliche Ausstrahlung und professionelle Techniken.`,
@@ -66,9 +64,7 @@ export default function ÜberUnsPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{
-        paddingBottom: `32px`,
-      }}
+      sx={{paddingBottom: `32px`}}
     >
       <Container sx={{ maxWidth: `md` }}>
         <Typography
@@ -244,7 +240,11 @@ export default function ÜberUnsPage() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
 
@@ -254,7 +254,11 @@ export default function ÜberUnsPage() {
           </ListItem>
         </List>
 
-        <Divider sx={{ my: 4, backgroundColor: `primary.main`, opacity: 0.3 }} />
+        <Divider sx={{
+          my: 4,
+          backgroundColor: `primary.main`,
+          opacity: 0.3, 
+        }} />
 
         <Typography
           variant="h3"
@@ -270,7 +274,11 @@ export default function ÜberUnsPage() {
 
         <List sx={{ marginBottom: 4 }}>
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText sx={{ fontSize: `1rem` }}>
@@ -279,7 +287,11 @@ export default function ÜberUnsPage() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText sx={{ fontSize: `1rem` }}>
@@ -288,7 +300,11 @@ export default function ÜberUnsPage() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText sx={{ fontSize: `1rem` }}>
@@ -297,7 +313,11 @@ export default function ÜberUnsPage() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText sx={{ fontSize: `1rem` }}>
@@ -306,7 +326,11 @@ export default function ÜberUnsPage() {
           </ListItem>
 
           <ListItem sx={{padding: 0}}>
-            <ListItemIcon sx={{minWidth: 0, mr: 1, color: `primary.main`}}>
+            <ListItemIcon sx={{
+              minWidth: 0,
+              mr: 1,
+              color: `primary.main`,
+            }}>
               <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
             </ListItemIcon>
             <ListItemText sx={{ fontSize: `1rem` }}>
@@ -315,7 +339,11 @@ export default function ÜberUnsPage() {
           </ListItem>
         </List>
 
-        <Divider sx={{ my: 4, backgroundColor: `primary.main`, opacity: 0.3 }} />
+        <Divider sx={{
+          my: 4,
+          backgroundColor: `primary.main`,
+          opacity: 0.3, 
+        }} />
 
         <Typography
           color="primary"

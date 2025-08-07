@@ -15,7 +15,7 @@ export default function LogoLink() {
         width: `160px`,
         // maxWidth: "90%",
         height: `70px`,
-        position: `relative`
+        position: `relative`,
       }}
     >
       {isMainPage ? (
@@ -32,9 +32,7 @@ export default function LogoLink() {
       ) : (
         <Link
           href="/"
-          sx={{
-            textDecoration: `none`
-          }}>
+          sx={{textDecoration: `none`}}>
           <Logo
             style={{
               position: `absolute`,

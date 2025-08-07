@@ -54,9 +54,7 @@ export default function HomePage() {
               color="primary.contrastText"
               fontSize={`3rem`}
               textAlign={`center`}
-              sx={{
-                lineHeight: `0.6`,
-              }}
+              sx={{lineHeight: `0.6`}}
             >
               MOOD <br/>
 

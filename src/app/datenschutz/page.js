@@ -45,7 +45,10 @@ export default function DatenschutzPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box sx={{ maxWidth: 800, mx: `auto` }}>
+      <Box sx={{
+        maxWidth: 800,
+        mx: `auto`, 
+      }}>
         <Typography variant="h1" gutterBottom fontSize={28}>
           Datenschutzerklärung
         </Typography>
@@ -129,7 +132,12 @@ export default function DatenschutzPage() {
             Wir nutzen verschiedene Kommunikationskanäle für Kundenanfragen und Terminbuchungen:
           </Typography>
 
-          <Typography variant="h4" sx={{ ...headlineH3Style, fontSize: `16px !important`, mt: 2, mb: 1 }}>
+          <Typography variant="h4" sx={{
+            ...headlineH3Style,
+            fontSize: `16px !important`,
+            mt: 2,
+            mb: 1, 
+          }}>
             WhatsApp Business
           </Typography>
           <Typography variant="body2" sx={body2Style}>

@@ -17,7 +17,11 @@ const Breadcrumbs = () => {
   const generateBreadcrumbs = () => {
     const segments = pathname.split(`/`).filter(Boolean);
     const breadcrumbs = [
-      { label: `Home`, href: `/`, current: false }
+      {
+        label: `Home`,
+        href: `/`,
+        current: false, 
+      },
     ];
 
     let currentPath = ``;
@@ -73,7 +77,7 @@ const Breadcrumbs = () => {
       breadcrumbs.push({
         label,
         href: currentPath,
-        current: isLast
+        current: isLast,
       });
     });
 
@@ -88,15 +92,11 @@ const Breadcrumbs = () => {
       px: 3,
       backgroundColor: `background.default`,
       borderBottom: 1,
-      borderColor: `divider`
+      borderColor: `divider`,
     }}>
       <MuiBreadcrumbs
         aria-label="breadcrumb"
-        sx={{
-          '& .MuiBreadcrumbs-separator': {
-            color: `text.secondary`
-          }
-        }}
+        sx={{'& .MuiBreadcrumbs-separator': {color: `text.secondary`}}}
       >
         {breadcrumbs.map((breadcrumb, index) => {
           if (breadcrumb.current) {
@@ -120,9 +120,7 @@ const Breadcrumbs = () => {
               underline="hover"
               sx={{
                 textDecoration: `none`,
-                '&:hover': {
-                  textDecoration: `underline`
-                }
+                '&:hover': {textDecoration: `underline`},
               }}
             >
               {breadcrumb.label}

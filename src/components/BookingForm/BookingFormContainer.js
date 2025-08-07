@@ -100,7 +100,9 @@ export default function BookingFormContainer({ categories }) {
     };
 
     try {
-      const {validationErrors, errorMessage, data} = await appointmentsService.createAppointment(appointmentData);
+      const {
+        validationErrors, errorMessage, data,
+      } = await appointmentsService.createAppointment(appointmentData);
 
       if (validationErrors) {
         setCreateAppointmentErrors(validationErrors);
@@ -110,7 +112,10 @@ export default function BookingFormContainer({ categories }) {
         setAppointmentConfirmation(data);
 
         setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: `smooth` });
+          window.scrollTo({
+            top: 0,
+            behavior: `smooth`, 
+          });
         }, 0);
       }
     } catch (error) {
@@ -138,8 +143,14 @@ export default function BookingFormContainer({ categories }) {
           ref={firstServiceSelectionRef}
           categories={categories}
           onServiceSelect={(service) => {
-            setFormState(prev => ({ ...prev, firstService: service }));
-            firstServiceSelectionRef.current?.scrollIntoView({ behavior: `smooth`, block: `start` });
+            setFormState(prev => ({
+              ...prev,
+              firstService: service, 
+            }));
+            firstServiceSelectionRef.current?.scrollIntoView({
+              behavior: `smooth`,
+              block: `start`, 
+            });
           }}
           getAvailableServices={getAvailableServices}
           serviceData={formState.firstService}
@@ -160,8 +171,14 @@ export default function BookingFormContainer({ categories }) {
           <ServiceSelectionForm
             categories={categories}
             onServiceSelect={(service) => {
-              setFormState(prev => ({ ...prev, secondService: service }));
-              firstServiceSelectionRef.current?.scrollIntoView({ behavior: `smooth`, block: `start` });
+              setFormState(prev => ({
+                ...prev,
+                secondService: service, 
+              }));
+              firstServiceSelectionRef.current?.scrollIntoView({
+                behavior: `smooth`,
+                block: `start`, 
+              });
             }}
             hasDeleteButton
             deleteService={() => {
@@ -182,7 +199,10 @@ export default function BookingFormContainer({ categories }) {
         {formState.firstService && !formState.hasSecondService && (
           <AddServiceQuestion
             onAddService={() => {
-              setFormState(prev => ({ ...prev, hasSecondService: true }));
+              setFormState(prev => ({
+                ...prev,
+                hasSecondService: true, 
+              }));
             }}
           />
         )}
@@ -204,7 +224,10 @@ export default function BookingFormContainer({ categories }) {
             setShowCalendar(false);
 
             setTimeout(() => {
-              window.scrollTo({ top: 0, behavior: `smooth` });
+              window.scrollTo({
+                top: 0,
+                behavior: `smooth`, 
+              });
             }, 0);
           }}
         />

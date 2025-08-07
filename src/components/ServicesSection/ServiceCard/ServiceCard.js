@@ -45,9 +45,7 @@ export default function ServiceCard({
         />
       </Box>
 
-      <Box sx={{
-        padding: `16px 0px 0px 0px`,
-      }}>
+      <Box sx={{padding: `16px 0px 0px 0px`}}>
         <Typography
           variant="h3"
           aria-label={title}
@@ -57,9 +55,7 @@ export default function ServiceCard({
 
         <Typography
           aria-label={subtitle}
-          sx={{
-            marginTop: `8px`,
-          }}
+          sx={{marginTop: `8px`}}
         >
           {subtitle}
         </Typography>
@@ -67,9 +63,7 @@ export default function ServiceCard({
         <Button
           component={Link}
           href={linkHref}
-          sx={{
-            marginTop: `8px`,
-          }}
+          sx={{marginTop: `8px`}}
           color="info"
           size="medium"
           variant="contained"

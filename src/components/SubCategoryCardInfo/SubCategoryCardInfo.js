@@ -47,9 +47,7 @@ export default function SubCategoryCardInfo({
         />
       </Box>
 
-      <Box sx={{
-        padding: `16px 0px 0px 0px`,
-      }}>
+      <Box sx={{padding: `16px 0px 0px 0px`}}>
         <Typography
           variant="h3"
           aria-label={title}
@@ -83,7 +81,11 @@ export default function SubCategoryCardInfo({
           {children}
         </Typography>
 
-        <Box sx={{ display: `flex`, gap: `12px`, marginTop: `16px` }}>
+        <Box sx={{
+          display: `flex`,
+          gap: `12px`,
+          marginTop: `16px`, 
+        }}>
           <Button
             component={Link}
             href="/booking"
