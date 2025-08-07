@@ -13,7 +13,9 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: [`@mui/material`, `@mui/icons-material`],
   },
-  compiler: { removeConsole: process.env.NODE_ENV === `production` },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === `production`,
+  },
   poweredByHeader: false,
   compress: true,
 };
