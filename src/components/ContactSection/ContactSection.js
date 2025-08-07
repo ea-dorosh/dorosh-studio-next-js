@@ -11,13 +11,16 @@ export default function ContactSection() {
     <Box
       color="primary.main"
       bgcolor="background.default"
-      sx={{ padding: `24px` }}
+      sx={{
+        padding: `24px`,
+        maxWidth: `1200px`,
+        margin: `0 auto`,
+      }}
     >
       <Typography
         variant="h2"
         color="primary"
         sx={{
-          fontSize: `2.2rem`,
           textAlign: `center`,
         }}
       >
@@ -27,134 +30,170 @@ export default function ContactSection() {
       <Box
         sx={{
           display: `flex`,
-          flexDirection: `column`,
+          flexDirection: {
+            xs: `column`,
+            md: `row`,
+          },
+          justifyContent: `center`,
           alignItems: `center`,
-          fontSize: `1rem`,
-          lineHeight: `1.5`,
+          gap: {
+            xs: `16px`,
+            md: `32px`,
+            lg: `48px`,
+          },
+          flexWrap: `wrap`,
+          maxWidth: `800px`,
+          margin: `0 auto`,
         }}
-        color="primary"
       >
-        <Typography
-          variant="caption"
-          component="span"
-          marginTop={2}
-          sx={{ fontSize: `14px` }}
-        >
-          Call
-        </Typography>
-
-        <Button
-          variant="plain"
-          color="primary"
-          href="tel:015207389443"
-        >
-          0152 073 89 443
-        </Button>
-      </Box>
-
-      <Box
-        sx={{
-          display: `flex`,
-          flexDirection: `column`,
-          alignItems: `center`,
-          fontSize: `1rem`,
-          lineHeight: `1.5`,
-        }}
-        color="primary"
-      >
-        <Typography
-          variant="caption"
-          component="span"
-          marginTop={2}
-          sx={{ fontSize: `14px` }}
-        >
-          Email
-        </Typography>
-
-        <Button
-          variant="plain"
-          color="primary"
-          href="mailto:moodbeauty.de@gmail.com"
-        >
-          moodbeauty.de@gmail.com
-        </Button>
-      </Box>
-
-      <Box
-        sx={{
-          display: `flex`,
-          flexDirection: `column`,
-          alignItems: `center`,
-          fontSize: `1rem`,
-          lineHeight: `1.5`,
-        }}
-        color="primary"
-      >
-        <Typography
-          variant="caption"
-          component="span"
-          marginTop={2}
-          sx={{ fontSize: `14px` }}
-        >
-          Adresse
-        </Typography>
-
-        <Button
-          variant="plain"
-          color="primary"
-          href="https://maps.app.goo.gl/7jed5oouJkNUf3xA8"
+        <Box
           sx={{
-            textAlign: `center`,
-            textTransform: `capitalize`,
+            display: `flex`,
+            flexDirection: `column`,
+            alignItems: `center`,
+            fontSize: `1rem`,
+            lineHeight: `1.5`,
+            minWidth: {
+              xs: `100%`,
+              md: `200px`,
+            },
           }}
+          color="primary"
         >
-          Theresienstraße 38, <br/> 80333 München
-        </Button>
-      </Box>
+          <Typography
+            variant="caption"
+            component="span"
+            marginTop={2}
+            sx={{ fontSize: `14px` }}
+          >
+            Call
+          </Typography>
 
-      <Box
-        sx={{
-          display: `flex`,
-          flexDirection: `column`,
-          alignItems: `center`,
-          fontSize: `1.2rem`,
-          lineHeight: `1.5`,
-        }}
-        color="primary"
-      >
-        <Typography
-          variant="caption"
-          component="span"
-          marginTop={2}
-          sx={{ fontSize: `14px` }}
+          <Button
+            variant="plain"
+            color="primary"
+            href="tel:015207389443"
+          >
+            0152 073 89 443
+          </Button>
+        </Box>
+
+        <Box
+          sx={{
+            display: `flex`,
+            flexDirection: `column`,
+            alignItems: `center`,
+            fontSize: `1rem`,
+            lineHeight: `1.5`,
+            minWidth: {
+              xs: `100%`,
+              md: `200px`,
+            },
+          }}
+          color="primary"
         >
-          Follow
-        </Typography>
-
-        <Box>
-          <IconButton
-            size="large"
-            color="primary"
-            sx={{
-              padding: `6px`,
-              minWidth: `auto`,
-            }}
-            href="https://www.facebook.com/dorosh.studio"
+          <Typography
+            variant="caption"
+            component="span"
+            marginTop={2}
+            sx={{ fontSize: `14px` }}
           >
-            <FacebookIcon />
-          </IconButton>
+            Email
+          </Typography>
 
-          <IconButton
-            size="large"
+          <Button
+            variant="plain"
             color="primary"
-            href="https://www.instagram.com/dorosh_studio/"
+            href="mailto:moodbeauty.de@gmail.com"
+          >
+            moodbeauty.de@gmail.com
+          </Button>
+        </Box>
+
+        <Box
+          sx={{
+            display: `flex`,
+            flexDirection: `column`,
+            alignItems: `center`,
+            fontSize: `1rem`,
+            lineHeight: `1.5`,
+            minWidth: {
+              xs: `100%`,
+              md: `200px`,
+            },
+          }}
+          color="primary"
+        >
+          <Typography
+            variant="caption"
+            component="span"
+            marginTop={2}
+            sx={{ fontSize: `14px` }}
+          >
+            Adresse
+          </Typography>
+
+          <Button
+            variant="plain"
+            color="primary"
+            href="https://maps.app.goo.gl/7jed5oouJkNUf3xA8"
             sx={{
-              padding: `6px`,
-              minWidth: `auto`,
+              textAlign: `center`,
+              textTransform: `capitalize`,
             }}
           >
-            <InstagramIcon />
-          </IconButton>
+            Theresienstraße 38, <br/> 80333 München
+          </Button>
+        </Box>
+
+        <Box
+          sx={{
+            display: `flex`,
+            flexDirection: `column`,
+            alignItems: `center`,
+            fontSize: `1.2rem`,
+            lineHeight: `1.5`,
+            minWidth: {
+              xs: `100%`,
+              md: `200px`,
+            },
+          }}
+          color="primary"
+        >
+          <Typography
+            variant="caption"
+            component="span"
+            marginTop={2}
+            sx={{ fontSize: `14px` }}
+          >
+            Follow
+          </Typography>
+
+          <Box>
+            <IconButton
+              size="large"
+              color="primary"
+              sx={{
+                padding: `6px`,
+                minWidth: `auto`,
+              }}
+              href="https://www.facebook.com/dorosh.studio"
+            >
+              <FacebookIcon />
+            </IconButton>
+
+            <IconButton
+              size="large"
+              color="primary"
+              href="https://www.instagram.com/dorosh_studio/"
+              sx={{
+                padding: `6px`,
+                minWidth: `auto`,
+              }}
+            >
+              <InstagramIcon />
+            </IconButton>
+          </Box>
         </Box>
       </Box>
     </Box>

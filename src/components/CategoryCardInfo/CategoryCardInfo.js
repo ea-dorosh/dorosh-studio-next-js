@@ -21,13 +21,17 @@ export default function CategoryCard({
         position: `relative`,
         overflow: `hidden`,
         padding: `24px`,
+        width: `100%`,
       }}
     >
       <Box
         sx={{
           position: `relative`,
           width: `100%`,
-          paddingTop: `69%`,
+          paddingTop: {
+            xs: `69%`,
+            md: `60%`,
+          },
           overflow: `hidden`,
         }}
       >
@@ -35,7 +39,7 @@ export default function CategoryCard({
           src={imageSrc}
           alt={imageAlt}
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
           quality={80}
           style={{
             objectFit: `cover`,
@@ -55,7 +59,10 @@ export default function CategoryCard({
 
         <Typography
           aria-label={subtitle}
-          sx={{ marginTop: `8px` }}
+          sx={{
+            marginTop: `8px`,
+            lineHeight: `1.5`,
+          }}
         >
           {subtitle}
         </Typography>
@@ -65,7 +72,11 @@ export default function CategoryCard({
           href={linkHref}
           sx={{
             marginTop: `8px`,
-            width: `200px`,
+            width: {
+              xs: `200px`,
+              md: `220px`,
+              lg: `240px`,
+            },
           }}
           color="info"
           size="medium"

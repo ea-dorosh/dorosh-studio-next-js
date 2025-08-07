@@ -20,7 +20,7 @@ const Breadcrumbs = () => {
       {
         label: `Home`,
         href: `/`,
-        current: false, 
+        current: false,
       },
     ];
 
@@ -93,10 +93,18 @@ const Breadcrumbs = () => {
       backgroundColor: `background.default`,
       borderBottom: 1,
       borderColor: `divider`,
+      maxWidth: `1200px`,
+      margin: `0 auto`,
     }}>
       <MuiBreadcrumbs
         aria-label="breadcrumb"
-        sx={{ '& .MuiBreadcrumbs-separator': { color: `text.secondary` } }}
+        sx={{
+          '& .MuiBreadcrumbs-separator': { color: `text.secondary` },
+          fontSize: {
+            xs: `0.875rem`,
+            md: `1rem`,
+          },
+        }}
       >
         {breadcrumbs.map((breadcrumb, index) => {
           if (breadcrumb.current) {
@@ -104,7 +112,13 @@ const Breadcrumbs = () => {
               <Typography
                 key={index}
                 color="text.primary"
-                sx={{ fontWeight: 500 }}
+                sx={{
+                  fontWeight: 500,
+                  fontSize: {
+                    xs: `0.875rem`,
+                    md: `1rem`,
+                  },
+                }}
               >
                 {breadcrumb.label}
               </Typography>
@@ -121,6 +135,10 @@ const Breadcrumbs = () => {
               sx={{
                 textDecoration: `none`,
                 '&:hover': { textDecoration: `underline` },
+                fontSize: {
+                  xs: `0.875rem`,
+                  md: `1rem`,
+                },
               }}
             >
               {breadcrumb.label}

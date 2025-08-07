@@ -18,23 +18,35 @@ export default function AboutSection() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{ padding: `24px 0` }}
+      sx={{
+        padding: `24px 0`,
+        maxWidth: `1200px`,
+        margin: `0 auto`,
+      }}
     >
-      <Container>
+      <Container sx={{ maxWidth: `100%` }}>
         <Box
           sx={{
             position: `relative`,
-            width: `80%`,
+            width: {
+              xs: `80%`,
+              md: `60%`,
+              lg: `50%`,
+            },
             margin: `0 auto`,
             aspectRatio: `1/1`,
-            maxWidth: `500px`,
+            maxWidth: {
+              xs: `500px`,
+              md: `400px`,
+              lg: `350px`,
+            },
           }}
         >
           <OptimizedImage
             src="/images/promo-image.avif"
             alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
             fill
-            sizes="(max-width: 768px) 80vw, 50vw"
+            sizes="(max-width: 768px) 80vw, (max-width: 1200px) 50vw, 350px"
             quality={85}
             style={{
               objectFit: `cover`,
@@ -47,7 +59,6 @@ export default function AboutSection() {
           variant="h2"
           color="primary"
           sx={{
-            fontSize: `2.2rem`,
             textAlign: `center`,
             marginTop: `24px`,
           }}
@@ -55,161 +66,197 @@ export default function AboutSection() {
           Über MOOD
         </Typography>
 
-        <Typography
-          color="primary"
-          component="p"
-          marginTop={2}
-        >
-          MOOD ist mehr als ein Beautystudio - es ist ein Raum für Stimmung, Pflege und Ästhetik.
-          <br />
-          <br />
-          Wir glauben, dass Schönheit kein Standard ist.
-          Sie ist ein Gefühl, ein Zustand, ein Spiegel deines inneren Rhythmus.
-        </Typography>
+        <Box sx={{
+          maxWidth: {
+            xs: `100%`,
+            md: `800px`,
+            lg: `900px`,
+          },
+          margin: `0 auto`,
+        }}>
+          <Typography
+            color="primary"
+            component="p"
+            marginTop={2}
+            sx={{
+              lineHeight: `1.6`,
+            }}
+          >
+            MOOD ist mehr als ein Beautystudio - es ist ein Raum für Stimmung, Pflege und Ästhetik.
+            <br />
+            <br />
+            Wir glauben, dass Schönheit kein Standard ist.
+            Sie ist ein Gefühl, ein Zustand, ein Spiegel deines inneren Rhythmus.
+          </Typography>
 
-        <Typography
-          color="primary"
-          component="p"
-          marginTop={2}
-        >
-          Im MOOD Beauty Studio schaffen wir ein individuelles Erlebnis für jede Kundin und jeden Kunden:
-        </Typography>
+          <Typography
+            color="primary"
+            component="p"
+            marginTop={2}
+            sx={{
+              lineHeight: `1.6`,
+            }}
+          >
+            Im MOOD Beauty Studio schaffen wir ein individuelles Erlebnis für jede Kundin und jeden Kunden:
+          </Typography>
 
-        <List>
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Permanent Make-up
-            </ListItemText>
-          </ListItem>
+          <List sx={{
+            maxWidth: {
+              xs: `100%`,
+              md: `600px`,
+            },
+            margin: `0 auto`,
+          }}>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Permanent Make-up
+              </ListItemText>
+            </ListItem>
 
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Professionelle Hautpflege
-            </ListItemText>
-          </ListItem>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Professionelle Hautpflege
+              </ListItemText>
+            </ListItem>
 
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Ästhetische Maniküre und Pediküre
-            </ListItemText>
-          </ListItem>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Ästhetische Maniküre und Pediküre
+              </ListItemText>
+            </ListItem>
 
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Augenbrauen- und Wimpernstyling
-            </ListItemText>
-          </ListItem>
-        </List>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Augenbrauen- und Wimpernstyling
+              </ListItemText>
+            </ListItem>
+          </List>
 
-        <Typography
-          color="primary"
-          component="p"
-        >
-          - in einer ruhigen, makellos sauberen und inspirierenden Atmosphäre.
-        </Typography>
+          <Typography
+            color="primary"
+            component="p"
+            sx={{
+              lineHeight: `1.6`,
+            }}
+          >
+            - in einer ruhigen, makellos sauberen und inspirierenden Atmosphäre.
+          </Typography>
 
 
-        <Typography
-          color="primary"
-          component="p"
-          marginTop={2}
-        >
-          Worauf wir besonderen Wert legen:
-        </Typography>
+          <Typography
+            color="primary"
+            component="p"
+            marginTop={2}
+            sx={{
+              lineHeight: `1.6`,
+            }}
+          >
+            Worauf wir besonderen Wert legen:
+          </Typography>
 
-        <List>
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Höchste Hygienestandards
-            </ListItemText>
-          </ListItem>
+          <List sx={{
+            maxWidth: {
+              xs: `100%`,
+              md: `600px`,
+            },
+            margin: `0 auto`,
+          }}>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Höchste Hygienestandards
+              </ListItemText>
+            </ListItem>
 
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Qualitativ hochwertige Produkte
-            </ListItemText>
-          </ListItem>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Qualitativ hochwertige Produkte
+              </ListItemText>
+            </ListItem>
 
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Minimalistisches, durchdachtes Design
-            </ListItemText>
-          </ListItem>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Minimalistisches, durchdachtes Design
+              </ListItemText>
+            </ListItem>
 
-          <ListItem sx={{ padding: 0 }}>
-            <ListItemIcon sx={{
-              minWidth: 0,
-              mr: 1,
-              color: `primary.main`,
-            }}>
-              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-            </ListItemIcon>
-            <ListItemText>
-              Und vor allem: dein Wohlbefinden.
-            </ListItemText>
-          </ListItem>
-        </List>
+            <ListItem sx={{ padding: 0 }}>
+              <ListItemIcon sx={{
+                minWidth: 0,
+                mr: 1,
+                color: `primary.main`,
+              }}>
+                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+              </ListItemIcon>
+              <ListItemText>
+                Und vor allem: dein Wohlbefinden.
+              </ListItemText>
+            </ListItem>
+          </List>
 
-        <Typography
-          color="primary"
-          component="p"
-          marginTop={2}
-        >
-          MOOD folgt keinen Trends.<br />
-          MOOD folgt dir - und dem Gefühl, das du heute leben willst.
-          <br />
-          <br />
-          Willkommen in deiner Stimmung.
-        </Typography>
+          <Typography
+            color="primary"
+            component="p"
+            marginTop={2}
+            sx={{
+              lineHeight: `1.6`,
+            }}
+          >
+            MOOD folgt keinen Trends.<br />
+            MOOD folgt dir - und dem Gefühl, das du heute leben willst.
+            <br />
+            <br />
+            Willkommen in deiner Stimmung.
+          </Typography>
+        </Box>
 
         <Box sx={{
           textAlign: `center`,

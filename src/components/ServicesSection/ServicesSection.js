@@ -9,13 +9,19 @@ export default function ServicesSection() {
     <Box
       bgcolor="background.default"
       component="section"
+      sx={{
+        maxWidth: `1200px`,
+        margin: `0 auto`,
+      }}
     >
-      <Container sx={{ padding: `18px 32px 0 32px` }}>
+      <Container sx={{
+        padding: `18px 32px 0 32px`,
+        maxWidth: `100%`,
+      }}>
         <Typography
           variant="h2"
           color="primary"
           sx={{
-            fontSize: `2.2rem`,
             textAlign: `center`,
             marginTop: `18px`,
             marginBottom: `18px`,
@@ -27,25 +33,63 @@ export default function ServicesSection() {
         <Box
           sx={{
             display: `flex`,
-            flexDirection: `column`,
+            flexDirection: {
+              xs: `column`,
+              lg: `row`,
+            },
             gap: `16px`,
+            justifyContent: `center`,
+            alignItems: `center`,
+            maxWidth: {
+              xs: `100%`,
+              sm: `600px`,
+              md: `800px`,
+              lg: `100%`,
+            },
+            margin: `0 auto`,
           }}
         >
-          <ServicesCard
-            title="Permanent Make-up"
-            subtitle="Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke"
-            linkHref="/services/permanent-make-up"
-            imageSrc="/images/services/permanent-make-up.avif"
-            imageAlt="Frau mit Permanent Make-up"
-          />
+          <Box sx={{
+            display: `flex`,
+            flexDirection: `column`,
+            alignItems: `center`,
+            width: `100%`,
+            maxWidth: {
+              xs: `100%`,
+              sm: `500px`,
+              md: `400px`,
+              lg: `500px`,
+            },
+          }}>
+            <ServicesCard
+              title="Permanent Make-up"
+              subtitle="Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke"
+              linkHref="/services/permanent-make-up"
+              imageSrc="/images/services/permanent-make-up.avif"
+              imageAlt="Frau mit Permanent Make-up"
+            />
+          </Box>
 
-          <ServicesCard
-            title="Nails"
-            subtitle="Manicure & Pedicure"
-            linkHref="/services/nails"
-            imageSrc="/images/services/manikure.avif"
-            imageAlt="Hände mit Manikur"
-          />
+          <Box sx={{
+            display: `flex`,
+            flexDirection: `column`,
+            alignItems: `center`,
+            width: `100%`,
+            maxWidth: {
+              xs: `100%`,
+              sm: `500px`,
+              md: `400px`,
+              lg: `500px`,
+            },
+          }}>
+            <ServicesCard
+              title="Nails"
+              subtitle="Manicure & Pedicure"
+              linkHref="/services/nails"
+              imageSrc="/images/services/manikure.avif"
+              imageAlt="Hände mit Manikur"
+            />
+          </Box>
         </Box>
       </Container>
     </Box>

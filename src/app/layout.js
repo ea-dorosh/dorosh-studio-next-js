@@ -69,56 +69,62 @@ export default function RootLayout({ children }) {
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-            <AppBar position="static" sx={{ backgroundColor: `background.paper` }}>
-              <Toolbar sx={{ justifyContent: `flex-start` }}>
-                <LogoLink />
+            <Box sx={{
+              maxWidth: `1200px`,
+              margin: `0 auto`,
+              width: `100%`,
+            }}>
+              <AppBar position="static" sx={{ backgroundColor: `background.paper` }}>
+                <Toolbar sx={{ justifyContent: `flex-start` }}>
+                  <LogoLink />
 
-                <Box sx={{ marginLeft: `auto` }}>
-                  <Menu links={LINKS} />
+                  <Box sx={{ marginLeft: `auto` }}>
+                    <Menu links={LINKS} />
+                  </Box>
+                </Toolbar>
+              </AppBar>
+
+              <Breadcrumbs />
+
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  backgroundColor: `background.paper`,
+                }}
+              >
+                {children}
+              </Box>
+
+              <Box
+                component="footer"
+                sx={{
+                  py: 3,
+                  px: 2,
+                  mt: `auto`,
+                  textAlign: `center`,
+                  bgcolor: `primary.main`,
+                }}
+              >
+                <Typography variant="body2" color="secondary">
+                  <span suppressHydrationWarning>{new Date().getFullYear()}</span> MOOD BEAUTY - Natalia Dorosh
+                </Typography>
+
+                <Box sx={{
+                  display: `flex`,
+                  gap: 2,
+                  justifyContent: `center`,
+                  mt: 2,
+                  mb: 1,
+                }}>
+                  <Link href="/impressum" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
+                    Impressum
+                  </Link>
+
+                  <Link href="/datenschutz" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
+                    Datenschutz
+                  </Link>
                 </Box>
-              </Toolbar>
-            </AppBar>
-
-            <Breadcrumbs />
-
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                backgroundColor: `background.paper`,
-              }}
-            >
-              {children}
-            </Box>
-
-            <Box
-              component="footer"
-              sx={{
-                py: 3,
-                px: 2,
-                mt: `auto`,
-                textAlign: `center`,
-                bgcolor: `primary.main`,
-              }}
-            >
-              <Typography variant="body2" color="secondary">
-                <span suppressHydrationWarning>{new Date().getFullYear()}</span> MOOD BEAUTY - Natalia Dorosh
-              </Typography>
-
-              <Box sx={{
-                display: `flex`,
-                gap: 2,
-                justifyContent: `center`,
-                mt: 2,
-                mb: 1,
-              }}>
-                <Link href="/impressum" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
-                  Impressum
-                </Link>
-
-                <Link href="/datenschutz" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
-                  Datenschutz
-                </Link>
               </Box>
             </Box>
 

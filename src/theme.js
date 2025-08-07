@@ -32,6 +32,15 @@ const COLORS = {
 };
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: {
     primary: {
       main: COLORS.BLACK,
@@ -55,23 +64,64 @@ const theme = createTheme({
   typography: {
     fontFamily: montserrat.style.fontFamily,
     h1: {
-      fontSize: `3rem`,
+      fontSize: `2.5rem`,
       fontFamily: cormorantGaramond.style.fontFamily,
       fontWeight: `700`,
+      [`@media (min-width:900px)`]: {
+        fontSize: `3rem`,
+      },
+      [`@media (min-width:1200px)`]: {
+        fontSize: `3.5rem`,
+      },
     },
     h2: {
-      fontSize: `2.6rem`,
+      fontSize: `2.2rem`,
       fontFamily: cormorantGaramond.style.fontFamily,
-      '@media (max-width: 392px)': { fontSize: `2.2rem` },
+      [`@media (min-width:900px)`]: {
+        fontSize: `2.8rem`,
+      },
+      [`@media (min-width:1200px)`]: {
+        fontSize: `3.2rem`,
+      },
     },
     h3: {
       fontSize: `20px`,
       fontWeight: `600`,
       fontFamily: cormorantGaramond.style.fontFamily,
+      [`@media (min-width:900px)`]: {
+        fontSize: `24px`,
+      },
+      [`@media (min-width:1200px)`]: {
+        fontSize: `28px`,
+      },
     },
     h4: {
-      fontSize: `1.8rem`,
+      fontSize: `1.4rem`,
       fontFamily: cormorantGaramond.style.fontFamily,
+      [`@media (min-width:900px)`]: {
+        fontSize: `1.6rem`,
+      },
+      [`@media (min-width:1200px)`]: {
+        fontSize: `1.8rem`,
+      },
+    },
+    body1: {
+      fontSize: `1rem`,
+      [`@media (min-width:900px)`]: {
+        fontSize: `1.1rem`,
+      },
+      [`@media (min-width:1200px)`]: {
+        fontSize: `1.2rem`,
+      },
+    },
+    body2: {
+      fontSize: `1rem`,
+      [`@media (min-width:900px)`]: {
+        fontSize: `1.1rem`,
+      },
+      [`@media (min-width:1200px)`]: {
+        fontSize: `1.2rem`,
+      },
     },
     caption: {
       fontSize: `1.2rem`,

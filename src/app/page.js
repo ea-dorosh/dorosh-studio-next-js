@@ -18,24 +18,30 @@ export default function HomePage() {
       <PerformanceMonitor />
       <Box
         component="section"
+        sx={{
+          maxWidth: `1200px`,
+          margin: `0 auto`,
+        }}
       >
         <Box sx={{
           position: `relative`,
           width: `100%`,
           minHeight: {
             xs: `400px`,
-            sm: `500px`,
-            md: `600px`,
           },
           overflow: `hidden`,
           backgroundColor: `#e1dbd6`,
+          borderRadius: {
+            xs: 0,
+            md: `12px`,
+          },
         }}>
           <OptimizedImage
             src="/images/main-top-image.avif"
             alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
             priority
             fill
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1200px, 1200px"
             quality={90}
             style={{
               objectFit: `cover`,
@@ -46,13 +52,22 @@ export default function HomePage() {
           <Container sx={{
             background: `rgb(0 0 0 / 0.3)`,
             position: `relative`,
-            paddingTop: `208px`,
+            paddingTop: {
+              xs: `208px`,
+              md: `250px`,
+              lg: `300px`,
+            },
             paddingBottom: `30px`,
+            maxWidth: `100%`,
           }}>
             <Typography
               variant="h1"
               color="primary.contrastText"
-              fontSize={`3rem`}
+              fontSize={{
+                xs: `3rem`,
+                md: `4rem`,
+                lg: `5rem`,
+              }}
               textAlign={`center`}
               sx={{ lineHeight: `0.6` }}
             >
@@ -60,7 +75,11 @@ export default function HomePage() {
 
               <Typography
                 component="span" sx={{
-                  fontSize: `1.4rem`,
+                  fontSize: {
+                    xs: `1.4rem`,
+                    md: `1.8rem`,
+                    lg: `2.2rem`,
+                  },
                   fontWeight: `400`,
                   fontFamily: `cormorantGaramond`,
                   lineHeight: `0.6`,
@@ -77,7 +96,10 @@ export default function HomePage() {
                 marginTop: `30px`,
                 display: `flex`,
                 justifyContent: `center`,
-                flexDirection: `column`,
+                flexDirection: {
+                  xs: `column`,
+                  md: `row`,
+                },
                 gap: `16px`,
                 alignItems: `center`,
               }}
