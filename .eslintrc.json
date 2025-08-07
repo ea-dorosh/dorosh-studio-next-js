@@ -24,6 +24,7 @@
         "minProperties": 3
       }
     }],
-    "comma-dangle": ["error", "always-multiline"]
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "always"]
   }
 }

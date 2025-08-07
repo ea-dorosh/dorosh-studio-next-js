@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function Logo({style}) {
+export default function Logo({ style }) {
   return (
     <div style={style}>
       <Image

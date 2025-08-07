@@ -45,7 +45,7 @@ export default function CategoryCard({
         />
       </Box>
 
-      <Box sx={{padding: `16px 0px 0px 0px`}}>
+      <Box sx={{ padding: `16px 0px 0px 0px` }}>
         <Typography
           variant="h3"
           aria-label={title}
@@ -55,7 +55,7 @@ export default function CategoryCard({
 
         <Typography
           aria-label={subtitle}
-          sx={{marginTop: `8px`}}
+          sx={{ marginTop: `8px` }}
         >
           {subtitle}
         </Typography>

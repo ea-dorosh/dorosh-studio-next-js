@@ -19,7 +19,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {canonical: `/services/permanent-make-up`},
+  alternates: { canonical: `/services/permanent-make-up` },
   openGraph: {
     title: `Permanent Make-up München - MOOD BEAUTY`,
     description: `Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik.`,
@@ -53,7 +53,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {google: `your-google-verification-code`},
+  verification: { google: `your-google-verification-code` },
 };
 
 export default async function CategoryPage() {
@@ -61,7 +61,7 @@ export default async function CategoryPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{paddingBottom: `32px`}}
+      sx={{ paddingBottom: `32px` }}
     >
       <Container>
         <Typography

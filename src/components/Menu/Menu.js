@@ -24,7 +24,7 @@ export default function Menu({ links }) {
   };
 
   return (
-    <Box sx={{ marginRight: `-4px`}}>
+    <Box sx={{ marginRight: `-4px` }}>
       <IconButton
         onClick={() => setOpen(true)}
         sx={{
@@ -68,8 +68,8 @@ export default function Menu({ links }) {
           </IconButton>
         </Box>
 
-        <List sx={{paddingTop: `170px`}}>
-          {links.filter(({ subLink }) => !subLink).map(({text, href}) => (
+        <List sx={{ paddingTop: `170px` }}>
+          {links.filter(({ subLink }) => !subLink).map(({ text, href }) => (
             <ListItem
               key={href}
               disablePadding
@@ -94,8 +94,8 @@ export default function Menu({ links }) {
           ))}
         </List>
 
-        <List sx={{paddingTop: `100px`}}>
-          {links.filter(({ subLink }) => subLink).map(({text, href}) => (
+        <List sx={{ paddingTop: `100px` }}>
+          {links.filter(({ subLink }) => subLink).map(({ text, href }) => (
             <ListItem key={href} disablePadding onClick={handleClose}>
               <ListItemButton component={Link} href={href}>
                 <ListItemText

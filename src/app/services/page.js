@@ -10,7 +10,7 @@ export default function ServicesPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{paddingBottom: `32px`}}
+      sx={{ paddingBottom: `32px` }}
     >
       <Container>
         <Typography

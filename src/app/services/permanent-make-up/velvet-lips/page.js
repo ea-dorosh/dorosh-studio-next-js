@@ -20,7 +20,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {canonical: `/services/permanent-make-up/velvet-lips`},
+  alternates: { canonical: `/services/permanent-make-up/velvet-lips` },
   openGraph: {
     title: `Velvet Lips München - MOOD BEAUTY`,
     description: `Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen.`,
@@ -54,7 +54,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {google: `your-google-verification-code`},
+  verification: { google: `your-google-verification-code` },
 };
 
 export default function VelvetLipsPage() {
@@ -62,7 +62,7 @@ export default function VelvetLipsPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{paddingBottom: `32px`}}
+      sx={{ paddingBottom: `32px` }}
     >
       <Container>
         <Typography

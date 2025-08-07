@@ -18,7 +18,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {canonical: `/services/nails`},
+  alternates: { canonical: `/services/nails` },
   openGraph: {
     title: `Maniküre und Pediküre München - MOOD BEAUTY`,
     description: `Professionelle Maniküre und Pediküre in München. Höchste Hygienestandards, sanfte Behandlung und hochwertige Produkte.`,
@@ -52,7 +52,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {google: `your-google-verification-code`},
+  verification: { google: `your-google-verification-code` },
 };
 
 export default async function NailsPage() {
@@ -60,7 +60,7 @@ export default async function NailsPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{paddingBottom: `32px`}}
+      sx={{ paddingBottom: `32px` }}
     >
       <Container>
         <Typography

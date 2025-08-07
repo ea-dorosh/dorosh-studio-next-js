@@ -11,7 +11,7 @@ export default function TimeSlotSkeleton({
             variant="text"
             width="100%"
             height={48}
-            sx={{backgroundColor: `rgba(0, 0, 0, 0.06)`}}
+            sx={{ backgroundColor: `rgba(0, 0, 0, 0.06)` }}
             animation="wave"
           />
         </Box>

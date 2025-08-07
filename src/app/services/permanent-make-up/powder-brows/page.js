@@ -20,7 +20,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {canonical: `/services/permanent-make-up/powder-brows`},
+  alternates: { canonical: `/services/permanent-make-up/powder-brows` },
   openGraph: {
     title: `Powder Brows München - MOOD BEAUTY`,
     description: `Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form.`,
@@ -54,7 +54,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {google: `your-google-verification-code`},
+  verification: { google: `your-google-verification-code` },
 };
 
 export default function PowderBrowsPage() {
@@ -62,7 +62,7 @@ export default function PowderBrowsPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{paddingBottom: `32px`}}
+      sx={{ paddingBottom: `32px` }}
     >
       <Container>
         <Typography

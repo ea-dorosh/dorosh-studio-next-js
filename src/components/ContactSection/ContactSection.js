@@ -11,7 +11,7 @@ export default function ContactSection() {
     <Box
       color="primary.main"
       bgcolor="background.default"
-      sx={{padding: `24px`}}
+      sx={{ padding: `24px` }}
     >
       <Typography
         variant="h2"

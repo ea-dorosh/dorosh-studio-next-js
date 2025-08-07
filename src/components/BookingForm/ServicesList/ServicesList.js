@@ -44,7 +44,7 @@ export default function ServicesList({
             <CardContent sx={{
               p: `0`,
 
-              '&:last-child': {p: `0`},
+              '&:last-child': { p: `0` },
             }}>
               <Box>
 

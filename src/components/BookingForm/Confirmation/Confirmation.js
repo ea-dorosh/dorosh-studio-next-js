@@ -13,9 +13,9 @@ import { formattedTime } from "@/utils/formatters";
 
 dayjs.locale(`de`);
 
-export default function Confirmation({appointment}) {
+export default function Confirmation({ appointment }) {
   return (<>
-    <Divider sx={{mb: 2}} />
+    <Divider sx={{ mb: 2 }} />
 
     <Box>
       <Typography
@@ -27,22 +27,7 @@ export default function Confirmation({appointment}) {
       >
         Terminbestätigung
       </Typography>
-      {/* export interface CreateAppointmentServiceResponseSuccessType {
-  date: string;
-  lastName: string;
-  firstName: string;
-  service: {
-    id: number;
-    name: string;
-    timeStart: string;
-    secondService?: {
-      id?: number;
-      name?: string;
-      timeStart?: string;
-    };
-  };
-  company: CompanyResponseData;
-} */}
+
       <Box mt={3}>
         Hallo {appointment.firstName} {appointment.lastName},
       </Box>
@@ -84,12 +69,12 @@ export default function Confirmation({appointment}) {
         {appointment.company.branches[0].name}
         <br />
 
-        <a href={`mailto:${appointment.company.branches[0].email}`} style={{color: `inherit`}}>
+        <a href={`mailto:${appointment.company.branches[0].email}`} style={{ color: `inherit` }}>
           {appointment.company.branches[0].email}
         </a>
         <br />
 
-        <a href={`tel:${appointment.company.branches[0].phone}`} style={{color: `inherit`}}>
+        <a href={`tel:${appointment.company.branches[0].phone}`} style={{ color: `inherit` }}>
           {appointment.company.branches[0].phone}
         </a>
         <br />
@@ -106,7 +91,7 @@ export default function Confirmation({appointment}) {
     <Button
       component={Link}
       href="/"
-      sx={{margin: `10px auto`}}
+      sx={{ margin: `10px auto` }}
       variant="contained"
     >
       Zurück zur Startseite

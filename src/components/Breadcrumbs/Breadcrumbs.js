@@ -96,7 +96,7 @@ const Breadcrumbs = () => {
     }}>
       <MuiBreadcrumbs
         aria-label="breadcrumb"
-        sx={{'& .MuiBreadcrumbs-separator': {color: `text.secondary`}}}
+        sx={{ '& .MuiBreadcrumbs-separator': { color: `text.secondary` } }}
       >
         {breadcrumbs.map((breadcrumb, index) => {
           if (breadcrumb.current) {
@@ -120,7 +120,7 @@ const Breadcrumbs = () => {
               underline="hover"
               sx={{
                 textDecoration: `none`,
-                '&:hover': {textDecoration: `underline`},
+                '&:hover': { textDecoration: `underline` },
               }}
             >
               {breadcrumb.label}

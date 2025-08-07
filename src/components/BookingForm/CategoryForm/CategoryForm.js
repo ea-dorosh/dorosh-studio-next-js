@@ -38,7 +38,7 @@ export default function CategoryForm({
             <CardContent sx={{
               p: `8px`,
 
-              '&:last-child': {p: `8px`},
+              '&:last-child': { p: `8px` },
             }}>
               <Typography
                 variant="h6"

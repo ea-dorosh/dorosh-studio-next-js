@@ -32,7 +32,7 @@ export default function LogoLink() {
       ) : (
         <Link
           href="/"
-          sx={{textDecoration: `none`}}>
+          sx={{ textDecoration: `none` }}>
           <Logo
             style={{
               position: `absolute`,

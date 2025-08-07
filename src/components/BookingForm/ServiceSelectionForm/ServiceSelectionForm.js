@@ -93,7 +93,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
       <CardContent sx={{
         p: 0,
 
-        '&:last-child': {p: 0},
+        '&:last-child': { p: 0 },
       }}>
 
         {hasDeleteButton && (

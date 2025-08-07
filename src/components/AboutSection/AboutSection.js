@@ -1,4 +1,4 @@
-import {FiberManualRecord as FiberManualRecordIcon} from '@mui/icons-material';
+import { FiberManualRecord as FiberManualRecordIcon } from '@mui/icons-material';
 import {
   Box,
   Container,
@@ -18,7 +18,7 @@ export default function AboutSection() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{padding: `24px 0`}}
+      sx={{ padding: `24px 0` }}
     >
       <Container>
         <Box
@@ -76,52 +76,52 @@ export default function AboutSection() {
         </Typography>
 
         <List>
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Permanent Make-up
             </ListItemText>
           </ListItem>
 
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Professionelle Hautpflege
             </ListItemText>
           </ListItem>
 
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Ästhetische Maniküre und Pediküre
             </ListItemText>
           </ListItem>
 
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Augenbrauen- und Wimpernstyling
@@ -146,52 +146,52 @@ export default function AboutSection() {
         </Typography>
 
         <List>
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Höchste Hygienestandards
             </ListItemText>
           </ListItem>
 
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Qualitativ hochwertige Produkte
             </ListItemText>
           </ListItem>
 
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Minimalistisches, durchdachtes Design
             </ListItemText>
           </ListItem>
 
-          <ListItem sx={{padding: 0}}>
+          <ListItem sx={{ padding: 0 }}>
             <ListItemIcon sx={{
               minWidth: 0,
               mr: 1,
               color: `primary.main`,
             }}>
-              <FiberManualRecordIcon sx={{fontSize: `.7rem`}} />
+              <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
             </ListItemIcon>
             <ListItemText>
               Und vor allem: dein Wohlbefinden.

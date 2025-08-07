@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
             <CssBaseline />
 
             <AppBar position="static" sx={{ backgroundColor: `background.paper` }}>
-              <Toolbar sx={{justifyContent: `flex-start`}}>
+              <Toolbar sx={{ justifyContent: `flex-start` }}>
                 <LogoLink />
 
                 <Box sx={{ marginLeft: `auto` }}>

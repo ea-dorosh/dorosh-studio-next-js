@@ -47,7 +47,7 @@ export default function SubCategoryCardInfo({
         />
       </Box>
 
-      <Box sx={{padding: `16px 0px 0px 0px`}}>
+      <Box sx={{ padding: `16px 0px 0px 0px` }}>
         <Typography
           variant="h3"
           aria-label={title}

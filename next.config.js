@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {REACT_APP_API_URL: process.env.REACT_APP_API_URL},
+  env: { REACT_APP_API_URL: process.env.REACT_APP_API_URL },
   reactStrictMode: false,
   images: {
     domains: [`localhost`, `192.168.93.195`],
@@ -13,7 +13,7 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: [`@mui/material`, `@mui/icons-material`],
   },
-  compiler: {removeConsole: process.env.NODE_ENV === `production`},
+  compiler: { removeConsole: process.env.NODE_ENV === `production` },
   poweredByHeader: false,
   compress: true,
 };

@@ -20,7 +20,7 @@ export const metadata = {
     telephone: false,
   },
   metadataBase: new URL(`https://moodbeauty.de`),
-  alternates: {canonical: `/services/permanent-make-up/wimpernkranz`},
+  alternates: { canonical: `/services/permanent-make-up/wimpernkranz` },
   openGraph: {
     title: `Wimpernkranz München - MOOD BEAUTY`,
     description: `Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick.`,
@@ -54,7 +54,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {google: `your-google-verification-code`},
+  verification: { google: `your-google-verification-code` },
 };
 
 export default function WimpernkranzPage() {
@@ -62,7 +62,7 @@ export default function WimpernkranzPage() {
     <Box
       bgcolor="background.paper"
       component="section"
-      sx={{paddingBottom: `32px`}}
+      sx={{ paddingBottom: `32px` }}
     >
       <Container>
         <Typography
