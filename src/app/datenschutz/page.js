@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import {
   Container,
   Typography,
@@ -9,18 +8,18 @@ import {
 } from '@mui/material';
 
 export const metadata = {
-  title: "Datenschutzerklärung - MOOD BEAUTY | Natalia Dorosh",
-  description: "Datenschutzerklärung und Informationen zum Schutz Ihrer Daten bei MOOD BEAUTY München",
+  title: `Datenschutzerklärung - MOOD BEAUTY | Natalia Dorosh`,
+  description: `Datenschutzerklärung und Informationen zum Schutz Ihrer Daten bei MOOD BEAUTY München`,
 };
 
 export default function DatenschutzPage() {
   const listItemStyle = {
-    display: 'list-item',
-    listStyleType: 'disc',
+    display: `list-item`,
+    listStyleType: `disc`,
     marginLeft: 2,
     padding: 0,
     paddingLeft: 2,
-    width: 'calc(100% - 16px)',
+    width: `calc(100% - 16px)`,
   };
 
   const headlineH2Style = {
@@ -46,7 +45,7 @@ export default function DatenschutzPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box sx={{ maxWidth: 800, mx: 'auto' }}>
+      <Box sx={{ maxWidth: 800, mx: `auto` }}>
         <Typography variant="h1" gutterBottom fontSize={28}>
           Datenschutzerklärung
         </Typography>
@@ -130,7 +129,7 @@ export default function DatenschutzPage() {
             Wir nutzen verschiedene Kommunikationskanäle für Kundenanfragen und Terminbuchungen:
           </Typography>
 
-          <Typography variant="h4" sx={{ ...headlineH3Style, fontSize: '16px !important', mt: 2, mb: 1 }}>
+          <Typography variant="h4" sx={{ ...headlineH3Style, fontSize: `16px !important`, mt: 2, mb: 1 }}>
             WhatsApp Business
           </Typography>
           <Typography variant="body2" sx={body2Style}>
@@ -140,7 +139,15 @@ export default function DatenschutzPage() {
             <b>Rechtsgrundlage:</b> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an effizienter Kundenkommunikation)
           </Typography>
 
-          <Typography variant="h4" sx={{ ...headlineH3Style, fontSize: '16px !important', mt: 2, mb: 1 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              ...headlineH3Style,
+              fontSize: `16px !important`,
+              mt: 2,
+              mb: 1,
+            }}
+          >
             Instagram und Facebook
           </Typography>
           <Typography variant="body2" sx={body2Style}>
@@ -330,7 +337,7 @@ export default function DatenschutzPage() {
           </List>
           <Typography variant="body2" sx={body2Style}>
             Zur Ausübung Ihrer Rechte senden Sie bitte eine E-Mail an: <span suppressHydrationWarning>moodbeauty.de@gmail.com</span><br />
-            <b>Löschung von Daten:</b> Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff &quot;Datenlöschung&quot; mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.
+            <b>Löschung von Daten:</b> Wenn Sie die Löschung Ihrer personenbezogenen Daten wünschen, teilen Sie uns dies per E-Mail mit dem Betreff "Datenlöschung" mit. Wir bearbeiten Ihren Antrag innerhalb von 30 Tagen, vorbehaltlich gesetzlicher Aufbewahrungspflichten.
           </Typography>
         </Box>
 

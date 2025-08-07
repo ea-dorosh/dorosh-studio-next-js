@@ -50,13 +50,13 @@ const CalendarForm = forwardRef(function CalendarForm({
         const currentSelection = newServiceEmployees[service?.id] || [];
 
         const needsInit = currentSelection.length === 0;
-        const needsCorrection = service?.employees?.length === 1 && currentSelection.includes('all');
+        const needsCorrection = service?.employees?.length === 1 && currentSelection.includes(`all`);
 
         if (needsInit || needsCorrection) {
           if (service?.employees?.length === 1) {
             newServiceEmployees[service?.id] = [service.employees[0].id.toString()];
           } else {
-            newServiceEmployees[service?.id] = ['all'];
+            newServiceEmployees[service?.id] = [`all`];
           }
           hasChanges = true;
         }
@@ -71,11 +71,11 @@ const CalendarForm = forwardRef(function CalendarForm({
 
   const createServicesPayload = () => {
     const payload = services?.map(service => {
-      const selectedEmployees = serviceEmployees[service?.id] || ['all'];
+      const selectedEmployees = serviceEmployees[service?.id] || [`all`];
 
-      const employeeIds = selectedEmployees.includes('all') || selectedEmployees.length === 0
+      const employeeIds = selectedEmployees.includes(`all`) || selectedEmployees.length === 0
         ? service?.employees?.map(emp => emp.id)
-        : selectedEmployees.filter(id => id !== 'all').map(id => parseInt(id));
+        : selectedEmployees.filter(id => id !== `all`).map(id => parseInt(id));
 
       return {
         serviceId: service.id,
@@ -232,7 +232,7 @@ const CalendarForm = forwardRef(function CalendarForm({
 
   return (
     <Box ref={ref} mt={2}>
-      <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.5rem', fontFamily: `cormorantGaramond`}}>
+      <Typography variant="h5" sx={{ textAlign: `center`, fontSize: `1.5rem`, fontFamily: `cormorantGaramond`}}>
         Datum und Zeit auswählen
       </Typography>
 

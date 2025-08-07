@@ -6,11 +6,11 @@
 export const formattedTime = (parsedTime) => {
   if (!parsedTime) return `Fehler`;
 
-  const timeString = parsedTime.includes(' ')
-    ? parsedTime.split(' ')[1]
+  const timeString = parsedTime.includes(` `)
+    ? parsedTime.split(` `)[1]
     : parsedTime;
 
-  const [hours, minutes] = timeString.split(':');
+  const [hours, minutes] = timeString.split(`:`);
 
   return `${hours}:${minutes}`;
 };
@@ -30,7 +30,7 @@ export const formatTimeToString = (timeStr) => {
   }
 
   if (minutes > 0) {
-    if (formattedTime) formattedTime += ' ';
+    if (formattedTime) formattedTime += ` `;
     formattedTime += `${minutes} Min.`;
   }
 
@@ -47,7 +47,7 @@ export const formatTimeToString = (timeStr) => {
  * @returns {string} - The formatted price in Euro, e.g., '1.000 €'.
  */
 export const formatPrice = (price) => {
-  return new Intl.NumberFormat('de-DE', {
+  return new Intl.NumberFormat(`de-DE`, {
     style: `currency`,
     currency: `EUR`,
     minimumFractionDigits: 0,

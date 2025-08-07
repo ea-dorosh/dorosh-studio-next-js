@@ -7,7 +7,7 @@ import Logo from "@/components/Logo/Logo";
 
 export default function LogoLink() {
   const pathname = usePathname();
-  const isMainPage = pathname === "/";
+  const isMainPage = pathname === `/`;
 
   return (
     <Box
@@ -15,34 +15,34 @@ export default function LogoLink() {
         width: `160px`,
         // maxWidth: "90%",
         height: `70px`,
-        position: "relative"
+        position: `relative`
       }}
     >
       {isMainPage ? (
         <Logo
           style={{
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
+            position: `absolute`,
+            top: `50%`,
+            transform: `translateY(-50%)`,
             zIndex: 1201,
-            width: "160px",
-            height: "47px",
+            width: `160px`,
+            height: `47px`,
           }}
         />
       ) : (
         <Link
           href="/"
           sx={{
-            textDecoration: "none"
+            textDecoration: `none`
           }}>
           <Logo
             style={{
-              position: "absolute",
-              top: "50%",
-              transform: "translateY(-50%)",
+              position: `absolute`,
+              top: `50%`,
+              transform: `translateY(-50%)`,
               zIndex: 1201,
-              width: "160px",
-              height: "47px",
+              width: `160px`,
+              height: `47px`,
             }}
           />
         </Link>

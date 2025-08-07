@@ -52,17 +52,17 @@ const createAdaptiveChips = (selectedEmployees, service) => {
           size="small"
           variant="outlined"
           sx={{
-            height: '23px',
-            fontSize: '0.75rem',
+            height: `23px`,
+            fontSize: `0.75rem`,
             mr: 0.5,
             mb: 0,
-            maxWidth: 'fit-content',
+            maxWidth: `fit-content`,
             '& .MuiChip-label': {
               px: 1,
               py: 0,
-              lineHeight: '23px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis'
+              lineHeight: `23px`,
+              overflow: `hidden`,
+              textOverflow: `ellipsis`
             }
           }}
         />
@@ -74,12 +74,12 @@ const createAdaptiveChips = (selectedEmployees, service) => {
 
   return (
     <Box sx={{
-      display: 'flex',
-      flexWrap: 'nowrap',
+      display: `flex`,
+      flexWrap: `nowrap`,
       gap: 0.5,
-      overflow: 'hidden',
-      alignItems: 'center',
-      minHeight: '23px'
+      overflow: `hidden`,
+      alignItems: `center`,
+      minHeight: `23px`
     }}>
       {chips}
     </Box>
@@ -94,7 +94,7 @@ const getEmployeeLabel = (service, serviceEmployees) => {
     return `${employee.firstName} ${employee.lastName} (${employee.price || 0}€)`;
   }
 
-  if (selectedEmployees.includes('all')) {
+  if (selectedEmployees.includes(`all`)) {
     const prices = service.employees.map(emp => emp.price || 0);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
@@ -106,19 +106,19 @@ const getEmployeeLabel = (service, serviceEmployees) => {
     }
   }
 
-  const realEmployees = selectedEmployees.filter(id => id !== 'all');
+  const realEmployees = selectedEmployees.filter(id => id !== `all`);
 
   if (realEmployees.length === 0) {
-    return 'Mitarbeiter auswählen';
+    return `Mitarbeiter auswählen`;
   }
   if (realEmployees.length === 1) {
     const selectedEmployee = service.employees.find(emp => emp.id.toString() === realEmployees[0].toString());
-    return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName} (${selectedEmployee.price || 0}€)` : 'Mitarbeiter';
+    return selectedEmployee ? `${selectedEmployee.firstName} ${selectedEmployee.lastName} (${selectedEmployee.price || 0}€)` : `Mitarbeiter`;
   }
   if (realEmployees.length > 1) {
     return createAdaptiveChips(realEmployees, service);
   }
-  return 'Mitarbeiter auswählen';
+  return `Mitarbeiter auswählen`;
 };
 
 export default function EmployeeSelector({
@@ -148,14 +148,14 @@ export default function EmployeeSelector({
 
     let finalSelection = [...selectedValues];
 
-    if (newValue === 'all') {
-      finalSelection = ['all'];
-    } else if (removedValue === 'all') {
-      finalSelection = selectedValues.filter(val => val !== 'all');
-    } else if (newValue && newValue !== 'all' && previousValues.includes('all')) {
+    if (newValue === `all`) {
+      finalSelection = [`all`];
+    } else if (removedValue === `all`) {
+      finalSelection = selectedValues.filter(val => val !== `all`);
+    } else if (newValue && newValue !== `all` && previousValues.includes(`all`)) {
       finalSelection = [newValue];
     } else {
-      finalSelection = selectedValues.filter(val => val !== 'all');
+      finalSelection = selectedValues.filter(val => val !== `all`);
     }
 
     const newServiceEmployees = { ...serviceEmployees };
@@ -185,7 +185,7 @@ export default function EmployeeSelector({
                   const currentSelection = serviceEmployees[service.id] || [];
 
                   if (service.employees.length === 1) {
-                    return currentSelection.filter(id => id !== 'all').map(id => id.toString());
+                    return currentSelection.filter(id => id !== `all`).map(id => id.toString());
                   }
 
                   return currentSelection.map(id => id.toString());
@@ -195,25 +195,25 @@ export default function EmployeeSelector({
                 onClose={() => setOpenSelects(prev => ({ ...prev, [service.id]: false }))}
                 renderValue={() => getEmployeeLabel(service, serviceEmployees)}
                 sx={{
-                  minHeight: '43px',
+                  minHeight: `43px`,
                   '& .MuiSelect-select': {
-                    minHeight: '23px !important',
-                    display: 'flex',
-                    alignItems: 'center',
-                    py: '10px'
+                    minHeight: `23px !important`,
+                    display: `flex`,
+                    alignItems: `center`,
+                    py: `10px`
                   }
                 }}
               >
                 {service.employees.length > 1 && (
                   <MenuItem key="all" value="all">
-                    <Checkbox checked={(serviceEmployees[service.id] || []).includes('all')} />
+                    <Checkbox checked={(serviceEmployees[service.id] || []).includes(`all`)} />
                     <ListItemText primary="Alle Mitarbeiter" />
                   </MenuItem>
                 )}
 
                 {service.employees.map((employee) => {
                   const currentSelection = serviceEmployees[service.id] || [];
-                  const isAllSelected = currentSelection.includes('all');
+                  const isAllSelected = currentSelection.includes(`all`);
                   const isIndividuallySelected = currentSelection.includes(employee.id.toString()) || currentSelection.includes(employee.id);
                   const isSingleEmployee = service.employees.length === 1;
 
@@ -229,7 +229,7 @@ export default function EmployeeSelector({
                       )}
                       <ListItemText
                         primary={
-                          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                          <Box sx={{ display: `flex`, justifyContent: `space-between`, width: `100%` }}>
                             <span>{`${employee.firstName} ${employee.lastName}`}</span>
                             <Chip
                               label={`${employee.price || 0}€`}

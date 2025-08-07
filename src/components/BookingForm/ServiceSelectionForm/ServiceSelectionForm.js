@@ -63,12 +63,12 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
   const onCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedSubCategory(null);
-    setExpandedPanel('subCategory');
+    setExpandedPanel(`subCategory`);
   };
 
   const onSubCategorySelect = (subCategory) => {
     setSelectedSubCategory(subCategory);
-    setExpandedPanel('service');
+    setExpandedPanel(`service`);
   };
 
   const onServiceSelectInternal = (service) => {
@@ -115,15 +115,15 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
           </Box>
         )}
         <Accordion
-          expanded={!selectedCategory ? true : expandedPanel === 'category'}
-          onChange={handlePanelChange('category')}
+          expanded={!selectedCategory ? true : expandedPanel === `category`}
+          onChange={handlePanelChange(`category`)}
         >
           <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}
             sx={{
               '& .MuiAccordionSummary-content': {
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                display: `flex`,
+                justifyContent: `space-between`,
+                alignItems: `center`,
               },
             }}>
             <Box sx={{ width: `100%`, pr: 3 }}>
@@ -146,8 +146,8 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         {/* SubCategory Selection - Collapsible */}
         {selectedCategory && (
           <Accordion
-            expanded={!selectedSubCategory ? true : expandedPanel === 'subCategory'}
-            onChange={handlePanelChange('subCategory')}
+            expanded={!selectedSubCategory ? true : expandedPanel === `subCategory`}
+            onChange={handlePanelChange(`subCategory`)}
           >
             <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}>
               <Typography>
@@ -171,26 +171,26 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         {/* Service Selection - Collapsible */}
         {selectedSubCategory && (
           <Accordion
-            expanded={expandedPanel === 'service'}
-            onChange={handlePanelChange('service')}
+            expanded={expandedPanel === `service`}
+            onChange={handlePanelChange(`service`)}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              {!serviceData || expandedPanel === 'service' ?
+              {!serviceData || expandedPanel === `service` ?
                 <Typography>Service wählen</Typography>
                 :
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    display: `flex`,
+                    justifyContent: `space-between`,
+                    alignItems: `center`,
                     gap: 1,
-                    width: '100%',
+                    width: `100%`,
                   }}
                 >
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Box sx={{ display: `flex`, flexDirection: `column`, gap: 1 }}>
                     <Typography>{serviceData.name}</Typography>
 
-                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    <Box sx={{ display: `flex`, gap: 1, flexWrap: `wrap` }}>
                       <Chip
                         label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
                         size="small"

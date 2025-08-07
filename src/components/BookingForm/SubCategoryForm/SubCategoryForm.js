@@ -25,7 +25,7 @@ export default function SubCategoryForm({ subCategories, onSubCategorySelect, se
                 height="140"
                 image={subCategory.subCategoryImage}
                 alt={subCategory.subCategoryName}
-                sx={{ objectFit: 'cover' }}
+                sx={{ objectFit: `cover` }}
               />
             )}
             <CardContent sx={{

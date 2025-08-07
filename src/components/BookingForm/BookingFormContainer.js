@@ -66,7 +66,7 @@ export default function BookingFormContainer({ categories }) {
           if (service?.employees?.length === 1) {
             newServiceEmployees[service.id] = [service.employees[0].id.toString()];
           } else {
-            newServiceEmployees[service.id] = ['all'];
+            newServiceEmployees[service.id] = [`all`];
           }
           hasChanges = true;
         }

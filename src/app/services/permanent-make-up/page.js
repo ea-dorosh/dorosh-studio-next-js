@@ -7,42 +7,42 @@ import CategoryInfo from "@/components/CategoryInfo/CategoryInfo";
 import SubCategoryCardInfo from "@/components/SubCategoryCardInfo/SubCategoryCardInfo";
 
 export const metadata = {
-  title: "Permanent Make-up München - MOOD BEAUTY | Powder Brows, Hairstroke, Velvet Lips",
-  description: "Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik. Jetzt Termin vereinbaren!",
-  keywords: "Permanent Make-up München, Powder Brows München, Hairstroke München, Velvet Lips München, Wimpernkranz München, Augenbrauen München, Lippenpigmentierung München, MOOD BEAUTY, Schönheitsstudio München, Natalia Dorosh",
-  authors: [{ name: "Natalia Dorosh" }],
-  creator: "Natalia Dorosh",
-  publisher: "MOOD BEAUTY",
+  title: `Permanent Make-up München - MOOD BEAUTY | Powder Brows, Hairstroke, Velvet Lips`,
+  description: `Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik. Jetzt Termin vereinbaren!`,
+  keywords: `Permanent Make-up München, Powder Brows München, Hairstroke München, Velvet Lips München, Wimpernkranz München, Augenbrauen München, Lippenpigmentierung München, MOOD BEAUTY, Schönheitsstudio München, Natalia Dorosh`,
+  authors: [{ name: `Natalia Dorosh` }],
+  creator: `Natalia Dorosh`,
+  publisher: `MOOD BEAUTY`,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://moodbeauty.de"),
+  metadataBase: new URL(`https://moodbeauty.de`),
   alternates: {
-    canonical: "/services/permanent-make-up",
+    canonical: `/services/permanent-make-up`,
   },
   openGraph: {
-    title: "Permanent Make-up München - MOOD BEAUTY",
-    description: "Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik.",
-    url: "https://moodbeauty.de/services/permanent-make-up",
-    siteName: "MOOD BEAUTY",
-    locale: "de_DE",
-    type: "website",
+    title: `Permanent Make-up München - MOOD BEAUTY`,
+    description: `Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz. Natürliche Ergebnisse mit modernster Technik.`,
+    url: `https://moodbeauty.de/services/permanent-make-up`,
+    siteName: `MOOD BEAUTY`,
+    locale: `de_DE`,
+    type: `website`,
     images: [
       {
-        url: "/images/services-page/service-brows.jpg",
+        url: `/images/services-page/service-brows.jpg`,
         width: 1200,
         height: 630,
-        alt: "Permanent Make-up Powder Brows München",
+        alt: `Permanent Make-up Powder Brows München`,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Permanent Make-up München - MOOD BEAUTY",
-    description: "Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz.",
-    images: ["/images/services-page/service-brows.jpg"],
+    card: `summary_large_image`,
+    title: `Permanent Make-up München - MOOD BEAUTY`,
+    description: `Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz.`,
+    images: [`/images/services-page/service-brows.jpg`],
   },
   robots: {
     index: true,
@@ -51,12 +51,12 @@ export const metadata = {
       index: true,
       follow: true,
       "max-video-preview": -1,
-      "max-image-preview": "large",
+      "max-image-preview": `large`,
       "max-snippet": -1,
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    google: `your-google-verification-code`,
   },
 };
 
@@ -89,16 +89,16 @@ export default async function CategoryPage() {
           subtitle="Natürliche Schönheit ohne Aufwand"
           description="Permanent Make-up in München ist eine einfache Möglichkeit, Ihre natürliche Schönheit zu unterstreichen und dabei täglich Zeit zu sparen. Im Studio Mood Beauty spezialisieren wir uns auf schonende, natürliche Techniken, die Ihre Gesichtszüge harmonisch betonen und sich nach 1,5 bis 2 Jahren vollständig und rückstandslos aus der Haut abbauen - ohne Flecken oder Farbveränderungen."
           services={[
-            "Permanent Make-up für die Augenbrauen - sanftes Powder Brows und Soft Shading für eine natürlich volle Form",
-            "Permanent Make-up für die Lippen - Aquarelltechnik mit dem Effekt von dezent getönten, \"geküssten Lippen\"",
-            "Permanent Make-up für die Augenlider - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick"
+            `Permanent Make-up für die Augenbrauen - sanftes Powder Brows und Soft Shading für eine natürlich volle Form`,
+            `Permanent Make-up für die Lippen - Aquarelltechnik mit dem Effekt von dezent getönten, "geküssten Lippen"`,
+            `Permanent Make-up für die Augenlider - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick`
           ]}
           advantages={[
-            "Maximale Natürlichkeit - niemand wird merken, dass es Permanent Make-up ist",
-            "Der Farbstoff baut sich vollständig innerhalb von 1,5 bis 2 Jahren ab",
-            "Ideal für alle, die natürliche Ergebnisse bevorzugen",
-            "Keine Farbveränderungen im Laufe der Zeit",
-            "Minimaler Heilungsprozess ohne Schorfbildung oder starke Schwellungen"
+            `Maximale Natürlichkeit - niemand wird merken, dass es Permanent Make-up ist`,
+            `Der Farbstoff baut sich vollständig innerhalb von 1,5 bis 2 Jahren ab`,
+            `Ideal für alle, die natürliche Ergebnisse bevorzugen`,
+            `Keine Farbveränderungen im Laufe der Zeit`,
+            `Minimaler Heilungsprozess ohne Schorfbildung oder starke Schwellungen`
           ]}
           conclusion="Wir arbeiten ausschließlich mit zertifizierten, europäischen Pigmenten und halten höchste Hygienestandards ein. Jede Behandlung beginnt mit einer ausführlichen Beratung, bei der wir gemeinsam die passende Form und Farbe für Ihren Typ auswählen. Erleben Sie, wie es ist, jeden Tag frisch, gepflegt und natürlich schön auszusehen."
         />
@@ -176,7 +176,7 @@ export default async function CategoryPage() {
             Natürliche Lippenfarbe - ganz ohne Schmerzen oder harte Konturen
             <br/>
             <br/>
-            Velvet Lips ist eine sanfte Form des permanenten Lippen-Make-ups, bei der die Lippen wie zart getönt wirken. Kein starker Rand, kein &ldquo;geschminkter&rdquo; Look - nur gepflegte, ebenmäßige Farbe für jeden Tag.
+            Velvet Lips ist eine sanfte Form des permanenten Lippen-Make-ups, bei der die Lippen wie zart getönt wirken. Kein starker Rand, kein "geschminkter" Look - nur gepflegte, ebenmäßige Farbe für jeden Tag.
             <br/>
             <br/>
             Warum Velvet Lips?

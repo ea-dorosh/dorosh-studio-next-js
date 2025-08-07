@@ -10,7 +10,7 @@ export default function TimeSlotSkeleton({ count = 12, showDateText = true, show
             width="100%"
             height={48}
             sx={{
-              backgroundColor: 'rgba(0, 0, 0, 0.06)',
+              backgroundColor: `rgba(0, 0, 0, 0.06)`,
             }}
             animation="wave"
           />
@@ -32,8 +32,8 @@ export default function TimeSlotSkeleton({ count = 12, showDateText = true, show
             variant="rectangular"
             height={40}
             sx={{
-              borderRadius: '9999px',
-              backgroundColor: 'rgba(0, 0, 0, 0.06)',
+              borderRadius: `9999px`,
+              backgroundColor: `rgba(0, 0, 0, 0.06)`,
             }}
             animation="wave"
           />
@@ -41,14 +41,14 @@ export default function TimeSlotSkeleton({ count = 12, showDateText = true, show
       </Box>
 
       {showButton && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+        <Box sx={{ display: `flex`, justifyContent: `center`, mt: 2 }}>
           <Skeleton
             variant="rectangular"
             width={300}
             height={40}
             sx={{
-              borderRadius: '20px',
-              backgroundColor: 'rgba(0, 0, 0, 0.06)',
+              borderRadius: `20px`,
+              backgroundColor: `rgba(0, 0, 0, 0.06)`,
             }}
             animation="wave"
           />

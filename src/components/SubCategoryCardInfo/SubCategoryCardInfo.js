@@ -27,10 +27,10 @@ export default function SubCategoryCardInfo({
     >
       <Box
         sx={{
-          position: 'relative',
-          width: '100%',
-          paddingTop: '67%',
-          overflow: 'hidden',
+          position: `relative`,
+          width: `100%`,
+          paddingTop: `67%`,
+          overflow: `hidden`,
           borderRadius: `16px`,
         }}
       >
@@ -41,8 +41,8 @@ export default function SubCategoryCardInfo({
           sizes="(max-width: 768px) 100vw, 300px"
           quality={80}
           style={{
-            objectFit: 'cover',
-            objectPosition: 'center',
+            objectFit: `cover`,
+            objectPosition: `center`,
           }}
         />
       </Box>

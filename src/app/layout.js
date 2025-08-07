@@ -16,17 +16,17 @@ import Menu from "@/components/Menu/Menu";
 import theme from "@/theme";
 
 export const metadata = {
-  title: "MOOD BEAUTY - Permanent Make-Up München | Natalia Dorosh",
-  description: "Professionelles Permanent Make-Up in München. Powder Brows, Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.",
+  title: `MOOD BEAUTY - Permanent Make-Up München | Natalia Dorosh`,
+  description: `Professionelles Permanent Make-Up in München. Powder Brows, Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.`,
 };
 
 const LINKS = [
-  { text: "Home", href: "/" },
-  { text: "Über uns", href: "/ueber-uns" },
-  { text: "Unsere Services", href: "/services" },
-  { text: "Online Termin", href: "/booking" },
-  { text: "Datenschutz", href: "/datenschutz", subLink: true },
-  { text: "Impressum", href: "/impressum", subLink: true },
+  { text: `Home`, href: `/` },
+  { text: `Über uns`, href: `/ueber-uns` },
+  { text: `Unsere Services`, href: `/services` },
+  { text: `Online Termin`, href: `/booking` },
+  { text: `Datenschutz`, href: `/datenschutz`, subLink: true },
+  { text: `Impressum`, href: `/impressum`, subLink: true },
 ];
 
 export default function RootLayout({ children }) {
@@ -40,19 +40,19 @@ export default function RootLayout({ children }) {
       </head>
       <body
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-          backgroundColor: "background.paper",
+          display: `flex`,
+          flexDirection: `column`,
+          minHeight: `100vh`,
+          backgroundColor: `background.paper`,
         }}
       >
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-            <AppBar position="static" sx={{ backgroundColor: 'background.paper' }}>
+            <AppBar position="static" sx={{ backgroundColor: `background.paper` }}>
               <Toolbar sx={{
-                justifyContent: 'flex-start',
+                justifyContent: `flex-start`,
               }}>
                 <LogoLink />
 
@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
               component="main"
               sx={{
                 flexGrow: 1,
-                backgroundColor: "background.paper",
+                backgroundColor: `background.paper`,
               }}
             >
               {children}
@@ -79,16 +79,22 @@ export default function RootLayout({ children }) {
               sx={{
                 py: 3,
                 px: 2,
-                mt: 'auto',
-                textAlign: 'center',
-                bgcolor: "primary.main",
+                mt: `auto`,
+                textAlign: `center`,
+                bgcolor: `primary.main`,
               }}
             >
               <Typography variant="body2" color="secondary">
                 <span suppressHydrationWarning>{new Date().getFullYear()}</span> MOOD BEAUTY - Natalia Dorosh
               </Typography>
 
-              <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 2, mb: 1 }}>
+              <Box sx={{
+                display: `flex`,
+                gap: 2,
+                justifyContent: `center`,
+                mt: 2,
+                mb: 1,
+              }}>
                 <Link href="/impressum" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
                   Impressum
                 </Link>

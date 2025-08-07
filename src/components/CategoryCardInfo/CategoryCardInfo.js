@@ -25,10 +25,10 @@ export default function CategoryCard({
     >
       <Box
         sx={{
-          position: 'relative',
-          width: '100%',
-          paddingTop: '69%',
-          overflow: 'hidden',
+          position: `relative`,
+          width: `100%`,
+          paddingTop: `69%`,
+          overflow: `hidden`,
         }}
       >
         <OptimizedImage

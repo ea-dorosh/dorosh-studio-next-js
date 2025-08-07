@@ -9,18 +9,18 @@ const Breadcrumbs = () => {
   const pathname = usePathname();
 
   // Skip breadcrumbs for main pages
-  const mainPages = ['/', '/ueber-uns', '/services', '/booking'];
+  const mainPages = [`/`, `/ueber-uns`, `/services`, `/booking`];
   if (mainPages.includes(pathname)) {
     return null;
   }
 
   const generateBreadcrumbs = () => {
-    const segments = pathname.split('/').filter(Boolean);
+    const segments = pathname.split(`/`).filter(Boolean);
     const breadcrumbs = [
-      { label: 'Home', href: '/', current: false }
+      { label: `Home`, href: `/`, current: false }
     ];
 
-    let currentPath = '';
+    let currentPath = ``;
 
     segments.forEach((segment, index) => {
       currentPath += `/${segment}`;
@@ -29,45 +29,45 @@ const Breadcrumbs = () => {
       // Map segment to readable label
       let label = segment;
       switch (segment) {
-      case 'services':
-        label = 'Services';
+      case `services`:
+        label = `Services`;
         break;
-      case 'nails':
-        label = 'Nail Design';
+      case `nails`:
+        label = `Nail Design`;
         break;
-      case 'permanent-make-up':
-        label = 'Permanent Make-Up';
+      case `permanent-make-up`:
+        label = `Permanent Make-Up`;
         break;
-      case 'powder-brows':
-        label = 'Powder Brows';
+      case `powder-brows`:
+        label = `Powder Brows`;
         break;
-      case 'hairstroke':
-        label = 'Hairstroke';
+      case `hairstroke`:
+        label = `Hairstroke`;
         break;
-      case 'velvet-lips':
-        label = 'Velvet Lips';
+      case `velvet-lips`:
+        label = `Velvet Lips`;
         break;
-      case 'wimpernkranz':
-        label = 'Wimpernkranz';
+      case `wimpernkranz`:
+        label = `Wimpernkranz`;
         break;
-      case 'booking':
-        label = 'Termin buchen';
+      case `booking`:
+        label = `Termin buchen`;
         break;
-      case 'ueber-uns':
-        label = 'Über uns';
+      case `ueber-uns`:
+        label = `Über uns`;
         break;
-      case 'impressum':
-        label = 'Impressum';
+      case `impressum`:
+        label = `Impressum`;
         break;
-      case 'datenschutz':
-        label = 'Datenschutz';
+      case `datenschutz`:
+        label = `Datenschutz`;
         break;
       default:
         // Capitalize first letter and replace hyphens with spaces
         label = segment
-          .split('-')
+          .split(`-`)
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ');
+          .join(` `);
       }
 
       breadcrumbs.push({
@@ -86,15 +86,15 @@ const Breadcrumbs = () => {
     <Box sx={{
       py: 2,
       px: 3,
-      backgroundColor: 'background.default',
+      backgroundColor: `background.default`,
       borderBottom: 1,
-      borderColor: 'divider'
+      borderColor: `divider`
     }}>
       <MuiBreadcrumbs
         aria-label="breadcrumb"
         sx={{
           '& .MuiBreadcrumbs-separator': {
-            color: 'text.secondary'
+            color: `text.secondary`
           }
         }}
       >
@@ -119,9 +119,9 @@ const Breadcrumbs = () => {
               color="text.secondary"
               underline="hover"
               sx={{
-                textDecoration: 'none',
+                textDecoration: `none`,
                 '&:hover': {
-                  textDecoration: 'underline'
+                  textDecoration: `underline`
                 }
               }}
             >

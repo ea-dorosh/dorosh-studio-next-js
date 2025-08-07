@@ -181,7 +181,7 @@ export default function AboutSection() {
           Willkommen in deiner Stimmung.
         </Typography>
 
-        <Box sx={{ textAlign: 'center', marginTop: 4 }}>
+        <Box sx={{ textAlign: `center`, marginTop: 4 }}>
           <Button
             component={Link}
             href="/ueber-uns"

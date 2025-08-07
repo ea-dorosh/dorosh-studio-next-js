@@ -5,27 +5,27 @@ import { alpha } from '@mui/material/styles';
 import { Cormorant_Garamond, Montserrat } from 'next/font/google';
 
 export const cormorantGaramond = Cormorant_Garamond({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-  display: 'swap',
+  weight: [`400`, `500`, `600`, `700`],
+  subsets: [`latin`],
+  display: `swap`,
   preload: true,
 });
 
 export const montserrat = Montserrat({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
+  weight: [`400`, `500`, `700`],
+  subsets: [`latin`],
+  display: `swap`,
   preload: true,
 });
 
 const COLORS = {
-  BLACK: '#000000',
-  WHITE: '#ffffff',
-  CHARCOAL: '#1a1a1a',
-  LIGHT_GRAY: '#f8f5f3',
-  GOLD: '#D4AF37',
-  CRIMSON: '#DC143C',
-  GREEN: '#18b518',
+  BLACK: `#000000`,
+  WHITE: `#ffffff`,
+  CHARCOAL: `#1a1a1a`,
+  LIGHT_GRAY: `#f8f5f3`,
+  GOLD: `#D4AF37`,
+  CRIMSON: `#DC143C`,
+  GREEN: `#18b518`,
 };
 
 const theme = createTheme({
@@ -56,24 +56,24 @@ const theme = createTheme({
   typography: {
     fontFamily: montserrat.style.fontFamily,
     h1: {
-      fontSize: '3rem',
+      fontSize: `3rem`,
       fontFamily: cormorantGaramond.style.fontFamily,
       fontWeight: `700`,
     },
     h2: {
-      fontSize: '2.6rem',
+      fontSize: `2.6rem`,
       fontFamily: cormorantGaramond.style.fontFamily,
       '@media (max-width: 392px)': {
-        fontSize: '2.2rem',
+        fontSize: `2.2rem`,
       },
     },
     h3: {
-      fontSize: '20px',
+      fontSize: `20px`,
       fontWeight: `600`,
       fontFamily: cormorantGaramond.style.fontFamily,
     },
     h4: {
-      fontSize: '1.8rem',
+      fontSize: `1.8rem`,
       fontFamily: cormorantGaramond.style.fontFamily,
     },
     caption: {
@@ -99,10 +99,10 @@ const theme = createTheme({
       color: alpha(COLORS.BLACK, 0.5),
     },
     selectLabel: {
-      fontSize: '0.875rem',
+      fontSize: `0.875rem`,
       color: alpha(COLORS.BLACK, 0.7),
       fontFamily: montserrat.style.fontFamily,
-      marginBottom: '4px',
+      marginBottom: `4px`,
     },
   },
   components: {
@@ -112,36 +112,36 @@ const theme = createTheme({
           borderRadius: `9999px`,
           fontFamily: montserrat.style.fontFamily,
           fontWeight: 500,
-          textTransform: 'none',
-          boxShadow: 'none',
-          transition: 'all 0.2s ease-in-out',
+          textTransform: `none`,
+          boxShadow: `none`,
+          transition: `all 0.2s ease-in-out`,
           '&:hover': {
-            boxShadow: 'none',
-            transform: 'translateY(-1px)',
+            boxShadow: `none`,
+            transform: `translateY(-1px)`,
           },
         },
         // Size variants
         sizeSmall: {
-          fontSize: '0.95rem',
-          padding: '6px 18px',
-          minWidth: '80px',
-          height: '36px',
+          fontSize: `0.95rem`,
+          padding: `6px 18px`,
+          minWidth: `80px`,
+          height: `36px`,
         },
         sizeMedium: {
-          fontSize: '1.1rem',
-          padding: '6px 20px',
-          minWidth: '120px',
-          height: '44px',
+          fontSize: `1.1rem`,
+          padding: `6px 20px`,
+          minWidth: `120px`,
+          height: `44px`,
         },
         sizeLarge: {
-          fontSize: '1.3rem',
-          padding: '10px 28px',
-          minWidth: '150px',
-          height: '52px',
+          fontSize: `1.3rem`,
+          padding: `10px 28px`,
+          minWidth: `150px`,
+          height: `52px`,
         },
         // Variants
         contained: {
-          border: '1px solid transparent',
+          border: `1px solid transparent`,
           '&.MuiButton-containedPrimary': {
             backgroundColor: COLORS.BLACK,
             color: COLORS.WHITE,
@@ -160,7 +160,7 @@ const theme = createTheme({
           },
         },
         outlined: {
-          borderWidth: '1px',
+          borderWidth: `1px`,
           '&.MuiButton-outlinedPrimary': {
             borderColor: COLORS.BLACK,
             color: COLORS.BLACK,
@@ -185,13 +185,13 @@ const theme = createTheme({
           fontWeight: `500`,
           backgroundColor: `transparent`,
           padding: 0,
-          minWidth: 'unset',
+          minWidth: `unset`,
           borderRadius: 0,
           fontFamily: cormorantGaramond.style.fontFamily,
           textTransform: `lowercase`,
           '&:hover': {
-            backgroundColor: 'transparent',
-            transform: 'none',
+            backgroundColor: `transparent`,
+            transform: `none`,
           },
         },
       },
@@ -219,7 +219,7 @@ const theme = createTheme({
           backgroundColor: COLORS.LIGHT_GRAY,
 
           '&:before': {
-            display: 'none',
+            display: `none`,
           },
 
           '&:first-of-type': {
@@ -231,7 +231,7 @@ const theme = createTheme({
           },
 
           '&:last-of-type .MuiAccordionSummary-root:not(.Mui-expanded)': {
-            borderBottom: 'none',
+            borderBottom: `none`,
           },
 
           '&.Mui-expanded': {
@@ -264,26 +264,26 @@ const theme = createTheme({
     MuiSelect: {
       styleOverrides: {
         root: {
-          borderRadius: '12px',
-          fontSize: '1rem',
+          borderRadius: `12px`,
+          fontSize: `1rem`,
           backgroundColor: COLORS.LIGHT_GRAY,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: alpha(COLORS.BLACK, 0.2),
-            borderWidth: '1px',
+            borderWidth: `1px`,
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
             borderColor: alpha(COLORS.BLACK, 0.4),
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderColor: COLORS.BLACK,
-            borderWidth: '1px',
+            borderWidth: `1px`,
           },
         },
         select: {
-          padding: '10px 14px',
-          display: 'flex',
-          alignItems: 'center',
-          minHeight: '20px',
+          padding: `10px 14px`,
+          display: `flex`,
+          alignItems: `center`,
+          minHeight: `20px`,
         },
       },
     },
@@ -292,21 +292,21 @@ const theme = createTheme({
         root: {
           '& .MuiOutlinedInput-root': {
             backgroundColor: COLORS.LIGHT_GRAY,
-            borderRadius: '12px',
-            fontSize: '1rem',
+            borderRadius: `12px`,
+            fontSize: `1rem`,
             '& .MuiOutlinedInput-notchedOutline': {
               borderColor: alpha(COLORS.BLACK, 0.2),
-              borderWidth: '1px',
+              borderWidth: `1px`,
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
               borderColor: alpha(COLORS.BLACK, 0.4),
             },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
               borderColor: COLORS.BLACK,
-              borderWidth: '1px',
+              borderWidth: `1px`,
             },
             '& .MuiOutlinedInput-input': {
-              padding: '10px 14px',
+              padding: `10px 14px`,
             },
           },
         },
@@ -316,36 +316,36 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '&.MuiInputBase-root': {
-            borderRadius: '12px',
+            borderRadius: `12px`,
             backgroundColor: COLORS.LIGHT_GRAY,
           },
         },
         notchedOutline: {
           borderColor: alpha(COLORS.BLACK, 0.2),
-          borderWidth: '1px',
+          borderWidth: `1px`,
         },
         input: {
-          padding: '10px 14px',
+          padding: `10px 14px`,
         },
       },
     },
     MuiMenu: {
       styleOverrides: {
         paper: {
-          borderRadius: '12px',
-          marginTop: '4px',
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+          borderRadius: `12px`,
+          marginTop: `4px`,
+          boxShadow: `0px 4px 20px rgba(0, 0, 0, 0.1)`,
         },
       },
     },
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          padding: '4px 16px',
-          fontSize: '0.95rem',
-          minHeight: '32px',
-          display: 'flex',
-          alignItems: 'center',
+          padding: `4px 16px`,
+          fontSize: `0.95rem`,
+          minHeight: `32px`,
+          display: `flex`,
+          alignItems: `center`,
           '&:hover': {
             backgroundColor: alpha(COLORS.BLACK, 0.04),
           },
@@ -361,9 +361,9 @@ const theme = createTheme({
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          padding: '4px',
+          padding: `4px`,
           '& .MuiSvgIcon-root': {
-            fontSize: '1.2rem',
+            fontSize: `1.2rem`,
           },
         },
       },
@@ -384,10 +384,10 @@ const theme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          fontSize: '0.875rem',
+          fontSize: `0.875rem`,
           color: alpha(COLORS.BLACK, 0.7),
           fontFamily: montserrat.style.fontFamily,
-          fontWeight: '500',
+          fontWeight: `500`,
           '&.Mui-focused': {
             color: alpha(COLORS.BLACK, 0.7),
           },
@@ -398,7 +398,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiInputLabel-root': {
-            display: 'none',
+            display: `none`,
           },
         },
       },

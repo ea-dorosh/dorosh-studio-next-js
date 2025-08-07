@@ -17,8 +17,8 @@ export default function CategoryInfo({
   services,
   advantages,
   conclusion,
-  ctaText = "Jetzt Termin vereinbaren",
-  ctaHref = "/booking"
+  ctaText = `Jetzt Termin vereinbaren`,
+  ctaHref = `/booking`
 }) {
   return (
     <Box

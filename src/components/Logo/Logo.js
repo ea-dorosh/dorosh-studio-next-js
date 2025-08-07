@@ -8,7 +8,7 @@ export default function Logo({style}) {
         alt="Logo"
         fill
         sizes="160px"
-        style={{ objectFit: 'contain' }}
+        style={{ objectFit: `contain` }}
       />
     </div>
   );

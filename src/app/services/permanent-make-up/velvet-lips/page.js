@@ -8,42 +8,42 @@ import Link from "next/link";
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export const metadata = {
-  title: "Velvet Lips München - MOOD BEAUTY | Zarte Farbe und natürlich wirkende Lippen",
-  description: "Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen. Jetzt Termin vereinbaren!",
-  keywords: "Velvet Lips München, Lippenpigmentierung München, Permanent Make-up Lippen München, Nude Lips München, MOOD BEAUTY, Natalia Dorosh",
-  authors: [{ name: "Natalia Dorosh" }],
-  creator: "Natalia Dorosh",
-  publisher: "MOOD BEAUTY",
+  title: `Velvet Lips München - MOOD BEAUTY | Zarte Farbe und natürlich wirkende Lippen`,
+  description: `Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen. Jetzt Termin vereinbaren!`,
+  keywords: `Velvet Lips München, Lippenpigmentierung München, Permanent Make-up Lippen München, Nude Lips München, MOOD BEAUTY, Natalia Dorosh`,
+  authors: [{ name: `Natalia Dorosh` }],
+  creator: `Natalia Dorosh`,
+  publisher: `MOOD BEAUTY`,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://moodbeauty.de"),
+  metadataBase: new URL(`https://moodbeauty.de`),
   alternates: {
-    canonical: "/services/permanent-make-up/velvet-lips",
+    canonical: `/services/permanent-make-up/velvet-lips`,
   },
   openGraph: {
-    title: "Velvet Lips München - MOOD BEAUTY",
-    description: "Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen.",
-    url: "https://moodbeauty.de/services/permanent-make-up/velvet-lips",
-    siteName: "MOOD BEAUTY",
-    locale: "de_DE",
-    type: "website",
+    title: `Velvet Lips München - MOOD BEAUTY`,
+    description: `Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen.`,
+    url: `https://moodbeauty.de/services/permanent-make-up/velvet-lips`,
+    siteName: `MOOD BEAUTY`,
+    locale: `de_DE`,
+    type: `website`,
     images: [
       {
-        url: "/images/services-page/service-lips.webp",
+        url: `/images/services-page/service-lips.webp`,
         width: 1200,
         height: 630,
-        alt: "Velvet Lips München",
+        alt: `Velvet Lips München`,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Velvet Lips München - MOOD BEAUTY",
-    description: "Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen.",
-    images: ["/images/services-page/service-lips.webp"],
+    card: `summary_large_image`,
+    title: `Velvet Lips München - MOOD BEAUTY`,
+    description: `Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen.`,
+    images: [`/images/services-page/service-lips.webp`],
   },
   robots: {
     index: true,
@@ -52,12 +52,12 @@ export const metadata = {
       index: true,
       follow: true,
       "max-video-preview": -1,
-      "max-image-preview": "large",
+      "max-image-preview": `large`,
       "max-snippet": -1,
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    google: `your-google-verification-code`,
   },
 };
 
@@ -101,12 +101,12 @@ export default function VelvetLipsPage() {
 
         <Box
           sx={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '600px',
-            margin: '0 auto 32px auto',
-            paddingTop: '67%',
-            overflow: 'hidden',
+            position: `relative`,
+            width: `100%`,
+            maxWidth: `600px`,
+            margin: `0 auto 32px auto`,
+            paddingTop: `67%`,
+            overflow: `hidden`,
             borderRadius: `16px`,
           }}
         >
@@ -117,8 +117,8 @@ export default function VelvetLipsPage() {
             sizes="(max-width: 768px) 100vw, 600px"
             quality={80}
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: `cover`,
+              objectPosition: `center`,
             }}
           />
         </Box>

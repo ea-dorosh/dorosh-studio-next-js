@@ -8,42 +8,42 @@ import Link from "next/link";
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export const metadata = {
-  title: "Powder Brows München - MOOD BEAUTY | Natürlicher Look und gepflegte Form",
-  description: "Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form. Jetzt Termin vereinbaren!",
-  keywords: "Powder Brows München, Permanent Make-up Augenbrauen München, Pudertechnik München, Ombre Brows München, MOOD BEAUTY, Natalia Dorosh",
-  authors: [{ name: "Natalia Dorosh" }],
-  creator: "Natalia Dorosh",
-  publisher: "MOOD BEAUTY",
+  title: `Powder Brows München - MOOD BEAUTY | Natürlicher Look und gepflegte Form`,
+  description: `Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form. Jetzt Termin vereinbaren!`,
+  keywords: `Powder Brows München, Permanent Make-up Augenbrauen München, Pudertechnik München, Ombre Brows München, MOOD BEAUTY, Natalia Dorosh`,
+  authors: [{ name: `Natalia Dorosh` }],
+  creator: `Natalia Dorosh`,
+  publisher: `MOOD BEAUTY`,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://moodbeauty.de"),
+  metadataBase: new URL(`https://moodbeauty.de`),
   alternates: {
-    canonical: "/services/permanent-make-up/powder-brows",
+    canonical: `/services/permanent-make-up/powder-brows`,
   },
   openGraph: {
-    title: "Powder Brows München - MOOD BEAUTY",
-    description: "Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form.",
-    url: "https://moodbeauty.de/services/permanent-make-up/powder-brows",
-    siteName: "MOOD BEAUTY",
-    locale: "de_DE",
-    type: "website",
+    title: `Powder Brows München - MOOD BEAUTY`,
+    description: `Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form.`,
+    url: `https://moodbeauty.de/services/permanent-make-up/powder-brows`,
+    siteName: `MOOD BEAUTY`,
+    locale: `de_DE`,
+    type: `website`,
     images: [
       {
-        url: "/images/services-page/service-brows.jpg",
+        url: `/images/services-page/service-brows.jpg`,
         width: 1200,
         height: 630,
-        alt: "Powder Brows München",
+        alt: `Powder Brows München`,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Powder Brows München - MOOD BEAUTY",
-    description: "Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form.",
-    images: ["/images/services-page/service-brows.jpg"],
+    card: `summary_large_image`,
+    title: `Powder Brows München - MOOD BEAUTY`,
+    description: `Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form.`,
+    images: [`/images/services-page/service-brows.jpg`],
   },
   robots: {
     index: true,
@@ -52,12 +52,12 @@ export const metadata = {
       index: true,
       follow: true,
       "max-video-preview": -1,
-      "max-image-preview": "large",
+      "max-image-preview": `large`,
       "max-snippet": -1,
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    google: `your-google-verification-code`,
   },
 };
 
@@ -101,12 +101,12 @@ export default function PowderBrowsPage() {
 
         <Box
           sx={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '600px',
-            margin: '0 auto 32px auto',
-            paddingTop: '67%',
-            overflow: 'hidden',
+            position: `relative`,
+            width: `100%`,
+            maxWidth: `600px`,
+            margin: `0 auto 32px auto`,
+            paddingTop: `67%`,
+            overflow: `hidden`,
             borderRadius: `16px`,
           }}
         >
@@ -117,8 +117,8 @@ export default function PowderBrowsPage() {
             sizes="(max-width: 768px) 100vw, 600px"
             quality={80}
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: `cover`,
+              objectPosition: `center`,
             }}
           />
         </Box>

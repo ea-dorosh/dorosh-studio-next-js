@@ -23,9 +23,9 @@ export default function HomePage() {
           position: `relative`,
           width: `100%`,
           minHeight: {
-            xs: '400px',
-            sm: '500px',
-            md: '600px',
+            xs: `400px`,
+            sm: `500px`,
+            md: `600px`,
           },
           overflow: `hidden`,
           backgroundColor: `#e1dbd6`,

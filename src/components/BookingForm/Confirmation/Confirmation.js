@@ -11,7 +11,7 @@ import 'dayjs/locale/de';
 import Link from "next/link";
 import { formattedTime } from "@/utils/formatters";
 
-dayjs.locale('de');
+dayjs.locale(`de`);
 
 export default function Confirmation({
   appointment,
@@ -69,7 +69,7 @@ export default function Confirmation({
       </Box>)}
 
       <Box mt={2}>
-        Datum: <b>{dayjs(appointment.date).format('D. MMMM YYYY')}</b>
+        Datum: <b>{dayjs(appointment.date).format(`D. MMMM YYYY`)}</b>
       </Box>
 
       <Box mt={2}>

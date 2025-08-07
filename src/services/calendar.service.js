@@ -2,9 +2,9 @@ const fetchTimeSlots = async (date, servicesWithEmployees) => {
   const apiUrl = `${process.env.REACT_APP_API_URL}api/public/calendar?date=${date.format(`YYYY-MM-DD`)}`;
 
   const response = await fetch(apiUrl, {
-    method: "POST",
+    method: `POST`,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": `application/json`,
     },
     body: JSON.stringify(servicesWithEmployees),
   });

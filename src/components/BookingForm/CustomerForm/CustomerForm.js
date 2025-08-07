@@ -41,7 +41,7 @@ const CustomerForm = forwardRef(function CustomerForm({
   };
 
   return (<Box ref={ref} mt={3} mb={3}>
-    <Typography variant="h5" sx={{ textAlign: 'center', fontSize: '1.5rem', fontFamily: `cormorantGaramond`}}>
+    <Typography variant="h5" sx={{ textAlign: `center`, fontSize: `1.5rem`, fontFamily: `cormorantGaramond`}}>
       Kundendetails
     </Typography>
 

@@ -8,42 +8,42 @@ import Link from "next/link";
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export const metadata = {
-  title: "Hairstroke München - MOOD BEAUTY | Maschinelle Härchenzeichnung für natürlich wirkende Augenbrauen",
-  description: "Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei. Jetzt Termin vereinbaren!",
-  keywords: "Hairstroke München, Permanent Make-up Augenbrauen München, Maschinelle Technik München, Natürliche Augenbrauen München, MOOD BEAUTY, Natalia Dorosh",
-  authors: [{ name: "Natalia Dorosh" }],
-  creator: "Natalia Dorosh",
-  publisher: "MOOD BEAUTY",
+  title: `Hairstroke München - MOOD BEAUTY | Maschinelle Härchenzeichnung für natürlich wirkende Augenbrauen`,
+  description: `Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei. Jetzt Termin vereinbaren!`,
+  keywords: `Hairstroke München, Permanent Make-up Augenbrauen München, Maschinelle Technik München, Natürliche Augenbrauen München, MOOD BEAUTY, Natalia Dorosh`,
+  authors: [{ name: `Natalia Dorosh` }],
+  creator: `Natalia Dorosh`,
+  publisher: `MOOD BEAUTY`,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://moodbeauty.de"),
+  metadataBase: new URL(`https://moodbeauty.de`),
   alternates: {
-    canonical: "/services/permanent-make-up/hairstroke",
+    canonical: `/services/permanent-make-up/hairstroke`,
   },
   openGraph: {
-    title: "Hairstroke München - MOOD BEAUTY",
-    description: "Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei.",
-    url: "https://moodbeauty.de/services/permanent-make-up/hairstroke",
-    siteName: "MOOD BEAUTY",
-    locale: "de_DE",
-    type: "website",
+    title: `Hairstroke München - MOOD BEAUTY`,
+    description: `Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei.`,
+    url: `https://moodbeauty.de/services/permanent-make-up/hairstroke`,
+    siteName: `MOOD BEAUTY`,
+    locale: `de_DE`,
+    type: `website`,
     images: [
       {
-        url: "/images/services-page/service-hairstroke.webp",
+        url: `/images/services-page/service-hairstroke.webp`,
         width: 1200,
         height: 630,
-        alt: "Hairstroke München",
+        alt: `Hairstroke München`,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Hairstroke München - MOOD BEAUTY",
-    description: "Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei.",
-    images: ["/images/services-page/service-hairstroke.webp"],
+    card: `summary_large_image`,
+    title: `Hairstroke München - MOOD BEAUTY`,
+    description: `Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei.`,
+    images: [`/images/services-page/service-hairstroke.webp`],
   },
   robots: {
     index: true,
@@ -52,12 +52,12 @@ export const metadata = {
       index: true,
       follow: true,
       "max-video-preview": -1,
-      "max-image-preview": "large",
+      "max-image-preview": `large`,
       "max-snippet": -1,
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    google: `your-google-verification-code`,
   },
 };
 
@@ -101,12 +101,12 @@ export default function HairstrokePage() {
 
         <Box
           sx={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '600px',
-            margin: '0 auto 32px auto',
-            paddingTop: '67%',
-            overflow: 'hidden',
+            position: `relative`,
+            width: `100%`,
+            maxWidth: `600px`,
+            margin: `0 auto 32px auto`,
+            paddingTop: `67%`,
+            overflow: `hidden`,
             borderRadius: `16px`,
           }}
         >
@@ -117,8 +117,8 @@ export default function HairstrokePage() {
             sizes="(max-width: 768px) 100vw, 600px"
             quality={80}
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: `cover`,
+              objectPosition: `center`,
             }}
           />
         </Box>

@@ -8,6 +8,11 @@
         "order": "asc",
         "caseInsensitive": true
       }
+    }],
+    "react/no-unescaped-entities": "off",
+    "quotes": ["error", "backtick", {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
     }]
   }
 }

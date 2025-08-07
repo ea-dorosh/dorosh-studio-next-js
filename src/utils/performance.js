@@ -1,25 +1,25 @@
 export const measurePerformance = () => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === `undefined`) return;
 
-  window.addEventListener('load', () => {
-    const navigationEntry = performance.getEntriesByType('navigation')[0];
+  window.addEventListener(`load`, () => {
+    const navigationEntry = performance.getEntriesByType(`navigation`)[0];
 
     if (navigationEntry) {
       const loadTime = navigationEntry.loadEventEnd - navigationEntry.fetchStart;
       const domContentLoaded = navigationEntry.domContentLoadedEventEnd - navigationEntry.fetchStart;
 
-      console.group('🚀 Performance Metrics');
+      console.group(`🚀 Performance Metrics`);
       console.log(`Page Load Time: ${Math.round(loadTime)}ms`);
       console.log(`DOM Content Loaded: ${Math.round(domContentLoaded)}ms`);
       console.groupEnd();
     }
 
-    const paintEntries = performance.getEntriesByType('paint');
-    const firstPaint = paintEntries.find(entry => entry.name === 'first-paint');
-    const firstContentfulPaint = paintEntries.find(entry => entry.name === 'first-contentful-paint');
+    const paintEntries = performance.getEntriesByType(`paint`);
+    const firstPaint = paintEntries.find(entry => entry.name === `first-paint`);
+    const firstContentfulPaint = paintEntries.find(entry => entry.name === `first-contentful-paint`);
 
     if (firstPaint || firstContentfulPaint) {
-      console.group('🎨 Paint Metrics');
+      console.group(`🎨 Paint Metrics`);
       if (firstPaint) console.log(`First Paint: ${Math.round(firstPaint.startTime)}ms`);
       if (firstContentfulPaint) console.log(`First Contentful Paint: ${Math.round(firstContentfulPaint.startTime)}ms`);
       console.groupEnd();
@@ -27,13 +27,13 @@ export const measurePerformance = () => {
   });
 
   // LCP Observer
-  if ('PerformanceObserver' in window) {
+  if (`PerformanceObserver` in window) {
     const lcpObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
       const lastEntry = entries[entries.length - 1];
       console.log(`🎯 Largest Contentful Paint: ${Math.round(lastEntry.startTime)}ms`);
     });
-    lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+    lcpObserver.observe({ entryTypes: [`largest-contentful-paint`] });
 
     // CLS Observer
     const clsObserver = new PerformanceObserver((list) => {
@@ -50,7 +50,7 @@ export const measurePerformance = () => {
         console.log(`📏 Cumulative Layout Shift: ${clsValue.toFixed(4)}`);
       }
     });
-    clsObserver.observe({ entryTypes: ['layout-shift'] });
+    clsObserver.observe({ entryTypes: [`layout-shift`] });
 
     const inpObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
@@ -67,24 +67,24 @@ export const measurePerformance = () => {
     });
 
     try {
-      inpObserver.observe({ entryTypes: ['event'] });
+      inpObserver.observe({ entryTypes: [`event`] });
     } catch (err) {
-      console.log('Event timing not supported in this browser');
+      console.log(`Event timing not supported in this browser`);
     }
   }
 };
 
 export const measureResourceTiming = () => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === `undefined`) return;
 
-  window.addEventListener('load', () => {
-    const resources = performance.getEntriesByType('resource');
+  window.addEventListener(`load`, () => {
+    const resources = performance.getEntriesByType(`resource`);
     const slowResources = resources
       .filter(resource => resource.duration > 1000)
       .sort((a, b) => b.duration - a.duration);
 
     if (slowResources.length > 0) {
-      console.group('⚠️ Slow Resources (>1s)');
+      console.group(`⚠️ Slow Resources (>1s)`);
       slowResources.forEach(resource => {
         console.log(`${resource.name}: ${Math.round(resource.duration)}ms`);
       });
@@ -94,11 +94,11 @@ export const measureResourceTiming = () => {
 };
 
 export const reportBundle = () => {
-  if (typeof window === 'undefined' || process.env.NODE_ENV !== 'development') return;
+  if (typeof window === `undefined` || process.env.NODE_ENV !== `development`) return;
 
-  const scripts = Array.from(document.querySelectorAll('script[src]'));
+  const scripts = Array.from(document.querySelectorAll(`script[src]`));
   const totalSize = scripts.reduce((total, script) => {
-    const size = script.getAttribute('data-size') || 0;
+    const size = script.getAttribute(`data-size`) || 0;
     return total + parseInt(size, 10);
   }, 0);
 

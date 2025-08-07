@@ -8,42 +8,42 @@ import Link from "next/link";
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export const metadata = {
-  title: "Wimpernkranz München - MOOD BEAUTY | Permanent Make-up für Augenlider",
-  description: "Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick. Jetzt Termin vereinbaren!",
-  keywords: "Wimpernkranz München, Permanent Make-up Augenlider München, Augenpigmentierung München, MOOD BEAUTY, Natalia Dorosh",
-  authors: [{ name: "Natalia Dorosh" }],
-  creator: "Natalia Dorosh",
-  publisher: "MOOD BEAUTY",
+  title: `Wimpernkranz München - MOOD BEAUTY | Permanent Make-up für Augenlider`,
+  description: `Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick. Jetzt Termin vereinbaren!`,
+  keywords: `Wimpernkranz München, Permanent Make-up Augenlider München, Augenpigmentierung München, MOOD BEAUTY, Natalia Dorosh`,
+  authors: [{ name: `Natalia Dorosh` }],
+  creator: `Natalia Dorosh`,
+  publisher: `MOOD BEAUTY`,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://moodbeauty.de"),
+  metadataBase: new URL(`https://moodbeauty.de`),
   alternates: {
-    canonical: "/services/permanent-make-up/wimpernkranz",
+    canonical: `/services/permanent-make-up/wimpernkranz`,
   },
   openGraph: {
-    title: "Wimpernkranz München - MOOD BEAUTY",
-    description: "Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick.",
-    url: "https://moodbeauty.de/services/permanent-make-up/wimpernkranz",
-    siteName: "MOOD BEAUTY",
-    locale: "de_DE",
-    type: "website",
+    title: `Wimpernkranz München - MOOD BEAUTY`,
+    description: `Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick.`,
+    url: `https://moodbeauty.de/services/permanent-make-up/wimpernkranz`,
+    siteName: `MOOD BEAUTY`,
+    locale: `de_DE`,
+    type: `website`,
     images: [
       {
-        url: "/images/services-page/service-wimpernkranz.webp",
+        url: `/images/services-page/service-wimpernkranz.webp`,
         width: 1200,
         height: 630,
-        alt: "Wimpernkranz München",
+        alt: `Wimpernkranz München`,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Wimpernkranz München - MOOD BEAUTY",
-    description: "Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick.",
-    images: ["/images/services-page/service-wimpernkranz.webp"],
+    card: `summary_large_image`,
+    title: `Wimpernkranz München - MOOD BEAUTY`,
+    description: `Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick.`,
+    images: [`/images/services-page/service-wimpernkranz.webp`],
   },
   robots: {
     index: true,
@@ -52,12 +52,12 @@ export const metadata = {
       index: true,
       follow: true,
       "max-video-preview": -1,
-      "max-image-preview": "large",
+      "max-image-preview": `large`,
       "max-snippet": -1,
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    google: `your-google-verification-code`,
   },
 };
 
@@ -102,12 +102,12 @@ export default function WimpernkranzPage() {
         {/* Изображение */}
         <Box
           sx={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '600px',
-            margin: '0 auto 32px auto',
-            paddingTop: '67%',
-            overflow: 'hidden',
+            position: `relative`,
+            width: `100%`,
+            maxWidth: `600px`,
+            margin: `0 auto 32px auto`,
+            paddingTop: `67%`,
+            overflow: `hidden`,
             borderRadius: `16px`,
           }}
         >
@@ -118,8 +118,8 @@ export default function WimpernkranzPage() {
             sizes="(max-width: 768px) 100vw, 600px"
             quality={80}
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: `cover`,
+              objectPosition: `center`,
             }}
           />
         </Box>

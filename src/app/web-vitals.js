@@ -3,11 +3,11 @@
 import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals';
 
 function sendToAnalytics(metric) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', metric.name, {
-      event_category: 'Web Vitals',
+  if (typeof window !== `undefined` && window.gtag) {
+    window.gtag(`event`, metric.name, {
+      event_category: `Web Vitals`,
       event_label: metric.id,
-      value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+      value: Math.round(metric.name === `CLS` ? metric.value * 1000 : metric.value),
       non_interaction: true,
     });
   }
@@ -23,6 +23,6 @@ export function reportWebVitals() {
     onLCP(sendToAnalytics);
     onTTFB(sendToAnalytics);
   } catch (err) {
-    console.error('Web Vitals error:', err);
+    console.error(`Web Vitals error:`, err);
   }
 }

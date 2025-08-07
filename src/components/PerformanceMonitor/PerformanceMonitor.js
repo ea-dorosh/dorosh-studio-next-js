@@ -6,7 +6,7 @@ import { measurePerformance, measureResourceTiming } from '@/utils/performance';
 
 export default function PerformanceMonitor() {
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== `undefined`) {
       reportWebVitals();
       measurePerformance();
       measureResourceTiming();

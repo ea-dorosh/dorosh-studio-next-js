@@ -2,23 +2,29 @@ import { Container, Typography, Box } from '@mui/material';
 import React from 'react';
 
 export const metadata = {
-  title: "Impressum - MOOD BEAUTY | Natalia Dorosh",
-  description: "Impressum und rechtliche Informationen zu MOOD BEAUTY München",
+  title: `Impressum - MOOD BEAUTY | Natalia Dorosh`,
+  description: `Impressum und rechtliche Informationen zu MOOD BEAUTY München`,
 };
 
-export const dynamic = 'force-dynamic';
+export const dynamic = `force-dynamic`;
 
 export default function ImpressumPage() {
 
   const containerStyle = { py: 4 };
-  const innerBoxStyle = { maxWidth: 800, mx: 'auto' };
-  const titleStyle = { fontSize: 28, mb: 2 };
+  const innerBoxStyle = {
+    maxWidth: 800,
+    mx: `auto`,
+  };
+  const titleStyle = {
+    fontSize: 28,
+    mb: 2,
+  };
   const sectionHeadingStyle = {
     mt: 4,
     mb: 2,
-    fontSize: '20px !important',
-    fontWeight: 'bold',
-    fontFamily: '"Montserrat", sans-serif',
+    fontSize: `20px !important`,
+    fontWeight: `bold`,
+    fontFamily: `"Montserrat", sans-serif`,
   };
   const bodyTextStyle = { mb: 2, fontSize: 16 };
 
