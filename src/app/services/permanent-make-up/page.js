@@ -2,9 +2,9 @@ import {
   Box,
   Container,
   Typography,
-} from "@mui/material";
-import CategoryInfo from "@/components/CategoryInfo/CategoryInfo";
-import SubCategoryCardInfo from "@/components/SubCategoryCardInfo/SubCategoryCardInfo";
+} from '@mui/material';
+import CategoryInfo from '@/components/CategoryInfo/CategoryInfo';
+import SubCategoryCardInfo from '@/components/SubCategoryCardInfo/SubCategoryCardInfo';
 
 export const metadata = {
   title: `Permanent Make-up München - MOOD BEAUTY | Powder Brows, Hairstroke, Velvet Lips`,

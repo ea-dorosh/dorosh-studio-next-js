@@ -5,10 +5,10 @@ import {
   Typography,
   Grid,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 
 export default function SubCategoryForm({
-  subCategories, onSubCategorySelect, selectedSubCategory, 
+  subCategories, onSubCategorySelect, selectedSubCategory,
 }) {
   return (
     <Grid container spacing={2}>

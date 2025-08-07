@@ -1,14 +1,12 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import {
-  Box,
-  Typography,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Button,
-} from "@mui/material";
-import Link from "next/link";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 
 export default function CategoryInfo({
   title,

@@ -1,5 +1,5 @@
-import BookingFormContainer from "@/components/BookingForm/BookingFormContainer";
-import servicesService from "@/services/services.service";
+import BookingFormContainer from '@/components/BookingForm/BookingFormContainer';
+import servicesService from '@/services/services.service';
 
 // Revalidate every hour
 export const revalidate = 3600; // 1 hour = 3600 seconds

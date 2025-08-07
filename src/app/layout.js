@@ -5,15 +5,14 @@ import {
   Typography,
   Link,
   CssBaseline,
-} from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import * as React from "react";
-import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import CookieBanner from "@/components/CookieBanner/CookieBanner";
-import LogoLink from "@/components/LogoLink/LogoLink";
-import Menu from "@/components/Menu/Menu";
-import theme from "@/theme";
+} from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import CookieBanner from '@/components/CookieBanner/CookieBanner';
+import LogoLink from '@/components/LogoLink/LogoLink';
+import Menu from '@/components/Menu/Menu';
+import theme from '@/theme';
 
 export const metadata = {
   title: `MOOD BEAUTY - Permanent Make-Up München | Natalia Dorosh`,
@@ -23,29 +22,29 @@ export const metadata = {
 const LINKS = [
   {
     text: `Home`,
-    href: `/`, 
+    href: `/`,
   },
   {
     text: `Über uns`,
-    href: `/ueber-uns`, 
+    href: `/ueber-uns`,
   },
   {
     text: `Unsere Services`,
-    href: `/services`, 
+    href: `/services`,
   },
   {
     text: `Online Termin`,
-    href: `/booking`, 
+    href: `/booking`,
   },
   {
     text: `Datenschutz`,
     href: `/datenschutz`,
-    subLink: true, 
+    subLink: true,
   },
   {
     text: `Impressum`,
     href: `/impressum`,
-    subLink: true, 
+    subLink: true,
   },
 ];
 

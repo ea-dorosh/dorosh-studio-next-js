@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Link from "next/link";
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export default function CategoryCard({

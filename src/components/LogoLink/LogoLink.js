@@ -1,9 +1,9 @@
 "use client";
 
-import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
-import { usePathname } from "next/navigation";
-import Logo from "@/components/Logo/Logo";
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import { usePathname } from 'next/navigation';
+import Logo from '@/components/Logo/Logo';
 
 export default function LogoLink() {
   const pathname = usePathname();

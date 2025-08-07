@@ -5,10 +5,10 @@ import {
   Typography,
   Grid,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 
 export default function CategoryForm({
-  categories, onCategorySelect, selectedCategory, 
+  categories, onCategorySelect, selectedCategory,
 }) {
 
   return (
@@ -31,7 +31,7 @@ export default function CategoryForm({
                 alt={category.categoryName}
                 sx={{
                   objectFit: `cover`,
-                  borderRadius: `12px`, 
+                  borderRadius: `12px`,
                 }}
               />
             )}

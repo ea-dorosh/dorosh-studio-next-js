@@ -11,16 +11,16 @@ import {
   Box,
   Chip,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 import {
   useState,
   useEffect,
   forwardRef,
-} from "react";
-import CategoryForm from "@/components/BookingForm/CategoryForm/CategoryForm";
-import ServicesList from "@/components/BookingForm/ServicesList/ServicesList";
-import SubCategoryForm from "@/components/BookingForm/SubCategoryForm/SubCategoryForm";
-import { formatTimeToString } from "@/utils/formatters";
+} from 'react';
+import CategoryForm from '@/components/BookingForm/CategoryForm/CategoryForm';
+import ServicesList from '@/components/BookingForm/ServicesList/ServicesList';
+import SubCategoryForm from '@/components/BookingForm/SubCategoryForm/SubCategoryForm';
+import { formatTimeToString } from '@/utils/formatters';
 
 const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
   categories,
@@ -129,7 +129,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             }}>
             <Box sx={{
               width: `100%`,
-              pr: 3, 
+              pr: 3,
             }}>
               <Typography sx={{ fontWeight: `bold` }}>
                 {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
@@ -194,14 +194,14 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                   <Box sx={{
                     display: `flex`,
                     flexDirection: `column`,
-                    gap: 1, 
+                    gap: 1,
                   }}>
                     <Typography>{serviceData.name}</Typography>
 
                     <Box sx={{
                       display: `flex`,
                       gap: 1,
-                      flexWrap: `wrap`, 
+                      flexWrap: `wrap`,
                     }}>
                       <Chip
                         label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}

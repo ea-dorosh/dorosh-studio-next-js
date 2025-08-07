@@ -6,8 +6,8 @@ import {
   Button,
   Chip,
   Grid,
-} from "@mui/material";
-import { formatTimeToString } from "@/utils/formatters";
+} from '@mui/material';
+import { formatTimeToString } from '@/utils/formatters';
 
 export default function ServicesList({
   services,
@@ -19,7 +19,7 @@ export default function ServicesList({
     return (
       <Box sx={{
         textAlign: `center`,
-        py: 3, 
+        py: 3,
       }}>
         <Typography variant="body1" color="text.secondary">
           Alle Services aus dieser Kategorie wurden bereits ausgewählt.
@@ -56,7 +56,7 @@ export default function ServicesList({
                   display: `flex`,
                   gap: 1,
                   mb: 2,
-                  flexWrap: `wrap`, 
+                  flexWrap: `wrap`,
                 }}>
                   <Chip
                     label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
@@ -92,7 +92,7 @@ export default function ServicesList({
                   display: `flex`,
                   justifyContent: `space-between`,
                   alignItems: `flex-start`,
-                  gap: 2, 
+                  gap: 2,
                 }}>
 
 

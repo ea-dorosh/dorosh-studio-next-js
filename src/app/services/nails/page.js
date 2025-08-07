@@ -2,8 +2,8 @@ import {
   Box,
   Container,
   Typography,
-} from "@mui/material";
-import CategoryInfo from "@/components/CategoryInfo/CategoryInfo";
+} from '@mui/material';
+import CategoryInfo from '@/components/CategoryInfo/CategoryInfo';
 
 export const metadata = {
   title: `Maniküre und Pediküre München - MOOD BEAUTY | Professionelle Nagelpflege`,

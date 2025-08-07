@@ -1,9 +1,7 @@
-import {
-  Box,
-  Container,
-  Typography,
-} from "@mui/material";
-import ServicesCard from "@/components/ServicesSection/ServiceCard/ServiceCard";
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import ServicesCard from '@/components/ServicesSection/ServiceCard/ServiceCard';
 
 export default function ServicesSection() {
 

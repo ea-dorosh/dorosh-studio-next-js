@@ -5,8 +5,8 @@ import {
   FormControl,
   FormHelperText,
   TextField,
-} from "@mui/material";
-import { useState, forwardRef } from "react";
+} from '@mui/material';
+import { useState, forwardRef } from 'react';
 
 const CustomerForm = forwardRef(function CustomerForm({
   createAppointment,

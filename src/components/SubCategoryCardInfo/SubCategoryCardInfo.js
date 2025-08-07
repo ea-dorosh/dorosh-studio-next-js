@@ -1,9 +1,7 @@
-import {
-  Box,
-  Typography,
-  Button,
-} from "@mui/material";
-import Link from "next/link";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export default function SubCategoryCardInfo({
@@ -84,7 +82,7 @@ export default function SubCategoryCardInfo({
         <Box sx={{
           display: `flex`,
           gap: `12px`,
-          marginTop: `16px`, 
+          marginTop: `16px`,
         }}>
           <Button
             component={Link}

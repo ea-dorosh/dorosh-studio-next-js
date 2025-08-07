@@ -3,17 +3,17 @@
 import {
   Box,
   Typography,
-} from "@mui/material";
-import { useTheme } from "@mui/material";
-import { useState, useEffect, useRef } from "react";
-import React from "react";
-import AddServiceQuestion from "@/components/BookingForm/AddServiceQuestion/AddServiceQuestion";
-import CalendarForm from "@/components/BookingForm/CalendarForm/CalendarForm";
-import CalendarOverview from "@/components/BookingForm/CalendarOverview/CalendarOverview";
-import Confirmation from "@/components/BookingForm/Confirmation/Confirmation";
-import CustomerForm from "@/components/BookingForm/CustomerForm/CustomerForm";
-import ServiceSelectionForm from "@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm";
-import appointmentsService from "@/services/appointments.service";
+} from '@mui/material';
+import { useTheme } from '@mui/material';
+import { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import AddServiceQuestion from '@/components/BookingForm/AddServiceQuestion/AddServiceQuestion';
+import CalendarForm from '@/components/BookingForm/CalendarForm/CalendarForm';
+import CalendarOverview from '@/components/BookingForm/CalendarOverview/CalendarOverview';
+import Confirmation from '@/components/BookingForm/Confirmation/Confirmation';
+import CustomerForm from '@/components/BookingForm/CustomerForm/CustomerForm';
+import ServiceSelectionForm from '@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm';
+import appointmentsService from '@/services/appointments.service';
 
 export default function BookingFormContainer({ categories }) {
   const theme = useTheme();
@@ -114,7 +114,7 @@ export default function BookingFormContainer({ categories }) {
         setTimeout(() => {
           window.scrollTo({
             top: 0,
-            behavior: `smooth`, 
+            behavior: `smooth`,
           });
         }, 0);
       }
@@ -145,11 +145,11 @@ export default function BookingFormContainer({ categories }) {
           onServiceSelect={(service) => {
             setFormState(prev => ({
               ...prev,
-              firstService: service, 
+              firstService: service,
             }));
             firstServiceSelectionRef.current?.scrollIntoView({
               behavior: `smooth`,
-              block: `start`, 
+              block: `start`,
             });
           }}
           getAvailableServices={getAvailableServices}
@@ -173,11 +173,11 @@ export default function BookingFormContainer({ categories }) {
             onServiceSelect={(service) => {
               setFormState(prev => ({
                 ...prev,
-                secondService: service, 
+                secondService: service,
               }));
               firstServiceSelectionRef.current?.scrollIntoView({
                 behavior: `smooth`,
-                block: `start`, 
+                block: `start`,
               });
             }}
             hasDeleteButton
@@ -201,7 +201,7 @@ export default function BookingFormContainer({ categories }) {
             onAddService={() => {
               setFormState(prev => ({
                 ...prev,
-                hasSecondService: true, 
+                hasSecondService: true,
               }));
             }}
           />
@@ -226,7 +226,7 @@ export default function BookingFormContainer({ categories }) {
             setTimeout(() => {
               window.scrollTo({
                 top: 0,
-                behavior: `smooth`, 
+                behavior: `smooth`,
               });
             }, 0);
           }}

@@ -3,8 +3,8 @@ import {
   Container,
   Typography,
   Button,
-} from "@mui/material";
-import Link from "next/link";
+} from '@mui/material';
+import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
 export const metadata = {

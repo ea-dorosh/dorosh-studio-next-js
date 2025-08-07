@@ -2,8 +2,8 @@ import {
   Box,
   Container,
   Typography,
-} from "@mui/material";
-import CategoryCardInfo from "@/components/CategoryCardInfo/CategoryCardInfo";
+} from '@mui/material';
+import CategoryCardInfo from '@/components/CategoryCardInfo/CategoryCardInfo';
 
 export default function ServicesPage() {
   return (

@@ -8,7 +8,7 @@ import {
   ListItemText,
   ListItemIcon,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
@@ -213,7 +213,7 @@ export default function AboutSection() {
 
         <Box sx={{
           textAlign: `center`,
-          marginTop: 4, 
+          marginTop: 4,
         }}>
           <Button
             component={Link}

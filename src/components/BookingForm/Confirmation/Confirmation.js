@@ -5,11 +5,11 @@ import {
   Typography,
   Button,
   Divider,
-} from "@mui/material";
+} from '@mui/material';
 import dayjs from 'dayjs';
 import 'dayjs/locale/de';
-import Link from "next/link";
-import { formattedTime } from "@/utils/formatters";
+import Link from 'next/link';
+import { formattedTime } from '@/utils/formatters';
 
 dayjs.locale(`de`);
 

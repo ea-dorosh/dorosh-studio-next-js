@@ -8,7 +8,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
-} from "@mui/material";
+} from '@mui/material';
 
 export const metadata = {
   title: `Über MOOD Beauty Studio München - Permanent Make-up & Maniküre`,
@@ -257,7 +257,7 @@ export default function ÜberUnsPage() {
         <Divider sx={{
           my: 4,
           backgroundColor: `primary.main`,
-          opacity: 0.3, 
+          opacity: 0.3,
         }} />
 
         <Typography
@@ -342,7 +342,7 @@ export default function ÜberUnsPage() {
         <Divider sx={{
           my: 4,
           backgroundColor: `primary.main`,
-          opacity: 0.3, 
+          opacity: 0.3,
         }} />
 
         <Typography
