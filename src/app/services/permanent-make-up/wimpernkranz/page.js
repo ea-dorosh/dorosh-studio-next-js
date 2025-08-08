@@ -60,7 +60,7 @@ export const metadata = {
 export default function WimpernkranzPage() {
   return (
     <Box
-      bgcolor="background.paper"
+      bgcolor="background.default"
       component="section"
       sx={{ paddingBottom: `32px` }}
     >

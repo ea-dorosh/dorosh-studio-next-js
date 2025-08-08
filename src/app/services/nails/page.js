@@ -58,7 +58,7 @@ export const metadata = {
 export default async function NailsPage() {
   return (
     <Box
-      bgcolor="background.paper"
+      bgcolor="background.default"
       component="section"
       sx={{ paddingBottom: `32px` }}
     >

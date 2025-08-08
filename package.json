@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "prebuild": "rimraf .next",
-    "serve": "next dev -p 3001",
+    "serve": "NEXT_DISABLE_WEBPACK_CACHE=1 next dev -p 3001",
+    "clean": "rimraf .next node_modules/.cache",
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",

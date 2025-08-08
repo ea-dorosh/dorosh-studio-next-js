@@ -55,8 +55,8 @@ const theme = createTheme({
       contrastText: COLORS.WHITE,
     },
     background: {
-      default: COLORS.LIGHT_GRAY,
-      paper: COLORS.WHITE,
+      default: COLORS.WHITE,
+      alternate: COLORS.LIGHT_GRAY,
     },
     error: { main: COLORS.CRIMSON },
     success: { main: COLORS.GREEN },
@@ -150,6 +150,9 @@ const theme = createTheme({
       marginBottom: `4px`,
     },
   },
+  shape: {
+    borderRadius: 12,
+  },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -237,12 +240,23 @@ const theme = createTheme({
         },
       },
     },
-    MuiAppBar: { styleOverrides: { root: { boxShadow: `10px 0px 0px 0px` } } },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: `none`,
+          backgroundColor: alpha(COLORS.WHITE, 0.65),
+          backdropFilter: `saturate(180%) blur(10px)`,
+          WebkitBackdropFilter: `saturate(180%) blur(10px)`,
+          borderBottom: `1px solid ${alpha(COLORS.BLACK, 0.06)}`,
+        },
+      },
+    },
     MuiToolbar: {
       styleOverrides: {
         root: {
           alignItems: `center`,
-          justifyContent: `center`,
+          justifyContent: `space-between`,
+          minHeight: `72px`,
         },
       },
     },

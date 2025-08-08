@@ -38,7 +38,7 @@ export default function ServicesList({
               borderBottom: `1px solid`,
               pb: `16px`,
               borderColor: `grey.300`,
-              backgroundColor: `background.default`,
+              backgroundColor: `background.alternate`,
             }}
           >
             <CardContent sx={{

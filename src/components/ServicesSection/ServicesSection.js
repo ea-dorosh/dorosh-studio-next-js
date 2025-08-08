@@ -6,25 +6,22 @@ import ServicesCard from '@/components/ServicesSection/ServiceCard/ServiceCard';
 export default function ServicesSection() {
 
   return (
-    <Box
-      bgcolor="background.default"
-      component="section"
-      sx={{
+    <Box bgcolor="background.alternate" component="section">
+      <Container sx={{
         maxWidth: `1200px`,
         margin: `0 auto`,
-      }}
-    >
-      <Container sx={{
-        padding: `18px 32px 0 32px`,
-        maxWidth: `100%`,
+        padding: {
+          xs: `24px 16px 0 16px`,
+          md: `32px 24px 0 24px`,
+        },
       }}>
         <Typography
           variant="h2"
           color="primary"
           sx={{
             textAlign: `center`,
-            marginTop: `18px`,
-            marginBottom: `18px`,
+            marginTop: `12px`,
+            marginBottom: `24px`,
           }}
         >
           Unsere Services
@@ -32,34 +29,26 @@ export default function ServicesSection() {
 
         <Box
           sx={{
-            display: `flex`,
-            flexDirection: {
-              xs: `column`,
-              lg: `row`,
+            display: `grid`,
+            gridTemplateColumns: {
+              xs: `1fr`,
+              md: `repeat(2, minmax(0, 1fr))`,
             },
-            gap: `16px`,
-            justifyContent: `center`,
-            alignItems: `center`,
-            maxWidth: {
-              xs: `100%`,
-              sm: `600px`,
-              md: `800px`,
-              lg: `100%`,
+            gap: {
+              xs: `16px`,
+              md: `24px`,
             },
+            alignItems: `stretch`,
             margin: `0 auto`,
+            maxWidth: `100%`,
           }}
         >
           <Box sx={{
             display: `flex`,
             flexDirection: `column`,
-            alignItems: `center`,
+            alignItems: `stretch`,
             width: `100%`,
-            maxWidth: {
-              xs: `100%`,
-              sm: `500px`,
-              md: `400px`,
-              lg: `500px`,
-            },
+            maxWidth: `100%`,
           }}>
             <ServicesCard
               title="Permanent Make-up"
@@ -73,14 +62,9 @@ export default function ServicesSection() {
           <Box sx={{
             display: `flex`,
             flexDirection: `column`,
-            alignItems: `center`,
+            alignItems: `stretch`,
             width: `100%`,
-            maxWidth: {
-              xs: `100%`,
-              sm: `500px`,
-              md: `400px`,
-              lg: `500px`,
-            },
+            maxWidth: `100%`,
           }}>
             <ServicesCard
               title="Nails"

@@ -14,14 +14,20 @@ export default function ServiceCard({
 
   return (
     <Box
-      bgcolor="background.paper"
+      bgcolor="background.default"
       sx={{
-        borderRadius: `12px`,
-        boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
+        borderRadius: `16px`,
+        boxShadow: `0 10px 30px rgba(0,0,0,0.08)`,
         position: `relative`,
         overflow: `hidden`,
         padding: `24px`,
         width: `100%`,
+        border: `1px solid rgba(0,0,0,0.06)`,
+        transition: `transform .2s ease, box-shadow .2s ease`,
+        '&:hover': {
+          transform: `translateY(-2px)`,
+          boxShadow: `0 16px 40px rgba(0,0,0,0.12)`,
+        },
       }}
     >
       <Box
@@ -29,8 +35,8 @@ export default function ServiceCard({
           position: `relative`,
           width: `100%`,
           paddingTop: {
-            xs: `69%`,
-            md: `60%`,
+            xs: `64%`,
+            md: `56%`,
           },
           overflow: `hidden`,
         }}
@@ -40,7 +46,7 @@ export default function ServiceCard({
           alt={imageAlt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
-          quality={80}
+          quality={85}
           style={{
             objectFit: `cover`,
             objectPosition: `center 0px`,
@@ -70,8 +76,8 @@ export default function ServiceCard({
         <Button
           component={Link}
           href={linkHref}
-          sx={{ marginTop: `8px` }}
-          color="info"
+          sx={{ marginTop: `12px` }}
+          color="primary"
           size="medium"
           variant="contained"
         >

@@ -27,13 +27,14 @@ export default function HomePage() {
           position: `relative`,
           width: `100%`,
           minHeight: {
-            xs: `400px`,
+            xs: `70vh`,
+            md: `70vh`,
           },
           overflow: `hidden`,
           backgroundColor: `#e1dbd6`,
           borderRadius: {
             xs: 0,
-            md: `12px`,
+            md: `16px`,
           },
         }}>
           <OptimizedImage
@@ -45,62 +46,79 @@ export default function HomePage() {
             quality={90}
             style={{
               objectFit: `cover`,
+              objectPosition: `center`,
               zIndex: `0`,
             }}
           />
 
+          {/* gradient overlay */}
+          <Box sx={{
+            position: `absolute`,
+            inset: 0,
+            zIndex: 1,
+            background: `linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.4) 100%)`,
+          }} />
+
           <Container sx={{
-            background: `rgb(0 0 0 / 0.3)`,
-            position: `relative`,
-            paddingTop: {
-              xs: `208px`,
-              md: `250px`,
-              lg: `300px`,
+            position: `absolute`,
+            inset: 0,
+            zIndex: 2,
+            display: `flex`,
+            alignItems: `center`,
+            justifyContent: {
+              xs: `flex-end`,
+              md: `center`,
             },
-            paddingBottom: `30px`,
+            flexDirection: `column`,
+            gap: 2,
+            py: {
+              xs: 4,
+              md: 8,
+            },
+            pb: {
+              xs: 14,
+              md: 8,
+            },
             maxWidth: `100%`,
           }}>
             <Typography
               variant="h1"
               color="primary.contrastText"
-              fontSize={{
-                xs: `3rem`,
-                md: `4rem`,
-                lg: `5rem`,
+              textAlign="center"
+              sx={{
+                lineHeight: 1,
+                letterSpacing: `.06em`,
               }}
-              textAlign={`center`}
-              sx={{ lineHeight: `0.6` }}
             >
-              MOOD <br/>
-
-              <Typography
-                component="span" sx={{
+              MOOD
+              <Box
+                component="span"
+                sx={{
+                  display: `block`,
+                  color: `secondary.main`,
+                  fontWeight: 400,
+                  letterSpacing: `.02em`,
+                  mt: 1,
                   fontSize: {
                     xs: `1.4rem`,
                     md: `1.8rem`,
                     lg: `2.2rem`,
                   },
-                  fontWeight: `400`,
-                  fontFamily: `cormorantGaramond`,
-                  lineHeight: `0.6`,
                 }}
               >
-                beauty studio <br/>
-                in München
-              </Typography>
-
+                beauty studio in München
+              </Box>
             </Typography>
 
             <Box
               sx={{
-                marginTop: `30px`,
                 display: `flex`,
                 justifyContent: `center`,
                 flexDirection: {
                   xs: `column`,
                   md: `row`,
                 },
-                gap: `16px`,
+                gap: 2,
                 alignItems: `center`,
               }}
             >
@@ -109,7 +127,7 @@ export default function HomePage() {
                 href="/services"
                 color="secondary"
                 size="medium"
-                variant="contained"
+                variant="outlined"
               >
                 Services
               </Button>
@@ -117,7 +135,7 @@ export default function HomePage() {
               <Button
                 component={Link}
                 href="/booking"
-                color="secondary"
+                color="primary"
                 size="medium"
                 variant="contained"
               >

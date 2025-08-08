@@ -126,7 +126,7 @@ export default function BookingFormContainer({ categories }) {
   return (
     <Box sx={{
       p: 2,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.background.default,
       zIndex: 1,
     }}>
       {!showCalendarOverview && <>

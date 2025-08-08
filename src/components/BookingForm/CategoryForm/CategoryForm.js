@@ -16,11 +16,11 @@ export default function CategoryForm({
       {categories.map((category) => (
         <Grid item xs={12} sm={6} md={4} key={category.categoryId}>
           <Card
-            bgcolor="background.paper"
+            bgcolor="background.default"
             sx={{
               boxShadow: `none`,
               borderRadius: `12px`,
-              backgroundColor: `background.default`,
+              backgroundColor: `background.alternate`,
             }}
           >
             {category.categoryImage && (

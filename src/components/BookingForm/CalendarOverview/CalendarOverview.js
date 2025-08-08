@@ -78,7 +78,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
       return {
         min: 0,
         max: 0,
-        isRange: false, 
+        isRange: false,
       };
     }
 
@@ -112,7 +112,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
     if (!services.length) return {
       min: 0,
       max: 0,
-      isRange: false, 
+      isRange: false,
     };
 
     let totalMin = 0;
@@ -146,7 +146,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
       border: `none`,
       boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
       borderRadius: `12px`,
-      backgroundColor: `background.default`,
+      backgroundColor: `background.alternate`,
       scrollMarginTop: `100px`,
     }} ref={ref}>
       <CardContent>
@@ -154,12 +154,12 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           display: `flex`,
           justifyContent: `space-between`,
           alignItems: `flex-start`,
-          mb: 2, 
+          mb: 2,
         }}>
           <Typography variant="h6" sx={{
             color: `text.primary`,
             fontSize: `1.1rem`,
-            fontWeight: `bold`, 
+            fontWeight: `bold`,
           }}>
             Gewählter Termin
           </Typography>
@@ -170,7 +170,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
               sx={{
                 fontWeight: `bold`,
                 p: 0,
-                minWidth: `0`, 
+                minWidth: `0`,
               }}
               size="small"
               color="success"
@@ -184,7 +184,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           <Typography variant="body1" sx={{
             mb: 1,
             color: `text.primary`,
-            fontSize: `1rem`, 
+            fontSize: `1rem`,
           }}>
             <b>Datum:</b> {getDateText()}
           </Typography>
@@ -192,7 +192,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           <Typography variant="body1" sx={{
             mb: 1,
             color: `text.primary`,
-            fontSize: `1rem`, 
+            fontSize: `1rem`,
           }}>
             <b>Uhrzeit:</b> {getTimeText()}
           </Typography>
@@ -203,7 +203,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
             mb: 1,
             color: `text.primary`,
             fontSize: `1rem`,
-            fontWeight: `bold`, 
+            fontWeight: `bold`,
           }}>
             Gewählte Services: ({services.length})
           </Typography>
@@ -211,7 +211,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           {services.length === 0 ? (
             <Typography variant="body2" sx={{
               color: `text.secondary`,
-              ml: 1, 
+              ml: 1,
             }}>
               Keine Services ausgewählt
             </Typography>
@@ -225,7 +225,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
                   display: `flex`,
                   justifyContent: `space-between`,
                   alignItems: `flex-start`,
-                  gap: 2, 
+                  gap: 2,
                 }}>
                   <Typography variant="body2" sx={{ color: `text.secondary` }}>
                     {service.name || `Unnamed Service`}
@@ -233,7 +233,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
                   <Typography variant="body2" sx={{
                     color: `text.primary`,
                     fontWeight: `bold`,
-                    whiteSpace: `nowrap`, 
+                    whiteSpace: `nowrap`,
                   }}>
                     {formatPrice(priceInfo)}
                   </Typography>
@@ -246,7 +246,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
         <Box sx={{
           gap: 1,
           display: `flex`,
-          flexWrap: `wrap`, 
+          flexWrap: `wrap`,
         }}>
           <Chip
             label={<>Services: <b>{services.length}</b></>}

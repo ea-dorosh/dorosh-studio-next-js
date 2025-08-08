@@ -87,7 +87,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         borderColor: `grey.300`,
         borderRadius: `12px`,
         padding: `4px`,
-        backgroundColor: `background.default`,
+        backgroundColor: `background.alternate`,
       }}
     >
       <CardContent sx={{

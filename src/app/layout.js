@@ -62,67 +62,86 @@ export default function RootLayout({ children }) {
           display: `flex`,
           flexDirection: `column`,
           minHeight: `100vh`,
-          backgroundColor: `background.paper`,
+          backgroundColor: `background.default`,
         }}
       >
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-            <Box sx={{
-              maxWidth: `1200px`,
-              margin: `0 auto`,
-              width: `100%`,
-            }}>
-              <AppBar position="static" sx={{ backgroundColor: `background.paper` }}>
-                <Toolbar sx={{ justifyContent: `flex-start` }}>
+            <AppBar position="sticky" color="transparent">
+              <Toolbar sx={{ px: 2 }}>
+                <Box
+                  sx={{
+                    maxWidth: `1200px`,
+                    margin: `0 auto`,
+                    width: `100%`,
+                    display: `flex`,
+                    alignItems: `center`,
+                  }}
+                >
                   <LogoLink />
-
                   <Box sx={{ marginLeft: `auto` }}>
                     <Menu links={LINKS} />
                   </Box>
-                </Toolbar>
-              </AppBar>
+                </Box>
+              </Toolbar>
+            </AppBar>
 
+            <Box
+              sx={{
+                maxWidth: `1200px`,
+                margin: `0 auto`,
+                width: `100%`,
+              }}
+            >
               <Breadcrumbs />
+            </Box>
 
-              <Box
-                component="main"
-                sx={{
-                  flexGrow: 1,
-                  backgroundColor: `background.paper`,
-                }}
-              >
-                {children}
-              </Box>
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                backgroundColor: `background.default`,
+              }}
+            >
+              {children}
+            </Box>
 
+            <Box
+              component="footer"
+              sx={{
+                py: 3,
+                px: 2,
+                mt: `auto`,
+                bgcolor: `primary.main`,
+              }}
+            >
               <Box
-                component="footer"
                 sx={{
-                  py: 3,
-                  px: 2,
-                  mt: `auto`,
+                  maxWidth: `1200px`,
+                  margin: `0 auto`,
                   textAlign: `center`,
-                  bgcolor: `primary.main`,
                 }}
               >
                 <Typography variant="body2" color="secondary">
                   <span suppressHydrationWarning>{new Date().getFullYear()}</span> MOOD BEAUTY - Natalia Dorosh
                 </Typography>
 
-                <Box sx={{
-                  display: `flex`,
-                  gap: 2,
-                  justifyContent: `center`,
-                  mt: 2,
-                  mb: 1,
-                }}>
+                <Box
+                  sx={{
+                    display: `flex`,
+                    gap: 2,
+                    justifyContent: `center`,
+                    mt: 2,
+                    mb: 1,
+                  }}
+                >
                   <Link href="/impressum" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
-                    Impressum
+                      Impressum
                   </Link>
-
                   <Link href="/datenschutz" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
-                    Datenschutz
+                      Datenschutz
                   </Link>
                 </Box>
               </Box>

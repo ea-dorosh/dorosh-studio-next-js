@@ -16,10 +16,10 @@ export default function AboutSection() {
 
   return (
     <Box
-      bgcolor="background.paper"
+      bgcolor="background.default"
       component="section"
       sx={{
-        padding: `24px 0`,
+        padding: `32px 0`,
         maxWidth: `1200px`,
         margin: `0 auto`,
       }}
@@ -29,16 +29,16 @@ export default function AboutSection() {
           sx={{
             position: `relative`,
             width: {
-              xs: `80%`,
+              xs: `82%`,
               md: `60%`,
-              lg: `50%`,
+              lg: `48%`,
             },
             margin: `0 auto`,
             aspectRatio: `1/1`,
             maxWidth: {
-              xs: `500px`,
-              md: `400px`,
-              lg: `350px`,
+              xs: `520px`,
+              md: `420px`,
+              lg: `360px`,
             },
           }}
         >
@@ -50,17 +50,16 @@ export default function AboutSection() {
             quality={85}
             style={{
               objectFit: `cover`,
-              borderRadius: `8px`,
+              borderRadius: `12px`,
             }}
           />
         </Box>
-
         <Typography
           variant="h2"
           color="primary"
           sx={{
             textAlign: `center`,
-            marginTop: `24px`,
+            marginTop: `28px`,
           }}
         >
           Über MOOD

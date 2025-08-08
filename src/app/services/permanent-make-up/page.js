@@ -59,7 +59,7 @@ export const metadata = {
 export default async function CategoryPage() {
   return (
     <Box
-      bgcolor="background.paper"
+      bgcolor="background.default"
       component="section"
       sx={{ paddingBottom: `32px` }}
     >

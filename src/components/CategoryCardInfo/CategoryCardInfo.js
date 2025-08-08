@@ -14,7 +14,7 @@ export default function CategoryCard({
 
   return (
     <Box
-      bgcolor="background.paper"
+      bgcolor="background.default"
       sx={{
         borderRadius: `12px`,
         boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,

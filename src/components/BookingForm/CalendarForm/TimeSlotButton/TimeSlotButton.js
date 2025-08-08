@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { formattedTime } from '@/utils/formatters';
 
 export default function TimeSlotButton({
-  slot, selectedTimeSlot, setSelectedTimeSlot, 
+  slot, selectedTimeSlot, setSelectedTimeSlot,
 }) {
   const theme = useTheme();
 
@@ -32,6 +32,7 @@ export default function TimeSlotButton({
           ? `linear-gradient(to bottom left, transparent calc(50% - 1px), #e3e3e3 calc(50% - 1px), #e3e3e3 calc(50% + 1px), transparent calc(50% + 1px)),
              linear-gradient(to bottom right, transparent calc(50% - 1px), #e3e3e3 calc(50% - 1px), #e3e3e3 calc(50% + 1px), transparent calc(50% + 1px))`
           : `none`,
+        minWidth: `100px`,
       }}
     >
       {formattedTime(slot.startTime)}
