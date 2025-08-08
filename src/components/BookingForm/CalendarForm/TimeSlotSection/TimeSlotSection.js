@@ -46,9 +46,13 @@ export default function TimeSlotSection({
         <Box
           sx={{
             display: `grid`,
-            gridTemplateColumns: `repeat(3, 1fr)`,
+            gridTemplateColumns: {
+              xs: `repeat(2, 1fr)`,
+              sm: `repeat(3, 1fr)`,
+              md: `repeat(4, 1fr)`,
+            },
             width: `100%`,
-            gap: `10px`,
+            gap: `12px`,
             mt: 2,
           }}
         >
@@ -79,9 +83,13 @@ export default function TimeSlotSection({
       <Box
         sx={{
           display: `grid`,
-          gridTemplateColumns: `repeat(3, 1fr)`,
+          gridTemplateColumns: {
+            xs: `repeat(2, 1fr)`,
+            sm: `repeat(3, 1fr)`,
+            md: `repeat(4, 1fr)`,
+          },
           width: `100%`,
-          gap: `10px`,
+          gap: `12px`,
           mt: 2,
         }}
       >

@@ -3,6 +3,9 @@
 import {
   Box,
   Typography,
+  Stepper,
+  Step,
+  StepLabel,
 } from '@mui/material';
 import { useTheme } from '@mui/material';
 import { useState, useEffect, useRef } from 'react';
@@ -19,6 +22,7 @@ export default function BookingFormContainer({ categories }) {
   const theme = useTheme();
   const calendarRef = useRef(null);
   const firstServiceSelectionRef = useRef(null);
+  const serviceTitleRef = useRef(null);
 
   // console.log(`categories: `, JSON.stringify(categories, null, 2));
 
@@ -124,89 +128,158 @@ export default function BookingFormContainer({ categories }) {
   }
 
   return (
-    <Box sx={{
-      p: 2,
-      backgroundColor: theme.palette.background.default,
-      zIndex: 1,
-    }}>
-      {!showCalendarOverview && <>
-        <Typography variant="h1" sx={{
-          mb: 3,
-          textAlign: `center`,
-          fontSize: `2.4rem`,
-          fontWeight: `400`,
+    <Box
+      sx={{
+        p: {
+          xs: 2,
+          md: 3,
+        },
+        backgroundColor: theme.palette.background.default,
+        zIndex: 1,
+      }}
+    >
+      <Box
+        sx={{
+          mb: 2,
+          position: `sticky`,
+          top: 0,
+          // full-bleed without horizontal shift
+          mx: `calc(50% - 50vw)`,
+          width: `100vw`,
+          zIndex: 10,
+          py: 0.5,
+          px: 1,
+          pl: `max(16px, env(safe-area-inset-left))`,
+          pr: `max(16px, env(safe-area-inset-right))`,
+          backgroundColor: `rgba(255,255,255,0.9)`,
+          backdropFilter: `saturate(180%) blur(8px)`,
+          WebkitBackdropFilter: `saturate(180%) blur(8px)`,
+          '& .MuiStepLabel-label': {
+            fontSize: {
+              xs: `0.78rem`,
+              md: `0.9rem`,
+            },
+          },
+        }}
+      >
+        <Stepper alternativeLabel activeStep={(
+          appointmentConfirmation ? 3 : (showCalendarOverview ? 2 : (showCalendar ? 1 : 0))
+        )} sx={{
+          '& .MuiStepIcon-root': {
+            color: `rgba(0,0,0,0.2)`,
+            fontSize: `1.1rem`,
+            width: 24,
+            height: 24,
+          },
+          '& .Mui-active': { color: `primary.main !important` },
+          '& .Mui-completed': { color: `primary.main !important` },
+          '& .MuiStepConnector-line': {
+            borderTopWidth: `2px`,
+          },
+          minHeight: 0,
+          py: 0,
+          // MuiStepLabel-label
+          '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+            marginTop: `5px`,
+          },
         }}>
+          <Step><StepLabel>Service</StepLabel></Step>
+          <Step><StepLabel>Datum</StepLabel></Step>
+          <Step><StepLabel>Details</StepLabel></Step>
+          <Step><StepLabel>Bestätigung</StepLabel></Step>
+        </Stepper>
+      </Box>
+      {!showCalendarOverview && (
+        <>
+          <Typography
+            ref={serviceTitleRef}
+            variant="h1"
+            sx={{
+              mb: 2,
+              textAlign: `center`,
+              fontSize: {
+                xs: `2rem`,
+                md: `2.6rem`,
+              },
+              fontWeight: 600,
+              letterSpacing: `.02em`,
+            }}
+          >
           Service auswählen
-        </Typography>
+          </Typography>
 
-        <ServiceSelectionForm
-          ref={firstServiceSelectionRef}
-          categories={categories}
-          onServiceSelect={(service) => {
-            setFormState(prev => ({
-              ...prev,
-              firstService: service,
-            }));
-            firstServiceSelectionRef.current?.scrollIntoView({
-              behavior: `smooth`,
-              block: `start`,
-            });
-          }}
-          getAvailableServices={getAvailableServices}
-          serviceData={formState.firstService}
-          hasDeleteButton={formState.hasSecondService}
-          deleteService={() => {
-            setFormState(prev => ({
-              ...prev,
-              hasSecondService: false,
-              firstService: prev.secondService,
-              secondService: null,
-            }));
-          }}
-          selectedServicesIds={selectedServices.map(service => service.id)}
-          firstService
-        />
-
-        {formState.hasSecondService && (<Box mt={2}>
           <ServiceSelectionForm
+            ref={firstServiceSelectionRef}
             categories={categories}
             onServiceSelect={(service) => {
               setFormState(prev => ({
                 ...prev,
-                secondService: service,
+                firstService: service,
               }));
-              firstServiceSelectionRef.current?.scrollIntoView({
+
+              // add stepper gap 54px
+              serviceTitleRef.current?.scrollIntoView({
                 behavior: `smooth`,
                 block: `start`,
               });
             }}
-            hasDeleteButton
+            getAvailableServices={getAvailableServices}
+            serviceData={formState.firstService}
+            hasDeleteButton={formState.hasSecondService}
             deleteService={() => {
               setFormState(prev => ({
                 ...prev,
                 hasSecondService: false,
+                firstService: prev.secondService,
                 secondService: null,
               }));
             }}
-            getAvailableServices={getAvailableServices}
-            serviceData={formState.secondService}
             selectedServicesIds={selectedServices.map(service => service.id)}
+            firstService
           />
-        </Box>
-        )}
 
-        {/* Add Service Question */}
-        {formState.firstService && !formState.hasSecondService && (
-          <AddServiceQuestion
-            onAddService={() => {
-              setFormState(prev => ({
-                ...prev,
-                hasSecondService: true,
-              }));
-            }}
-          />
-        )}
-      </>}
+          {formState.hasSecondService && (
+            <Box mt={2}>
+              <ServiceSelectionForm
+                categories={categories}
+                onServiceSelect={(service) => {
+                  setFormState(prev => ({
+                    ...prev,
+                    secondService: service,
+                  }));
+                  serviceTitleRef.current?.scrollIntoView({
+                    behavior: `smooth`,
+                    block: `start`,
+                  });
+                }}
+                hasDeleteButton
+                deleteService={() => {
+                  setFormState(prev => ({
+                    ...prev,
+                    hasSecondService: false,
+                    secondService: null,
+                  }));
+                }}
+                getAvailableServices={getAvailableServices}
+                serviceData={formState.secondService}
+                selectedServicesIds={selectedServices.map(service => service.id)}
+              />
+            </Box>
+          )}
+
+          {/* Add Service Question */}
+          {formState.firstService && !formState.hasSecondService && (
+            <AddServiceQuestion
+              onAddService={() => {
+                setFormState(prev => ({
+                  ...prev,
+                  hasSecondService: true,
+                }));
+              }}
+            />
+          )}
+        </>
+      )}
 
       {/* Calendar */}
       {showCalendar && (

@@ -81,13 +81,16 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
     <Card
       ref={ref}
       sx={{
-        boxShadow: `none`,
-        overflow: `unset`,
-        border: `1px solid`,
-        borderColor: `grey.300`,
-        borderRadius: `12px`,
-        padding: `4px`,
+        boxShadow: `0 10px 30px rgba(0,0,0,0.06)`,
+        overflow: `hidden`,
+        border: `1px solid rgba(0,0,0,0.06)`,
+        borderRadius: `16px`,
+        padding: `6px`,
         backgroundColor: `background.alternate`,
+        // Provide natural offset for sticky stepper when linking/scrolling to this block
+        scrollMarginTop: {
+          xs: `84px`,
+        },
       }}
     >
       <CardContent sx={{
@@ -126,6 +129,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 justifyContent: `space-between`,
                 alignItems: `center`,
               },
+              px: 2,
             }}>
             <Box sx={{
               width: `100%`,
@@ -137,7 +141,12 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             </Box>
           </AccordionSummary>
 
-          <AccordionDetails>
+          <AccordionDetails
+            sx={{
+              px: 2,
+              pb: 2,
+            }}
+          >
             <CategoryForm
               categories={categories}
               onCategorySelect={onCategorySelect}
@@ -153,7 +162,12 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             expanded={!selectedSubCategory ? true : expandedPanel === `subCategory`}
             onChange={handlePanelChange(`subCategory`)}
           >
-            <AccordionSummary expandIcon={selectedSubCategory &&<ExpandMoreIcon />}>
+            <AccordionSummary
+              expandIcon={selectedSubCategory && <ExpandMoreIcon />}
+              sx={{
+                px: 2,
+              }}
+            >
               <Typography>
                 {selectedSubCategory
                   ? selectedSubCategory.subCategoryName
@@ -162,7 +176,12 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               </Typography>
             </AccordionSummary>
 
-            <AccordionDetails>
+            <AccordionDetails
+              sx={{
+                px: 2,
+                pb: 2,
+              }}
+            >
               <SubCategoryForm
                 subCategories={selectedCategory.subCategories}
                 onSubCategorySelect={onSubCategorySelect}
@@ -178,7 +197,12 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             expanded={expandedPanel === `service`}
             onChange={handlePanelChange(`service`)}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              sx={{
+                px: 2,
+              }}
+            >
               {!serviceData || expandedPanel === `service` ?
                 <Typography>Service wählen</Typography>
                 :
@@ -223,7 +247,12 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               }
             </AccordionSummary>
 
-            <AccordionDetails>
+            <AccordionDetails
+              sx={{
+                px: 2,
+                pb: 2,
+              }}
+            >
               <ServicesList
                 services={getAvailableServices(selectedSubCategory.services)}
                 onServiceSelect={onServiceSelectInternal}

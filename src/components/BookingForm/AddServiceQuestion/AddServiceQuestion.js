@@ -9,9 +9,9 @@ export default function AddServiceQuestion({ onAddService }) {
     <Box sx={{
       display: `flex`,
       gap: 2,
-      justifyContent: `flex-end`,
+      justifyContent: `flex-start`,
       alignItems: `center`,
-      mt: 1, 
+      mt: 2,
     }}>
       <Button
         variant="outlined"
@@ -19,7 +19,6 @@ export default function AddServiceQuestion({ onAddService }) {
         onClick={onAddService}
         color="success"
         endIcon={<AddIcon />}
-        sx={{ textTransform: `uppercase` }}
       >
         Service hinzufügen?
       </Button>

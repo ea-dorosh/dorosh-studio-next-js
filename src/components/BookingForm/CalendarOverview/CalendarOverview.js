@@ -143,9 +143,9 @@ const CalendarOverview = forwardRef(function CalendarOverview({
   return (
     <Card sx={{
       mb: 2,
-      border: `none`,
-      boxShadow: `0 0 10px 0 rgba(0, 0, 0, 0.1)`,
-      borderRadius: `12px`,
+      border: `1px solid rgba(0,0,0,0.06)`,
+      boxShadow: `0 10px 30px rgba(0,0,0,0.06)`,
+      borderRadius: `16px`,
       backgroundColor: `background.alternate`,
       scrollMarginTop: `100px`,
     }} ref={ref}>

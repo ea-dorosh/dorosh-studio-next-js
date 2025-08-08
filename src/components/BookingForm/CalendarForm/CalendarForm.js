@@ -180,7 +180,8 @@ const CalendarForm = forwardRef(function CalendarForm({
           setSelectedDay(previousDayStillAvailable);
         } else {
           // Select first available day
-          setSelectedDay(daysToHighlight[0]);
+          const firstAvailable = daysToHighlight[0];
+          setSelectedDay(firstAvailable);
         }
       }
     }

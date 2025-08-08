@@ -27,7 +27,9 @@ export default function TimeSlotButton({
             : theme.palette.primary.main
         } !important`,
         fontWeight: `bold`,
-        height: `40px`,
+        height: `44px`,
+        borderRadius: `9999px`,
+        boxShadow: slot.startTime === selectedTimeSlot?.startTime ? `0 6px 18px rgba(0,0,0,0.12)` : `none`,
         backgroundImage: slot.disabled
           ? `linear-gradient(to bottom left, transparent calc(50% - 1px), #e3e3e3 calc(50% - 1px), #e3e3e3 calc(50% + 1px), transparent calc(50% + 1px)),
              linear-gradient(to bottom right, transparent calc(50% - 1px), #e3e3e3 calc(50% - 1px), #e3e3e3 calc(50% + 1px), transparent calc(50% + 1px))`

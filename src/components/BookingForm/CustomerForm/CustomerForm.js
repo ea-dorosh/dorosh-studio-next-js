@@ -41,8 +41,10 @@ const CustomerForm = forwardRef(function CustomerForm({
   return (<Box ref={ref} mt={3} mb={3}>
     <Typography variant="h5" sx={{
       textAlign: `center`,
-      fontSize: `1.5rem`,
+      fontSize: `1.7rem`,
       fontFamily: `cormorantGaramond`,
+      fontWeight: 600,
+      letterSpacing: `.02em`,
     }}>
       Kundendetails
     </Typography>
@@ -143,6 +145,7 @@ const CustomerForm = forwardRef(function CustomerForm({
           paddingTop: `12px`,
           paddingBottom: `12px`,
           mt: 2,
+          boxShadow: `0 10px 30px rgba(0,0,0,0.06)`,
         }}
       >
         Termin Buchen

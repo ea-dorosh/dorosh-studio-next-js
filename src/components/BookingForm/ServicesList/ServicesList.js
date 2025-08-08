@@ -39,6 +39,7 @@ export default function ServicesList({
               pb: `16px`,
               borderColor: `grey.300`,
               backgroundColor: `background.alternate`,
+              borderRadius: 0,
             }}
           >
             <CardContent sx={{
@@ -48,7 +49,13 @@ export default function ServicesList({
             }}>
               <Box>
 
-                <Typography variant="h6" sx={{ mb: 1 }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    mb: 1,
+                    fontWeight: 600,
+                  }}
+                >
                   {service.name}
                 </Typography>
 
@@ -100,7 +107,7 @@ export default function ServicesList({
                     variant={selectedServicesIds.includes(service.id) ? `outlined` : `contained`}
                     size="small"
                     onClick={() => onServiceSelect(service)}
-                    sx={{ minWidth: 120 }}
+                    sx={{ minWidth: 140 }}
                     disabled={selectedServicesIds.includes(service.id) && selectedServiceId !== service.id}
                   >
                     {selectedServiceId === service.id ?

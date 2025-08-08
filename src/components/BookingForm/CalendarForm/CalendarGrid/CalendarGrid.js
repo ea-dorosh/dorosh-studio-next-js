@@ -33,8 +33,14 @@ export default function CalendarGrid({
       sx={{
         display: `flex`,
         flexDirection: `column`,
-        width: `266px`,
-        margin: `auto`,
+        width: `320px`,
+        maxWidth: `100%`,
+        margin: `16px auto`,
+        p: 2,
+        borderRadius: 2,
+        border: `1px solid rgba(0,0,0,0.06)`,
+        boxShadow: `0 10px 30px rgba(0,0,0,0.05)`,
+        backgroundColor: `background.alternate`,
       }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
         <IconButton
@@ -50,7 +56,7 @@ export default function CalendarGrid({
           <ArrowBackIos />
         </IconButton>
 
-        <Typography variant="h6">
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           {formatMonthYear(currentWeekStart)}
         </Typography>
 
@@ -67,7 +73,7 @@ export default function CalendarGrid({
         </IconButton>
       </Box>
 
-      <Box display="grid" gridTemplateColumns="repeat(7, 0fr)">
+      <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" sx={{ mb: 1 }}>
         {weekDays.map((day, index) => (
           <Typography
             key={index}
