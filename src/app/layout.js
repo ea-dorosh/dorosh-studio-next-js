@@ -1,17 +1,9 @@
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Link,
-  CssBaseline,
-} from '@mui/material';
+import { Box, Typography, Link, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import CookieBanner from '@/components/CookieBanner/CookieBanner';
-import LogoLink from '@/components/LogoLink/LogoLink';
-import Menu from '@/components/Menu/Menu';
+import Header from '@/components/Header/Header';
 import theme from '@/theme';
 
 export const metadata = {
@@ -19,34 +11,7 @@ export const metadata = {
   description: `Professionelles Permanent Make-Up in München. Powder Brows, Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.`,
 };
 
-const LINKS = [
-  {
-    text: `Home`,
-    href: `/`,
-  },
-  {
-    text: `Über uns`,
-    href: `/ueber-uns`,
-  },
-  {
-    text: `Unsere Services`,
-    href: `/services`,
-  },
-  {
-    text: `Online Termin`,
-    href: `/booking`,
-  },
-  {
-    text: `Datenschutz`,
-    href: `/datenschutz`,
-    subLink: true,
-  },
-  {
-    text: `Impressum`,
-    href: `/impressum`,
-    subLink: true,
-  },
-];
+// links now live in Header
 
 export default function RootLayout({ children }) {
   return (
@@ -69,24 +34,7 @@ export default function RootLayout({ children }) {
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-            <AppBar position="sticky" color="transparent">
-              <Toolbar sx={{ px: 2 }}>
-                <Box
-                  sx={{
-                    maxWidth: `1200px`,
-                    margin: `0 auto`,
-                    width: `100%`,
-                    display: `flex`,
-                    alignItems: `center`,
-                  }}
-                >
-                  <LogoLink />
-                  <Box sx={{ marginLeft: `auto` }}>
-                    <Menu links={LINKS} />
-                  </Box>
-                </Box>
-              </Toolbar>
-            </AppBar>
+            <Header />
 
             <Box
               sx={{
