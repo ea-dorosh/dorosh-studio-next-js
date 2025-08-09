@@ -28,6 +28,9 @@ async function trackQrScan(searchParams) {
       const cfc = incoming.get(`cf-connecting-ip`);
       const ua = incoming.get(`user-agent`);
       const ref = incoming.get(`referer`);
+      const proto = incoming.get(`x-forwarded-proto`) || `http`;
+      const host = incoming.get(`host`);
+      const origin = `${proto}://${host}`;
 
       console.log(`QR DEBUG FE: incoming headers on Next server`, {
         xff, xri, cfc, ua, ref,
@@ -35,8 +38,8 @@ async function trackQrScan(searchParams) {
       console.log(`QR DEBUG FE: backend URL`, process.env.REACT_APP_API_URL);
 
 
-      // Call internal Next.js API route to proxy to backend locally
-      const res = await fetch(`/api/qr-track`, {
+      // Call internal Next.js API route to proxy to backend locally (absolute URL required on server)
+      const res = await fetch(`${origin}/api/qr-track`, {
         method: `POST`,
         headers: {
           'Content-Type': `application/json`,
