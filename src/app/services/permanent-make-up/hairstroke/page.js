@@ -37,12 +37,6 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: `summary_large_image`,
-    title: `Hairstroke München - MOOD BEAUTY`,
-    description: `Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei.`,
-    images: [`/images/services-page/service-hairstroke.webp`],
-  },
   robots: {
     index: true,
     follow: true,

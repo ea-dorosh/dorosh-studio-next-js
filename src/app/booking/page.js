@@ -17,6 +17,7 @@ export const metadata = {
 };
 
 async function trackQrScan(searchParams) {
+  console.log(`QR DEBUG FE: searchParams`, searchParams);
   const source = searchParams?.source;
 
   if (source === `public`) {

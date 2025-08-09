@@ -14,7 +14,8 @@ const nextConfig = {
     optimizePackageImports: [`@mui/material`, `@mui/icons-material`],
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === `production`,
+    // Temporarily disable to debug server logs in production
+    removeConsole: false,
   },
   poweredByHeader: false,
   compress: true,

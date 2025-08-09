@@ -35,12 +35,7 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: `summary_large_image`,
-    title: `Maniküre und Pediküre München - MOOD BEAUTY`,
-    description: `Professionelle Maniküre und Pediküre in München. Höchste Hygienestandards, sanfte Behandlung und hochwertige Produkte.`,
-    images: [`/images/services/manikure.avif`],
-  },
+
   robots: {
     index: true,
     follow: true,
