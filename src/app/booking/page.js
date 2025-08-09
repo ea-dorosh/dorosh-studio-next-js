@@ -1,3 +1,4 @@
+import { headers as nextHeaders } from 'next/headers';
 import BookingFormContainer from '@/components/BookingForm/BookingFormContainer';
 import servicesService from '@/services/services.service';
 
@@ -20,13 +21,28 @@ async function trackQrScan(searchParams) {
 
   if (source === `public`) {
     try {
+      const incoming = nextHeaders();
+      const xff = incoming.get(`x-forwarded-for`);
+      const xri = incoming.get(`x-real-ip`);
+      const cfc = incoming.get(`cf-connecting-ip`);
+      const ua = incoming.get(`user-agent`);
+      const ref = incoming.get(`referer`);
+
       await fetch(`${process.env.REACT_APP_API_URL}api/public/tracking/qr-scan`, {
         method: `POST`,
-        headers: { 'Content-Type': `application/json` },
+        headers: {
+          'Content-Type': `application/json`,
+          ...(ua ? { 'user-agent': ua } : {}),
+          ...(ref ? { referer: ref } : {}),
+          ...(xff ? { 'x-forwarded-for': xff } : {}),
+          ...(xri ? { 'x-real-ip': xri } : {}),
+          ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+        },
         body: JSON.stringify({
           trackedAt: new Date().toISOString(),
           source: `server-side`,
         }),
+        cache: `no-store`,
       });
     } catch (error) {
       console.error(`QR tracking error:`, error);
