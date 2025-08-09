@@ -37,12 +37,6 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: `summary_large_image`,
-    title: `Powder Brows München - MOOD BEAUTY`,
-    description: `Powder Brows in München - moderne Technik für natürliche Augenbrauen. Sanfter Schattierungseffekt, gepflegte Form.`,
-    images: [`/images/services-page/service-brows.jpg`],
-  },
   robots: {
     index: true,
     follow: true,

@@ -37,12 +37,6 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: `summary_large_image`,
-    title: `Velvet Lips München - MOOD BEAUTY`,
-    description: `Velvet Lips in München - moderne Technik für natürliche Lippenpigmentierung. Sanfter Farbeffekt, gepflegte Lippen.`,
-    images: [`/images/services-page/service-lips.webp`],
-  },
   robots: {
     index: true,
     follow: true,

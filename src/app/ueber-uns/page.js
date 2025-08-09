@@ -40,12 +40,6 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: `summary_large_image`,
-    title: `Über MOOD Beauty Studio München - Permanent Make-up & Maniküre`,
-    description: `MOOD Beauty Studio - Ihr modernes Kosmetikstudio in München. Spezialisiert auf Permanent Make-up und ästhetische Maniküre.`,
-    images: [`/images/promo-image.avif`],
-  },
   robots: {
     index: true,
     follow: true,

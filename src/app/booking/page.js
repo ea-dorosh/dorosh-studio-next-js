@@ -1,8 +1,9 @@
+import { headers as nextHeaders } from 'next/headers';
 import BookingFormContainer from '@/components/BookingForm/BookingFormContainer';
 import servicesService from '@/services/services.service';
 
-// Revalidate every hour
-export const revalidate = 3600; // 1 hour = 3600 seconds
+// Force dynamic rendering to run server-side tracking on every request
+export const dynamic = `force-dynamic`;
 
 export const metadata = {
   title: `Online Termin buchen - MOOD BEAUTY München | Natalia Dorosh`,
@@ -16,17 +17,78 @@ export const metadata = {
 };
 
 async function trackQrScan(searchParams) {
+  console.log(`QR DEBUG FE: searchParams`, searchParams);
   const source = searchParams?.source;
 
   if (source === `public`) {
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}api/public/tracking/qr-scan`, {
-        method: `POST`,
-        headers: { 'Content-Type': `application/json` },
-        body: JSON.stringify({
-          trackedAt: new Date().toISOString(),
-          source: `server-side`,
-        }),
+      const incoming = nextHeaders();
+      const xff = incoming.get(`x-forwarded-for`);
+      const xri = incoming.get(`x-real-ip`);
+      const cfc = incoming.get(`cf-connecting-ip`);
+      const ua = incoming.get(`user-agent`);
+      const ref = incoming.get(`referer`);
+      const proto = incoming.get(`x-forwarded-proto`) || `http`;
+      const host = incoming.get(`host`);
+      const origin = `${proto}://${host}`;
+
+      console.log(`QR DEBUG FE: incoming headers on Next server`, {
+        xff, xri, cfc, ua, ref,
+      });
+      console.log(`QR DEBUG FE: backend URL`, process.env.REACT_APP_API_URL);
+
+
+      // Prefer calling Next API locally to bypass external proxies
+      const nextLocalOrigin = `http://127.0.0.1:3001`;
+      let res;
+      try {
+        res = await fetch(`${nextLocalOrigin}/api/qr-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+        console.log(`QR DEBUG FE: used local Next API`, { url: `${nextLocalOrigin}/api/qr-track` });
+      } catch (e) {
+        console.log(`QR DEBUG FE: local Next API failed, fallback to origin`, {
+          error: String(e), url: `${origin}/api/qr-track`,
+        });
+        res = await fetch(`${origin}/api/qr-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      }
+
+      let bodyText = ``;
+      try {
+        bodyText = await res.text();
+      } catch (error) {
+        console.error(`QR DEBUG FE: error`, error);
+      }
+      console.log(`QR DEBUG FE: tracking request sent`, {
+        status: res.status, ok: res.ok, body: bodyText?.slice(0, 300),
       });
     } catch (error) {
       console.error(`QR tracking error:`, error);

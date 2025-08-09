@@ -36,12 +36,6 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: `summary_large_image`,
-    title: `Permanent Make-up München - MOOD BEAUTY`,
-    description: `Professionelles Permanent Make-up in München. Powder Brows, Hairstroke, Velvet Lips & Wimpernkranz.`,
-    images: [`/images/services-page/service-brows.jpg`],
-  },
   robots: {
     index: true,
     follow: true,

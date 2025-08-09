@@ -37,12 +37,6 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: `summary_large_image`,
-    title: `Wimpernkranz München - MOOD BEAUTY`,
-    description: `Wimpernkranz in München - feine Füllung des Wimpernkranzes für einen ausdrucksstarken, aber natürlichen Blick.`,
-    images: [`/images/services-page/service-wimpernkranz.webp`],
-  },
   robots: {
     index: true,
     follow: true,
