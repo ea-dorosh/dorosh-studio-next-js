@@ -11,15 +11,9 @@ export async function POST(request) {
     const ua = headersIn.get(`user-agent`);
     const ref = headersIn.get(`referer`);
 
-    // Debug logs
-    console.log(`QR DEBUG API: incoming headers`, {
-      xff, xri, cfc, ua, ref,
-    });
-
     // Prefer local backend to avoid external proxy issues
     const base = `http://127.0.0.1:3500/`;
     const targetUrl = `${base}api/public/tracking/qr-scan`;
-    console.log(`QR DEBUG API: proxy to`, targetUrl);
 
     const res = await fetch(targetUrl, {
       method: `POST`,
@@ -39,12 +33,6 @@ export async function POST(request) {
     });
 
     let responseText = ``;
-    try { responseText = await res.text(); } catch (error) {
-      console.error(`QR DEBUG API: error`, error);
-    }
-    console.log(`QR DEBUG API: backend response`, {
-      status: res.status, ok: res.ok, body: responseText?.slice(0, 300),
-    });
 
     if (!res.ok) {
       return NextResponse.json({
@@ -54,7 +42,6 @@ export async function POST(request) {
 
     return NextResponse.json({ message: `proxied ok` }, { status: 200 });
   } catch (error) {
-    console.error(`QR DEBUG API: error`, error);
     return NextResponse.json({ error: `Proxy failed` }, { status: 500 });
   }
 }
