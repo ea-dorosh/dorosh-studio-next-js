@@ -2,8 +2,8 @@ import { headers as nextHeaders } from 'next/headers';
 import BookingFormContainer from '@/components/BookingForm/BookingFormContainer';
 import servicesService from '@/services/services.service';
 
-// Revalidate every hour
-export const revalidate = 3600; // 1 hour = 3600 seconds
+// Force dynamic rendering to run server-side tracking on every request
+export const dynamic = `force-dynamic`;
 
 export const metadata = {
   title: `Online Termin buchen - MOOD BEAUTY München | Natalia Dorosh`,
@@ -28,6 +28,12 @@ async function trackQrScan(searchParams) {
       const ua = incoming.get(`user-agent`);
       const ref = incoming.get(`referer`);
 
+      console.log(`QR DEBUG FE: incoming headers on Next server`, {
+        xff, xri, cfc, ua, ref,
+      });
+      console.log(`QR DEBUG FE: backend URL`, process.env.REACT_APP_API_URL);
+
+
       await fetch(`${process.env.REACT_APP_API_URL}api/public/tracking/qr-scan`, {
         method: `POST`,
         headers: {
@@ -44,6 +50,8 @@ async function trackQrScan(searchParams) {
         }),
         cache: `no-store`,
       });
+
+      console.log(`QR DEBUG FE: tracking request sent`);
     } catch (error) {
       console.error(`QR tracking error:`, error);
     }
