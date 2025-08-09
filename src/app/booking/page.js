@@ -35,7 +35,8 @@ async function trackQrScan(searchParams) {
       console.log(`QR DEBUG FE: backend URL`, process.env.REACT_APP_API_URL);
 
 
-      await fetch(`${process.env.REACT_APP_API_URL}api/public/tracking/qr-scan`, {
+      // Call internal Next.js API route to proxy to backend locally
+      const res = await fetch(`/api/qr-track`, {
         method: `POST`,
         headers: {
           'Content-Type': `application/json`,
@@ -52,7 +53,15 @@ async function trackQrScan(searchParams) {
         cache: `no-store`,
       });
 
-      console.log(`QR DEBUG FE: tracking request sent`);
+      let bodyText = ``;
+      try {
+        bodyText = await res.text();
+      } catch (error) {
+        console.error(`QR DEBUG FE: error`, error);
+      }
+      console.log(`QR DEBUG FE: tracking request sent`, {
+        status: res.status, ok: res.ok, body: bodyText?.slice(0, 300),
+      });
     } catch (error) {
       console.error(`QR tracking error:`, error);
     }
