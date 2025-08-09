@@ -87,10 +87,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         borderRadius: `16px`,
         padding: `6px`,
         backgroundColor: `background.alternate`,
-        // Provide natural offset for sticky stepper when linking/scrolling to this block
-        scrollMarginTop: {
-          xs: `84px`,
-        },
       }}
     >
       <CardContent sx={{

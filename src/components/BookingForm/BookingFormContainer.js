@@ -1,15 +1,17 @@
 "use client";
 
-import {
-  Box,
-  Typography,
-  Stepper,
-  Step,
-  StepLabel,
-} from '@mui/material';
+import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 import { useTheme } from '@mui/material';
-import { useState, useEffect, useRef } from 'react';
-import React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper from '@mui/material/Stepper';
+import Typography from '@mui/material/Typography';
+import {
+  useState,
+  useEffect,
+} from 'react';
 import AddServiceQuestion from '@/components/BookingForm/AddServiceQuestion/AddServiceQuestion';
 import CalendarForm from '@/components/BookingForm/CalendarForm/CalendarForm';
 import CalendarOverview from '@/components/BookingForm/CalendarOverview/CalendarOverview';
@@ -20,11 +22,6 @@ import appointmentsService from '@/services/appointments.service';
 
 export default function BookingFormContainer({ categories }) {
   const theme = useTheme();
-  const calendarRef = useRef(null);
-  const firstServiceSelectionRef = useRef(null);
-  const serviceTitleRef = useRef(null);
-
-  // console.log(`categories: `, JSON.stringify(categories, null, 2));
 
   const [formState, setFormState] = useState({
     firstService: null,
@@ -45,9 +42,7 @@ export default function BookingFormContainer({ categories }) {
 
   /** Watch */
   useEffect(() => {
-    if (formState.firstService) {
-      setShowCalendar(true);
-    } else {
+    if (!formState.firstService) {
       setShowCalendar(false);
     }
 
@@ -120,7 +115,7 @@ export default function BookingFormContainer({ categories }) {
             top: 0,
             behavior: `smooth`,
           });
-        }, 0);
+        }, 100);
       }
     } catch (error) {
       setGeneralError(`Beim Erstellen des Datensatzes ist ein Fehler aufgetreten, bitte versuchen Sie es erneut oder versuchen Sie es später noch einmal.`);
@@ -189,94 +184,120 @@ export default function BookingFormContainer({ categories }) {
           <Step><StepLabel>Bestätigung</StepLabel></Step>
         </Stepper>
       </Box>
-      {!showCalendarOverview && (
-        <>
-          <Typography
-            ref={serviceTitleRef}
-            variant="h1"
+      {showCalendar && !showCalendarOverview && !appointmentConfirmation && (
+        <Box sx={{
+          mb: 2,
+          display: `flex`,
+          justifyContent: `flex-start`,
+        }}>
+          <Button
+            variant="outlined"
+            color="success"
+            startIcon={<ArrowBackIosNew fontSize="small" />}
             sx={{
-              mb: 2,
-              textAlign: `center`,
-              fontSize: {
-                xs: `2rem`,
-                md: `2.6rem`,
-              },
-              fontWeight: 600,
-              letterSpacing: `.02em`,
+              textTransform: `none`,
+            }}
+            onClick={() => {
+              setShowCalendar(false);
             }}
           >
-          Service auswählen
-          </Typography>
+            Zurück zur Serviceauswahl
+          </Button>
+        </Box>
+      )}
+      {!showCalendarOverview && (
+        <>
+          {!showCalendar && (
+            <>
+              <Typography
+                variant="h1"
+                sx={{
+                  mb: 2,
+                  textAlign: `center`,
+                  fontSize: {
+                    xs: `2rem`,
+                    md: `2.6rem`,
+                  },
+                  fontWeight: 600,
+                  letterSpacing: `.02em`,
+                }}
+              >
+              Service auswählen
+              </Typography>
 
-          <ServiceSelectionForm
-            ref={firstServiceSelectionRef}
-            categories={categories}
-            onServiceSelect={(service) => {
-              setFormState(prev => ({
-                ...prev,
-                firstService: service,
-              }));
-
-              // add stepper gap 54px
-              serviceTitleRef.current?.scrollIntoView({
-                behavior: `smooth`,
-                block: `start`,
-              });
-            }}
-            getAvailableServices={getAvailableServices}
-            serviceData={formState.firstService}
-            hasDeleteButton={formState.hasSecondService}
-            deleteService={() => {
-              setFormState(prev => ({
-                ...prev,
-                hasSecondService: false,
-                firstService: prev.secondService,
-                secondService: null,
-              }));
-            }}
-            selectedServicesIds={selectedServices.map(service => service.id)}
-            firstService
-          />
-
-          {formState.hasSecondService && (
-            <Box mt={2}>
               <ServiceSelectionForm
                 categories={categories}
                 onServiceSelect={(service) => {
                   setFormState(prev => ({
                     ...prev,
-                    secondService: service,
+                    firstService: service,
                   }));
-                  serviceTitleRef.current?.scrollIntoView({
-                    behavior: `smooth`,
-                    block: `start`,
-                  });
                 }}
-                hasDeleteButton
+                getAvailableServices={getAvailableServices}
+                serviceData={formState.firstService}
+                hasDeleteButton={formState.hasSecondService}
                 deleteService={() => {
                   setFormState(prev => ({
                     ...prev,
                     hasSecondService: false,
+                    firstService: prev.secondService,
                     secondService: null,
                   }));
                 }}
-                getAvailableServices={getAvailableServices}
-                serviceData={formState.secondService}
                 selectedServicesIds={selectedServices.map(service => service.id)}
+                firstService
               />
-            </Box>
-          )}
 
-          {/* Add Service Question */}
-          {formState.firstService && !formState.hasSecondService && (
-            <AddServiceQuestion
-              onAddService={() => {
-                setFormState(prev => ({
-                  ...prev,
-                  hasSecondService: true,
-                }));
-              }}
-            />
+              {formState.hasSecondService && (
+                <Box mt={2}>
+                  <ServiceSelectionForm
+                    categories={categories}
+                    onServiceSelect={(service) => {
+                      setFormState(prev => ({
+                        ...prev,
+                        secondService: service,
+                      }));
+                    }}
+                    hasDeleteButton
+                    deleteService={() => {
+                      setFormState(prev => ({
+                        ...prev,
+                        hasSecondService: false,
+                        secondService: null,
+                      }));
+                    }}
+                    getAvailableServices={getAvailableServices}
+                    serviceData={formState.secondService}
+                    selectedServicesIds={selectedServices.map(service => service.id)}
+                  />
+                </Box>
+              )}
+
+              {/* Add Service Question */}
+              {formState.firstService && !formState.hasSecondService && (
+                <AddServiceQuestion
+                  onAddService={() => {
+                    setFormState(prev => ({
+                      ...prev,
+                      hasSecondService: true,
+                    }));
+                  }}
+                />
+              )}
+              {formState.firstService && !showCalendar && (
+                <Box mt={2} display="flex" justifyContent="center">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      setShowCalendar(true);
+                    }}
+                  >
+                    Weiter
+                  </Button>
+                </Box>
+              )}
+            </>
           )}
         </>
       )}
@@ -284,7 +305,6 @@ export default function BookingFormContainer({ categories }) {
       {/* Calendar */}
       {showCalendar && (
         <CalendarForm
-          ref={calendarRef}
           services={selectedServices}
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
@@ -295,13 +315,10 @@ export default function BookingFormContainer({ categories }) {
           onNextStep={() => {
             setShowCalendarOverview(true);
             setShowCalendar(false);
-
-            setTimeout(() => {
-              window.scrollTo({
-                top: 0,
-                behavior: `smooth`,
-              });
-            }, 0);
+            window.scrollTo({
+              top: 0,
+              behavior: `smooth`,
+            });
           }}
         />
       )}
