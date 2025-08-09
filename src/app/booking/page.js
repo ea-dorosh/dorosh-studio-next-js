@@ -38,23 +38,48 @@ async function trackQrScan(searchParams) {
       console.log(`QR DEBUG FE: backend URL`, process.env.REACT_APP_API_URL);
 
 
-      // Call internal Next.js API route to proxy to backend locally (absolute URL required on server)
-      const res = await fetch(`${origin}/api/qr-track`, {
-        method: `POST`,
-        headers: {
-          'Content-Type': `application/json`,
-          ...(ua ? { 'user-agent': ua } : {}),
-          ...(ref ? { referer: ref } : {}),
-          ...(xff ? { 'x-forwarded-for': xff } : {}),
-          ...(xri ? { 'x-real-ip': xri } : {}),
-          ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
-        },
-        body: JSON.stringify({
-          trackedAt: new Date().toISOString(),
-          source: `server-side`,
-        }),
-        cache: `no-store`,
-      });
+      // Prefer calling Next API locally to bypass external proxies
+      const nextLocalOrigin = `http://127.0.0.1:3001`;
+      let res;
+      try {
+        res = await fetch(`${nextLocalOrigin}/api/qr-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+        console.log(`QR DEBUG FE: used local Next API`, { url: `${nextLocalOrigin}/api/qr-track` });
+      } catch (e) {
+        console.log(`QR DEBUG FE: local Next API failed, fallback to origin`, {
+          error: String(e), url: `${origin}/api/qr-track`,
+        });
+        res = await fetch(`${origin}/api/qr-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      }
 
       let bodyText = ``;
       try {
