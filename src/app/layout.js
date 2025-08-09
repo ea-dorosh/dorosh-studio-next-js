@@ -4,7 +4,6 @@ import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-// import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import CookieBanner from '@/components/CookieBanner/CookieBanner';
 import Header from '@/components/Header/Header';
@@ -14,8 +13,6 @@ export const metadata = {
   title: `MOOD BEAUTY - Permanent Make-Up München | Natalia Dorosh`,
   description: `Professionelles Permanent Make-Up in München. Powder Brows, Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.`,
 };
-
-// links now live in Header
 
 export default function RootLayout({ children }) {
   return (
