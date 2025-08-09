@@ -1,4 +1,5 @@
-import { Box, Button } from '@mui/material';
+import Badge from '@mui/material/Badge';
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
 export default function CalendarDay({
@@ -8,16 +9,30 @@ export default function CalendarDay({
   const isSelected = selectedDay?.day === day.format(`YYYY-MM-DD`);
 
   return (
-    <Box sx={{ textAlign: `center` }}>
+    <Badge
+      overlap="circular"
+      badgeContent={isHighlighted ? `●` : undefined}
+      sx={{
+        '& .MuiBadge-badge': {
+          padding: 0,
+          width: `100%`,
+          transform: `none`,
+          top: `-1px`,
+          left: 0,
+          transition: `none`,
+          color: isSelected ? `info.contrastText` : `info.main`,
+        },
+      }}
+    >
       <Button
         variant="text"
         onClick={() => onClick(day)}
         sx={{
-          minWidth: `40px`,
-          width: `42px`,
-          height: `46px`,
+          minWidth: `36px`,
+          width: `38px`,
+          height: `44px`,
           margin: 0,
-          padding: `20px 0 6px 0`,
+          padding: `20px 0 8px 0`,
           borderRadius: 0,
           color: isHighlighted
             ? isSelected
@@ -27,23 +42,10 @@ export default function CalendarDay({
               ? `info.contrastText`
               : `gray`,
           backgroundColor: `${isSelected ? theme.palette.info.main : `initial`} !important`,
-          '&:hover': {
-            backgroundColor: `${isSelected ? theme.palette.info.main : `rgba(0,0,0,0.04)`} !important`,
-          },
         }}
       >
         {day.date()}
       </Button>
-
-      <Box
-        sx={{
-          width: `6px`,
-          height: `6px`,
-          borderRadius: `50%`,
-          backgroundColor: isHighlighted ? `info.main` : `transparent`,
-          margin: `2px auto 0`,
-        }}
-      />
-    </Box>
+    </Badge>
   );
 }

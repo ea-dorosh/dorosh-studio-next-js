@@ -1,8 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
-import {
-  Box,
-  Button,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 export default function AddServiceQuestion({ onAddService }) {
   return (
@@ -19,6 +17,12 @@ export default function AddServiceQuestion({ onAddService }) {
         onClick={onAddService}
         color="success"
         endIcon={<AddIcon />}
+        sx={{
+          borderRadius: `9999px`,
+          px: 2,
+          py: 0.5,
+          backgroundColor: `rgba(0, 171, 85, 0.04)`,
+        }}
       >
         Service hinzufügen?
       </Button>

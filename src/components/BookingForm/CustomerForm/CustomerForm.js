@@ -145,7 +145,7 @@ const CustomerForm = forwardRef(function CustomerForm({
           paddingTop: `12px`,
           paddingBottom: `12px`,
           mt: 2,
-          boxShadow: `0 10px 30px rgba(0,0,0,0.06)`,
+          boxShadow: `none`,
         }}
       >
         Termin Buchen

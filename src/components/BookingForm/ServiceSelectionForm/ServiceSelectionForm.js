@@ -1,17 +1,13 @@
-import {
-  ExpandMore as ExpandMoreIcon,
-} from '@mui/icons-material';
-import {
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Card,
-  CardContent,
-  Box,
-  Chip,
-  Button,
-} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import Typography from '@mui/material/Typography';
 import {
   useState,
   useEffect,
@@ -81,10 +77,9 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
     <Card
       ref={ref}
       sx={{
-        boxShadow: `0 10px 30px rgba(0,0,0,0.06)`,
+        boxShadow: `none`,
         overflow: `hidden`,
-        border: `1px solid rgba(0,0,0,0.06)`,
-        borderRadius: `16px`,
+        borderRadius: `20px`,
         padding: `6px`,
         backgroundColor: `background.alternate`,
       }}
@@ -102,7 +97,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             alignItems: `center`,
             gap: 1,
             width: `100%`,
-            padding: `4px 16px`,
+            padding: `8px 16px`,
             borderBottom: `1px solid`,
             borderColor: `grey.300`,
           }}>
@@ -115,8 +110,13 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
           </Box>
         )}
         <Accordion
+          disableGutters
           expanded={!selectedCategory ? true : expandedPanel === `category`}
           onChange={handlePanelChange(`category`)}
+          sx={{
+            backgroundColor: `transparent`,
+            boxShadow: `none`,
+          }}
         >
           <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}
             sx={{
@@ -126,12 +126,19 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 alignItems: `center`,
               },
               px: 2,
+              py: 1,
+              borderRadius: `12px`,
+              transition: `background-color .2s ease`,
+              '&:hover': { backgroundColor: `rgba(0,0,0,0.03)` },
             }}>
             <Box sx={{
               width: `100%`,
               pr: 3,
             }}>
-              <Typography sx={{ fontWeight: `bold` }}>
+              <Typography sx={{
+                fontWeight: 600,
+                letterSpacing: `.01em`,
+              }}>
                 {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
               </Typography>
             </Box>
@@ -141,6 +148,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             sx={{
               px: 2,
               pb: 2,
+              borderTop: `1px dashed rgba(0,0,0,0.1)`,
             }}
           >
             <CategoryForm
@@ -155,16 +163,25 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         {/* SubCategory Selection - Collapsible */}
         {selectedCategory && (
           <Accordion
+            disableGutters
             expanded={!selectedSubCategory ? true : expandedPanel === `subCategory`}
             onChange={handlePanelChange(`subCategory`)}
+            sx={{
+              backgroundColor: `transparent`,
+              boxShadow: `none`,
+            }}
           >
             <AccordionSummary
               expandIcon={selectedSubCategory && <ExpandMoreIcon />}
               sx={{
                 px: 2,
+                py: 1,
+                borderRadius: `12px`,
+                transition: `background-color .2s ease`,
+                '&:hover': { backgroundColor: `rgba(0,0,0,0.03)` },
               }}
             >
-              <Typography>
+              <Typography sx={{ fontWeight: 500 }}>
                 {selectedSubCategory
                   ? selectedSubCategory.subCategoryName
                   : `Unterkategorie wählen`
@@ -176,6 +193,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               sx={{
                 px: 2,
                 pb: 2,
+                borderTop: `1px dashed rgba(0,0,0,0.1)`,
               }}
             >
               <SubCategoryForm
@@ -190,17 +208,28 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         {/* Service Selection - Collapsible */}
         {selectedSubCategory && (
           <Accordion
+            disableGutters
             expanded={expandedPanel === `service`}
             onChange={handlePanelChange(`service`)}
+            sx={{
+              backgroundColor: `transparent`,
+              boxShadow: `none`,
+            }}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               sx={{
                 px: 2,
+                py: 1,
+                borderRadius: `12px`,
+                transition: `background-color .2s ease`,
+                '&:hover': { backgroundColor: `rgba(0,0,0,0.03)` },
               }}
             >
               {!serviceData || expandedPanel === `service` ?
-                <Typography>Service wählen</Typography>
+                <Typography sx={{
+                  fontWeight: 600, letterSpacing: `.01em`,
+                }}>Service wählen</Typography>
                 :
                 <Box
                   sx={{
@@ -216,7 +245,9 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                     flexDirection: `column`,
                     gap: 1,
                   }}>
-                    <Typography>{serviceData.name}</Typography>
+                    <Typography sx={{
+                      fontWeight: 700, letterSpacing: `.01em`,
+                    }}>{serviceData.name}</Typography>
 
                     <Box sx={{
                       display: `flex`,
@@ -226,15 +257,18 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                       <Chip
                         label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
                         size="small"
-                        variant="outlined"
+                        variant="filled"
+                        sx={{
+                          borderRadius: `9999px`,
+                        }}
                       />
 
                       {serviceData?.employees && serviceData?.employees?.length > 0 && (
                         <Chip
                           label={<>Preis: <b>{serviceData?.employees[0]?.price || 0}€</b></>}
                           size="small"
-                          color="primary"
-                          variant="outlined"
+                          variant="filled"
+                          sx={{ borderRadius: `9999px` }}
                         />
                       )}
                     </Box>

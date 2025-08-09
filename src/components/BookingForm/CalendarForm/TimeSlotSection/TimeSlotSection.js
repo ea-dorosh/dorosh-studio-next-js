@@ -1,8 +1,6 @@
 "use client";
 
-import {
-  Box,
-} from '@mui/material';
+import Box from '@mui/material/Box';
 import dayjs from 'dayjs';
 import TimeSlotButton from '@/components/BookingForm/CalendarForm/TimeSlotButton/TimeSlotButton';
 import { MOCK_TIME_SLOTS } from '@/components/BookingForm/CalendarForm/TimeSlotSection/mockTimeSlots';
@@ -46,13 +44,9 @@ export default function TimeSlotSection({
         <Box
           sx={{
             display: `grid`,
-            gridTemplateColumns: {
-              xs: `repeat(2, 1fr)`,
-              sm: `repeat(3, 1fr)`,
-              md: `repeat(4, 1fr)`,
-            },
+            gridTemplateColumns: `repeat(3, 1fr)`,
             width: `100%`,
-            gap: `12px`,
+            gap: `10px`,
             mt: 2,
           }}
         >
@@ -72,7 +66,6 @@ export default function TimeSlotSection({
     );
   }
 
-  // Если нет доступных временных слотов
   return (
     <>
       <Box mt={2}>
@@ -83,13 +76,9 @@ export default function TimeSlotSection({
       <Box
         sx={{
           display: `grid`,
-          gridTemplateColumns: {
-            xs: `repeat(2, 1fr)`,
-            sm: `repeat(3, 1fr)`,
-            md: `repeat(4, 1fr)`,
-          },
+          gridTemplateColumns: `repeat(3, 1fr)`,
           width: `100%`,
-          gap: `12px`,
+          gap: `10px`,
           mt: 2,
         }}
       >

@@ -1,12 +1,10 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Chip,
-  Grid,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { formatTimeToString } from '@/utils/formatters';
 
 export default function ServicesList({
@@ -38,7 +36,7 @@ export default function ServicesList({
               borderBottom: `1px solid`,
               pb: `16px`,
               borderColor: `grey.300`,
-              backgroundColor: `background.alternate`,
+              backgroundColor: `transparent`,
               borderRadius: 0,
             }}
           >
@@ -50,10 +48,12 @@ export default function ServicesList({
               <Box>
 
                 <Typography
-                  variant="h6"
+                  // variant="h6"
                   sx={{
                     mb: 1,
                     fontWeight: 600,
+                    letterSpacing: `.01em`,
+                    fontSize: `1.2rem`,
                   }}
                 >
                   {service.name}
@@ -67,24 +67,23 @@ export default function ServicesList({
                 }}>
                   <Chip
                     label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
-                    size="small"
-                    variant="outlined"
+                    size="medium"
+                    variant="filled"
+                    sx={{
+                      borderRadius: `9999px`,
+                      color: `text.primary`,
+                    }}
                   />
-
-                  {service.employees && (
-                    <Chip
-                      label={<>Mitarbeiter: <b>{service.employees.length}</b></>}
-                      size="small"
-                      variant="outlined"
-                    />
-                  )}
 
                   {service.employees && service.employees.length > 0 && (
                     <Chip
                       label={<>Preis: <b>{service.employees[0].price || 0}€</b></>}
-                      size="small"
-                      color="primary"
-                      variant="outlined"
+                      size="medium"
+                      variant="filled"
+                      sx={{
+                        borderRadius: `9999px`,
+                        color: `primary.main`,
+                      }}
                     />
                   )}
                 </Box>
@@ -105,9 +104,9 @@ export default function ServicesList({
 
                   <Button
                     variant={selectedServicesIds.includes(service.id) ? `outlined` : `contained`}
-                    size="small"
+                    size="medium"
                     onClick={() => onServiceSelect(service)}
-                    sx={{ minWidth: 140 }}
+                    sx={{ minWidth: 180 }}
                     disabled={selectedServicesIds.includes(service.id) && selectedServiceId !== service.id}
                   >
                     {selectedServiceId === service.id ?

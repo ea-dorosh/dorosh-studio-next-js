@@ -1,14 +1,12 @@
-import { FiberManualRecord as FiberManualRecordIcon } from '@mui/icons-material';
-import {
-  Box,
-  Container,
-  Typography,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-} from '@mui/material';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 
 export const metadata = {
   title: `Über MOOD Beauty Studio München - Permanent Make-up & Maniküre`,
@@ -24,22 +22,6 @@ export const metadata = {
   },
   metadataBase: new URL(`https://moodbeauty.de`),
   alternates: { canonical: `/ueber-uns` },
-  openGraph: {
-    title: `Über MOOD Beauty Studio München - Permanent Make-up & Maniküre`,
-    description: `MOOD Beauty Studio - Ihr modernes Kosmetikstudio in München. Spezialisiert auf Permanent Make-up und ästhetische Maniküre. Natürliche Ausstrahlung und professionelle Techniken.`,
-    url: `https://moodbeauty.de/ueber-uns`,
-    siteName: `MOOD BEAUTY`,
-    locale: `de_DE`,
-    type: `website`,
-    images: [
-      {
-        url: `/images/promo-image.avif`,
-        width: 1200,
-        height: 630,
-        alt: `MOOD Beauty Studio München - Permanent Make-up & Maniküre`,
-      },
-    ],
-  },
   robots: {
     index: true,
     follow: true,

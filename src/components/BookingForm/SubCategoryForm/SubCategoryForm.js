@@ -1,76 +1,55 @@
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Grid,
-  Button,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { alpha } from '@mui/material/styles';
 
 export default function SubCategoryForm({
-  subCategories, onSubCategorySelect, selectedSubCategory,
+  subCategories,
+  onSubCategorySelect,
+  selectedSubCategory,
 }) {
   return (
-    <Grid container spacing={2}>
-      {subCategories.map((subCategory) => (
-        <Grid item xs={12} sm={6} md={4} key={subCategory.subCategoryId}>
-          <Card
-            sx={{
-              boxShadow: `none`,
-              borderRadius: `12px`,
-              backgroundColor: `background.alternate`,
-            }}
-          >
-            {subCategory.subCategoryImage && (
-              <CardMedia
-                component="img"
-                height="140"
-                image={subCategory.subCategoryImage}
-                alt={subCategory.subCategoryName}
-                sx={{ objectFit: `cover` }}
+    <Box
+      sx={{
+        borderRadius: `16px`,
+        backgroundColor: `background.alternate`,
+        overflow: `hidden`,
+      }}
+    >
+      <List disablePadding>
+        {subCategories.map((subCategory, index) => {
+          const isSelected = selectedSubCategory?.subCategoryId === subCategory.subCategoryId;
+          return (
+            <ListItemButton
+              key={subCategory.subCategoryId}
+              onClick={() => onSubCategorySelect(subCategory)}
+              divider={index !== subCategories.length - 1}
+              selected={isSelected}
+              sx={{
+                py: 1.25,
+                px: 2,
+                '&.Mui-selected': {
+                  backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+                },
+                '&:hover': { backgroundColor: `rgba(0,0,0,0.04)` },
+              }}
+            >
+              <ListItemText
+                primary={subCategory.subCategoryName}
+                primaryTypographyProps={{
+                  sx: {
+                    fontWeight: 600,
+                    letterSpacing: `.01em`,
+                    color: isSelected ? `primary.main` : `text.primary`,
+                    fontSize: `1.1rem`,
+                  },
+                }}
               />
-            )}
-            <CardContent sx={{
-              p: `8px`,
-
-              '&:last-child': { p: `8px` },
-            }}>
-              <Typography
-                variant="h6"
-                component="h3"
-                textAlign="left"
-                sx={{
-                  color: selectedSubCategory?.subCategoryId === subCategory.subCategoryId
-                    ? `primary.main`
-                    : `text.primary`,
-                }}
-              >
-                {subCategory.subCategoryName}
-              </Typography>
-
-              <Button
-                sx={{
-                  marginTop: `8px`,
-                  width: `160px`,
-
-                }}
-                color={selectedSubCategory?.subCategoryId === subCategory.subCategoryId
-                  ? `primary`
-                  : `info`}
-                size="small"
-                variant={selectedSubCategory?.subCategoryId === subCategory.subCategoryId
-                  ? `outlined`
-                  : `contained`}
-                onClick={() => onSubCategorySelect(subCategory)}
-              >
-                {selectedSubCategory?.subCategoryId === subCategory.subCategoryId
-                  ? `ausgewählt`
-                  : `auswählen`}
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+            </ListItemButton>
+          );
+        })}
+      </List>
+    </Box>
   );
 }

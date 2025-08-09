@@ -1,8 +1,6 @@
-import {
-  Box,
-  Container,
-  Typography,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import CategoryInfo from '@/components/CategoryInfo/CategoryInfo';
 
 export const metadata = {
@@ -19,23 +17,6 @@ export const metadata = {
   },
   metadataBase: new URL(`https://moodbeauty.de`),
   alternates: { canonical: `/services/nails` },
-  openGraph: {
-    title: `Maniküre und Pediküre München - MOOD BEAUTY`,
-    description: `Professionelle Maniküre und Pediküre in München. Höchste Hygienestandards, sanfte Behandlung und hochwertige Produkte.`,
-    url: `https://moodbeauty.de/services/nails`,
-    siteName: `MOOD BEAUTY`,
-    locale: `de_DE`,
-    type: `website`,
-    images: [
-      {
-        url: `/images/services/manikure.avif`,
-        width: 1200,
-        height: 630,
-        alt: `Maniküre und Pediküre München`,
-      },
-    ],
-  },
-
   robots: {
     index: true,
     follow: true,

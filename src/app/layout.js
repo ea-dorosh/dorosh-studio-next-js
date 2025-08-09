@@ -1,6 +1,9 @@
-import { Box, Typography, Link, CssBaseline } from '@mui/material';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import CookieBanner from '@/components/CookieBanner/CookieBanner';
 import Header from '@/components/Header/Header';

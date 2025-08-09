@@ -266,15 +266,10 @@ const theme = createTheme({
           boxShadow: `none`,
           borderRadius: `0`,
           backgroundColor: COLORS.LIGHT_GRAY,
-
           '&:before': { display: `none` },
-
           '&:first-of-type': { borderRadius: `0` },
-
           '&:last-of-type': { borderRadius: `0` },
-
           '&:last-of-type .MuiAccordionSummary-root:not(.Mui-expanded)': { borderBottom: `none` },
-
           '&.Mui-expanded': { margin: `0px` },
         },
       },
@@ -376,6 +371,16 @@ const theme = createTheme({
             backgroundColor: COLORS.LIGHT_GRAY,
             '&:hover': { backgroundColor: alpha(COLORS.LIGHT_GRAY, 0.8) },
           },
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          padding: `0 4px`,
+          fontFamily: montserrat.style.fontFamily,
+          borderRadius: `9999px`,
+          '& .MuiChip-label': { padding: `0 10px` },
         },
       },
     },

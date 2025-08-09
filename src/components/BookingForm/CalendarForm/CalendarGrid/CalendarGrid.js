@@ -1,14 +1,10 @@
 "use client";
 
-import {
-  ArrowBackIos,
-  ArrowForwardIos,
-} from '@mui/icons-material';
-import {
-  Box,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import dayjs from 'dayjs';
 import CalendarDay from '@/components/BookingForm/CalendarForm/CalendarDay/CalendarDay';
 import { formatMonthYear } from '@/utils/formatters';
@@ -38,11 +34,9 @@ export default function CalendarGrid({
         margin: `16px auto`,
         p: 2,
         borderRadius: 2,
-        border: `1px solid rgba(0,0,0,0.06)`,
-        boxShadow: `0 10px 30px rgba(0,0,0,0.05)`,
         backgroundColor: `background.alternate`,
       }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <IconButton
           size="large"
           color="info"

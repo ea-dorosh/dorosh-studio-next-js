@@ -1,9 +1,7 @@
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 
@@ -21,22 +19,6 @@ export const metadata = {
   },
   metadataBase: new URL(`https://moodbeauty.de`),
   alternates: { canonical: `/services/permanent-make-up/hairstroke` },
-  openGraph: {
-    title: `Hairstroke München - MOOD BEAUTY`,
-    description: `Hairstroke in München - moderne maschinelle Technik für natürliche Augenbrauen. Feine haarähnliche Linien, schmerzfrei.`,
-    url: `https://moodbeauty.de/services/permanent-make-up/hairstroke`,
-    siteName: `MOOD BEAUTY`,
-    locale: `de_DE`,
-    type: `website`,
-    images: [
-      {
-        url: `/images/services-page/service-hairstroke.webp`,
-        width: 1200,
-        height: 630,
-        alt: `Hairstroke München`,
-      },
-    ],
-  },
   robots: {
     index: true,
     follow: true,

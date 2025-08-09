@@ -1,11 +1,9 @@
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Chip,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import Typography from '@mui/material/Typography';
 import dayjs from 'dayjs';
 import { forwardRef } from 'react';
 import 'dayjs/locale/de';
@@ -143,16 +141,16 @@ const CalendarOverview = forwardRef(function CalendarOverview({
   return (
     <Card sx={{
       mb: 2,
-      border: `1px solid rgba(0,0,0,0.06)`,
-      boxShadow: `0 10px 30px rgba(0,0,0,0.06)`,
-      borderRadius: `16px`,
+      borderRadius: `20px`,
       backgroundColor: `background.alternate`,
+      boxShadow: `none`,
     }} ref={ref}>
       <CardContent>
         <Box sx={{
           display: `flex`,
           justifyContent: `space-between`,
-          alignItems: `flex-start`,
+          alignItems: `center`,
+          gap: 1,
           mb: 2,
         }}>
           <Typography variant="h6" sx={{
@@ -204,7 +202,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
             fontSize: `1rem`,
             fontWeight: `bold`,
           }}>
-            Gewählte Services: ({services.length})
+            Gewählte Services:
           </Typography>
 
           {services.length === 0 ? (
@@ -250,20 +248,19 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           <Chip
             label={<>Services: <b>{services.length}</b></>}
             size="small"
-            variant="outlined"
+            variant="filled"
           />
 
           <Chip
             label={<>Gesamtdauer: <b>{formatDuration(getTotalDuration())}</b></>}
             size="small"
-            variant="outlined"
+            variant="filled"
           />
 
           <Chip
             label={<>Gesamtpreis: <b>{formatPrice(getTotalPriceInfo())}</b></>}
             size="small"
-            color="primary"
-            variant="outlined"
+            variant="filled"
           />
         </Box>
       </CardContent>

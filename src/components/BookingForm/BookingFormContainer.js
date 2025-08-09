@@ -142,18 +142,21 @@ export default function BookingFormContainer({ categories }) {
           mx: `calc(50% - 50vw)`,
           width: `100vw`,
           zIndex: 10,
-          py: 0.5,
+          py: 1,
           px: 1,
           pl: `max(16px, env(safe-area-inset-left))`,
           pr: `max(16px, env(safe-area-inset-right))`,
-          backgroundColor: `rgba(255,255,255,0.9)`,
-          backdropFilter: `saturate(180%) blur(8px)`,
-          WebkitBackdropFilter: `saturate(180%) blur(8px)`,
+          backgroundColor: `rgba(255,255,255,0.88)`,
+          backdropFilter: `saturate(180%) blur(10px)`,
+          WebkitBackdropFilter: `saturate(180%) blur(10px)`,
+          borderBottom: `1px solid rgba(0,0,0,0.06)`,
+          boxShadow: `none`,
           '& .MuiStepLabel-label': {
             fontSize: {
-              xs: `0.78rem`,
-              md: `0.9rem`,
+              xs: `0.8rem`,
+              md: `0.95rem`,
             },
+            letterSpacing: `.01em`,
           },
         }}
       >
@@ -162,20 +165,21 @@ export default function BookingFormContainer({ categories }) {
         )} sx={{
           '& .MuiStepIcon-root': {
             color: `rgba(0,0,0,0.2)`,
-            fontSize: `1.1rem`,
-            width: 24,
-            height: 24,
+            fontSize: `1.15rem`,
+            width: 26,
+            height: 26,
           },
           '& .Mui-active': { color: `primary.main !important` },
           '& .Mui-completed': { color: `primary.main !important` },
           '& .MuiStepConnector-line': {
             borderTopWidth: `2px`,
+            borderColor: `rgba(0,0,0,0.12)`,
           },
           minHeight: 0,
           py: 0,
           // MuiStepLabel-label
           '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
-            marginTop: `5px`,
+            marginTop: `6px`,
           },
         }}>
           <Step><StepLabel>Service</StepLabel></Step>
@@ -196,6 +200,7 @@ export default function BookingFormContainer({ categories }) {
             startIcon={<ArrowBackIosNew fontSize="small" />}
             sx={{
               textTransform: `none`,
+              backgroundColor: `rgba(0, 171, 85, 0.04)`,
             }}
             onClick={() => {
               setShowCalendar(false);
@@ -289,9 +294,11 @@ export default function BookingFormContainer({ categories }) {
                   <Button
                     variant="contained"
                     color="primary"
+                    size="large"
                     onClick={() => {
                       setShowCalendar(true);
                     }}
+                    sx={{ px: 5 }}
                   >
                     Weiter
                   </Button>
