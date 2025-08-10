@@ -154,6 +154,17 @@ const theme = createTheme({
     borderRadius: 12,
   },
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+        focusRipple: false,
+      },
+      styleOverrides: {
+        root: {
+          '&:hover': { backgroundColor: `transparent` },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -163,9 +174,17 @@ const theme = createTheme({
           textTransform: `none`,
           boxShadow: `none`,
           transition: `all 0.2s ease-in-out`,
+          // Disable any visual hover effect
           '&:hover': {
             boxShadow: `none`,
-            transform: `translateY(-1px)`,
+            transform: `none`,
+            backgroundColor: `inherit`,
+          },
+          '&.Mui-disabled': {
+            boxShadow: `none`,
+            transform: `none`,
+            opacity: 1,
+            cursor: `default`,
           },
         },
         // Size variants
@@ -194,13 +213,25 @@ const theme = createTheme({
             backgroundColor: COLORS.BLACK,
             color: COLORS.WHITE,
             borderColor: COLORS.BLACK,
-            '&:hover': { backgroundColor: COLORS.CHARCOAL },
+            // Keep the same styles on hover
+            '&:hover': { backgroundColor: COLORS.BLACK },
+            '&.Mui-disabled': {
+              backgroundColor: alpha(COLORS.BLACK, 0.18),
+              color: alpha(COLORS.WHITE, 0.7),
+              borderColor: `transparent`,
+            },
           },
           '&.MuiButton-containedSecondary': {
             backgroundColor: COLORS.WHITE,
             color: COLORS.BLACK,
             borderColor: COLORS.BLACK,
-            '&:hover': { backgroundColor: COLORS.LIGHT_GRAY },
+            // Keep the same styles on hover
+            '&:hover': { backgroundColor: `inherit` },
+            '&.Mui-disabled': {
+              backgroundColor: alpha(COLORS.BLACK, 0.06),
+              color: alpha(COLORS.BLACK, 0.4),
+              borderColor: alpha(COLORS.BLACK, 0.2),
+            },
           },
         },
         outlined: {
@@ -208,18 +239,40 @@ const theme = createTheme({
           '&.MuiButton-outlinedPrimary': {
             borderColor: COLORS.BLACK,
             color: COLORS.BLACK,
+            // Keep the same styles on hover
             '&:hover': {
               borderColor: COLORS.BLACK,
-              backgroundColor: alpha(COLORS.BLACK, 0.04),
+              backgroundColor: `inherit`,
+            },
+            '&.Mui-disabled': {
+              color: alpha(COLORS.BLACK, 0.4),
+              borderColor: alpha(COLORS.BLACK, 0.2),
+              backgroundColor: `transparent`,
             },
           },
           '&.MuiButton-outlinedSecondary': {
             borderColor: COLORS.WHITE,
             color: COLORS.WHITE,
+            // Keep the same styles on hover
             '&:hover': {
               borderColor: COLORS.WHITE,
-              backgroundColor: alpha(COLORS.WHITE, 0.08),
+              backgroundColor: `inherit`,
             },
+            '&.Mui-disabled': {
+              color: alpha(COLORS.WHITE, 0.6),
+              borderColor: alpha(COLORS.WHITE, 0.3),
+              backgroundColor: `transparent`,
+            },
+          },
+        },
+        text: {
+          '&.MuiButton-textPrimary': {
+            color: COLORS.BLACK,
+            '&.Mui-disabled': { color: alpha(COLORS.BLACK, 0.4) },
+          },
+          '&.MuiButton-textSecondary': {
+            color: COLORS.WHITE,
+            '&.Mui-disabled': { color: alpha(COLORS.WHITE, 0.6) },
           },
         },
         // Custom variant for plain style
@@ -237,6 +290,37 @@ const theme = createTheme({
             backgroundColor: `transparent`,
             transform: `none`,
           },
+          '&.Mui-disabled': {
+            color: alpha(COLORS.BLACK, 0.4),
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          // Disable hover background for icon buttons
+          '&:hover': { backgroundColor: `transparent` },
+          '&.Mui-disabled': {
+            color: alpha(COLORS.BLACK, 0.3),
+            backgroundColor: `transparent`,
+          },
+        },
+      },
+    },
+    MuiCardActionArea: {
+      styleOverrides: {
+        root: {
+          // Remove hover/focus overlay highlight
+          '& .MuiCardActionArea-focusHighlight': { opacity: 0 },
+          '&:hover .MuiCardActionArea-focusHighlight': { opacity: 0 },
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': { backgroundColor: `transparent` },
         },
       },
     },

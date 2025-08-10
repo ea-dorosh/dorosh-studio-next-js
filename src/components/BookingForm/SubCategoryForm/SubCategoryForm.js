@@ -29,10 +29,13 @@ export default function SubCategoryForm({
               sx={{
                 py: 1.25,
                 px: 2,
+                '&:hover': { backgroundColor: `transparent` },
                 '&.Mui-selected': {
                   backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+                  '&:hover': {
+                    backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+                  },
                 },
-                '&:hover': { backgroundColor: `rgba(0,0,0,0.04)` },
               }}
             >
               <ListItemText

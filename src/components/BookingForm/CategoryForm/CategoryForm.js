@@ -26,25 +26,31 @@ export default function CategoryForm({
                 ? (theme) => alpha(theme.palette.primary.main, 0.25)
                 : `rgba(0,0,0,0.06)`,
               overflow: `hidden`,
-              transition: `transform .15s ease, border-color .15s ease`,
-              '&:hover': { transform: `translateY(-1px)` },
+              '&:hover': { transform: `none` },
             }}
           >
             <CardActionArea
               onClick={() => onCategorySelect(category)}
-              disabled={selectedCategory?.categoryId === category.categoryId}
               sx={{
                 alignItems: `stretch`,
                 position: `relative`,
                 display: `block`,
+                '&:hover': { backgroundColor: `transparent` },
               }}>
-              {category.categoryImage && (
+              {category.categoryImage ? (
                 <CardMedia
                   component="img"
                   height="180"
                   image={category.categoryImage}
                   alt={category.categoryName}
                   sx={{ objectFit: `cover` }}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    height: 180,
+                    backgroundColor: (theme) => theme.palette.grey[100],
+                  }}
                 />
               )}
 

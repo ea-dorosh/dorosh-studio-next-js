@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import {
   useState,
   useEffect,
+  useRef,
 } from 'react';
 import AddServiceQuestion from '@/components/BookingForm/AddServiceQuestion/AddServiceQuestion';
 import CalendarForm from '@/components/BookingForm/CalendarForm/CalendarForm';
@@ -22,6 +23,9 @@ import appointmentsService from '@/services/appointments.service';
 
 export default function BookingFormContainer({ categories }) {
   const theme = useTheme();
+  console.log(`FE: categories`, JSON.stringify(categories, null, 2));
+
+  const firstServiceRef = useRef(null);
 
   const [formState, setFormState] = useState({
     firstService: null,
@@ -227,10 +231,11 @@ export default function BookingFormContainer({ categories }) {
                   letterSpacing: `.02em`,
                 }}
               >
-              Service auswählen
+                Service auswählen
               </Typography>
 
               <ServiceSelectionForm
+                ref={firstServiceRef}
                 categories={categories}
                 onServiceSelect={(service) => {
                   setFormState(prev => ({
@@ -282,6 +287,13 @@ export default function BookingFormContainer({ categories }) {
               {formState.firstService && !formState.hasSecondService && (
                 <AddServiceQuestion
                   onAddService={() => {
+                    // Collapse any open accordions in the first ServiceSelectionForm
+                    try {
+                      firstServiceRef.current?.collapseAll?.();
+                    } catch (error) {
+                      console.error(`[BookingFormContainer] error`, error);
+                    }
+
                     setFormState(prev => ({
                       ...prev,
                       hasSecondService: true,

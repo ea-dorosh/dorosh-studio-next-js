@@ -29,7 +29,13 @@ export default function ServicesList({
   return (
     <Grid container spacing={2}>
       {services.map((service) => (
-        <Grid item xs={12} key={service.id}>
+        <Grid
+          item xs={12}
+          key={service.id}
+          sx={{
+            '&:last-child .MuiCard-root': { borderBottom: `none` },
+          }}
+        >
           <Card
             sx={{
               boxShadow: `none`,
@@ -38,6 +44,7 @@ export default function ServicesList({
               borderColor: `grey.300`,
               backgroundColor: `transparent`,
               borderRadius: 0,
+
             }}
           >
             <CardContent sx={{
@@ -111,7 +118,7 @@ export default function ServicesList({
                   >
                     {selectedServiceId === service.id ?
                       `Ausgewählt` :
-                      selectedServicesIds.includes(service.id) ? `Ausgewählt in anderem Service` : `Auswählen`
+                      selectedServicesIds.includes(service.id) ? `Ausgewählt` : `Auswählen`
                     }
                   </Button>
                 </Box>

@@ -12,6 +12,7 @@ import {
   useState,
   useEffect,
   forwardRef,
+  useImperativeHandle,
 } from 'react';
 import CategoryForm from '@/components/BookingForm/CategoryForm/CategoryForm';
 import ServicesList from '@/components/BookingForm/ServicesList/ServicesList';
@@ -31,7 +32,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
   useEffect(() => {
     if (serviceData) {
       const category = categories.find(category => category.categoryId === serviceData?.categoryId);
-      const subCategory = category?.subCategories.find(subCategory => subCategory.subCategoryId === serviceData?.subCategoryId);
+      const subCategory = category?.subCategories?.find(subCategory => subCategory.subCategoryId === serviceData?.subCategoryId);
 
       setSelectedCategory(category || null);
       setSelectedSubCategory(subCategory || null);
@@ -52,25 +53,48 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
 
   const [expandedPanel, setExpandedPanel] = useState(null);
 
+  // Expose imperative API to parent to control accordion state
+  useImperativeHandle(ref, () => ({
+    collapseAll: () => setExpandedPanel(null),
+    openCategory: () => setExpandedPanel(`category`),
+    openService: () => setExpandedPanel(`service`),
+  }), []);
+
   const handlePanelChange = (panel) => (event, isExpanded) => {
     setExpandedPanel(isExpanded ? panel : null);
   };
 
   const onCategorySelect = (category) => {
+    // If user re-selects the same category and a service is already chosen,
+    // just close the accordion without changing state
+    if (selectedCategory?.categoryId === category.categoryId && serviceData) {
+      console.log(`[ServiceSelectionForm] same category reselected, closing category accordion`);
+      setExpandedPanel(null);
+      return;
+    }
+
     setSelectedCategory(category);
     setSelectedSubCategory(null);
-    setExpandedPanel(`subCategory`);
+    setExpandedPanel(category?.hasSubCategories === false ? `service` : `subCategory`);
   };
 
   const onSubCategorySelect = (subCategory) => {
+    // If user re-selects the same subcategory and a service is already chosen,
+    // just close the accordion without changing state
+    if (selectedSubCategory?.subCategoryId === subCategory.subCategoryId && serviceData) {
+      console.log(`[ServiceSelectionForm] same subcategory reselected, closing subcategory accordion`);
+      setExpandedPanel(null);
+      return;
+    }
+
     setSelectedSubCategory(subCategory);
     setExpandedPanel(`service`);
   };
 
   const onServiceSelectInternal = (service) => {
-    setExpandedPanel(null);
-    // setSelectedService(service);
+    // First propagate selection to parent, then close the accordion in next tick
     onServiceSelect(service);
+    setTimeout(() => setExpandedPanel(null), 0);
   };
 
   return (
@@ -97,11 +121,11 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             alignItems: `center`,
             gap: 1,
             width: `100%`,
-            padding: `8px 16px`,
+            padding: `0 16px`,
             borderBottom: `1px solid`,
             borderColor: `grey.300`,
           }}>
-            <Typography>{firstService ? `Service 1` : `Service 2`}</Typography>
+            <Typography color="success.main" fontWeight={600}>{firstService ? `Service 1` : `Service 2`}</Typography>
 
             <Button size='small' color="error" onClick={deleteService} sx={{
               p:0,
@@ -128,8 +152,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               px: 2,
               py: 1,
               borderRadius: `12px`,
-              transition: `background-color .2s ease`,
-              '&:hover': { backgroundColor: `rgba(0,0,0,0.03)` },
             }}>
             <Box sx={{
               width: `100%`,
@@ -148,7 +170,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             sx={{
               px: 2,
               pb: 2,
-              borderTop: `1px dashed rgba(0,0,0,0.1)`,
             }}
           >
             <CategoryForm
@@ -161,7 +182,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         {/* )} */}
 
         {/* SubCategory Selection - Collapsible */}
-        {selectedCategory && (
+        {selectedCategory && selectedCategory.hasSubCategories !== false && (
           <Accordion
             disableGutters
             expanded={!selectedSubCategory ? true : expandedPanel === `subCategory`}
@@ -177,8 +198,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 px: 2,
                 py: 1,
                 borderRadius: `12px`,
-                transition: `background-color .2s ease`,
-                '&:hover': { backgroundColor: `rgba(0,0,0,0.03)` },
               }}
             >
               <Typography sx={{ fontWeight: 500 }}>
@@ -193,7 +212,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               sx={{
                 px: 2,
                 pb: 2,
-                borderTop: `1px dashed rgba(0,0,0,0.1)`,
               }}
             >
               <SubCategoryForm
@@ -206,7 +224,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         )}
 
         {/* Service Selection - Collapsible */}
-        {selectedSubCategory && (
+        {(selectedCategory && selectedCategory.hasSubCategories === false) || selectedSubCategory ? (
           <Accordion
             disableGutters
             expanded={expandedPanel === `service`}
@@ -222,8 +240,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 px: 2,
                 py: 1,
                 borderRadius: `12px`,
-                transition: `background-color .2s ease`,
-                '&:hover': { backgroundColor: `rgba(0,0,0,0.03)` },
               }}
             >
               {!serviceData || expandedPanel === `service` ?
@@ -284,14 +300,14 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               }}
             >
               <ServicesList
-                services={getAvailableServices(selectedSubCategory.services)}
+                services={getAvailableServices(selectedCategory?.hasSubCategories === false ? selectedCategory.services : selectedSubCategory.services)}
                 onServiceSelect={onServiceSelectInternal}
                 selectedServicesIds={selectedServicesIds}
                 selectedServiceId={serviceData?.id}
               />
             </AccordionDetails>
           </Accordion>
-        )}
+        ) : null}
       </CardContent>
     </Card>
   );
