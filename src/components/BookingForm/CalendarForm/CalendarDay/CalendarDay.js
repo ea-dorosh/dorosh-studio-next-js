@@ -20,7 +20,7 @@ export default function CalendarDay({
           top: `-1px`,
           left: 0,
           transition: `none`,
-          color: isSelected ? `info.contrastText` : `info.main`,
+          color: isSelected ? `primary.contrastText` : `primary.main`,
         },
       }}
     >
@@ -36,11 +36,11 @@ export default function CalendarDay({
           borderRadius: 0,
           color: isHighlighted
             ? isSelected
-              ? `info.contrastText`
-              : `info.main`
+              ? `${theme.palette.primary.contrastText} !important`
+              : `${theme.palette.primary.main} !important`
             : isSelected
-              ? `info.contrastText`
-              : `gray`,
+              ? `${theme.palette.primary.contrastText} !important`
+              : `${theme.palette.primary.main} !important`,
           backgroundColor: `${isSelected ? theme.palette.info.main : `initial`} !important`,
         }}
       >
