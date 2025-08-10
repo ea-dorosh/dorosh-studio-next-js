@@ -1,9 +1,11 @@
 "use client";
 
 import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
+import Close from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
@@ -23,7 +25,6 @@ import appointmentsService from '@/services/appointments.service';
 
 export default function BookingFormContainer({ categories }) {
   const theme = useTheme();
-  console.log(`FE: categories`, JSON.stringify(categories, null, 2));
 
   const firstServiceRef = useRef(null);
 
@@ -43,6 +44,7 @@ export default function BookingFormContainer({ categories }) {
   const [generalError, setGeneralError] = useState(null);
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
   const [serviceEmployees, setServiceEmployees] = useState({});
+  const [showDevBanner, setShowDevBanner] = useState(true);
 
   /** Watch */
   useEffect(() => {
@@ -126,6 +128,10 @@ export default function BookingFormContainer({ categories }) {
     }
   }
 
+  const dismissDevBanner = () => {
+    setShowDevBanner(false);
+  };
+
   return (
     <Box
       sx={{
@@ -137,6 +143,61 @@ export default function BookingFormContainer({ categories }) {
         zIndex: 1,
       }}
     >
+      {showDevBanner && (
+        <Box
+          role="alert"
+          aria-live="polite"
+          sx={{
+            // In normal document flow, full-bleed across viewport like the stepper
+            position: `relative`,
+            mx: `calc(50% - 50vw)`,
+            width: `100vw`,
+            mb: 2,
+            background: `linear-gradient(135deg, ${theme.palette.error.main} 0%, #ff0033 100%)`,
+            color: `#ffffff`,
+            borderRadius: 2,
+            py: {
+              xs: 2,
+              md: 3,
+            },
+            px: 1,
+            pl: `max(16px, env(safe-area-inset-left))`,
+            pr: `max(16px, env(safe-area-inset-right))`,
+            display: `flex`,
+            alignItems: `flex-start`,
+            gap: 2,
+            border: `2px solid rgba(255,255,255,0.9)`,
+          }}
+        >
+          <Typography
+            component="div"
+            sx={{
+              fontSize: {
+                xs: `1rem`, md: `1.25rem`,
+              },
+              fontWeight: 700,
+              lineHeight: 1.35,
+              letterSpacing: `.02em`,
+              pr: 5,
+            }}
+          >
+            Diese Website befindet sich noch in der Entwicklung. Online‑Termine sind derzeit nicht möglich — wir testen unsere Plattform. Ab September starten wir die Online‑Buchung bei MOOD Beauty.
+          </Typography>
+
+          <IconButton
+            aria-label={`Hinweis schließen`}
+            onClick={dismissDevBanner}
+            sx={{
+              position: `absolute`,
+              top: 6,
+              right: 6,
+              color: `#ffffff`,
+            }}
+          >
+            <Close />
+          </IconButton>
+        </Box>
+      )}
       <Box
         sx={{
           mb: 2,

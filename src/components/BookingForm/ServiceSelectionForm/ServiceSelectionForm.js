@@ -68,7 +68,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
     // If user re-selects the same category and a service is already chosen,
     // just close the accordion without changing state
     if (selectedCategory?.categoryId === category.categoryId && serviceData) {
-      console.log(`[ServiceSelectionForm] same category reselected, closing category accordion`);
       setExpandedPanel(null);
       return;
     }
@@ -82,7 +81,6 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
     // If user re-selects the same subcategory and a service is already chosen,
     // just close the accordion without changing state
     if (selectedSubCategory?.subCategoryId === subCategory.subCategoryId && serviceData) {
-      console.log(`[ServiceSelectionForm] same subcategory reselected, closing subcategory accordion`);
       setExpandedPanel(null);
       return;
     }
