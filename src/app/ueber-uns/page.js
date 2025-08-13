@@ -267,6 +267,23 @@ export default function ÜberUnsPage() {
             </Box>
           </Box>
 
+          <ScrollGallery
+            images={[
+              {
+                src: `/images/design/lashes_2.avif`,
+                alt: `Mood Beauty - Gallery 1`,
+              },
+              {
+                src: `/images/design/lashes_2.avif`,
+                alt: `Mood Beauty - Gallery 2`,
+              },
+              {
+                src: `/images/design/lashes_2.avif`,
+                alt: `Mood Beauty - Gallery 3`,
+              },
+            ]}
+          />
+
           <Box
             sx={{
               backgroundColor: `background.paper`,
@@ -354,23 +371,6 @@ export default function ÜberUnsPage() {
               backgroundColor: `primary.main`,
               opacity: 0.3,
             }}
-          />
-
-          <ScrollGallery
-            images={[
-              {
-                src: `/images/design/lashes_2.avif`,
-                alt: `Mood Beauty - Gallery 1`,
-              },
-              {
-                src: `/images/design/lashes_2.avif`,
-                alt: `Mood Beauty - Gallery 2`,
-              },
-              {
-                src: `/images/design/lashes_2.avif`,
-                alt: `Mood Beauty - Gallery 3`,
-              },
-            ]}
           />
 
           <Box

@@ -1,0 +1,170 @@
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Link from 'next/link';
+import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
+
+const services = [
+  {
+    title: `Permanent Make-up`,
+    text: `Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke`,
+    href: `/services/permanent-make-up`,
+    img: `/images/design/pm_brows_lips.avif`,
+  },
+  {
+    title: `Nails`,
+    text: `Manicure & Pedicure`,
+    href: `/services/nails`,
+    img: `/images/design/manik_2.avif`,
+  },
+];
+
+export default function HomeServices() {
+  return (
+    <Box
+      component="section"
+      sx={{
+        py: {
+          xs: 4,
+          md: 8,
+        },
+      }}
+    >
+      <Container
+        sx={{
+          maxWidth: `1200px`,
+          px: {
+            xs: 2,
+            md: 4,
+          },
+        }}
+      >
+        <Typography
+          variant="h2"
+          color="primary"
+          textAlign="center"
+          sx={{
+            fontWeight: 700,
+            letterSpacing: `.02em`,
+            mb: 4,
+          }}
+        >
+          Unsere Services
+        </Typography>
+
+        <Grid
+          container
+          spacing={{
+            xs: 2,
+            md: 3,
+          }}
+        >
+          {services.map((s, i) => (
+            <Grid
+              key={i}
+              item
+              xs={12}
+              md={6}
+              sx={{
+                display: {
+                  md: `flex`,
+                },
+                justifyContent: {
+                  md: `center`,
+                },
+              }}
+            >
+              <Link
+                href={s.href}
+                style={{
+                  textDecoration: `none`,
+                  color: `inherit`,
+                  display: `block`,
+                }}
+              >
+                <Box
+                  sx={{
+                    backgroundColor: `background.paper`,
+                    borderRadius: {
+                      xs: `16px`,
+                      md: `24px`,
+                    },
+                    overflow: `hidden`,
+                    boxShadow: `0 10px 30px rgba(0,0,0,.06)`,
+                    height: `100%`,
+                    width: {
+                      xs: `100%`,
+                      md: 400,
+                    },
+                    flexShrink: 0,
+                    display: `flex`,
+                    flexDirection: `column`,
+                    transition: `transform .15s ease, box-shadow .15s ease`,
+                    '&:hover': {
+                      transform: `translateY(-2px)`,
+                      boxShadow: `0 14px 36px rgba(0,0,0,.1)`,
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: `relative`,
+                      height: 260,
+                    }}
+                  >
+                    <OptimizedImage
+                      src={s.img}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={90}
+                      style={{
+                        objectFit: `cover`,
+                        objectPosition: `center`,
+                      }}
+                    />
+                  </Box>
+
+                  <Box
+                    sx={{
+                      p: {
+                        xs: 2,
+                        md: 3,
+                      },
+                      display: `flex`,
+                      flexDirection: `column`,
+                      gap: 1,
+                    }}
+                  >
+                    <Typography
+                      variant="h3"
+                      color="primary"
+                      sx={{
+                        fontWeight: 600,
+                        mb: 1,
+                      }}
+                    >
+                      {s.title}
+                    </Typography>
+                    <Typography
+                      color="primary"
+                      sx={{
+                        opacity: 0.9,
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      {s.text}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
+  );
+}
+
+

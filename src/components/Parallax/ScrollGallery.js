@@ -24,7 +24,8 @@ export default function ScrollGallery({ images = [] }) {
         itemRefs.current.forEach((el, index) => {
           if (!el) return;
           const base = 1 + index * 0.04;
-          const translateY = (1 - p) * (60 - index * 15);
+          // Reduced travel so images start closer to the top of the block
+          const translateY = (1 - p) * (20 - index * 6);
           el.style.transform = `translate3d(0, ${translateY}px, 0) scale(${base})`;
         });
       });
@@ -43,20 +44,20 @@ export default function ScrollGallery({ images = [] }) {
     <Box
       ref={containerRef}
       component="section"
-      sx={{
-        my: {
-          xs: 6,
-          md: 10,
-        },
-      }}
+      // sx={{
+      //   my: {
+      //     xs: 6,
+      //     md: 10,
+      //   },
+      // }}
     >
       <Box>
         <Box
           sx={{
             position: `relative`,
             height: {
-              xs: 480,
-              md: 640,
+              xs: 347,
+              md: 560,
             },
             overflow: `hidden`,
             borderRadius: {
@@ -71,9 +72,10 @@ export default function ScrollGallery({ images = [] }) {
           {images.slice(0, 3).map((img, index) => {
             const base = 1 + index * 0.04;
             const z = 10 - index;
-            const widthPct = index === 0 ? `52%` : index === 1 ? `38%` : `28%`;
+            const widthPct = index === 0 ? `52%` : index === 1 ? `38%` : `27%`;
             const leftPct = index === 0 ? `6%` : index === 1 ? `48%` : `72%`;
-            const topPct = index === 0 ? `10%` : index === 1 ? `24%` : `54%`;
+            // Start closer to top with a small offset
+            const topPct = index === 0 ? `2%` : index === 1 ? `12%` : `28%`;
             return (
               <Box
                 key={index}
