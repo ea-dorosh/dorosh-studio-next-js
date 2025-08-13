@@ -93,10 +93,12 @@ export default function PowderBrowsPage() {
           />
         </Box>
 
-        <Box sx={{
-          maxWidth: `800px`,
-          margin: `0 auto`,
-        }}>
+        <Box
+          sx={{
+            maxWidth: `800px`,
+            margin: `0 auto`,
+          }}
+        >
           <Typography
             sx={{
               lineHeight: 1.8,
@@ -119,38 +121,56 @@ export default function PowderBrowsPage() {
           >
             Diese Methode eignet sich ideal für alle, die:
           </Typography>
-          <Box component="ul" sx={{
-            marginBottom: `32px`,
-            paddingLeft: `24px`,
-          }}>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+          <Box
+            component="ul"
+            sx={{
+              marginBottom: `32px`,
+              paddingLeft: `24px`,
+            }}
+          >
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               die Form und Symmetrie der Augenbrauen optimieren möchten
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               visuell mehr Fülle erzielen wollen
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               ihre natürlichen Gesichtszüge dezent unterstreichen möchten
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               täglich Zeit beim Schminken sparen wollen
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               ein langanhaltendes, aber natürliches Ergebnis für 1,5-2 Jahre wünschen
             </Typography>
           </Box>
@@ -166,32 +186,47 @@ export default function PowderBrowsPage() {
           >
             Vorteile von Powder Brows:
           </Typography>
-          <Box component="ul" sx={{
-            marginBottom: `32px`,
-            paddingLeft: `24px`,
-          }}>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+          <Box
+            component="ul"
+            sx={{
+              marginBottom: `32px`,
+              paddingLeft: `24px`,
+            }}
+          >
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Zarter, pudriger Effekt mit weicher Kontur
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Farbpigmente werden oberflächlich eingebracht und bauen sich gleichmäßig ohne Rückstände ab
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Auch für fettige oder empfindliche Haut geeignet
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Farbton und Intensität werden individuell angepasst - von sehr dezent bis leicht betont
             </Typography>
           </Box>
@@ -220,12 +255,14 @@ export default function PowderBrowsPage() {
             Wenn Sie sich gepflegte, gleichmäßige Brauen mit einem natürlichen Look wünschen, sind Powder Brows die perfekte Wahl.
           </Typography>
 
-          <Box sx={{
-            display: `flex`,
-            gap: `16px`,
-            justifyContent: `center`,
-            flexWrap: `wrap`,
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              gap: `16px`,
+              justifyContent: `center`,
+              flexWrap: `wrap`,
+            }}
+          >
             <Button
               component={Link}
               href="/booking"

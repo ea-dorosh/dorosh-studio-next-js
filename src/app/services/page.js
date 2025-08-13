@@ -49,18 +49,20 @@ export default function ServicesPage() {
             margin: `0 auto`,
           }}
         >
-          <Box sx={{
-            display: `flex`,
-            flexDirection: `column`,
-            alignItems: `center`,
-            width: `100%`,
-            maxWidth: {
-              xs: `100%`,
-              sm: `500px`,
-              md: `400px`,
-              lg: `500px`,
-            },
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              flexDirection: `column`,
+              alignItems: `center`,
+              width: `100%`,
+              maxWidth: {
+                xs: `100%`,
+                sm: `500px`,
+                md: `400px`,
+                lg: `500px`,
+              },
+            }}
+          >
             <CategoryCardInfo
               title="Permanent Make-up"
               subtitle="Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke"
@@ -70,18 +72,20 @@ export default function ServicesPage() {
             />
           </Box>
 
-          <Box sx={{
-            display: `flex`,
-            flexDirection: `column`,
-            alignItems: `center`,
-            width: `100%`,
-            maxWidth: {
-              xs: `100%`,
-              sm: `500px`,
-              md: `400px`,
-              lg: `500px`,
-            },
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              flexDirection: `column`,
+              alignItems: `center`,
+              width: `100%`,
+              maxWidth: {
+                xs: `100%`,
+                sm: `500px`,
+                md: `400px`,
+                lg: `500px`,
+              },
+            }}
+          >
             <CategoryCardInfo
               title="Nails"
               subtitle="Manicure & Pedicure"

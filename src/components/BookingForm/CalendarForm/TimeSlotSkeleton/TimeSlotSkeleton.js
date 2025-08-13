@@ -41,11 +41,13 @@ export default function TimeSlotSkeleton({
       </Box>
 
       {showButton && (
-        <Box sx={{
-          display: `flex`,
-          justifyContent: `center`,
-          mt: 2, 
-        }}>
+        <Box
+          sx={{
+            display: `flex`,
+            justifyContent: `center`,
+            mt: 2, 
+          }}
+        >
           <Skeleton
             variant="rectangular"
             width={300}

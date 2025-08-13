@@ -73,14 +73,16 @@ const createAdaptiveChips = (selectedEmployees, service) => {
   const chips = createChips(truncationLevel);
 
   return (
-    <Box sx={{
-      display: `flex`,
-      flexWrap: `nowrap`,
-      gap: 0.5,
-      overflow: `hidden`,
-      alignItems: `center`,
-      minHeight: `23px`,
-    }}>
+    <Box
+      sx={{
+        display: `flex`,
+        flexWrap: `nowrap`,
+        gap: 0.5,
+        overflow: `hidden`,
+        alignItems: `center`,
+        minHeight: `23px`,
+      }}
+    >
       {chips}
     </Box>
   );
@@ -169,8 +171,14 @@ export default function EmployeeSelector({
         if (!service) return null;
 
         return (
-          <Box key={service.id} sx={{ mt: 2 }}>
-            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+          <Box
+            key={service.id}
+            sx={{ mt: 2 }}
+          >
+            <Typography
+              variant="subtitle2"
+              sx={{ mb: 1 }}
+            >
               {service.name}
             </Typography>
 
@@ -178,7 +186,10 @@ export default function EmployeeSelector({
               Mitarbeiter
             </Typography>
 
-            <FormControl fullWidth variant="outlined">
+            <FormControl
+              fullWidth
+              variant="outlined"
+            >
               <Select
                 multiple
                 value={(() => {
@@ -211,7 +222,10 @@ export default function EmployeeSelector({
                 }}
               >
                 {service.employees.length > 1 && (
-                  <MenuItem key="all" value="all">
+                  <MenuItem
+                    key="all"
+                    value="all"
+                  >
                     <Checkbox checked={(serviceEmployees[service.id] || []).includes(`all`)} />
                     <ListItemText primary="Alle Mitarbeiter" />
                   </MenuItem>
@@ -224,7 +238,10 @@ export default function EmployeeSelector({
                   const isSingleEmployee = service.employees.length === 1;
 
                   return (
-                    <MenuItem key={employee.id} value={employee.id.toString()}>
+                    <MenuItem
+                      key={employee.id}
+                      value={employee.id.toString()}
+                    >
                       {isSingleEmployee ? (
                         <Checkbox
                           checked={true}
@@ -235,11 +252,13 @@ export default function EmployeeSelector({
                       )}
                       <ListItemText
                         primary={
-                          <Box sx={{
-                            display: `flex`,
-                            justifyContent: `space-between`,
-                            width: `100%`, 
-                          }}>
+                          <Box
+                            sx={{
+                              display: `flex`,
+                              justifyContent: `space-between`,
+                              width: `100%`, 
+                            }}
+                          >
                             <span>{`${employee.firstName} ${employee.lastName}`}</span>
                             <Chip
                               label={`${employee.price || 0}€`}

@@ -87,15 +87,17 @@ const Breadcrumbs = () => {
   const breadcrumbs = generateBreadcrumbs();
 
   return (
-    <Box sx={{
-      py: 2,
-      px: 3,
-      backgroundColor: `background.default`,
-      borderBottom: 1,
-      borderColor: `divider`,
-      maxWidth: `1200px`,
-      margin: `0 auto`,
-    }}>
+    <Box
+      sx={{
+        py: 2,
+        px: 3,
+        backgroundColor: `background.default`,
+        borderBottom: 1,
+        borderColor: `divider`,
+        maxWidth: `1200px`,
+        margin: `0 auto`,
+      }}
+    >
       <MuiBreadcrumbs
         aria-label="breadcrumb"
         sx={{

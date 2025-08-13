@@ -13,9 +13,18 @@ export default function CategoryForm({
 }) {
 
   return (
-    <Grid container spacing={2}>
+    <Grid
+      container
+      spacing={2}
+    >
       {categories.map((category) => (
-        <Grid item xs={12} sm={6} md={4} key={category.categoryId}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          key={category.categoryId}
+        >
           <Card
             sx={{
               boxShadow: `none`,
@@ -36,7 +45,8 @@ export default function CategoryForm({
                 position: `relative`,
                 display: `block`,
                 '&:hover': { backgroundColor: `transparent` },
-              }}>
+              }}
+            >
               {category.categoryImage ? (
                 <CardMedia
                   component="img"
@@ -55,17 +65,19 @@ export default function CategoryForm({
               )}
 
               {/* Overlay label */}
-              <Box sx={{
-                position: `absolute`,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                px: 2,
-                py: 1.2,
-                display: `flex`,
-                alignItems: `center`,
-                backgroundColor: `rgba(255,255,255,0.75)`,
-              }}>
+              <Box
+                sx={{
+                  position: `absolute`,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  px: 2,
+                  py: 1.2,
+                  display: `flex`,
+                  alignItems: `center`,
+                  backgroundColor: `rgba(255,255,255,0.75)`,
+                }}
+              >
                 <Typography
                   variant="h6"
                   component="h3"

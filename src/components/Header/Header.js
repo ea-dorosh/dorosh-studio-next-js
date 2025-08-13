@@ -40,7 +40,10 @@ export default function Header() {
 
   return (
     <>
-      <AppBar position={isBooking ? `static` : `sticky`} color="transparent">
+      <AppBar
+        position={isBooking ? `static` : `sticky`}
+        color="transparent"
+      >
         <Toolbar sx={{ px: 2 }}>
           <Box
             sx={{

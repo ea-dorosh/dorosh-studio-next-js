@@ -93,10 +93,12 @@ export default function HairstrokePage() {
           />
         </Box>
 
-        <Box sx={{
-          maxWidth: `800px`,
-          margin: `0 auto`,
-        }}>
+        <Box
+          sx={{
+            maxWidth: `800px`,
+            margin: `0 auto`,
+          }}
+        >
           <Typography
             sx={{
               lineHeight: 1.8,
@@ -119,32 +121,47 @@ export default function HairstrokePage() {
           >
             Für wen eignet sich Hairstroke?
           </Typography>
-          <Box component="ul" sx={{
-            marginBottom: `32px`,
-            paddingLeft: `24px`,
-          }}>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+          <Box
+            component="ul"
+            sx={{
+              marginBottom: `32px`,
+              paddingLeft: `24px`,
+            }}
+          >
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Bei lückenhaften, dünnen oder asymmetrischen Augenbrauen
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Zur Kaschierung kleiner Narben oder Unregelmäßigkeiten
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Für alle, die keine dichte Schattierung wünschen
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Ideal bei empfindlicher oder feiner Haut, bei der Microblading nicht empfohlen wird
             </Typography>
           </Box>
@@ -160,44 +177,65 @@ export default function HairstrokePage() {
           >
             Vorteile der maschinellen Hairstroke-Technik:
           </Typography>
-          <Box component="ul" sx={{
-            marginBottom: `32px`,
-            paddingLeft: `24px`,
-          }}>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+          <Box
+            component="ul"
+            sx={{
+              marginBottom: `32px`,
+              paddingLeft: `24px`,
+            }}
+          >
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Keine Schnitte, keine Narben, keine Hautverletzungen
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Nahezu schmerzfreie Anwendung dank oberflächlicher Pigmentierung
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Sanftes Ausbleichen - die Farbe verschwindet vollständig und gleichmäßig
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Keine Verfärbungen ins Graue oder Rötliche
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Natürliches Ergebnis - fein, zart und kaum von echten Haaren zu unterscheiden
             </Typography>
-            <Typography component="li" sx={{
-              marginBottom: `8px`,
-              lineHeight: 1.6,
-            }}>
+            <Typography
+              component="li"
+              sx={{
+                marginBottom: `8px`,
+                lineHeight: 1.6,
+              }}
+            >
               Schnelle Heilung ohne Krusten oder Schwellung
             </Typography>
           </Box>
@@ -226,12 +264,14 @@ export default function HairstrokePage() {
             Hairstroke ist die perfekte Wahl für alle, die sich natürlich definierte Augenbrauen ohne sichtbares Make-up wünschen.
           </Typography>
 
-          <Box sx={{
-            display: `flex`,
-            gap: `16px`,
-            justifyContent: `center`,
-            flexWrap: `wrap`,
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              gap: `16px`,
+              justifyContent: `center`,
+              flexWrap: `wrap`,
+            }}
+          >
             <Button
               component={Link}
               href="/booking"

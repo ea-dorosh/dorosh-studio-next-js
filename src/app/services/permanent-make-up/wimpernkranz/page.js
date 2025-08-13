@@ -95,11 +95,13 @@ export default function WimpernkranzPage() {
         </Box>
 
         {/* Заглушка */}
-        <Box sx={{
-          maxWidth: `800px`,
-          margin: `0 auto`,
-          textAlign: `center`,
-        }}>
+        <Box
+          sx={{
+            maxWidth: `800px`,
+            margin: `0 auto`,
+            textAlign: `center`,
+          }}
+        >
           <Typography
             sx={{
               lineHeight: 1.8,
@@ -123,12 +125,14 @@ export default function WimpernkranzPage() {
           </Typography>
 
           {/* Кнопки */}
-          <Box sx={{
-            display: `flex`,
-            gap: `16px`,
-            justifyContent: `center`,
-            flexWrap: `wrap`,
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              gap: `16px`,
+              justifyContent: `center`,
+              flexWrap: `wrap`,
+            }}
+          >
             <Button
               component={Link}
               href="/booking"

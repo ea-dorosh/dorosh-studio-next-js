@@ -6,15 +6,20 @@ import ServicesCard from '@/components/ServicesSection/ServiceCard/ServiceCard';
 export default function ServicesSection() {
 
   return (
-    <Box bgcolor="background.alternate" component="section">
-      <Container sx={{
-        maxWidth: `1200px`,
-        margin: `0 auto`,
-        padding: {
-          xs: `24px 16px 0 16px`,
-          md: `32px 24px 0 24px`,
-        },
-      }}>
+    <Box
+      bgcolor="background.alternate"
+      component="section"
+    >
+      <Container
+        sx={{
+          maxWidth: `1200px`,
+          margin: `0 auto`,
+          padding: {
+            xs: `24px 16px 0 16px`,
+            md: `32px 24px 0 24px`,
+          },
+        }}
+      >
         <Typography
           variant="h2"
           color="primary"
@@ -43,13 +48,15 @@ export default function ServicesSection() {
             maxWidth: `100%`,
           }}
         >
-          <Box sx={{
-            display: `flex`,
-            flexDirection: `column`,
-            alignItems: `stretch`,
-            width: `100%`,
-            maxWidth: `100%`,
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              flexDirection: `column`,
+              alignItems: `stretch`,
+              width: `100%`,
+              maxWidth: `100%`,
+            }}
+          >
             <ServicesCard
               title="Permanent Make-up"
               subtitle="Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke"
@@ -59,13 +66,15 @@ export default function ServicesSection() {
             />
           </Box>
 
-          <Box sx={{
-            display: `flex`,
-            flexDirection: `column`,
-            alignItems: `stretch`,
-            width: `100%`,
-            maxWidth: `100%`,
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              flexDirection: `column`,
+              alignItems: `stretch`,
+              width: `100%`,
+              maxWidth: `100%`,
+            }}
+          >
             <ServicesCard
               title="Nails"
               subtitle="Manicure & Pedicure"

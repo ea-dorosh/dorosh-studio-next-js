@@ -80,18 +80,27 @@ const CookieBanner = () => {
           overflowY: `auto`,
         }}
       >
-        <CardContent sx={{
-          p: 3,
-          pb: 0, 
-        }}>
-          <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+        <CardContent
+          sx={{
+            p: 3,
+            pb: 0, 
+          }}
+        >
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ fontWeight: 600 }}
+          >
             Cookie-Hinweis
           </Typography>
 
-          <Typography variant="body1" sx={{
-            mb: 2,
-            lineHeight: 1.6, 
-          }}>
+          <Typography
+            variant="body1"
+            sx={{
+              mb: 2,
+              lineHeight: 1.6, 
+            }}
+          >
             Diese Website verwendet technisch notwendige Cookies für die
             Grundfunktionen unseres Online-Buchungssystems. Ohne diese
             Cookies können Sie keine Termine buchen oder sich anmelden.
@@ -120,31 +129,43 @@ const CookieBanner = () => {
                 },
               }}
             >
-              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+              <Typography
+                variant="body2"
+                sx={{ fontWeight: 500 }}
+              >
                 Details zu verwendeten Cookies
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ pt: 2 }}>
-              <Typography variant="body2" sx={{
-                mb: 2,
-                fontSize: `0.9rem`,
-                color: `text.secondary`, 
-              }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  mb: 2,
+                  fontSize: `0.9rem`,
+                  color: `text.secondary`, 
+                }}
+              >
                 <strong>Verwendete Cookies:</strong><br />
                 • <strong>cookieConsent:</strong> Speichert Ihre Cookie-Einwilligung (365 Tage)<br />
                 • <strong>Session-Cookies:</strong> Für Anmeldung und Buchungssystem (bis Session-Ende)<br />
                 • <strong>Cloudflare-Cookies:</strong> Für Website-Sicherheit und Performance
               </Typography>
 
-              <Typography variant="body2" sx={{
-                mb: 2,
-                fontSize: `0.85rem`,
-                color: `text.secondary`, 
-              }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  mb: 2,
+                  fontSize: `0.85rem`,
+                  color: `text.secondary`, 
+                }}
+              >
                 <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Funktionalität)
               </Typography>
 
-              <Typography variant="body2" sx={{ color: `text.secondary` }}>
+              <Typography
+                variant="body2"
+                sx={{ color: `text.secondary` }}
+              >
                 Weitere Informationen finden Sie in unserer{` `}
                 <Typography
                   component="a"
@@ -163,16 +184,18 @@ const CookieBanner = () => {
             </AccordionDetails>
           </Accordion>
 
-          <Box sx={{
-            display: `flex`,
-            flexDirection: {
-              xs: `column`,
-              sm: `row`, 
-            },
-            gap: 2,
-            justifyContent: `center`,
-            mt: 2, 
-          }}>
+          <Box
+            sx={{
+              display: `flex`,
+              flexDirection: {
+                xs: `column`,
+                sm: `row`, 
+              },
+              gap: 2,
+              justifyContent: `center`,
+              mt: 2, 
+            }}
+          >
             <Button
               variant="outlined"
               color="primary"
@@ -204,16 +227,19 @@ const CookieBanner = () => {
           </Box>
         </CardContent>
 
-        <Typography variant="caption" sx={{
-          display: `block`,
-          textAlign: `left`,
-          m: 0,
-          color: `text.secondary`,
-          fontStyle: `italic`,
-          fontSize: `0.8rem`,
-          padding: `10px 24px`,
-          fontFamily: `Montserrat, sans-serif`,
-        }}>
+        <Typography
+          variant="caption"
+          sx={{
+            display: `block`,
+            textAlign: `left`,
+            m: 0,
+            color: `text.secondary`,
+            fontStyle: `italic`,
+            fontSize: `0.8rem`,
+            padding: `10px 24px`,
+            fontFamily: `Montserrat, sans-serif`,
+          }}
+        >
             Hinweis: Die Website funktioniert nur mit aktivierten Cookies
         </Typography>
       </Card>

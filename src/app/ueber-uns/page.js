@@ -46,13 +46,15 @@ export default function ÜberUnsPage() {
         margin: `0 auto`,
       }}
     >
-      <Container sx={{
-        maxWidth: `100%`,
-        padding: {
-          xs: `0 16px`,
-          md: `0 32px`,
-        },
-      }}>
+      <Container
+        sx={{
+          maxWidth: `100%`,
+          padding: {
+            xs: `0 16px`,
+            md: `0 32px`,
+          },
+        }}
+      >
         <Typography
           variant="h1"
           color="primary"
@@ -66,14 +68,16 @@ export default function ÜberUnsPage() {
           Über uns
         </Typography>
 
-        <Box sx={{
-          maxWidth: {
-            xs: `100%`,
-            md: `900px`,
-            lg: `1000px`,
-          },
-          margin: `0 auto`,
-        }}>
+        <Box
+          sx={{
+            maxWidth: {
+              xs: `100%`,
+              md: `900px`,
+              lg: `1000px`,
+            },
+            margin: `0 auto`,
+          }}
+        >
           <Typography
             variant="h2"
             color="primary"
@@ -108,11 +112,13 @@ export default function ÜberUnsPage() {
             Jede Behandlung bei MOOD ist ein persönliches Beauty-Ritual - in ruhiger Atmosphäre, mit höchsten Hygienestandards und professionellen Techniken.
           </Typography>
 
-          <Divider sx={{
-            my: 4,
-            backgroundColor: `primary.main`,
-            opacity: 0.3,
-          }} />
+          <Divider
+            sx={{
+              my: 4,
+              backgroundColor: `primary.main`,
+              opacity: 0.3,
+            }}
+          />
 
           <Typography
             variant="h3"
@@ -177,11 +183,13 @@ export default function ÜberUnsPage() {
             </Typography>
           </Box>
 
-          <Divider sx={{
-            my: 4,
-            backgroundColor: `primary.main`,
-            opacity: 0.3,
-          }} />
+          <Divider
+            sx={{
+              my: 4,
+              backgroundColor: `primary.main`,
+              opacity: 0.3,
+            }}
+          />
 
           <Typography
             variant="h3"
@@ -196,11 +204,13 @@ export default function ÜberUnsPage() {
 
           <List sx={{ marginBottom: 4 }}>
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
 
@@ -210,11 +220,13 @@ export default function ÜberUnsPage() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
 
@@ -224,11 +236,13 @@ export default function ÜberUnsPage() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
 
@@ -238,11 +252,13 @@ export default function ÜberUnsPage() {
             </ListItem>
           </List>
 
-          <Divider sx={{
-            my: 4,
-            backgroundColor: `primary.main`,
-            opacity: 0.3,
-          }} />
+          <Divider
+            sx={{
+              my: 4,
+              backgroundColor: `primary.main`,
+              opacity: 0.3,
+            }}
+          />
 
           <Typography
             variant="h3"
@@ -257,11 +273,13 @@ export default function ÜberUnsPage() {
 
           <List sx={{ marginBottom: 4 }}>
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -270,11 +288,13 @@ export default function ÜberUnsPage() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -283,11 +303,13 @@ export default function ÜberUnsPage() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -296,11 +318,13 @@ export default function ÜberUnsPage() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -309,11 +333,13 @@ export default function ÜberUnsPage() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -322,11 +348,13 @@ export default function ÜberUnsPage() {
             </ListItem>
           </List>
 
-          <Divider sx={{
-            my: 4,
-            backgroundColor: `primary.main`,
-            opacity: 0.3,
-          }} />
+          <Divider
+            sx={{
+              my: 4,
+              backgroundColor: `primary.main`,
+              opacity: 0.3,
+            }}
+          />
 
           <Typography
             color="primary"

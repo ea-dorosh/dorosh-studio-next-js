@@ -50,12 +50,14 @@ export default function Menu({ links }) {
         variant="temporary"
         anchor="right"
       >
-        <Box sx={{
-          position: `absolute`,
-          top: `8px`,
-          right: `4px`,
-          zIndex: 1201,
-        }}>
+        <Box
+          sx={{
+            position: `absolute`,
+            top: `8px`,
+            right: `4px`,
+            zIndex: 1201,
+          }}
+        >
           <IconButton onClick={handleClose}>
             <CloseIcon
               fontSize='large'
@@ -65,7 +67,9 @@ export default function Menu({ links }) {
         </Box>
 
         <List sx={{ paddingTop: `170px` }}>
-          {links.filter(({ subLink }) => !subLink).map(({ text, href }) => (
+          {links.filter(({ subLink }) => !subLink).map(({
+            text, href, 
+          }) => (
             <ListItem
               key={href}
               disablePadding
@@ -91,9 +95,18 @@ export default function Menu({ links }) {
         </List>
 
         <List sx={{ paddingTop: `100px` }}>
-          {links.filter(({ subLink }) => subLink).map(({ text, href }) => (
-            <ListItem key={href} disablePadding onClick={handleClose}>
-              <ListItemButton component={Link} href={href}>
+          {links.filter(({ subLink }) => subLink).map(({
+            text, href, 
+          }) => (
+            <ListItem
+              key={href}
+              disablePadding
+              onClick={handleClose}
+            >
+              <ListItemButton
+                component={Link}
+                href={href}
+              >
                 <ListItemText
                   primary={text}
                   color="primary"

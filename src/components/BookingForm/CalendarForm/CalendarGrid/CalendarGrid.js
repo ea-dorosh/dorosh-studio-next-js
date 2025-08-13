@@ -35,8 +35,13 @@ export default function CalendarGrid({
         p: 2,
         borderRadius: 2,
         backgroundColor: `background.alternate`,
-      }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      }}
+    >
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
         <IconButton
           size="large"
           color="info"
@@ -50,7 +55,10 @@ export default function CalendarGrid({
           <ArrowBackIos />
         </IconButton>
 
-        <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 600 }}
+        >
           {formatMonthYear(currentWeekStart)}
         </Typography>
 
@@ -67,7 +75,11 @@ export default function CalendarGrid({
         </IconButton>
       </Box>
 
-      <Box display="grid" gridTemplateColumns="repeat(7, 0fr)" sx={{ mb: 1 }}>
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(7, 0fr)"
+        sx={{ mb: 1 }}
+      >
         {weekDays.map((day, index) => (
           <Typography
             key={index}
@@ -79,7 +91,8 @@ export default function CalendarGrid({
               width: `38px`,
               height: `36px`,
               fontSize: `1.1rem`,
-            }}>
+            }}
+          >
             {day}
           </Typography>
         ))}
@@ -87,12 +100,19 @@ export default function CalendarGrid({
 
       {fetchCalendarDaysError ? (
         <Box>
-          <Typography variant="body1" mt={2} color="error">
+          <Typography
+            variant="body1"
+            mt={2}
+            color="error"
+          >
             {fetchCalendarDaysError}
           </Typography>
         </Box>
       ) : (
-        <Box display="grid" gridTemplateColumns="repeat(7, 0fr)">
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(7, 0fr)"
+        >
           {Array.from({ length: 7 }).map((_, index) => {
             const day = currentWeekStart.add(index, `day`);
             const isHighlighted = calendarDays.some(({

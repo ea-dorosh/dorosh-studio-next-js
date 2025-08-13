@@ -230,12 +230,18 @@ const CalendarForm = forwardRef(function CalendarForm({
   };
 
   return (
-    <Box ref={ref} mt={2}>
-      <Typography variant="h5" sx={{
-        textAlign: `center`,
-        fontSize: `1.5rem`,
-        fontFamily: `cormorantGaramond`,
-      }}>
+    <Box
+      ref={ref}
+      mt={2}
+    >
+      <Typography
+        variant="h5"
+        sx={{
+          textAlign: `center`,
+          fontSize: `1.5rem`,
+          fontFamily: `cormorantGaramond`,
+        }}
+      >
         Datum und Zeit auswählen
       </Typography>
 
@@ -263,7 +269,11 @@ const CalendarForm = forwardRef(function CalendarForm({
       {/* Loading skeleton */}
       {isCalendarDaysLoading && (
         <Box sx={{ mt: 2 }}>
-          <TimeSlotSkeleton count={shimmerSlotCount} showDateText={true} showButton={false} />
+          <TimeSlotSkeleton
+            count={shimmerSlotCount}
+            showDateText={true}
+            showButton={false}
+          />
         </Box>
       )}
 
@@ -280,7 +290,11 @@ const CalendarForm = forwardRef(function CalendarForm({
       {/* Error message */}
       {timeSlotError && (
         <Box>
-          <Typography variant="body1" mt={2} color="error">
+          <Typography
+            variant="body1"
+            mt={2}
+            color="error"
+          >
             {timeSlotError}
           </Typography>
         </Box>

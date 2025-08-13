@@ -106,29 +106,43 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
         backgroundColor: `background.alternate`,
       }}
     >
-      <CardContent sx={{
-        p: 0,
+      <CardContent
+        sx={{
+          p: 0,
 
-        '&:last-child': { p: 0 },
-      }}>
+          '&:last-child': { p: 0 },
+        }}
+      >
 
         {hasDeleteButton && (
-          <Box sx={{
-            display: `flex`,
-            justifyContent: `space-between`,
-            alignItems: `center`,
-            gap: 1,
-            width: `100%`,
-            padding: `0 16px`,
-            borderBottom: `1px solid`,
-            borderColor: `grey.300`,
-          }}>
-            <Typography color="success.main" fontWeight={600}>{firstService ? `Service 1` : `Service 2`}</Typography>
+          <Box
+            sx={{
+              display: `flex`,
+              justifyContent: `space-between`,
+              alignItems: `center`,
+              gap: 1,
+              width: `100%`,
+              padding: `0 16px`,
+              borderBottom: `1px solid`,
+              borderColor: `grey.300`,
+            }}
+          >
+            <Typography
+              color="success.main"
+              fontWeight={600}
+            >{firstService ? `Service 1` : `Service 2`}
+            </Typography>
 
-            <Button size='small' color="error" onClick={deleteService} sx={{
-              p:0,
-              fontWeight: `bold`,
-            }}>löschen</Button>
+            <Button
+              size='small'
+              color="error"
+              onClick={deleteService}
+              sx={{
+                p:0,
+                fontWeight: `bold`,
+              }}
+            >löschen
+            </Button>
           </Box>
         )}
         <Accordion
@@ -140,7 +154,8 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             boxShadow: `none`,
           }}
         >
-          <AccordionSummary expandIcon={selectedCategory && <ExpandMoreIcon />}
+          <AccordionSummary
+            expandIcon={selectedCategory && <ExpandMoreIcon />}
             sx={{
               '& .MuiAccordionSummary-content': {
                 display: `flex`,
@@ -150,15 +165,20 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               px: 2,
               py: 1,
               borderRadius: `12px`,
-            }}>
-            <Box sx={{
-              width: `100%`,
-              pr: 3,
-            }}>
-              <Typography sx={{
-                fontWeight: 600,
-                letterSpacing: `.01em`,
-              }}>
+            }}
+          >
+            <Box
+              sx={{
+                width: `100%`,
+                pr: 3,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  letterSpacing: `.01em`,
+                }}
+              >
                 {!selectedCategory ? `Kategorie wählen` : selectedCategory.categoryName}
               </Typography>
             </Box>
@@ -241,9 +261,13 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               }}
             >
               {!serviceData || expandedPanel === `service` ?
-                <Typography sx={{
-                  fontWeight: 600, letterSpacing: `.01em`,
-                }}>Service wählen</Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    letterSpacing: `.01em`,
+                  }}
+                >Service wählen
+                </Typography>
                 :
                 <Box
                   sx={{
@@ -254,20 +278,28 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                     width: `100%`,
                   }}
                 >
-                  <Box sx={{
-                    display: `flex`,
-                    flexDirection: `column`,
-                    gap: 1,
-                  }}>
-                    <Typography sx={{
-                      fontWeight: 700, letterSpacing: `.01em`,
-                    }}>{serviceData.name}</Typography>
-
-                    <Box sx={{
+                  <Box
+                    sx={{
                       display: `flex`,
+                      flexDirection: `column`,
                       gap: 1,
-                      flexWrap: `wrap`,
-                    }}>
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontWeight: 700,
+                        letterSpacing: `.01em`,
+                      }}
+                    >{serviceData.name}
+                    </Typography>
+
+                    <Box
+                      sx={{
+                        display: `flex`,
+                        gap: 1,
+                        flexWrap: `wrap`,
+                      }}
+                    >
                       <Chip
                         label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
                         size="small"

@@ -79,7 +79,10 @@ export default function CategoryInfo({
           </Typography>
           <List>
             {services.map((service, index) => (
-              <ListItem key={index} sx={{ paddingLeft: 0 }}>
+              <ListItem
+                key={index}
+                sx={{ paddingLeft: 0 }}
+              >
                 <ListItemIcon sx={{ minWidth: `32px` }}>
                   <CheckCircleIcon color="primary" />
                 </ListItemIcon>
@@ -113,7 +116,10 @@ export default function CategoryInfo({
           </Typography>
           <List>
             {advantages.map((advantage, index) => (
-              <ListItem key={index} sx={{ paddingLeft: 0 }}>
+              <ListItem
+                key={index}
+                sx={{ paddingLeft: 0 }}
+              >
                 <ListItemIcon sx={{ minWidth: `32px` }}>
                   <CheckCircleIcon color="primary" />
                 </ListItemIcon>

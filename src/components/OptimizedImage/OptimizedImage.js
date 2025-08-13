@@ -88,7 +88,11 @@ export default function OptimizedImage({
   }
 
   return (
-    <Box position="relative" style={style} className={className}>
+    <Box
+      position="relative"
+      style={style}
+      className={className}
+    >
       {isLoading && !error && (
         <Skeleton
           variant="rectangular"

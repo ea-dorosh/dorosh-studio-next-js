@@ -79,11 +79,13 @@ export default function SubCategoryCardInfo({
           {children}
         </Typography>
 
-        <Box sx={{
-          display: `flex`,
-          gap: `12px`,
-          marginTop: `16px`,
-        }}>
+        <Box
+          sx={{
+            display: `flex`,
+            gap: `12px`,
+            marginTop: `16px`,
+          }}
+        >
           <Button
             component={Link}
             href="/booking"

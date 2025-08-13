@@ -173,7 +173,8 @@ export default function BookingFormContainer({ categories }) {
             component="div"
             sx={{
               fontSize: {
-                xs: `1rem`, md: `1.25rem`,
+                xs: `1rem`,
+                md: `1.25rem`,
               },
               fontWeight: 700,
               lineHeight: 1.35,
@@ -225,28 +226,32 @@ export default function BookingFormContainer({ categories }) {
           },
         }}
       >
-        <Stepper alternativeLabel activeStep={(
-          appointmentConfirmation ? 3 : (showCalendarOverview ? 2 : (showCalendar ? 1 : 0))
-        )} sx={{
-          '& .MuiStepIcon-root': {
-            color: `rgba(0,0,0,0.2)`,
-            fontSize: `1.15rem`,
-            width: 26,
-            height: 26,
-          },
-          '& .Mui-active': { color: `primary.main !important` },
-          '& .Mui-completed': { color: `primary.main !important` },
-          '& .MuiStepConnector-line': {
-            borderTopWidth: `2px`,
-            borderColor: `rgba(0,0,0,0.12)`,
-          },
-          minHeight: 0,
-          py: 0,
-          // MuiStepLabel-label
-          '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
-            marginTop: `6px`,
-          },
-        }}>
+        <Stepper
+          alternativeLabel
+          activeStep={(
+            appointmentConfirmation ? 3 : (showCalendarOverview ? 2 : (showCalendar ? 1 : 0))
+          )}
+          sx={{
+            '& .MuiStepIcon-root': {
+              color: `rgba(0,0,0,0.2)`,
+              fontSize: `1.15rem`,
+              width: 26,
+              height: 26,
+            },
+            '& .Mui-active': { color: `primary.main !important` },
+            '& .Mui-completed': { color: `primary.main !important` },
+            '& .MuiStepConnector-line': {
+              borderTopWidth: `2px`,
+              borderColor: `rgba(0,0,0,0.12)`,
+            },
+            minHeight: 0,
+            py: 0,
+            // MuiStepLabel-label
+            '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+              marginTop: `6px`,
+            },
+          }}
+        >
           <Step><StepLabel>Service</StepLabel></Step>
           <Step><StepLabel>Datum</StepLabel></Step>
           <Step><StepLabel>Details</StepLabel></Step>
@@ -254,11 +259,13 @@ export default function BookingFormContainer({ categories }) {
         </Stepper>
       </Box>
       {showCalendar && !showCalendarOverview && !appointmentConfirmation && (
-        <Box sx={{
-          mb: 2,
-          display: `flex`,
-          justifyContent: `flex-start`,
-        }}>
+        <Box
+          sx={{
+            mb: 2,
+            display: `flex`,
+            justifyContent: `flex-start`,
+          }}
+        >
           <Button
             variant="outlined"
             color="success"
@@ -267,9 +274,7 @@ export default function BookingFormContainer({ categories }) {
               textTransform: `none`,
               backgroundColor: `rgba(0, 171, 85, 0.04)`,
             }}
-            onClick={() => {
-              setShowCalendar(false);
-            }}
+            onClick={() => setShowCalendar(false)}
           >
             Zurück zur Serviceauswahl
           </Button>
@@ -363,7 +368,11 @@ export default function BookingFormContainer({ categories }) {
                 />
               )}
               {formState.firstService && !showCalendar && (
-                <Box mt={2} display="flex" justifyContent="center">
+                <Box
+                  mt={2}
+                  display="flex"
+                  justifyContent="center"
+                >
                   <Button
                     variant="contained"
                     color="primary"
@@ -403,28 +412,32 @@ export default function BookingFormContainer({ categories }) {
         />
       )}
 
-      {!appointmentConfirmation && showCalendarOverview && (<>
-        <CalendarOverview
-          services={selectedServices}
-          selectedDay={selectedDay}
-          selectedTimeSlot={selectedTimeSlot}
-          onChange={onEditCalendarClick}
-        />
+      {!appointmentConfirmation && showCalendarOverview && (
+        <>
+          <CalendarOverview
+            services={selectedServices}
+            selectedDay={selectedDay}
+            selectedTimeSlot={selectedTimeSlot}
+            onChange={onEditCalendarClick}
+          />
 
-        <CustomerForm
-          createAppointment={onSubmitCustomerFormClick}
-          formErrors={createAppointmentErrors}
-        />
+          <CustomerForm
+            createAppointment={onSubmitCustomerFormClick}
+            formErrors={createAppointmentErrors}
+          />
 
-        {generalError && (
-          <Typography variant="body1" sx={{
-            color: `red`,
-            textAlign: `center`,
-          }}>
-            {generalError}
-          </Typography>
-        )}
-      </>
+          {generalError && (
+            <Typography
+              variant="body1"
+              sx={{
+                color: `red`,
+                textAlign: `center`,
+              }}
+            >
+              {generalError}
+            </Typography>
+          )}
+        </>
       )}
 
       {appointmentConfirmation && <Confirmation appointment={appointmentConfirmation} />}

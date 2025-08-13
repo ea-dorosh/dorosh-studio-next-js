@@ -18,10 +18,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="de">
       <head>
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <link
+          rel="dns-prefetch"
+          href="//fonts.googleapis.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <meta
+          httpEquiv="X-UA-Compatible"
+          content="IE=edge"
+        />
       </head>
       <body
         style={{
@@ -73,7 +86,10 @@ export default function RootLayout({ children }) {
                   textAlign: `center`,
                 }}
               >
-                <Typography variant="body2" color="secondary">
+                <Typography
+                  variant="body2"
+                  color="secondary"
+                >
                   <span suppressHydrationWarning>{new Date().getFullYear()}</span> MOOD BEAUTY - Natalia Dorosh
                 </Typography>
 
@@ -86,10 +102,20 @@ export default function RootLayout({ children }) {
                     mb: 1,
                   }}
                 >
-                  <Link href="/impressum" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
+                  <Link
+                    href="/impressum"
+                    variant="body2"
+                    color="secondary"
+                    sx={{ fontSize: 16 }}
+                  >
                       Impressum
                   </Link>
-                  <Link href="/datenschutz" variant="body2" color="secondary" sx={{ fontSize: 16 }}>
+                  <Link
+                    href="/datenschutz"
+                    variant="body2"
+                    color="secondary"
+                    sx={{ fontSize: 16 }}
+                  >
                       Datenschutz
                   </Link>
                 </Box>

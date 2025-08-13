@@ -23,20 +23,22 @@ export default function HomePage() {
           margin: `0 auto`,
         }}
       >
-        <Box sx={{
-          position: `relative`,
-          width: `100%`,
-          minHeight: {
-            xs: `70vh`,
-            md: `70vh`,
-          },
-          overflow: `hidden`,
-          backgroundColor: `#e1dbd6`,
-          borderRadius: {
-            xs: 0,
-            md: `16px`,
-          },
-        }}>
+        <Box
+          sx={{
+            position: `relative`,
+            width: `100%`,
+            minHeight: {
+              xs: `70vh`,
+              md: `70vh`,
+            },
+            overflow: `hidden`,
+            backgroundColor: `#e1dbd6`,
+            borderRadius: {
+              xs: 0,
+              md: `16px`,
+            },
+          }}
+        >
           <OptimizedImage
             src="/images/main-top-image.avif"
             alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
@@ -52,35 +54,39 @@ export default function HomePage() {
           />
 
           {/* gradient overlay */}
-          <Box sx={{
-            position: `absolute`,
-            inset: 0,
-            zIndex: 1,
-            background: `linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.4) 100%)`,
-          }} />
+          <Box
+            sx={{
+              position: `absolute`,
+              inset: 0,
+              zIndex: 1,
+              background: `linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.4) 100%)`,
+            }}
+          />
 
-          <Container sx={{
-            position: `absolute`,
-            inset: 0,
-            zIndex: 2,
-            display: `flex`,
-            alignItems: `center`,
-            justifyContent: {
-              xs: `flex-end`,
-              md: `center`,
-            },
-            flexDirection: `column`,
-            gap: 2,
-            py: {
-              xs: 4,
-              md: 8,
-            },
-            pb: {
-              xs: 14,
-              md: 8,
-            },
-            maxWidth: `100%`,
-          }}>
+          <Container
+            sx={{
+              position: `absolute`,
+              inset: 0,
+              zIndex: 2,
+              display: `flex`,
+              alignItems: `center`,
+              justifyContent: {
+                xs: `flex-end`,
+                md: `center`,
+              },
+              flexDirection: `column`,
+              gap: 2,
+              py: {
+                xs: 4,
+                md: 8,
+              },
+              pb: {
+                xs: 14,
+                md: 8,
+              },
+              maxWidth: `100%`,
+            }}
+          >
             <Typography
               variant="h1"
               color="primary.contrastText"

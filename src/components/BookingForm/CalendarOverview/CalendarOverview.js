@@ -139,25 +139,33 @@ const CalendarOverview = forwardRef(function CalendarOverview({
   };
 
   return (
-    <Card sx={{
-      mb: 2,
-      borderRadius: `20px`,
-      backgroundColor: `background.alternate`,
-      boxShadow: `none`,
-    }} ref={ref}>
+    <Card
+      sx={{
+        mb: 2,
+        borderRadius: `20px`,
+        backgroundColor: `background.alternate`,
+        boxShadow: `none`,
+      }}
+      ref={ref}
+    >
       <CardContent>
-        <Box sx={{
-          display: `flex`,
-          justifyContent: `space-between`,
-          alignItems: `center`,
-          gap: 1,
-          mb: 2,
-        }}>
-          <Typography variant="h6" sx={{
-            color: `text.primary`,
-            fontSize: `1.1rem`,
-            fontWeight: `bold`,
-          }}>
+        <Box
+          sx={{
+            display: `flex`,
+            justifyContent: `space-between`,
+            alignItems: `center`,
+            gap: 1,
+            mb: 2,
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              color: `text.primary`,
+              fontSize: `1.1rem`,
+              fontWeight: `bold`,
+            }}
+          >
             Gewählter Termin
           </Typography>
 
@@ -178,60 +186,81 @@ const CalendarOverview = forwardRef(function CalendarOverview({
         </Box>
 
         <Box sx={{ mb: 2 }}>
-          <Typography variant="body1" sx={{
-            mb: 1,
-            color: `text.primary`,
-            fontSize: `1rem`,
-          }}>
+          <Typography
+            variant="body1"
+            sx={{
+              mb: 1,
+              color: `text.primary`,
+              fontSize: `1rem`,
+            }}
+          >
             <b>Datum:</b> {getDateText()}
           </Typography>
 
-          <Typography variant="body1" sx={{
-            mb: 1,
-            color: `text.primary`,
-            fontSize: `1rem`,
-          }}>
+          <Typography
+            variant="body1"
+            sx={{
+              mb: 1,
+              color: `text.primary`,
+              fontSize: `1rem`,
+            }}
+          >
             <b>Uhrzeit:</b> {getTimeText()}
           </Typography>
         </Box>
 
         <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle2" sx={{
-            mb: 1,
-            color: `text.primary`,
-            fontSize: `1rem`,
-            fontWeight: `bold`,
-          }}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              mb: 1,
+              color: `text.primary`,
+              fontSize: `1rem`,
+              fontWeight: `bold`,
+            }}
+          >
             Gewählte Services:
           </Typography>
 
           {services.length === 0 ? (
-            <Typography variant="body2" sx={{
-              color: `text.secondary`,
-              ml: 1,
-            }}>
+            <Typography
+              variant="body2"
+              sx={{
+                color: `text.secondary`,
+                ml: 1,
+              }}
+            >
               Keine Services ausgewählt
             </Typography>
           ) : (
             services.map((service, index) => {
               const priceInfo = getServicePriceInfo(service);
               return (
-                <Box key={index} sx={{
-                  ml: 1,
-                  mb: 0.5,
-                  display: `flex`,
-                  justifyContent: `space-between`,
-                  alignItems: `flex-start`,
-                  gap: 2,
-                }}>
-                  <Typography variant="body2" sx={{ color: `text.secondary` }}>
+                <Box
+                  key={index}
+                  sx={{
+                    ml: 1,
+                    mb: 0.5,
+                    display: `flex`,
+                    justifyContent: `space-between`,
+                    alignItems: `flex-start`,
+                    gap: 2,
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{ color: `text.secondary` }}
+                  >
                     {service.name || `Unnamed Service`}
                   </Typography>
-                  <Typography variant="body2" sx={{
-                    color: `text.primary`,
-                    fontWeight: `bold`,
-                    whiteSpace: `nowrap`,
-                  }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: `text.primary`,
+                      fontWeight: `bold`,
+                      whiteSpace: `nowrap`,
+                    }}
+                  >
                     {formatPrice(priceInfo)}
                   </Typography>
                 </Box>
@@ -240,11 +269,13 @@ const CalendarOverview = forwardRef(function CalendarOverview({
           )}
         </Box>
 
-        <Box sx={{
-          gap: 1,
-          display: `flex`,
-          flexWrap: `wrap`,
-        }}>
+        <Box
+          sx={{
+            gap: 1,
+            display: `flex`,
+            flexWrap: `wrap`,
+          }}
+        >
           <Chip
             label={<>Services: <b>{services.length}</b></>}
             size="small"

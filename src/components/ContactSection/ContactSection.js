@@ -8,7 +8,10 @@ import Typography from '@mui/material/Typography';
 export default function ContactSection() {
 
   return (
-    <Box color="primary.main" bgcolor="background.alternate">
+    <Box
+      color="primary.main"
+      bgcolor="background.alternate"
+    >
       <Box
         sx={{
           padding: {

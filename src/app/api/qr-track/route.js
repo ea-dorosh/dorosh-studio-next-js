@@ -36,7 +36,9 @@ export async function POST(request) {
 
     if (!res.ok) {
       return NextResponse.json({
-        error: `Upstream error`, upstreamStatus: res.status, body: responseText,
+        error: `Upstream error`,
+        upstreamStatus: res.status,
+        body: responseText,
       }, { status: 502 });
     }
 

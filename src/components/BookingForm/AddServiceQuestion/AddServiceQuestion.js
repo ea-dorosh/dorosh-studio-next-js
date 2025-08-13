@@ -4,13 +4,15 @@ import Button from '@mui/material/Button';
 
 export default function AddServiceQuestion({ onAddService }) {
   return (
-    <Box sx={{
-      display: `flex`,
-      gap: 2,
-      justifyContent: `flex-start`,
-      alignItems: `center`,
-      mt: 2,
-    }}>
+    <Box
+      sx={{
+        display: `flex`,
+        gap: 2,
+        justifyContent: `flex-start`,
+        alignItems: `center`,
+        mt: 2,
+      }}
+    >
       <Button
         variant="outlined"
         size="small"

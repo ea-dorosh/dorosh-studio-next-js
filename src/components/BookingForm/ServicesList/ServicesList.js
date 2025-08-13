@@ -15,11 +15,16 @@ export default function ServicesList({
 }) {
   if (services.length === 0) {
     return (
-      <Box sx={{
-        textAlign: `center`,
-        py: 3,
-      }}>
-        <Typography variant="body1" color="text.secondary">
+      <Box
+        sx={{
+          textAlign: `center`,
+          py: 3,
+        }}
+      >
+        <Typography
+          variant="body1"
+          color="text.secondary"
+        >
           Alle Services aus dieser Kategorie wurden bereits ausgewählt.
         </Typography>
       </Box>
@@ -27,10 +32,14 @@ export default function ServicesList({
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid
+      container
+      spacing={2}
+    >
       {services.map((service) => (
         <Grid
-          item xs={12}
+          item
+          xs={12}
           key={service.id}
           sx={{
             '&:last-child .MuiCard-root': { borderBottom: `none` },
@@ -47,11 +56,13 @@ export default function ServicesList({
 
             }}
           >
-            <CardContent sx={{
-              p: `0`,
+            <CardContent
+              sx={{
+                p: `0`,
 
-              '&:last-child': { p: `0` },
-            }}>
+                '&:last-child': { p: `0` },
+              }}
+            >
               <Box>
 
                 <Typography
@@ -66,12 +77,14 @@ export default function ServicesList({
                   {service.name}
                 </Typography>
 
-                <Box sx={{
-                  display: `flex`,
-                  gap: 1,
-                  mb: 2,
-                  flexWrap: `wrap`,
-                }}>
+                <Box
+                  sx={{
+                    display: `flex`,
+                    gap: 1,
+                    mb: 2,
+                    flexWrap: `wrap`,
+                  }}
+                >
                   <Chip
                     label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
                     size="medium"
@@ -96,17 +109,23 @@ export default function ServicesList({
                 </Box>
 
                 {service.bookingNote && (
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
                     {service.bookingNote}
                   </Typography>
                 )}
 
-                <Box sx={{
-                  display: `flex`,
-                  justifyContent: `space-between`,
-                  alignItems: `flex-start`,
-                  gap: 2,
-                }}>
+                <Box
+                  sx={{
+                    display: `flex`,
+                    justifyContent: `space-between`,
+                    alignItems: `flex-start`,
+                    gap: 2,
+                  }}
+                >
 
 
                   <Button

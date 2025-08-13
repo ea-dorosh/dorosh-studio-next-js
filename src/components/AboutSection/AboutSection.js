@@ -65,14 +65,16 @@ export default function AboutSection() {
           Über MOOD
         </Typography>
 
-        <Box sx={{
-          maxWidth: {
-            xs: `100%`,
-            md: `800px`,
-            lg: `900px`,
-          },
-          margin: `0 auto`,
-        }}>
+        <Box
+          sx={{
+            maxWidth: {
+              xs: `100%`,
+              md: `800px`,
+              lg: `900px`,
+            },
+            margin: `0 auto`,
+          }}
+        >
           <Typography
             color="primary"
             component="p"
@@ -99,19 +101,23 @@ export default function AboutSection() {
             Im MOOD Beauty Studio schaffen wir ein individuelles Erlebnis für jede Kundin und jeden Kunden:
           </Typography>
 
-          <List sx={{
-            maxWidth: {
-              xs: `100%`,
-              md: `600px`,
-            },
-            margin: `0 auto`,
-          }}>
+          <List
+            sx={{
+              maxWidth: {
+                xs: `100%`,
+                md: `600px`,
+              },
+              margin: `0 auto`,
+            }}
+          >
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -120,11 +126,13 @@ export default function AboutSection() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -133,11 +141,13 @@ export default function AboutSection() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -146,11 +156,13 @@ export default function AboutSection() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -181,19 +193,23 @@ export default function AboutSection() {
             Worauf wir besonderen Wert legen:
           </Typography>
 
-          <List sx={{
-            maxWidth: {
-              xs: `100%`,
-              md: `600px`,
-            },
-            margin: `0 auto`,
-          }}>
+          <List
+            sx={{
+              maxWidth: {
+                xs: `100%`,
+                md: `600px`,
+              },
+              margin: `0 auto`,
+            }}
+          >
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -202,11 +218,13 @@ export default function AboutSection() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -215,11 +233,13 @@ export default function AboutSection() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -228,11 +248,13 @@ export default function AboutSection() {
             </ListItem>
 
             <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon sx={{
-                minWidth: 0,
-                mr: 1,
-                color: `primary.main`,
-              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  color: `primary.main`,
+                }}
+              >
                 <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
               </ListItemIcon>
               <ListItemText>
@@ -257,10 +279,12 @@ export default function AboutSection() {
           </Typography>
         </Box>
 
-        <Box sx={{
-          textAlign: `center`,
-          marginTop: 4,
-        }}>
+        <Box
+          sx={{
+            textAlign: `center`,
+            marginTop: 4,
+          }}
+        >
           <Button
             component={Link}
             href="/ueber-uns"
