@@ -103,7 +103,7 @@ export default async function CategoryPage() {
             <br/>
             • Für alle Hauttypen geeignet
             <br/>
-            • Hält 1,5–2 Jahre und verblasst gleichmäßig ohne Rückstände
+            • Hält 1,5-2 Jahre und verblasst gleichmäßig ohne Rückstände
             <br/>
             • Schmerzarm & hygienisch - perfekte Behandlung bei Mood Beauty in München
           </SubCategoryCardInfo>
@@ -130,7 +130,7 @@ export default async function CategoryPage() {
             <br/>
             • Schmerzarm und oberflächlich - ideal für empfindliche Haut
             <br/>
-            • Farbe verblasst gleichmäßig und vollständig nach 1–1,5 Jahren
+            • Farbe verblasst gleichmäßig und vollständig nach 1-1,5 Jahren
             <br/>
             • Sanfte Heilung - ohne Krusten oder Schwellung
           </SubCategoryCardInfo>
@@ -159,7 +159,7 @@ export default async function CategoryPage() {
             <br/>
             • Große Farbauswahl - für jeden Geschmack
             <br/>
-            • Hält 1,5–2 Jahre und verblasst rückstandslos
+            • Hält 1,5-2 Jahre und verblasst rückstandslos
             <br/>
             • Schnelle Heilung - ohne starke Schwellung oder Krusten
           </SubCategoryCardInfo>

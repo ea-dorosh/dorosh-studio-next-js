@@ -58,8 +58,8 @@ export default function OptimizedImage({
           }}
           style={{
             ...style,
-            ...(!isLoading ? {} : { opacity: 0 }),
-            transition: `opacity 0.3s ease-in-out`,
+            ...(!isLoading ? {} : { opacity: 0.001 }),
+            transition: `opacity 0.2s linear`,
           }}
           {...props}
         />
@@ -123,8 +123,8 @@ export default function OptimizedImage({
           setError(true);
         }}
         style={{
-          ...(!isLoading ? {} : { opacity: 0 }),
-          transition: `opacity 0.3s ease-in-out`,
+          ...(!isLoading ? {} : { opacity: 0.001 }),
+          transition: `opacity 0.2s linear`,
         }}
         {...props}
       />

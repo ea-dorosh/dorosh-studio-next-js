@@ -7,6 +7,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import ParallaxHero from '@/components/Parallax/ParallaxHero';
+import RevealSection from '@/components/Parallax/RevealSection';
+import ScrollGallery from '@/components/Parallax/ScrollGallery';
 
 export const metadata = {
   title: `Über MOOD Beauty Studio München - Permanent Make-up & Maniküre`,
@@ -46,6 +49,23 @@ export default function ÜberUnsPage() {
         margin: `0 auto`,
       }}
     >
+
+      <Box
+        sx={{
+          mx: `calc(50% - 50vw)`,
+          width: `100vw`,
+          mb: 4,
+        }}
+      >
+        <ParallaxHero
+          src="/images/design/design_1.avif"
+          alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
+          headline="Über uns"
+          subHeadline="MOOD Beauty Studio - Permanent Make-up & Maniküre in München"
+          height="80vh"
+        />
+      </Box>
+
       <Container
         sx={{
           maxWidth: `100%`,
@@ -55,19 +75,6 @@ export default function ÜberUnsPage() {
           },
         }}
       >
-        <Typography
-          variant="h1"
-          color="primary"
-          sx={{
-            textAlign: `center`,
-            marginTop: `18px`,
-            marginBottom: `32px`,
-            textTransform: `uppercase`,
-          }}
-        >
-          Über uns
-        </Typography>
-
         <Box
           sx={{
             maxWidth: {
@@ -78,109 +85,267 @@ export default function ÜberUnsPage() {
             margin: `0 auto`,
           }}
         >
-          <Typography
-            variant="h2"
-            color="primary"
+          <Box
             sx={{
-              marginBottom: `24px`,
-              fontWeight: 600,
+              backgroundColor: `background.paper`,
+              borderRadius: {
+                xs: `16px`,
+                md: `24px`,
+              },
+              border: 0,
+              borderColor: `transparent`,
+              boxShadow: `none`,
+              p: {
+                xs: 2,
+                md: 4,
+              },
+              mb: 4,
             }}
           >
-            Über MOOD Beauty Studio - Permanent Make-up & Maniküre in München
-          </Typography>
-
-          <Typography
-            color="primary"
-            component="p"
-            sx={{
-              marginBottom: 3,
-              lineHeight: 1.7,
-            }}
-          >
-            MOOD Beauty Studio ist ein modernes, stilvolles Kosmetikstudio im Zentrum von München, spezialisiert auf Permanent Make-up und ästhetische Maniküre.
-          </Typography>
-
-          <Typography
-            color="primary"
-            component="p"
-            sx={{
-              marginBottom: 3,
-              lineHeight: 1.7,
-            }}
-          >
-            Unser Fokus liegt auf natürlicher Ausstrahlung, makelloser Ausführung und individueller Beratung.
-            Jede Behandlung bei MOOD ist ein persönliches Beauty-Ritual - in ruhiger Atmosphäre, mit höchsten Hygienestandards und professionellen Techniken.
-          </Typography>
-
-          <Divider
-            sx={{
-              my: 4,
-              backgroundColor: `primary.main`,
-              opacity: 0.3,
-            }}
-          />
-
-          <Typography
-            variant="h3"
-            color="primary"
-            sx={{
-              marginBottom: `24px`,
-              fontWeight: 600,
-            }}
-          >
-            Unsere Schwerpunkte:
-          </Typography>
-
-          <Box sx={{ marginBottom: 4 }}>
             <Typography
-              variant="h4"
+              variant="h2"
               color="primary"
               sx={{
-                marginBottom: `16px`,
+                marginBottom: `24px`,
                 fontWeight: 600,
               }}
             >
-              - Permanent Make-up in München
+              Über MOOD Beauty Studio - Permanent Make-up & Maniküre in München
             </Typography>
 
             <Typography
               color="primary"
               component="p"
               sx={{
-                marginBottom: 2,
+                marginBottom: 3,
                 lineHeight: 1.7,
-                paddingLeft: 2,
               }}
             >
-              Wir bieten präzises, typgerechtes PMU für Augenbrauen, Lippen und Lidstrich - für ein dauerhaft gepflegtes Aussehen ganz ohne Make-up.
-              Nur hochwertige Farben, modernste Techniken und ein klares Ziel: Ihre natürliche Schönheit zu betonen.
-            </Typography>
-          </Box>
-
-          <Box sx={{ marginBottom: 4 }}>
-            <Typography
-              variant="h4"
-              color="primary"
-              sx={{
-                marginBottom: `16px`,
-                fontWeight: 600,
-              }}
-            >
-              - Ästhetische Maniküre & Nagelpflege
+              MOOD Beauty Studio ist ein modernes, stilvolles Kosmetikstudio im Zentrum von München, spezialisiert auf Permanent Make-up und ästhetische Maniküre.
             </Typography>
 
             <Typography
               color="primary"
               component="p"
               sx={{
-                marginBottom: 2,
+                marginBottom: 0,
                 lineHeight: 1.7,
-                paddingLeft: 2,
               }}
             >
-              Ob klassische Maniküre, Gel oder minimalistische Nail Art - wir gestalten gepflegte Hände mit Stil und Gefühl für Details.
-              Unsere Manikürebehandlungen vereinen Hautpflege, Nagelästhetik und Entspannung auf höchstem Niveau.
+              Unser Fokus liegt auf natürlicher Ausstrahlung, makelloser Ausführung und individueller Beratung.
+              Jede Behandlung bei MOOD ist ein persönliches Beauty-Ritual - in ruhiger Atmosphäre, mit höchsten Hygienestandards und professionellen Techniken.
             </Typography>
+          </Box>
+
+          <RevealSection
+            src="/images/design/design_1.avif"
+            alt="PMU München - Augenbrauen und Lippen"
+            imageSide="right"
+            title="Permanent Make-up in München"
+            text="Präzise, typgerechte Pigmentierung für Augenbrauen, Lippen und Lidstrich - mit Fokus auf natürliche Ausstrahlung und langanhaltende Perfektion."
+          />
+
+          <RevealSection
+            src="/images/design/manik_2.avif"
+            alt="Maniküre München - gepflegte Hände und Nägel"
+            imageSide="left"
+            title="Ästhetische Maniküre & Nagelpflege"
+            text="Klassische Maniküre, Gel und minimalistische Nail Art - gepflegte Hände mit Stil, vereint mit Entspannung und Hautpflege."
+          />
+
+          <Box
+            sx={{
+              mx: `calc(50% - 50vw)`,
+              width: `100vw`,
+              my: 6,
+              background: `linear-gradient(180deg, rgba(250,248,252,1) 0%, rgba(200,180,200,0.15) 50%, rgba(250,248,252,1) 100%)`,
+            }}
+          >
+            <Box
+              sx={{
+                maxWidth: `1200px`,
+                mx: `auto`,
+                px: {
+                  xs: 2,
+                  md: 4,
+                },
+                py: {
+                  xs: 4,
+                  md: 6,
+                },
+              }}
+            >
+              <Typography
+                variant="h3"
+                color="primary"
+                sx={{
+                  mb: 2,
+                  fontWeight: 600,
+                }}
+              >
+                Warum MOOD?
+              </Typography>
+              <Divider
+                sx={{
+                  my: 2,
+                  backgroundColor: `primary.main`,
+                  opacity: 0.2,
+                }}
+              />
+              <List sx={{ marginBottom: 0 }}>
+                <ListItem sx={{ padding: 0 }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      color: `primary.main`,
+                    }}
+                  >
+                    <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Spezialisierung auf Permanent Make-up München & Maniküre München
+                  </ListItemText>
+                </ListItem>
+                <ListItem sx={{ padding: 0 }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      color: `primary.main`,
+                    }}
+                  >
+                    <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Moderne Techniken & hochwertige Materialien
+                  </ListItemText>
+                </ListItem>
+                <ListItem sx={{ padding: 0 }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      color: `primary.main`,
+                    }}
+                  >
+                    <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Individuelle Beratung & natürliche Ergebnisse
+                  </ListItemText>
+                </ListItem>
+                <ListItem sx={{ padding: 0 }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      color: `primary.main`,
+                    }}
+                  >
+                    <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Hygienisch einwandfreie Arbeitsweise
+                  </ListItemText>
+                </ListItem>
+                <ListItem sx={{ padding: 0 }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      color: `primary.main`,
+                    }}
+                  >
+                    <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Minimalistisches, stilvolles Studioambiente
+                  </ListItemText>
+                </ListItem>
+              </List>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              backgroundColor: `background.paper`,
+              borderRadius: {
+                xs: `16px`,
+                md: `24px`,
+              },
+              border: 0,
+              borderColor: `transparent`,
+              boxShadow: `none`,
+              p: {
+                xs: 2,
+                md: 4,
+              },
+              mb: 4,
+            }}
+          >
+            <Typography
+              variant="h3"
+              color="primary"
+              sx={{
+                marginBottom: `24px`,
+                fontWeight: 600,
+              }}
+            >
+              Unsere Schwerpunkte:
+            </Typography>
+
+            <Box sx={{ marginBottom: 4 }}>
+              <Typography
+                variant="h4"
+                color="primary"
+                sx={{
+                  marginBottom: `16px`,
+                  fontWeight: 600,
+                }}
+              >
+                - Permanent Make-up in München
+              </Typography>
+
+              <Typography
+                color="primary"
+                component="p"
+                sx={{
+                  marginBottom: 0,
+                  lineHeight: 1.7,
+                  paddingLeft: 2,
+                }}
+              >
+                Wir bieten präzises, typgerechtes PMU für Augenbrauen, Lippen und Lidstrich - für ein dauerhaft gepflegtes Aussehen ganz ohne Make-up.
+                Nur hochwertige Farben, modernste Techniken und ein klares Ziel: Ihre natürliche Schönheit zu betonen.
+              </Typography>
+            </Box>
+
+            <Box sx={{ marginBottom: 0 }}>
+              <Typography
+                variant="h4"
+                color="primary"
+                sx={{
+                  marginBottom: `16px`,
+                  fontWeight: 600,
+                }}
+              >
+                - Ästhetische Maniküre & Nagelpflege
+              </Typography>
+
+              <Typography
+                color="primary"
+                component="p"
+                sx={{
+                  marginBottom: 0,
+                  lineHeight: 1.7,
+                  paddingLeft: 2,
+                }}
+              >
+                Ob klassische Maniküre, Gel oder minimalistische Nail Art - wir gestalten gepflegte Hände mit Stil und Gefühl für Details.
+                Unsere Manikürebehandlungen vereinen Hautpflege, Nagelästhetik und Entspannung auf höchstem Niveau.
+              </Typography>
+            </Box>
           </Box>
 
           <Divider
@@ -191,162 +356,101 @@ export default function ÜberUnsPage() {
             }}
           />
 
-          <Typography
-            variant="h3"
-            color="primary"
-            sx={{
-              marginBottom: `16px`,
-              fontWeight: 600,
-            }}
-          >
-            Weitere Leistungen:
-          </Typography>
-
-          <List sx={{ marginBottom: 4 }}>
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-
-              <ListItemText>
-                Sanfte Gesichtsbehandlungen & Pflege
-              </ListItemText>
-            </ListItem>
-
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-
-              <ListItemText>
-                Wimpern- und Augenbrauenstyling
-              </ListItemText>
-            </ListItem>
-
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-
-              <ListItemText>
-                Entspannende Atmosphäre mit exklusiven Produkten
-              </ListItemText>
-            </ListItem>
-          </List>
-
-          <Divider
-            sx={{
-              my: 4,
-              backgroundColor: `primary.main`,
-              opacity: 0.3,
-            }}
+          <ScrollGallery
+            images={[
+              {
+                src: `/images/design/lashes_2.avif`,
+                alt: `Mood Beauty - Gallery 1`,
+              },
+              {
+                src: `/images/design/lashes_2.avif`,
+                alt: `Mood Beauty - Gallery 2`,
+              },
+              {
+                src: `/images/design/lashes_2.avif`,
+                alt: `Mood Beauty - Gallery 3`,
+              },
+            ]}
           />
 
-          <Typography
-            variant="h3"
-            color="primary"
+          <Box
             sx={{
-              marginBottom: `16px`,
-              fontWeight: 600,
+              backgroundColor: `background.paper`,
+              borderRadius: {
+                xs: `16px`,
+                md: `24px`,
+              },
+              border: 0,
+              borderColor: `transparent`,
+              boxShadow: `none`,
+              p: {
+                xs: 2,
+                md: 4,
+              },
+              mb: 4,
             }}
           >
-            Warum MOOD?
-          </Typography>
+            <Typography
+              variant="h3"
+              color="primary"
+              sx={{
+                marginBottom: `16px`,
+                fontWeight: 600,
+              }}
+            >
+              Weitere Leistungen:
+            </Typography>
 
-          <List sx={{ marginBottom: 4 }}>
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-              <ListItemText>
-                Spezialisierung auf Permanent Make-up München & Maniküre München
-              </ListItemText>
-            </ListItem>
+            <List sx={{ marginBottom: 0 }}>
+              <ListItem sx={{ padding: 0 }}>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: 1,
+                    color: `primary.main`,
+                  }}
+                >
+                  <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                </ListItemIcon>
 
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-              <ListItemText>
-                Moderne Techniken & hochwertige Materialien
-              </ListItemText>
-            </ListItem>
+                <ListItemText>
+                  Sanfte Gesichtsbehandlungen & Pflege
+                </ListItemText>
+              </ListItem>
 
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-              <ListItemText>
-                Individuelle Beratung & natürliche Ergebnisse
-              </ListItemText>
-            </ListItem>
+              <ListItem sx={{ padding: 0 }}>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: 1,
+                    color: `primary.main`,
+                  }}
+                >
+                  <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                </ListItemIcon>
 
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-              <ListItemText>
-                Hygienisch einwandfreie Arbeitsweise
-              </ListItemText>
-            </ListItem>
+                <ListItemText>
+                  Wimpern- und Augenbrauenstyling
+                </ListItemText>
+              </ListItem>
 
-            <ListItem sx={{ padding: 0 }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  color: `primary.main`,
-                }}
-              >
-                <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
-              </ListItemIcon>
-              <ListItemText>
-                Minimalistisches, stilvolles Studioambiente
-              </ListItemText>
-            </ListItem>
-          </List>
+              <ListItem sx={{ padding: 0 }}>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: 1,
+                    color: `primary.main`,
+                  }}
+                >
+                  <FiberManualRecordIcon sx={{ fontSize: `.7rem` }} />
+                </ListItemIcon>
+
+                <ListItemText>
+                  Entspannende Atmosphäre mit exklusiven Produkten
+                </ListItemText>
+              </ListItem>
+            </List>
+          </Box>
 
           <Divider
             sx={{
