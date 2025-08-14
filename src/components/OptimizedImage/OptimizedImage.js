@@ -18,10 +18,15 @@ export default function OptimizedImage({
   quality = 75,
   placeholder = `blur`,
   blurDataURL = `data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q==`,
+  // objectPosition: full CSS value, e.g. `left top`, `center`, `right 10px top -20px`
+  objectPosition,
   ...props
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  // Use provided objectPosition only; default behavior remains unchanged if not provided
+  const computedObjectPosition = objectPosition;
 
   if (fill) {
     return (
@@ -58,6 +63,7 @@ export default function OptimizedImage({
           }}
           style={{
             ...style,
+            ...(computedObjectPosition ? { objectPosition: computedObjectPosition } : {}),
             ...(!isLoading ? {} : { opacity: 0.001 }),
             transition: `opacity 0.2s linear`,
           }}
@@ -123,6 +129,7 @@ export default function OptimizedImage({
           setError(true);
         }}
         style={{
+          ...(computedObjectPosition ? { objectPosition: computedObjectPosition } : {}),
           ...(!isLoading ? {} : { opacity: 0.001 }),
           transition: `opacity 0.2s linear`,
         }}

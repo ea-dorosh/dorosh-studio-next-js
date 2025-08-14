@@ -11,12 +11,14 @@ const services = [
     text: `Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke`,
     href: `/services/permanent-make-up`,
     img: `/images/design/pm_brows_lips.avif`,
+    objectPosition: `right 0px top -28px`,
   },
   {
     title: `Nails`,
     text: `Manicure & Pedicure`,
     href: `/services/nails`,
     img: `/images/design/manik_2.avif`,
+    objectPosition: `right 0px top -59px`,
   },
 ];
 
@@ -110,7 +112,7 @@ export default function HomeServices() {
                   <Box
                     sx={{
                       position: `relative`,
-                      height: 260,
+                      aspectRatio: `20 / 13`,
                     }}
                   >
                     <OptimizedImage
@@ -123,6 +125,7 @@ export default function HomeServices() {
                         objectFit: `cover`,
                         objectPosition: `center`,
                       }}
+                      objectPosition={s.objectPosition}
                     />
                   </Box>
 
