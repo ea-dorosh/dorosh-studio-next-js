@@ -51,7 +51,7 @@ export default function CategoryForm({
                 <CardMedia
                   component="img"
                   height="210"
-                  aspectRatio={`20 / 13`}
+                  // aspectRatio={`20 / 13`}
                   image={category.categoryImage}
                   alt={category.categoryName}
                   sx={{ objectFit: `cover` }}
