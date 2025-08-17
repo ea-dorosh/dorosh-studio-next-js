@@ -20,8 +20,8 @@ jobs:
 
       - name: Create production env file
         run: |
-          echo "REACT_APP_API_URL=https://booking.baufi-poker.org/" > .env.production
-          echo "REACT_APP_API_URL=https://booking.baufi-poker.org/" > .env.local
+          echo "REACT_APP_API_URL=https://crm.moodbeauty.de/" > .env.production
+          echo "REACT_APP_API_URL=https://crm.moodbeauty.de/" > .env.local
 
       - name: Build and pack Next.js app
         run: |
