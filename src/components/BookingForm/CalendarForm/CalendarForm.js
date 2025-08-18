@@ -233,6 +233,11 @@ const CalendarForm = forwardRef(function CalendarForm({
     <Box
       ref={ref}
       mt={2}
+      sx={{
+        display: `flex`,
+        flexDirection: `column`,
+        // alignItems: `center`,
+      }}
     >
       <Typography
         variant="h5"
@@ -303,8 +308,7 @@ const CalendarForm = forwardRef(function CalendarForm({
       {/* Next button */}
       <Button
         variant="contained"
-        size="large"
-        color="info"
+        size="medium"
         disabled={isCalendarDaysLoading}
         onClick={() => {
           if (selectedDay && selectedTimeSlot) {
@@ -315,7 +319,10 @@ const CalendarForm = forwardRef(function CalendarForm({
         }}
         sx={{
           mt: 2,
-          width: `100%`,
+          ml: `auto`,
+          mr: `auto`,
+          width: `300px`,
+          maxWidth: `100%`,
         }}
       >
         Weiter

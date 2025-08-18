@@ -1,5 +1,6 @@
 "use client";
 
+import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
 import {
   Box,
   Typography,
@@ -17,6 +18,36 @@ export default function Confirmation({ appointment }) {
   return (
     <>
       <Divider sx={{ mb: 2 }} />
+
+      <Box
+        sx={{
+          display: `flex`,
+          alignItems: `center`,
+          justifyContent: `center`,
+          gap: 1.5,
+          p: 2,
+          mb: 2,
+          borderRadius: 2,
+          backgroundColor: `rgba(0, 171, 85, 0.08)`,
+          border: `1px solid`,
+          borderColor: `success.light`,
+        }}
+      >
+        <CheckCircleOutline
+          sx={{
+            color: `success.main`,
+            fontSize: 32,
+          }}
+        />
+        <Typography
+          sx={{
+            color: `success.main`,
+            fontWeight: 700,
+          }}
+        >
+          Termin erfolgreich bestätigt
+        </Typography>
+      </Box>
 
       <Box>
         <Typography

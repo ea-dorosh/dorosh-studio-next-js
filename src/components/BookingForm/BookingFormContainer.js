@@ -3,8 +3,10 @@
 import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 import Close from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -45,6 +47,7 @@ export default function BookingFormContainer({ categories }) {
   const [appointmentConfirmation, setAppointmentConfirmation] = useState(null);
   const [serviceEmployees, setServiceEmployees] = useState({});
   const [showDevBanner, setShowDevBanner] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   /** Watch */
   useEffect(() => {
@@ -88,16 +91,15 @@ export default function BookingFormContainer({ categories }) {
     return services;
   };
 
-  // const getAllServices = (categoryId, subCategoryId) => {
-  //   return categories.find(category => category.categoryId === categoryId)?.subCategories.find(subCategory => subCategory.subCategoryId === subCategoryId)?.services;
-  // };
-
   const onEditCalendarClick = () => {
     setShowCalendarOverview(false);
     setShowCalendar(true);
   };
 
   const onSubmitCustomerFormClick = async (formData) => {
+    setCreateAppointmentErrors(null);
+    setGeneralError(null);
+    setIsSubmitting(true);
     const appointmentData = {
       ...formData,
       date: selectedDay.day,
@@ -106,7 +108,9 @@ export default function BookingFormContainer({ categories }) {
 
     try {
       const {
-        validationErrors, errorMessage, data,
+        validationErrors,
+        errorMessage,
+        data,
       } = await appointmentsService.createAppointment(appointmentData);
 
       if (validationErrors) {
@@ -125,6 +129,8 @@ export default function BookingFormContainer({ categories }) {
       }
     } catch (error) {
       setGeneralError(`Beim Erstellen des Datensatzes ist ein Fehler aufgetreten, bitte versuchen Sie es erneut oder versuchen Sie es später noch einmal.`);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -376,11 +382,17 @@ export default function BookingFormContainer({ categories }) {
                   <Button
                     variant="contained"
                     color="primary"
-                    size="large"
+                    size="medium"
                     onClick={() => {
                       setShowCalendar(true);
                     }}
-                    sx={{ px: 5 }}
+                    sx={{
+                      px: 5,
+                      ml: `auto`,
+                      mr: `auto`,
+                      width: `300px`,
+                      maxWidth: `100%`,
+                    }}
                   >
                     Weiter
                   </Button>
@@ -404,10 +416,12 @@ export default function BookingFormContainer({ categories }) {
           onNextStep={() => {
             setShowCalendarOverview(true);
             setShowCalendar(false);
-            window.scrollTo({
-              top: 0,
-              behavior: `smooth`,
-            });
+            setTimeout(() => {
+              window.scrollTo({
+                top: 0,
+                behavior: `smooth`,
+              });
+            }, 100);
           }}
         />
       )}
@@ -455,6 +469,54 @@ export default function BookingFormContainer({ categories }) {
       )}
 
       {appointmentConfirmation && <Confirmation appointment={appointmentConfirmation} />}
+
+      <Backdrop
+        open={isSubmitting}
+        sx={{
+          color: `#ffffff`,
+          zIndex: (t) => t.zIndex.modal + 1,
+          background: `rgba(0,0,0,0.45)`,
+          backdropFilter: `blur(4px)`,
+        }}
+      >
+        <Box
+          role="dialog"
+          aria-live="polite"
+          aria-busy={isSubmitting}
+          sx={{
+            display: `flex`,
+            flexDirection: `column`,
+            alignItems: `center`,
+            gap: 2,
+            p: 3,
+            borderRadius: 2,
+            background: `linear-gradient(135deg, rgba(0,171,85,0.96) 0%, rgba(0,200,100,0.96) 100%)`,
+            boxShadow: `0 10px 30px rgba(0,0,0,0.35)`,
+            textAlign: `center`,
+            width: `90%`,
+          }}
+        >
+          <CircularProgress
+            size={48}
+            thickness={4}
+            sx={{ color: `#ffffff` }}
+          />
+          <Typography
+            sx={{
+              fontWeight: 700,
+              fontSize: {
+                xs: `1.1rem`,
+                md: `1.25rem`,
+              },
+            }}
+          >
+            Bitte warten Sie einen Moment – wir speichern gerade Ihre Buchung.
+          </Typography>
+          <Typography sx={{ opacity: 0.9 }}>
+            Dies kann einige Sekunden dauern.
+          </Typography>
+        </Box>
+      </Backdrop>
     </Box>
   );
 }

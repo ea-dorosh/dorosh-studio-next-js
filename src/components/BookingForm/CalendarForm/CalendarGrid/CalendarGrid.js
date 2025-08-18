@@ -78,7 +78,6 @@ export default function CalendarGrid({
       <Box
         display="grid"
         gridTemplateColumns="repeat(7, 0fr)"
-        sx={{ mb: 1 }}
       >
         {weekDays.map((day, index) => (
           <Typography

@@ -43,8 +43,8 @@ const CustomerForm = forwardRef(function CustomerForm({
   return (
     <Box
       ref={ref}
-      mt={3}
-      mb={3}
+      mt={2}
+      mb={2}
     >
       <Typography
         variant="h5"
@@ -56,7 +56,7 @@ const CustomerForm = forwardRef(function CustomerForm({
           letterSpacing: `.02em`,
         }}
       >
-      Kundendetails
+        Kundendetails
       </Typography>
 
       <Box
@@ -148,17 +148,17 @@ const CustomerForm = forwardRef(function CustomerForm({
         <Button
           type="submit"
           variant="contained"
-          color="primary"
-          size="large"
+          size="medium"
           onClick={handleSubmit}
           sx={{
-            paddingTop: `12px`,
-            paddingBottom: `12px`,
             mt: 2,
-            boxShadow: `none`,
+            ml: `auto`,
+            mr: `auto`,
+            width: `300px`,
+            maxWidth: `100%`,
           }}
         >
-        Termin Buchen
+          Termin Buchen
         </Button>
       </Box>
     </Box>
