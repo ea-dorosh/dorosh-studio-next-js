@@ -25,7 +25,7 @@ const COLORS = {
   BLACK: `#000000`,
   WHITE: `#ffffff`,
   CHARCOAL: `#1a1a1a`,
-  LIGHT_GRAY: `#f8f5f3`,
+  LIGHT_GRAY: `#f2f0f7`, // old f8f5f3
   GOLD: `#D4AF37`,
   CRIMSON: `#DC143C`,
   GREEN: `#18b518`,

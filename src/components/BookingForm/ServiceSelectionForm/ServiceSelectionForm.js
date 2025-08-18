@@ -1,3 +1,4 @@
+import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -11,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import {
   useState,
   useEffect,
+  useRef,
   forwardRef,
   useImperativeHandle,
 } from 'react';
@@ -29,6 +31,9 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
   selectedServicesIds,
   firstService,
 }, ref) {
+
+  const topFormPosition = useRef(null);
+
   useEffect(() => {
     if (serviceData) {
       const category = categories.find(category => category.categoryId === serviceData?.categoryId);
@@ -75,6 +80,10 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
     setSelectedCategory(category);
     setSelectedSubCategory(null);
     setExpandedPanel(category?.hasSubCategories === false ? `service` : `subCategory`);
+
+    if (topFormPosition.current) {
+      topFormPosition.current.scrollIntoView({ behavior: `smooth` });
+    }
   };
 
   const onSubCategorySelect = (subCategory) => {
@@ -87,13 +96,27 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
 
     setSelectedSubCategory(subCategory);
     setExpandedPanel(`service`);
+
+    if (topFormPosition.current) {
+      topFormPosition.current.scrollIntoView({ behavior: `smooth` });
+    }
   };
 
   const onServiceSelectInternal = (service) => {
     // First propagate selection to parent, then close the accordion in next tick
     onServiceSelect(service);
-    setTimeout(() => setExpandedPanel(null), 0);
+    setTimeout(() => {
+      setExpandedPanel(null);
+      if (topFormPosition.current) {
+        topFormPosition.current.scrollIntoView({ behavior: `smooth` });
+      }
+    }, 0);
   };
+
+  // Collapsed states for showing leading success icon in summaries
+  const isCategoryCollapsed = !!selectedCategory && expandedPanel !== `category`;
+  const isSubCategoryCollapsed = !!selectedSubCategory && expandedPanel !== `subCategory`;
+  const isServiceCollapsed = !!serviceData && expandedPanel !== `service`;
 
   return (
     <Card
@@ -107,6 +130,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
       }}
     >
       <CardContent
+        ref={topFormPosition}
         sx={{
           p: 0,
 
@@ -171,8 +195,17 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
               sx={{
                 width: `100%`,
                 pr: 3,
+                display: `flex`,
+                alignItems: `center`,
+                gap: 1,
               }}
             >
+              {isCategoryCollapsed && (
+                <CheckCircleRounded
+                  color="success"
+                  fontSize="small"
+                />
+              )}
               <Typography
                 sx={{
                   fontWeight: 600,
@@ -218,12 +251,27 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 borderRadius: `12px`,
               }}
             >
-              <Typography sx={{ fontWeight: 500 }}>
-                {selectedSubCategory
-                  ? selectedSubCategory.subCategoryName
-                  : `Unterkategorie wählen`
-                }
-              </Typography>
+              <Box
+                sx={{
+                  display: `flex`,
+                  alignItems: `center`,
+                  gap: 1,
+                  width: `100%`,
+                }}
+              >
+                {isSubCategoryCollapsed && (
+                  <CheckCircleRounded
+                    color="success"
+                    fontSize="small"
+                  />
+                )}
+                <Typography sx={{ fontWeight: 500 }}>
+                  {selectedSubCategory
+                    ? selectedSubCategory.subCategoryName
+                    : `Unterkategorie wählen`
+                  }
+                </Typography>
+              </Box>
             </AccordionSummary>
 
             <AccordionDetails
@@ -272,51 +320,67 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 <Box
                   sx={{
                     display: `flex`,
-                    justifyContent: `space-between`,
-                    alignItems: `center`,
+                    alignItems: `flex-start`,
                     gap: 1,
                     width: `100%`,
                   }}
                 >
+                  {isServiceCollapsed && (
+                    <CheckCircleRounded
+                      color="success"
+                      fontSize="small"
+                      sx={{ mt: 0.5 }}
+                    />
+                  )}
                   <Box
                     sx={{
                       display: `flex`,
-                      flexDirection: `column`,
+                      justifyContent: `space-between`,
+                      alignItems: `center`,
                       gap: 1,
+                      width: `100%`,
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontWeight: 700,
-                        letterSpacing: `.01em`,
-                      }}
-                    >{serviceData.name}
-                    </Typography>
-
                     <Box
                       sx={{
                         display: `flex`,
+                        flexDirection: `column`,
                         gap: 1,
-                        flexWrap: `wrap`,
                       }}
                     >
-                      <Chip
-                        label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
-                        size="small"
-                        variant="filled"
+                      <Typography
                         sx={{
-                          borderRadius: `9999px`,
+                          fontWeight: 700,
+                          letterSpacing: `.01em`,
                         }}
-                      />
+                      >{serviceData.name}
+                      </Typography>
 
-                      {serviceData?.employees && serviceData?.employees?.length > 0 && (
+                      <Box
+                        sx={{
+                          display: `flex`,
+                          gap: 1,
+                          flexWrap: `wrap`,
+                        }}
+                      >
                         <Chip
-                          label={<>Preis: <b>{serviceData?.employees[0]?.price || 0}€</b></>}
+                          label={<>Dauer: <b>{formatTimeToString(serviceData?.durationTime)}</b></>}
                           size="small"
                           variant="filled"
-                          sx={{ borderRadius: `9999px` }}
+                          sx={{
+                            borderRadius: `9999px`,
+                          }}
                         />
-                      )}
+
+                        {serviceData?.employees && serviceData?.employees?.length > 0 && (
+                          <Chip
+                            label={<>Preis: <b>{serviceData?.employees[0]?.price || 0}€</b></>}
+                            size="small"
+                            variant="filled"
+                            sx={{ borderRadius: `9999px` }}
+                          />
+                        )}
+                      </Box>
                     </Box>
                   </Box>
                 </Box>

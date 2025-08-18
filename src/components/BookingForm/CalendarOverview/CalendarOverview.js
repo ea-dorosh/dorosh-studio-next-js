@@ -169,7 +169,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
             Gewählter Termin
           </Typography>
 
-          {onChange && (
+          {/* {onChange && (
             <Button
               onClick={onChange}
               sx={{
@@ -182,7 +182,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
             >
               ändern
             </Button>
-          )}
+          )} */}
         </Box>
 
         <Box sx={{ mb: 2 }}>

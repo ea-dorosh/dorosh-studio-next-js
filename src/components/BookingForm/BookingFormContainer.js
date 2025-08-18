@@ -414,6 +414,20 @@ export default function BookingFormContainer({ categories }) {
 
       {!appointmentConfirmation && showCalendarOverview && (
         <>
+          <Button
+            variant="outlined"
+            color="success"
+            startIcon={<ArrowBackIosNew fontSize="small" />}
+            sx={{
+              textTransform: `none`,
+              backgroundColor: `rgba(0, 171, 85, 0.04)`,
+              mb: 2,
+            }}
+            onClick={onEditCalendarClick}
+          >
+            Zurück zur Terminauswahl
+          </Button>
+
           <CalendarOverview
             services={selectedServices}
             selectedDay={selectedDay}

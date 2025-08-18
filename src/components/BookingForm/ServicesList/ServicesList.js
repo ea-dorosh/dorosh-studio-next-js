@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
+import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { formatTimeToString } from '@/utils/formatters';
 
@@ -48,30 +49,30 @@ export default function ServicesList({
           <Card
             sx={{
               boxShadow: `none`,
-              borderBottom: `1px solid`,
-              pb: `16px`,
-              borderColor: `grey.300`,
-              backgroundColor: `transparent`,
-              borderRadius: 0,
+              border: `1px solid`,
+              borderColor: (theme) => alpha(theme.palette.common.black, 0.08),
+              backgroundColor: `background.alternate`,
+              borderRadius: `16px`,
 
             }}
           >
             <CardContent
               sx={{
-                p: `0`,
-
-                '&:last-child': { p: `0` },
+                p: 2,
+                '&:last-child': { p: 2 },
               }}
             >
               <Box>
 
                 <Typography
-                  // variant="h6"
                   sx={{
-                    mb: 1,
-                    fontWeight: 600,
+                    mb: 1.25,
+                    fontWeight: 800,
                     letterSpacing: `.01em`,
-                    fontSize: `1.2rem`,
+                    fontSize: {
+                      xs: `1.3rem`,
+                      md: `1.4rem`,
+                    },
                   }}
                 >
                   {service.name}
@@ -81,16 +82,19 @@ export default function ServicesList({
                   sx={{
                     display: `flex`,
                     gap: 1,
-                    mb: 2,
+                    mb: service.bookingNote ? 1.5 : 2,
                     flexWrap: `wrap`,
                   }}
                 >
                   <Chip
                     label={<>Dauer: <b>{formatTimeToString(service.durationTime)}</b></>}
-                    size="medium"
-                    variant="filled"
+                    size="small"
+                    variant="outlined"
                     sx={{
                       borderRadius: `9999px`,
+                      px: 1,
+                      backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+                      borderColor: (theme) => alpha(theme.palette.primary.main, 0.25),
                       color: `text.primary`,
                     }}
                   />
@@ -98,10 +102,13 @@ export default function ServicesList({
                   {service.employees && service.employees.length > 0 && (
                     <Chip
                       label={<>Preis: <b>{service.employees[0].price || 0}€</b></>}
-                      size="medium"
-                      variant="filled"
+                      size="small"
+                      variant="outlined"
                       sx={{
                         borderRadius: `9999px`,
+                        px: 1,
+                        backgroundColor: (theme) => alpha(theme.palette.success.main, 0.06),
+                        borderColor: (theme) => alpha(theme.palette.success.main, 0.25),
                         color: `primary.main`,
                       }}
                     />
@@ -110,9 +117,12 @@ export default function ServicesList({
 
                 {service.bookingNote && (
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     color="text.secondary"
-                    sx={{ mb: 2 }}
+                    sx={{
+                      mb: 2,
+                      lineHeight: 1.5,
+                    }}
                   >
                     {service.bookingNote}
                   </Typography>
@@ -122,7 +132,7 @@ export default function ServicesList({
                   sx={{
                     display: `flex`,
                     justifyContent: `space-between`,
-                    alignItems: `flex-start`,
+                    alignItems: `center`,
                     gap: 2,
                   }}
                 >
@@ -130,9 +140,14 @@ export default function ServicesList({
 
                   <Button
                     variant={selectedServicesIds.includes(service.id) ? `outlined` : `contained`}
-                    size="medium"
+                    size="small"
                     onClick={() => onServiceSelect(service)}
-                    sx={{ minWidth: 180 }}
+                    sx={{
+                      width: {
+                        xs: `100%`,
+                        sm: `auto`,
+                      },
+                    }}
                     disabled={selectedServicesIds.includes(service.id) && selectedServiceId !== service.id}
                   >
                     {selectedServiceId === service.id ?
