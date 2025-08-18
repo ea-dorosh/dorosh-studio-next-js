@@ -501,6 +501,7 @@ export default function BookingFormContainer({ categories }) {
             thickness={4}
             sx={{ color: `#ffffff` }}
           />
+
           <Typography
             sx={{
               fontWeight: 700,
@@ -510,8 +511,9 @@ export default function BookingFormContainer({ categories }) {
               },
             }}
           >
-            Bitte warten Sie einen Moment – wir speichern gerade Ihre Buchung.
+            Bitte warten Sie einen Moment - wir speichern gerade Ihre Buchung.
           </Typography>
+
           <Typography sx={{ opacity: 0.9 }}>
             Dies kann einige Sekunden dauern.
           </Typography>

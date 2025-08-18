@@ -17,8 +17,6 @@ dayjs.locale(`de`);
 export default function Confirmation({ appointment }) {
   return (
     <>
-      <Divider sx={{ mb: 2 }} />
-
       <Box
         sx={{
           display: `flex`,
