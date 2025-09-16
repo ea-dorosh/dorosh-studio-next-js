@@ -48,10 +48,29 @@ export default function RootLayout({ children }) {
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <Script
+              id="consent-default"
+              strategy="afterInteractive"
+            >
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                // Consent Mode v2 defaults (deny all until user accepts)
+                gtag('consent', 'default', {
+                  'ad_storage': 'denied',
+                  'ad_user_data': 'denied',
+                  'ad_personalization': 'denied',
+                  'analytics_storage': 'denied'
+                });
+              `}
+            </Script>
+            <Script
               src={`https://www.googletagmanager.com/gtag/js?id=G-95J0ZJ44WD`}
               strategy="afterInteractive"
             />
-            <Script id="ga4" strategy="afterInteractive">
+            <Script
+              id="ga4"
+              strategy="afterInteractive"
+            >
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}

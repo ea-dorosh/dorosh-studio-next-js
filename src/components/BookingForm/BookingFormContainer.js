@@ -118,12 +118,10 @@ export default function BookingFormContainer({ categories }) {
       } else if (errorMessage) {
         setGeneralError(errorMessage);
       } else if (data) {
-        try {
-          sendGaEvent(`booking_submitted`, {
-            event_category: `booking`,
-            value: 1,
-          });
-        } catch (_) {}
+        sendGaEvent(`booking_submitted`, {
+          event_category: `booking`,
+          value: 1,
+        });
         setAppointmentConfirmation(data);
 
         setTimeout(() => {

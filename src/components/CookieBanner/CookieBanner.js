@@ -47,6 +47,16 @@ const CookieBanner = () => {
   const handleAccept = () => {
     // Save consent to cookie with 1 year expiration
     setCookie(COOKIE_CONSENT_NAME, `accepted`, 365);
+
+    if (typeof window !== `undefined` && typeof window.gtag === `function`) {
+      window.gtag(`consent`, `update`, {
+        'ad_user_data': `granted`,
+        'ad_personalization': `granted`,
+        'ad_storage': `granted`,
+        'analytics_storage': `granted`,
+      });
+    }
+
     setShowBanner(false);
   };
 
@@ -83,7 +93,7 @@ const CookieBanner = () => {
         <CardContent
           sx={{
             p: 3,
-            pb: 0, 
+            pb: 0,
           }}
         >
           <Typography
@@ -98,7 +108,7 @@ const CookieBanner = () => {
             variant="body1"
             sx={{
               mb: 2,
-              lineHeight: 1.6, 
+              lineHeight: 1.6,
             }}
           >
             Diese Website verwendet technisch notwendige Cookies für die
@@ -142,7 +152,7 @@ const CookieBanner = () => {
                 sx={{
                   mb: 2,
                   fontSize: `0.9rem`,
-                  color: `text.secondary`, 
+                  color: `text.secondary`,
                 }}
               >
                 <strong>Verwendete Cookies:</strong><br />
@@ -156,7 +166,7 @@ const CookieBanner = () => {
                 sx={{
                   mb: 2,
                   fontSize: `0.85rem`,
-                  color: `text.secondary`, 
+                  color: `text.secondary`,
                 }}
               >
                 <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Funktionalität)
@@ -189,11 +199,11 @@ const CookieBanner = () => {
               display: `flex`,
               flexDirection: {
                 xs: `column`,
-                sm: `row`, 
+                sm: `row`,
               },
               gap: 2,
               justifyContent: `center`,
-              mt: 2, 
+              mt: 2,
             }}
           >
             <Button
@@ -204,7 +214,7 @@ const CookieBanner = () => {
               sx={{
                 order: {
                   xs: 2,
-                  sm: 1, 
+                  sm: 1,
                 },
               }}
             >
@@ -218,7 +228,7 @@ const CookieBanner = () => {
               sx={{
                 order: {
                   xs: 1,
-                  sm: 2, 
+                  sm: 2,
                 },
               }}
             >
