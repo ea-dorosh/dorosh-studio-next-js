@@ -4,6 +4,7 @@ import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import Script from 'next/script';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import CookieBanner from '@/components/CookieBanner/CookieBanner';
 import Header from '@/components/Header/Header';
@@ -46,6 +47,18 @@ export default function RootLayout({ children }) {
       >
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=G-95J0ZJ44WD`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-95J0ZJ44WD', { anonymize_ip: true });
+              `}
+            </Script>
             <CssBaseline />
 
             <Header />

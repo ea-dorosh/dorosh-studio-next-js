@@ -23,6 +23,7 @@ import CalendarOverview from '@/components/BookingForm/CalendarOverview/Calendar
 import Confirmation from '@/components/BookingForm/Confirmation/Confirmation';
 import CustomerForm from '@/components/BookingForm/CustomerForm/CustomerForm';
 import ServiceSelectionForm from '@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm';
+import { sendGaEvent } from '@/lib/ga';
 import appointmentsService from '@/services/appointments.service';
 
 export default function BookingFormContainer({ categories }) {
@@ -117,6 +118,12 @@ export default function BookingFormContainer({ categories }) {
       } else if (errorMessage) {
         setGeneralError(errorMessage);
       } else if (data) {
+        try {
+          sendGaEvent(`booking_submitted`, {
+            event_category: `booking`,
+            value: 1,
+          });
+        } catch (_) {}
         setAppointmentConfirmation(data);
 
         setTimeout(() => {
@@ -323,6 +330,12 @@ export default function BookingFormContainer({ categories }) {
                     color="primary"
                     size="medium"
                     onClick={() => {
+
+                      sendGaEvent(`start_booking`, {
+                        event_category: `booking`,
+                        event_label: `step:calendar`,
+                      });
+
                       setShowCalendar(true);
                     }}
                     sx={{
