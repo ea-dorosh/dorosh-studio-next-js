@@ -36,16 +36,25 @@ export async function POST(request) {
       });
     };
 
-    const isProd = process.env.NODE_ENV === `production`;
-    const primaryBase = isProd
-      ? (process.env.SERVER_API_URL)
-      : `http://127.0.0.1:3500`;
-
-    if (!primaryBase) {
-      return NextResponse.json({ error: `SERVER_API_URL is not configured` }, { status: 500 });
+    // Try local backend first (works if Next and API are co-located)
+    let res = null;
+    try {
+      res = await tryPost(`http://127.0.0.1:3500`);
+    } catch (_) {
+      // Ignore
     }
 
-    const res = await tryPost(primaryBase);
+    // Fallback to explicit SERVER_API_URL in production if provided
+    if (!res || !res.ok) {
+      const isProd = process.env.NODE_ENV === `production`;
+      if (isProd && process.env.SERVER_API_URL) {
+        res = await tryPost(process.env.SERVER_API_URL);
+      }
+    }
+
+    if (!res || !res.ok) {
+      return NextResponse.json({ error: `Upstream error` }, { status: 502 });
+    }
 
     if (!res.ok) {
       return NextResponse.json({ error: `Upstream error` }, { status: 502 });

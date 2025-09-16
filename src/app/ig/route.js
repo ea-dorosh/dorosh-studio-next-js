@@ -12,14 +12,8 @@ export async function GET(request) {
       cache: `no-store`,
     }).catch(() => {});
 
-    const redirectUrl = new URL(`/booking`, origin);
-    redirectUrl.searchParams.set(`utm_source`, `instagram`);
-    redirectUrl.searchParams.set(`utm_medium`, `social`);
-    redirectUrl.searchParams.set(`utm_campaign`, `bio`);
-    redirectUrl.searchParams.set(`utm_content`, `profile_link`);
-    redirectUrl.searchParams.set(`source`, `instagram`);
-
-    return NextResponse.redirect(redirectUrl.toString(), { status: 302 });
+    const redirectUrl = `${origin}/booking?utm_source=instagram&utm_medium=social&utm_campaign=bio&utm_content=profile_link&source=instagram`;
+    return NextResponse.redirect(redirectUrl, { status: 302 });
   } catch (_e) {
     try {
       const fallbackUrl = new URL(request.url);
