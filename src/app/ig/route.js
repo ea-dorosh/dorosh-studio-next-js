@@ -21,7 +21,13 @@ export async function GET(request) {
 
     return NextResponse.redirect(redirectUrl.toString(), { status: 302 });
   } catch (_e) {
-    return NextResponse.redirect(`/booking`, { status: 302 });
+    try {
+      const fallbackUrl = new URL(request.url);
+      const fallbackOrigin = `${fallbackUrl.protocol}//${fallbackUrl.host}`;
+      return NextResponse.redirect(`${fallbackOrigin}/booking`, { status: 302 });
+    } catch {
+      return NextResponse.redirect(`https://moodbeauty.de/booking`, { status: 302 });
+    }
   }
 }
 

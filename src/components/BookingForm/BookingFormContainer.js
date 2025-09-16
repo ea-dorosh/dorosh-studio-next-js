@@ -1,13 +1,11 @@
 "use client";
 
 import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
-import Close from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import IconButton from '@mui/material/IconButton';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
