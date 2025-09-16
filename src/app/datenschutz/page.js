@@ -51,7 +51,7 @@ export default function DatenschutzPage() {
       <Box
         sx={{
           maxWidth: 800,
-          mx: `auto`, 
+          mx: `auto`,
         }}
       >
         <Typography
@@ -195,7 +195,7 @@ export default function DatenschutzPage() {
               ...headlineH3Style,
               fontSize: `16px !important`,
               mt: 2,
-              mb: 1, 
+              mb: 1,
             }}
           >
             WhatsApp Business
@@ -270,7 +270,7 @@ export default function DatenschutzPage() {
           </Typography>
           <List>
             <ListItem sx={listItemStyle}><ListItemText primary="Vor- und Nachname (first_name, last_name)" /></ListItem>
-            <ListItem sx={listItemStyle}><ListItemText primary="E‑Mail-Adresse (email)" /></ListItem>
+            <ListItem sx={listItemStyle}><ListItemText primary="E-Mail-Adresse (email)" /></ListItem>
             <ListItem sx={listItemStyle}><ListItemText primary="Telefonnummer (phone)" /></ListItem>
             <ListItem sx={listItemStyle}><ListItemText primary="Optional: Adresse (Straße, PLZ, Ort, Land) - nur für Rechnungsstellung" /></ListItem>
             <ListItem sx={listItemStyle}><ListItemText primary="Aufnahmedatum (added_date)" /></ListItem>

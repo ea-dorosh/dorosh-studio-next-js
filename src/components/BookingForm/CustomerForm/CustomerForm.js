@@ -1,9 +1,13 @@
+/* eslint-disable no-extra-boolean-cast */
 import {
   Box,
   Typography,
   Button,
   FormControl,
   FormHelperText,
+  FormControlLabel,
+  Checkbox,
+  Link,
   TextField,
 } from '@mui/material';
 import { useState, forwardRef } from 'react';
@@ -17,6 +21,9 @@ const CustomerForm = forwardRef(function CustomerForm({
     lastName: ``,
     phone: ``,
     email: ``,
+    orderMessage: ``,
+    consentPrivacy: false,
+    consentMarketing: false,
   });
 
   const handleChange = (event) => {
@@ -143,6 +150,102 @@ const CustomerForm = forwardRef(function CustomerForm({
             {formErrors.email}
           </FormHelperText>
           }
+        </FormControl>
+
+        {/* Message from customer */}
+        <FormControl>
+          <Typography variant="selectLabel">
+            Nachricht (optional)
+          </Typography>
+
+          <TextField
+            value={formData.orderMessage}
+            variant="outlined"
+            name="orderMessage"
+            onChange={handleChange}
+            multiline
+            minRows={3}
+            placeholder="Hier können Sie uns Hinweise oder Wünsche zu Ihrer Buchung mitteilen."
+            inputProps={{ style: { padding: 0 } }}
+            InputProps={{
+              sx: {
+                p: 0,
+                '& .MuiOutlinedInput-input': { p: 0 },
+                '& .MuiInputBase-inputMultiline': { p: 0 },
+                '& textarea': { p: 0 },
+              },
+            }}
+          />
+        </FormControl>
+
+        {/* Privacy consent (required) */}
+        <FormControl error={Boolean(formErrors?.consentPrivacy)}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={formData.consentPrivacy}
+                onChange={(e) => {
+                  if (formErrors?.consentPrivacy) {
+                    delete formErrors.consentPrivacy;
+                  }
+                  setFormData((prev) => ({
+                    ...prev,
+                    consentPrivacy: e.target.checked,
+                  }));
+                }}
+                name="consentPrivacy"
+                inputProps={{ 'aria-required': true }}
+                sx={{
+                  color: Boolean(formErrors?.consentPrivacy) ? `error.main` : `primary.main`,
+                }}
+              />
+            }
+            label={
+              <Typography
+                variant="body2"
+                sx={{ fontSize: `0.8rem` }}
+              >
+                * Ich stimme der Verarbeitung meiner personenbezogenen Daten gemäß der{` `}
+                <Link
+                  href="/datenschutz"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Datenschutzerklärung
+                </Link>{` `}zu.
+              </Typography>
+            }
+          />
+          {formErrors?.consentPrivacy && (
+            <FormHelperText>
+              {formErrors.consentPrivacy}
+            </FormHelperText>
+          )}
+        </FormControl>
+
+        {/* Marketing consent (optional) */}
+        <FormControl>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={formData.consentMarketing}
+                onChange={(e) => setFormData((prev) => ({
+                  ...prev,
+                  consentMarketing: e.target.checked,
+                }))}
+                name="consentMarketing"
+                color="primary"
+              />
+            }
+            label={
+              <Typography
+                variant="body2"
+                sx={{ fontSize: `0.8rem` }}
+              >
+                Ich möchte Neuigkeiten, Angebote und Aktionen per E-Mail erhalten (optional).
+              </Typography>
+            }
+          />
         </FormControl>
 
         <Button
