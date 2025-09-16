@@ -14,36 +14,41 @@ export async function POST(request) {
     const ua = headersIn.get(`user-agent`);
     const ref = headersIn.get(`referer`);
 
-    // Prefer local backend to avoid external proxy issues in dev
-    const base = process.env.NODE_ENV === `production`
-      ? (process.env.SERVER_API_URL || `https://api.moodbeauty.de/`)
-      : `http://127.0.0.1:3500/`;
+    // Try local backend first (works in prod if Next and API are co-located)
+    const tryPost = async (baseUrl) => {
+      const targetUrl = `${baseUrl.replace(/\/$/, ``)}/api/public/tracking/link-click`;
+      return fetch(targetUrl, {
+        method: `POST`,
+        headers: {
+          'Content-Type': `application/json`,
+          ...(ua ? { 'user-agent': ua } : {}),
+          ...(ref ? { referer: ref } : {}),
+          ...(xff ? { 'x-forwarded-for': xff } : {}),
+          ...(xri ? { 'x-real-ip': xri } : {}),
+          ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+        },
+        body: JSON.stringify({
+          linkedAt: new Date().toISOString(),
+          channel,
+          target,
+        }),
+        cache: `no-store`,
+      });
+    };
 
-    const targetUrl = `${base.replace(/\/$/, ``)}/api/public/tracking/link-click`;
+    const isProd = process.env.NODE_ENV === `production`;
+    const primaryBase = isProd
+      ? (process.env.SERVER_API_URL)
+      : `http://127.0.0.1:3500`;
 
-    const res = await fetch(targetUrl, {
-      method: `POST`,
-      headers: {
-        'Content-Type': `application/json`,
-        ...(ua ? { 'user-agent': ua } : {}),
-        ...(ref ? { referer: ref } : {}),
-        ...(xff ? { 'x-forwarded-for': xff } : {}),
-        ...(xri ? { 'x-real-ip': xri } : {}),
-        ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
-      },
-      body: JSON.stringify({
-        linkedAt: new Date().toISOString(),
-        channel,
-        target,
-      }),
-      cache: `no-store`,
-    });
+    if (!primaryBase) {
+      return NextResponse.json({ error: `SERVER_API_URL is not configured` }, { status: 500 });
+    }
+
+    const res = await tryPost(primaryBase);
 
     if (!res.ok) {
-      return NextResponse.json({
-        error: `Upstream error`,
-        upstreamStatus: res.status,
-      }, { status: 502 });
+      return NextResponse.json({ error: `Upstream error` }, { status: 502 });
     }
 
     return NextResponse.json({ message: `link click logged` }, { status: 200 });
