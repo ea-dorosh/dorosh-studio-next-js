@@ -6,9 +6,12 @@ export const revalidate = 0;
 export async function GET(request) {
   try {
     const url = new URL(request.url);
-    const origin = `${url.protocol}//${url.host}`;
+    // Fix for production: use the correct domain instead of localhost
+    const host = url.host.includes(`localhost`) ? `moodbeauty.de` : url.host;
+    const protocol = url.host.includes(`localhost`) ? `https` : url.protocol;
+    const origin = `${protocol}//${host}`;
 
-    console.log(`[IG] Processing Instagram redirect from: ${origin}`);
+    console.log(`[IG] Processing Instagram redirect from: ${origin} (original: ${url.protocol}//${url.host})`);
 
     // Call internal API to log click
     const apiUrl = `${origin}/api/link-track?channel=instagram-bio&target=/booking`;
