@@ -7,6 +7,13 @@ export async function POST(request) {
     const channel = searchParams.get(`channel`) || `unknown`;
     const target = searchParams.get(`target`) || `/booking`;
 
+    console.log(`[LINK-TRACK] Processing request:`, {
+      channel,
+      target,
+      nodeEnv: process.env.NODE_ENV,
+      serverApiUrl: process.env.SERVER_API_URL,
+    });
+
     const headersIn = request.headers;
     const xff = headersIn.get(`x-forwarded-for`);
     const xri = headersIn.get(`x-real-ip`);
@@ -36,28 +43,47 @@ export async function POST(request) {
       });
     };
 
-    // Try local backend first (works if Next and API are co-located)
+    const isProd = process.env.NODE_ENV === `production`;
     let res = null;
-    try {
-      res = await tryPost(`http://127.0.0.1:3500`);
-    } catch (_) {
-      // Ignore
+
+    // In production, try the public backend URL first
+    if (isProd) {
+      const backendUrl = process.env.SERVER_API_URL || `https://crm.moodbeauty.de`;
+      try {
+        console.log(`[LINK-TRACK] Trying production backend: ${backendUrl}`);
+        res = await tryPost(backendUrl);
+        console.log(`[LINK-TRACK] Production backend response:`, {
+          status: res?.status,
+          ok: res?.ok, 
+        });
+      } catch (error) {
+        console.log(`[LINK-TRACK] Production backend failed:`, error.message);
+      }
     }
 
-    // Fallback to explicit SERVER_API_URL in production if provided
+    // Try local backend if production failed or in development
     if (!res || !res.ok) {
-      const isProd = process.env.NODE_ENV === `production`;
-      if (isProd && process.env.SERVER_API_URL) {
-        res = await tryPost(process.env.SERVER_API_URL);
+      try {
+        console.log(`[LINK-TRACK] Trying local backend: http://127.0.0.1:3500`);
+        res = await tryPost(`http://127.0.0.1:3500`);
+        console.log(`[LINK-TRACK] Local backend response:`, {
+          status: res?.status,
+          ok: res?.ok, 
+        });
+      } catch (error) {
+        console.log(`[LINK-TRACK] Local backend failed:`, error.message);
       }
     }
 
     if (!res || !res.ok) {
+      console.log(`[LINK-TRACK] All attempts failed, returning 502`);
       return NextResponse.json({ error: `Upstream error` }, { status: 502 });
     }
 
+    console.log(`[LINK-TRACK] Success! Returning 200`);
     return NextResponse.json({ message: `link click logged` }, { status: 200 });
   } catch (error) {
+    console.error(`[LINK-TRACK] Unexpected error:`, error);
     return NextResponse.json({ error: `Proxy failed` }, { status: 500 });
   }
 }
