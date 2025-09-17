@@ -56,10 +56,6 @@ export async function POST(request) {
       return NextResponse.json({ error: `Upstream error` }, { status: 502 });
     }
 
-    if (!res.ok) {
-      return NextResponse.json({ error: `Upstream error` }, { status: 502 });
-    }
-
     return NextResponse.json({ message: `link click logged` }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: `Proxy failed` }, { status: 500 });
