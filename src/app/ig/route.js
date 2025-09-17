@@ -8,7 +8,7 @@ export async function GET(request) {
     const url = new URL(request.url);
     // Fix for production: use the correct domain instead of localhost
     const host = url.host.includes(`localhost`) ? `moodbeauty.de` : url.host;
-    const protocol = url.host.includes(`localhost`) ? `https` : url.protocol;
+    const protocol = url.host.includes(`localhost`) ? `https:` : url.protocol;
     const origin = `${protocol}//${host}`;
 
     console.log(`[IG] Processing Instagram redirect from: ${origin} (original: ${url.protocol}//${url.host})`);
