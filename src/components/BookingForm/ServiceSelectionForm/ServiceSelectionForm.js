@@ -154,7 +154,8 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
             <Typography
               color="success.main"
               fontWeight={600}
-            >{firstService ? `Service 1` : `Service 2`}
+            >
+              {firstService ? `Service 1` : `Service 2`}
             </Typography>
 
             <Button
@@ -165,10 +166,12 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
                 p:0,
                 fontWeight: `bold`,
               }}
-            >löschen
+            >
+              löschen
             </Button>
           </Box>
         )}
+
         <Accordion
           disableGutters
           expanded={!selectedCategory ? true : expandedPanel === `category`}

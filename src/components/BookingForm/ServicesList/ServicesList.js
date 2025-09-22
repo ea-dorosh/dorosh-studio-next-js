@@ -70,7 +70,7 @@ export default function ServicesList({
                     fontWeight: 800,
                     letterSpacing: `.01em`,
                     fontSize: {
-                      xs: `1.3rem`,
+                      xs: `1rem`,
                       md: `1.4rem`,
                     },
                   }}

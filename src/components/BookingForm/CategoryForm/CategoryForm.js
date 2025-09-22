@@ -50,11 +50,11 @@ export default function CategoryForm({
               {category.categoryImage ? (
                 <CardMedia
                   component="img"
-                  height="210"
-                  // aspectRatio={`20 / 13`}
                   image={category.categoryImage}
                   alt={category.categoryName}
-                  sx={{ objectFit: `cover` }}
+                  sx={{
+                    aspectRatio: `16 / 9`,
+                  }}
                 />
               ) : (
                 <Box
@@ -76,7 +76,7 @@ export default function CategoryForm({
                   py: 1.2,
                   display: `flex`,
                   alignItems: `center`,
-                  backgroundColor: `rgba(255,255,255,0.75)`,
+                  backgroundColor: `rgba(255,255,255,0.45)`,
                 }}
               >
                 <Typography
