@@ -37,7 +37,7 @@ const Breadcrumbs = () => {
         label = `Services`;
         break;
       case `nails`:
-        label = `Nail Design`;
+        label = `Maniküre & Pediküre`;
         break;
       case `permanent-make-up`:
         label = `Permanent Make-Up`;

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import CategoryInfo from '@/components/CategoryInfo/CategoryInfo';
+import ParallaxHero from '@/components/Parallax/ParallaxHero';
 
 export const metadata = {
   title: `Maniküre und Pediküre München - MOOD BEAUTY | Professionelle Nagelpflege`,
@@ -36,22 +36,25 @@ export default async function NailsPage() {
     <Box
       bgcolor="background.default"
       component="section"
-      sx={{ paddingBottom: `32px` }}
+      paddingBottom={`32px`}
     >
+      <Box
+        sx={{
+          mx: `calc(50% - 50vw)`,
+          width: `100vw`,
+          mb: 4,
+        }}
+      >
+        <ParallaxHero
+          src="/images/design/category_page_nails.avif"
+          alt="Nails hero image"
+          height="50vh"
+          headline="Maniküre & Pediküre"
+          subHeadline="Pflege, Komfort und höchste Hygienestandards"
+        />
+      </Box>
+
       <Container>
-        <Typography
-          variant="h1"
-          color="primary"
-          sx={{
-            textAlign: `center`,
-            marginTop: `18px`,
-            marginBottom: `18px`,
-            textTransform: `uppercase`,
-            fontSize: `2.5rem`,
-          }}
-        >
-          Unsere Services
-        </Typography>
 
         <CategoryInfo
           title="Maniküre und Pediküre in München"

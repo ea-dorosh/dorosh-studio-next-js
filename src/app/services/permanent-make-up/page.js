@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import CategoryInfo from '@/components/CategoryInfo/CategoryInfo';
+import ParallaxHero from '@/components/Parallax/ParallaxHero';
 import SubCategoryCardInfo from '@/components/SubCategoryCardInfo/SubCategoryCardInfo';
 
 export const metadata = {
@@ -37,22 +37,26 @@ export default async function CategoryPage() {
     <Box
       bgcolor="background.default"
       component="section"
-      sx={{ paddingBottom: `32px` }}
+      paddingBottom={`32px`}
     >
+      <Box
+        sx={{
+          mx: `calc(50% - 50vw)`,
+          width: `100vw`,
+          mb: 4,
+        }}
+      >
+        <ParallaxHero
+          src="/images/design/category_page_pm.avif"
+          alt="Permanent Make-up hero image"
+          height="50vh"
+          headline="Permanent Make-up"
+          subHeadline="Natürliche Schönheit ohne Aufwand"
+        />
+      </Box>
+
       <Container>
-        <Typography
-          variant="h1"
-          color="primary"
-          sx={{
-            textAlign: `center`,
-            marginTop: `18px`,
-            marginBottom: `18px`,
-            textTransform: `uppercase`,
-            fontSize: `2.5rem`,
-          }}
-        >
-          Unsere Services
-        </Typography>
+
 
         <CategoryInfo
           title="Permanent Make-up in München"

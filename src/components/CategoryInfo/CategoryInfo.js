@@ -9,8 +9,6 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 
 export default function CategoryInfo({
-  title,
-  subtitle,
   description,
   services,
   advantages,
@@ -23,36 +21,9 @@ export default function CategoryInfo({
       sx={{
         maxWidth: `800px`,
         margin: `0 auto`,
-        padding: `24px 0`,
+        padding: `0`,
       }}
     >
-      <Typography
-        variant="h2"
-        color="primary"
-        sx={{
-          textAlign: `center`,
-          marginBottom: `16px`,
-          fontSize: `2.2rem`,
-          fontWeight: `bold`,
-          textTransform: `uppercase`,
-        }}
-      >
-        {title}
-      </Typography>
-
-      <Typography
-        variant="h3"
-        sx={{
-          textAlign: `center`,
-          marginBottom: `32px`,
-          fontSize: `1.4rem`,
-          color: `text.secondary`,
-          fontStyle: `italic`,
-        }}
-      >
-        {subtitle}
-      </Typography>
-
       <Typography
         sx={{
           lineHeight: 1.8,

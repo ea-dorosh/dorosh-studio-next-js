@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
+import ParallaxHero from '@/components/Parallax/ParallaxHero';
 import { servicesData } from '@/constants/staticData';
 
 export const metadata = {
@@ -39,13 +40,24 @@ export default function LashesUndBrowsPage() {
   return (
     <Box
       component="section"
-      sx={{
-        py: {
-          xs: 4,
-          md: 8,
-        },
-      }}
+      paddingBottom={`32px`}
     >
+      <Box
+        sx={{
+          mx: `calc(50% - 50vw)`,
+          width: `100vw`,
+          mb: 4,
+        }}
+      >
+        <ParallaxHero
+          src="/images/design/category_page_lashes.avif"
+          alt="Lashes & Brows hero image"
+          height="50vh"
+          headline="Lashes & Brows"
+          subHeadline="Brow- und Lash-Lifting - natürliche Pflege & Ausdruck ohne Make-up"
+        />
+      </Box>
+
       <Container
         sx={{
           maxWidth: `1200px`,
@@ -55,34 +67,7 @@ export default function LashesUndBrowsPage() {
           },
         }}
       >
-        <Typography
-          variant="h1"
-          color="primary"
-          textAlign="center"
-          sx={{
-            fontWeight: 700,
-            letterSpacing: `.02em`,
-            mb: 2,
-          }}
-        >
-          Lashes & Brows
-        </Typography>
 
-        <Typography
-          variant="h2"
-          color="primary"
-          textAlign="center"
-          sx={{
-            fontWeight: 600,
-            mb: 2,
-            fontSize: {
-              xs: `1.25rem`,
-              md: `1.5rem`,
-            },
-          }}
-        >
-          Brow- und Lash-Lifting - natürliche Pflege & Ausdruck ohne Make-up
-        </Typography>
 
         <Typography
           color="primary"
