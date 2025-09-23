@@ -58,7 +58,7 @@ export default function ÜberUnsPage() {
         }}
       >
         <ParallaxHero
-          src="/images/design/design_1.avif"
+          src="/images/design/ueber-uns.avif"
           alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
           headline="Über uns"
           subHeadline="MOOD Beauty Studio - Permanent Make-up & Maniküre in München"

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Link from 'next/link';
 import ContactSection from '@/components/ContactSection/ContactSection';
 import HomeServices from '@/components/HomeServices/HomeServices';
-import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
+import ParallaxHero from '@/components/Parallax/ParallaxHero';
 import PerformanceMonitor from '@/components/PerformanceMonitor/PerformanceMonitor';
 import UberMoodSection from '@/components/UberMoodSection/UberMoodSection';
 
@@ -12,6 +12,7 @@ export default function HomePage() {
   return (
     <>
       <PerformanceMonitor />
+
       <Box
         component="section"
         sx={{
@@ -28,35 +29,12 @@ export default function HomePage() {
               md: `70vh`,
             },
             overflow: `hidden`,
-            backgroundColor: `#e1dbd6`,
-            borderRadius: {
-              xs: 0,
-              md: `16px`,
-            },
           }}
         >
-          <OptimizedImage
-            src="/images/main-top-image.avif"
+          <ParallaxHero
+            src="/images/design/design_1.avif"
             alt="Eine Frau mit gepflegten Augenbrauen und Make-up"
-            priority
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1200px, 1200px"
-            quality={90}
-            style={{
-              objectFit: `cover`,
-              objectPosition: `center`,
-              zIndex: `0`,
-            }}
-          />
-
-          {/* gradient overlay */}
-          <Box
-            sx={{
-              position: `absolute`,
-              inset: 0,
-              zIndex: 1,
-              background: `linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.4) 100%)`,
-            }}
+            height="80vh"
           />
 
           <Container
