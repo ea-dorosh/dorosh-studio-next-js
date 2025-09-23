@@ -27,15 +27,11 @@ export default function CategoryForm({
         >
           <Card
             sx={{
-              boxShadow: `none`,
-              borderRadius: `16px`,
-              backgroundColor: `background.alternate`,
-              border: `1px solid`,
-              borderColor: selectedCategory?.categoryId === category.categoryId
-                ? (theme) => alpha(theme.palette.primary.main, 0.25)
-                : `rgba(0,0,0,0.06)`,
+              boxShadow: `0 4px 12px rgba(0,0,0,0.08)`,
+              borderRadius: `20px`,
+              backgroundColor: `background.paper`,
+              border: `none`,
               overflow: `hidden`,
-              '&:hover': { transform: `none` },
             }}
           >
             <CardActionArea
@@ -61,6 +57,7 @@ export default function CategoryForm({
                   sx={{
                     height: 180,
                     backgroundColor: (theme) => theme.palette.grey[100],
+                    backgroundImage: `linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%)`,
                   }}
                 />
               )}
@@ -72,20 +69,21 @@ export default function CategoryForm({
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  px: 2,
-                  py: 1.2,
+                  px: 3,
+                  py: 1.5,
                   display: `flex`,
                   alignItems: `center`,
-                  backgroundColor: `rgba(255,255,255,0.45)`,
+                  background: `linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%)`,
                 }}
               >
                 <Typography
                   variant="h6"
                   component="h3"
                   sx={{
-                    fontWeight: 700,
-                    letterSpacing: `.01em`,
-                    color: `text.primary`,
+                    fontWeight: 800,
+                    letterSpacing: `.02em`,
+                    color: `#ffffff`,
+                    textShadow: `0 1px 2px rgba(0,0,0,0.3)`,
                   }}
                 >
                   {category.categoryName}

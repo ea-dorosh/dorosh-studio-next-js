@@ -17,6 +17,7 @@ export default function SubCategoryForm({
       sx={{
         backgroundColor: `background.alternate`,
         overflow: `hidden`,
+        borderRadius: `16px`,
       }}
     >
       <List disablePadding>
@@ -28,19 +29,18 @@ export default function SubCategoryForm({
               onClick={() => onSubCategorySelect(subCategory)}
               selected={isSelected}
               sx={{
-                py: 1.25,
-                px: 2,
-                mb: index !== subCategories.length - 1 ? 1 : 0,
+                py: 1.5,
+                px: 3,
+                mb: index !== subCategories.length - 1 ? 0.5 : 0,
                 borderRadius: `12px`,
-                border: `1px solid transparent`,
-                backgroundColor: isSelected ? (theme) => alpha(theme.palette.primary.main, 0.06) : `transparent`,
-                '&:hover': { backgroundColor: `transparent` },
+                backgroundColor: isSelected ? (theme) => alpha(theme.palette.primary.main, 0.1) : `transparent`,
+                '&:hover': { backgroundColor: isSelected ? (theme) => alpha(theme.palette.primary.main, 0.1) : `transparent` },
               }}
             >
               <ListItemIcon
                 sx={{
-                  minWidth: 36,
-                  color: isSelected ? `success.main` : `text.disabled`,
+                  minWidth: 40,
+                  color: isSelected ? `primary.main` : `text.secondary`,
                 }}
               >
                 {isSelected ? <CheckCircleRounded /> : <RadioButtonUnchecked />}
@@ -50,10 +50,10 @@ export default function SubCategoryForm({
                 primary={subCategory.subCategoryName}
                 primaryTypographyProps={{
                   sx: {
-                    fontWeight: isSelected ? 800 : 500,
+                    fontWeight: isSelected ? 700 : 500,
                     letterSpacing: `.01em`,
                     color: isSelected ? `primary.main` : `text.primary`,
-                    fontSize: `1.15rem`,
+                    fontSize: `1.1rem`,
                   },
                 }}
               />

@@ -122,11 +122,11 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
     <Card
       ref={ref}
       sx={{
-        boxShadow: `none`,
+        boxShadow: `0 4px 20px rgba(0,0,0,0.1)`,
         overflow: `hidden`,
-        borderRadius: `20px`,
-        padding: `6px`,
-        backgroundColor: `background.alternate`,
+        borderRadius: `24px`,
+        padding: `12px`,
+        backgroundColor: `background.paper`,
       }}
     >
       <CardContent
