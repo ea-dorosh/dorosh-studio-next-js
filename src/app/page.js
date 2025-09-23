@@ -2,7 +2,6 @@ import { Button, Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
 import ContactSection from '@/components/ContactSection/ContactSection';
-// keep imports sorted per import/order
 import HomeServices from '@/components/HomeServices/HomeServices';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
 import PerformanceMonitor from '@/components/PerformanceMonitor/PerformanceMonitor';
@@ -149,9 +148,9 @@ export default function HomePage() {
         </Box>
       </Box>
 
-      <UberMoodSection />
-
       <HomeServices />
+
+      <UberMoodSection />
 
       <ContactSection />
     </>

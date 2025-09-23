@@ -146,7 +146,7 @@ export default function ÜberUnsPage() {
           />
 
           <RevealSection
-            src="/images/design/manik_2.avif"
+            src="/images/design/manik_1_horizontal.avif"
             alt="Maniküre München - gepflegte Hände und Nägel"
             imageSide="left"
             title="Ästhetische Maniküre & Nagelpflege"

@@ -4,23 +4,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage/OptimizedImage';
-
-const services = [
-  {
-    title: `Permanent Make-up`,
-    text: `Powder Brows, Velvet Lips, Wimpernkranzverdichtung, Hairstroke`,
-    href: `/services/permanent-make-up`,
-    img: `/images/design/pm_brows_lips.avif`,
-    objectPosition: `right 0px top -28px`,
-  },
-  {
-    title: `Nails`,
-    text: `Manicure & Pedicure`,
-    href: `/services/nails`,
-    img: `/images/design/manik_2.avif`,
-    objectPosition: `right 0px top -59px`,
-  },
-];
+import { categoriesData } from '@/constants/staticData';
 
 export default function HomeServices() {
   return (
@@ -62,9 +46,9 @@ export default function HomeServices() {
             md: 3,
           }}
         >
-          {services.map((s, i) => (
+          {categoriesData.map((service, index) => (
             <Grid
-              key={i}
+              key={index}
               item
               xs={12}
               md={6}
@@ -78,7 +62,7 @@ export default function HomeServices() {
               }}
             >
               <Link
-                href={s.href}
+                href={service.href}
                 style={{
                   textDecoration: `none`,
                   color: `inherit`,
@@ -112,12 +96,12 @@ export default function HomeServices() {
                   <Box
                     sx={{
                       position: `relative`,
-                      aspectRatio: `20 / 13`,
+                      aspectRatio: `16 / 9`,
                     }}
                   >
                     <OptimizedImage
-                      src={s.img}
-                      alt={s.title}
+                      src={service.img}
+                      alt={service.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={90}
@@ -125,7 +109,6 @@ export default function HomeServices() {
                         objectFit: `cover`,
                         objectPosition: `center`,
                       }}
-                      objectPosition={s.objectPosition}
                     />
                   </Box>
 
@@ -148,7 +131,7 @@ export default function HomeServices() {
                         mb: 1,
                       }}
                     >
-                      {s.title}
+                      {service.title}
                     </Typography>
                     <Typography
                       color="primary"
@@ -157,7 +140,7 @@ export default function HomeServices() {
                         lineHeight: 1.6,
                       }}
                     >
-                      {s.text}
+                      {service.text}
                     </Typography>
                   </Box>
                 </Box>
