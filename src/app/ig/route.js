@@ -9,7 +9,9 @@ export async function GET(request) {
     // Fix for production: use the correct domain instead of localhost
     const host = url.host.includes(`localhost`) ? `moodbeauty.de` : url.host;
     const protocol = url.host.includes(`localhost`) ? `https:` : url.protocol;
-    const origin = `${protocol}//${host}`;
+    // Ensure protocol always ends with colon
+    const normalizedProtocol = protocol.endsWith(`:`) ? protocol : `${protocol}:`;
+    const origin = `${normalizedProtocol}//${host}`;
 
     console.log(`[IG] Processing Instagram redirect from: ${origin} (original: ${url.protocol}//${url.host})`);
 
@@ -51,7 +53,8 @@ export async function GET(request) {
 
     try {
       const fallbackUrl = new URL(request.url);
-      const fallbackOrigin = `${fallbackUrl.protocol}//${fallbackUrl.host}`;
+      const fallbackProtocol = fallbackUrl.protocol.endsWith(`:`) ? fallbackUrl.protocol : `${fallbackUrl.protocol}:`;
+      const fallbackOrigin = `${fallbackProtocol}//${fallbackUrl.host}`;
       const fallbackResponse = NextResponse.redirect(`${fallbackOrigin}/booking`, { status: 302 });
 
       // Add no-cache headers to fallback too
