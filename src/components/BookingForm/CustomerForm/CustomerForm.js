@@ -11,6 +11,7 @@ import {
   TextField,
 } from '@mui/material';
 import { useState, forwardRef } from 'react';
+import CountryCodeSelector from './CountryCodeSelector';
 
 const CustomerForm = forwardRef(function CustomerForm({
   createAppointment,
@@ -25,6 +26,8 @@ const CustomerForm = forwardRef(function CustomerForm({
     consentPrivacy: false,
     consentMarketing: false,
   });
+
+  const [countryCode, setCountryCode] = useState(`+49`);
 
   const handleChange = (event) => {
     const {
@@ -44,7 +47,14 @@ const CustomerForm = forwardRef(function CustomerForm({
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    createAppointment({ ...formData });
+    const fullPhoneNumber = formData.phone.trim()
+      ? `${countryCode}${formData.phone.replace(/^[+\s0]+/, ``)}`
+      : ``;
+
+    createAppointment({
+      ...formData,
+      phone: fullPhoneNumber,
+    });
   };
 
   return (
@@ -115,17 +125,31 @@ const CustomerForm = forwardRef(function CustomerForm({
           error={Boolean(formErrors?.phone)}
         >
           <Typography variant="selectLabel">
-          Telefon
+            Telefon
           </Typography>
-          <TextField
-            value={formData.phone}
-            variant="outlined"
-            name="phone"
-            type="tel"
-            placeholder="+49 111 111 11111"
-            onChange={handleChange}
-            error={Boolean(formErrors?.phone)}
-          />
+          <Box
+            sx={{
+              display: `flex`,
+              gap: 1,
+              alignItems: `flex-start`,
+            }}
+          >
+            <CountryCodeSelector
+              value={countryCode}
+              onChange={(e) => setCountryCode(e.target.value)}
+              error={Boolean(formErrors?.phone)}
+            />
+            <TextField
+              value={formData.phone}
+              variant="outlined"
+              name="phone"
+              type="tel"
+              placeholder="123 456 7890"
+              onChange={handleChange}
+              error={Boolean(formErrors?.phone)}
+              sx={{ flex: 1 }}
+            />
+          </Box>
           {formErrors?.phone &&
             <FormHelperText>
               {formErrors.phone}
