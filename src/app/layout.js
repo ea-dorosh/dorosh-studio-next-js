@@ -8,17 +8,53 @@ import Script from 'next/script';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import CookieBanner from '@/components/CookieBanner/CookieBanner';
 import Header from '@/components/Header/Header';
+import LocalBusinessSchema from '@/components/StructuredData/LocalBusinessSchema';
 import theme from '@/theme';
 
 export const metadata = {
-  title: `MOOD BEAUTY - Permanent Make-Up München | Natalia Dorosh`,
-  description: `Professionelles Permanent Make-Up in München. Powder Brows, Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.`,
+  title: `MOOD BEAUTY - Maniküre & Pediküre | Permanent Make-Up | München`,
+  description: `Professionelle Maniküre und Pediküre in München. Permanent Make-Up in München. Powder Brows,
+  Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.`,
+  keywords: [
+    `Maniküre München`,
+    `Pediküre München`,
+    `Nagelpflege München`,
+    `Gel-Lack München`,
+    `Shellac München`,
+    `Fußpflege München`,
+    `Augenbrauen München`,
+    `Lippenpigmentierung München`,
+    `Wimpernkranz München`,
+    `Permanent Make-Up München`,
+    `Beauty Studio München`,
+  ],
+  openGraph: {
+    type: `website`,
+    locale: `de_DE`,
+    url: `https://moodbeauty.de`,
+    siteName: `MOOD BEAUTY München`,
+    title: `MOOD BEAUTY - Maniküre & Pediküre & Permanent Make-Up München`,
+    description: `Professionelle Maniküre und Pediküre in München. Permanent Make-Up in München. Powder Brows, Hairstroke, Velvet Lips im MOOD BEAUTY Studio von Natalia Dorosh.`,
+    images: [
+      {
+        url: `https://moodbeauty.de/images/design/design_1.avif`,
+        width: 1200,
+        height: 630,
+        alt: `MOOD BEAUTY München`,
+      },
+    ],
+  },
+  other: {
+    'geo.region': `DE-BY`,
+    'geo.placename': `München`,
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="de">
       <head>
+        <LocalBusinessSchema />
         <link
           rel="dns-prefetch"
           href="//fonts.googleapis.com"

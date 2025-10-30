@@ -3,13 +3,11 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
-import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 export default function CategoryForm({
   categories,
   onCategorySelect,
-  selectedCategory,
 }) {
 
   return (

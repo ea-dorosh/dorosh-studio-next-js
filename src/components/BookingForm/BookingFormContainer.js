@@ -22,6 +22,7 @@ import Confirmation from '@/components/BookingForm/Confirmation/Confirmation';
 import CustomerForm from '@/components/BookingForm/CustomerForm/CustomerForm';
 import ServiceSelectionForm from '@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm';
 import { sendGaEvent } from '@/lib/ga';
+// import { trackBookingComplete } from '@/lib/gtm';
 import appointmentsService from '@/services/appointments.service';
 
 export default function BookingFormContainer({ categories }) {
@@ -120,6 +121,16 @@ export default function BookingFormContainer({ categories }) {
           event_category: `booking`,
           value: 1,
         });
+
+        // Google Ads Conversion Tracking
+        // const totalPrice = selectedServices.reduce((sum, service) => sum + (service.price || 350), 0);
+        // trackBookingComplete({
+        //   bookingId: data.id || Date.now().toString(),
+        //   serviceName: selectedServices.map(s => s.name).join(`, `),
+        //   category: selectedServices[0]?.category || `Beauty`,
+        //   price: totalPrice,
+        // });
+
         setAppointmentConfirmation(data);
 
         setTimeout(() => {
