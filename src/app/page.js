@@ -5,10 +5,13 @@ import ContactSection from '@/components/ContactSection/ContactSection';
 import HomeServices from '@/components/HomeServices/HomeServices';
 import ParallaxHero from '@/components/Parallax/ParallaxHero';
 import PerformanceMonitor from '@/components/PerformanceMonitor/PerformanceMonitor';
+import PricePreview from '@/components/PricePreview/PricePreview';
 import UberMoodSection from '@/components/UberMoodSection/UberMoodSection';
+import servicesService from '@/services/services.service';
 
 
-export default function HomePage() {
+export default async function HomePage() {
+  const categories = await servicesService.getServices();
   return (
     <>
       <PerformanceMonitor />
@@ -129,6 +132,8 @@ export default function HomePage() {
       <HomeServices />
 
       <UberMoodSection />
+
+      <PricePreview categories={categories} />
 
       <ContactSection />
     </>

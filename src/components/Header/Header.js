@@ -19,6 +19,10 @@ const LINKS = [
     href: `/services`,
   },
   {
+    text: `Preisliste`,
+    href: `/preisliste`,
+  },
+  {
     text: `Online Termin`,
     href: `/booking`,
   },
