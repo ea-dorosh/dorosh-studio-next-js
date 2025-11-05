@@ -1,5 +1,9 @@
 // Google Ads Conversion Tracking
 // Работает с вашим существующим Google Analytics 4 (G-95J0ZJ44WD)
+//
+// ВАЖНО: После создания Conversion Actions в Google Ads:
+// 1. Замените AW-XXXXXXXXX/XXXXXXXXXXX на реальные Conversion IDs (строки 22 и 41)
+// 2. Добавьте Google Ads script в src/app/layout.js (см. GOOGLE_ADS_STATUS.md → Шаг 4)
 
 // Бронирование завершено - ГЛАВНАЯ КОНВЕРСИЯ ДЛЯ GOOGLE ADS
 export const trackBookingComplete = (data) => {
@@ -16,10 +20,9 @@ export const trackBookingComplete = (data) => {
       }],
     });
 
-    // 2. Google Ads Conversion (ДОБАВЬТЕ ID ПОСЛЕ СОЗДАНИЯ CONVERSION)
-    // Инструкция: GOOGLE_ADS_SETUP.md → ШАГ 2.3
+    // 2. Google Ads Conversion - Бронирование завершено
     window.gtag(`event`, `conversion`, {
-      send_to: `AW-XXXXXXXXX/XXXXXXXXXXX`, // ← ЗАМЕНИТЕ на ваш Conversion ID/Label
+      send_to: `AW-11025863414/yj9bCIWyoLobEPalxYkp`,
       value: data.price || 350,
       currency: `EUR`,
       transaction_id: data.bookingId || Date.now().toString(),
@@ -27,19 +30,15 @@ export const trackBookingComplete = (data) => {
   }
 };
 
-// Клик на телефон - КОНВЕРСИЯ ДЛЯ ЗВОНКОВ
+// Клик на телефон - только для Google Analytics (не отслеживаем в Google Ads)
 export const trackPhoneClick = () => {
   if (typeof window !== `undefined` && window.gtag) {
-    // 1. Google Analytics событие
+    // Google Analytics событие (для аналитики)
     window.gtag(`event`, `phone_call_click`, {
       event_category: `contact`,
       event_label: `phone_button`,
     });
-
-    // 2. Google Ads Phone Call Conversion
-    window.gtag(`event`, `conversion`, {
-      send_to: `AW-XXXXXXXXX/XXXXXXXXXXX`, // ← ЗАМЕНИТЕ на ДРУГОЙ ID для звонков
-    });
+    // Google Ads conversion для звонков не используется
   }
 };
 

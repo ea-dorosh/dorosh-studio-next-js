@@ -22,7 +22,7 @@ import Confirmation from '@/components/BookingForm/Confirmation/Confirmation';
 import CustomerForm from '@/components/BookingForm/CustomerForm/CustomerForm';
 import ServiceSelectionForm from '@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm';
 import { sendGaEvent } from '@/lib/ga';
-// import { trackBookingComplete } from '@/lib/gtm';
+import { trackBookingComplete, trackBookingStart } from '@/lib/gtm';
 import appointmentsService from '@/services/appointments.service';
 
 export default function BookingFormContainer({ categories }) {
@@ -123,13 +123,13 @@ export default function BookingFormContainer({ categories }) {
         });
 
         // Google Ads Conversion Tracking
-        // const totalPrice = selectedServices.reduce((sum, service) => sum + (service.price || 350), 0);
-        // trackBookingComplete({
-        //   bookingId: data.id || Date.now().toString(),
-        //   serviceName: selectedServices.map(s => s.name).join(`, `),
-        //   category: selectedServices[0]?.category || `Beauty`,
-        //   price: totalPrice,
-        // });
+        const totalPrice = selectedServices.reduce((sum, service) => sum + (service.price || 350), 0);
+        trackBookingComplete({
+          bookingId: data.id || Date.now().toString(),
+          serviceName: selectedServices.map(s => s.name).join(`, `),
+          category: selectedServices[0]?.category || `Beauty`,
+          price: totalPrice,
+        });
 
         setAppointmentConfirmation(data);
 
@@ -337,11 +337,14 @@ export default function BookingFormContainer({ categories }) {
                     color="primary"
                     size="medium"
                     onClick={() => {
-
                       sendGaEvent(`start_booking`, {
                         event_category: `booking`,
                         event_label: `step:calendar`,
                       });
+
+                      // Google Ads: начало бронирования
+                      const firstServiceName = selectedServices[0]?.name || `Service`;
+                      trackBookingStart(firstServiceName);
 
                       setShowCalendar(true);
                     }}

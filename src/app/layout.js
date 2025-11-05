@@ -8,6 +8,7 @@ import Script from 'next/script';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import CookieBanner from '@/components/CookieBanner/CookieBanner';
 import Header from '@/components/Header/Header';
+import PhoneTrackingHandler from '@/components/PhoneTrackingHandler/PhoneTrackingHandler';
 import LocalBusinessSchema from '@/components/StructuredData/LocalBusinessSchema';
 import theme from '@/theme';
 
@@ -114,6 +115,22 @@ export default function RootLayout({ children }) {
                 gtag('config', 'G-95J0ZJ44WD', { anonymize_ip: true });
               `}
             </Script>
+            {/* Google Ads */}
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=AW-11025863414`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="google-ads"
+              strategy="afterInteractive"
+            >
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'AW-11025863414');
+              `}
+            </Script>
             <CssBaseline />
 
             <Header />
@@ -191,6 +208,8 @@ export default function RootLayout({ children }) {
             </Box>
 
             <CookieBanner />
+
+            <PhoneTrackingHandler />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
