@@ -30,4 +30,3 @@ export default function PhoneTrackingHandler() {
   // Компонент не рендерит ничего видимого
   return null;
 }
-

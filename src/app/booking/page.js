@@ -110,6 +110,135 @@ async function trackQrScan(searchParams) {
       console.error(`Coupon QR tracking error:`, error);
     }
   }
+
+  // Track GA source
+  if (source === `ga`) {
+    try {
+      try {
+        await fetch(`${nextLocalOrigin}/api/ga-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      } catch (e) {
+        await fetch(`${origin}/api/ga-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      }
+    } catch (error) {
+      console.error(`GA tracking error:`, error);
+    }
+  }
+
+  // Track GA1 source
+  if (source === `ga1`) {
+    try {
+      try {
+        await fetch(`${nextLocalOrigin}/api/ga1-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      } catch (e) {
+        await fetch(`${origin}/api/ga1-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      }
+    } catch (error) {
+      console.error(`GA1 tracking error:`, error);
+    }
+  }
+
+  // Track GA2 source
+  if (source === `ga2`) {
+    try {
+      try {
+        await fetch(`${nextLocalOrigin}/api/ga2-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      } catch (e) {
+        await fetch(`${origin}/api/ga2-track`, {
+          method: `POST`,
+          headers: {
+            'Content-Type': `application/json`,
+            ...(ua ? { 'user-agent': ua } : {}),
+            ...(ref ? { referer: ref } : {}),
+            ...(xff ? { 'x-forwarded-for': xff } : {}),
+            ...(xri ? { 'x-real-ip': xri } : {}),
+            ...(cfc ? { 'cf-connecting-ip': cfc } : {}),
+          },
+          body: JSON.stringify({
+            trackedAt: new Date().toISOString(),
+            source: `server-side`,
+          }),
+          cache: `no-store`,
+        });
+      }
+    } catch (error) {
+      console.error(`GA2 tracking error:`, error);
+    }
+  }
 }
 
 export default async function BookingPage({ searchParams }) {
