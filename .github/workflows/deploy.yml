@@ -75,19 +75,19 @@ jobs:
             cp .env.production .env
 
             # Create PM2 ecosystem config with timestamps
-            cat > ecosystem.config.cjs << 'EOFCONFIG'
-module.exports = {
-  apps: [{
-    name: 'dorosh-studio',
-    script: 'npm',
-    args: 'start -- -p 3001',
-    cwd: '/var/www/dorosh-studio',
-    time: true,
-    log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-    merge_logs: true
-  }]
-};
-EOFCONFIG
+            cat > ecosystem.config.cjs <<'EOFCONFIG'
+            module.exports = {
+              apps: [{
+                name: 'dorosh-studio',
+                script: 'npm',
+                args: 'start -- -p 3001',
+                cwd: '/var/www/dorosh-studio',
+                time: true,
+                log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+                merge_logs: true
+              }]
+            };
+            EOFCONFIG
 
             # Restart the Next.js application with PM2
             pm2 delete dorosh-studio || true
