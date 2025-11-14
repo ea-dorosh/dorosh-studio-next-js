@@ -74,10 +74,38 @@ jobs:
             # Create .env file if not exists
             cp .env.production .env
 
+            # Create PM2 ecosystem config with timestamps
+            cat > ecosystem.config.cjs << 'EOFCONFIG'
+module.exports = {
+  apps: [{
+    name: 'dorosh-studio',
+    script: 'npm',
+    args: 'start -- -p 3001',
+    cwd: '/var/www/dorosh-studio',
+    time: true,
+    log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+    merge_logs: true
+  }]
+};
+EOFCONFIG
+
             # Restart the Next.js application with PM2
             pm2 delete dorosh-studio || true
-            pm2 start npm --name dorosh-studio -- start -- -p 3001
+            pm2 start ecosystem.config.cjs
             pm2 save
 
             # Clean up archive
             rm -f nextjs-app.tar.gz
+
+            # Send success notification
+            telegram-notify "Dorosh Studio deploy successful" "Application updated and restarted%0A• Commit: ${{ github.sha }}%0A• Branch: ${{ github.ref_name }}%0A• Actor: ${{ github.actor }}" "🚀" || echo "Notification failed"
+
+      - name: Notify deployment failure
+        if: failure()
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.STUDIO_EC2_HOST }}
+          username: ${{ secrets.STUDIO_EC2_USER }}
+          key: ${{ secrets.STUDIO_EC2_SSH_KEY }}
+          script: |
+            telegram-notify "Dorosh Studio deploy FAILED" "❌ Deployment error!%0A• Commit: ${{ github.sha }}%0A• Branch: ${{ github.ref_name }}%0A• Actor: ${{ github.actor }}%0A%0ACheck GitHub Actions logs" "🚨" || true
