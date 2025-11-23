@@ -417,15 +417,26 @@ export default function BookingFormContainer({ categories }) {
           />
 
           {generalError && (
-            <Typography
-              variant="body1"
+            <Box
               sx={{
-                color: `red`,
-                textAlign: `center`,
+                mt: 3,
+                p: 2,
+                backgroundColor: `#ffebee`,
+                borderLeft: `4px solid #f44336`,
+                borderRadius: 1,
               }}
             >
-              {generalError}
-            </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: `#d32f2f`,
+                  textAlign: `center`,
+                  fontWeight: 500,
+                }}
+              >
+                {generalError}
+              </Typography>
+            </Box>
           )}
         </>
       )}

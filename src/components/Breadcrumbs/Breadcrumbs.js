@@ -10,7 +10,10 @@ const Breadcrumbs = () => {
 
   // Skip breadcrumbs for main pages
   const mainPages = [`/`, `/ueber-uns`, `/services`, `/booking`];
-  if (mainPages.includes(pathname)) {
+  const hiddenPrefixes = [`/termin-stornieren`];
+
+  // Hide breadcrumbs on main pages or pages that start with hidden prefixes
+  if (mainPages.includes(pathname) || hiddenPrefixes.some(prefix => pathname.startsWith(prefix))) {
     return null;
   }
 

@@ -161,7 +161,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          '&:hover': { backgroundColor: `transparent` },
+          '&:hover': { backgroundColor: `inherit` },
         },
       },
     },
@@ -231,6 +231,16 @@ const theme = createTheme({
               backgroundColor: alpha(COLORS.BLACK, 0.06),
               color: alpha(COLORS.BLACK, 0.4),
               borderColor: alpha(COLORS.BLACK, 0.2),
+            },
+          },
+          '&.MuiButton-containedError': {
+            backgroundColor: COLORS.CRIMSON,
+            color: COLORS.WHITE,
+            // Keep the same styles on hover - no color change
+            '&:hover': { backgroundColor: COLORS.CRIMSON },
+            '&.Mui-disabled': {
+              backgroundColor: alpha(COLORS.CRIMSON, 0.18),
+              color: alpha(COLORS.WHITE, 0.7),
             },
           },
         },
