@@ -39,13 +39,14 @@ const getAppointmentByToken = async (token) => {
   return responseData;
 };
 
-const cancelAppointmentByToken = async (token, cancellationReasonText = null) => {
+const cancelAppointmentByToken = async (token, cancellationReasonText = null, appointmentIds = null) => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}api/public/appointments/cancel-by-token`, {
     method: `POST`,
     headers: { "Content-Type": `application/json` },
     body: JSON.stringify({
       token,
       cancellationReasonText,
+      appointmentIds, // Array of specific appointment IDs to cancel
     }),
   });
 

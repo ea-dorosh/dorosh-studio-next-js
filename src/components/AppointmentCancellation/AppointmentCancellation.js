@@ -54,12 +54,14 @@ export default function AppointmentCancellation({ token }) {
   const router = useRouter();
 
   const [appointment, setAppointment] = useState(null);
+  const [groupAppointments, setGroupAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showCancelForm, setShowCancelForm] = useState(false);
   const [cancellationMessage, setCancellationMessage] = useState(``);
   const [cancelling, setCancelling] = useState(false);
   const [cancelled, setCancelled] = useState(false);
+  const [cancelledCount, setCancelledCount] = useState(0);
 
   useEffect(() => {
     const fetchAppointment = async () => {
@@ -67,6 +69,11 @@ export default function AppointmentCancellation({ token }) {
         setLoading(true);
         const response = await appointmentsService.getAppointmentByToken(token);
         setAppointment(response.data);
+
+        // Set group appointments if they exist
+        if (response.data.groupAppointments && response.data.groupAppointments.length > 0) {
+          setGroupAppointments(response.data.groupAppointments);
+        }
       } catch (fetchError) {
         setError(fetchError.message);
       } finally {
@@ -86,7 +93,11 @@ export default function AppointmentCancellation({ token }) {
   const handleConfirmCancellation = async () => {
     try {
       setCancelling(true);
-      await appointmentsService.cancelAppointmentByToken(token, cancellationMessage || null);
+      const response = await appointmentsService.cancelAppointmentByToken(
+        token,
+        cancellationMessage || null
+      );
+      setCancelledCount(response.cancelledCount || 1);
       setCancelled(true);
     } catch (cancelError) {
       setError(cancelError.message);
@@ -261,7 +272,9 @@ export default function AppointmentCancellation({ token }) {
                 fontSize: `1.1rem`,
               }}
             >
-              Ihr Termin wurde erfolgreich storniert.
+              {cancelledCount > 1
+                ? `Ihre ${cancelledCount} Termine wurden erfolgreich storniert.`
+                : `Ihr Termin wurde erfolgreich storniert.`}
             </Typography>
 
             <Alert
@@ -304,73 +317,166 @@ export default function AppointmentCancellation({ token }) {
                   fontSize: `1rem`,
                 }}
               >
-                Stornierter Termin
+                {groupAppointments.length > 1 ? `Stornierte Termine` : `Stornierter Termin`}
               </Typography>
 
-              <Box
-                sx={{
-                  display: `flex`,
-                  flexDirection: `column`,
-                  gap: 1,
-                }}
-              >
-                <Box>
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontWeight: 600,
-                      mr: 1,
-                      fontSize: `0.95rem`,
-                    }}
-                  >
-                    Service:
-                  </Typography>
-                  <Typography
-                    component="span"
-                    sx={{ fontSize: `0.95rem` }}
-                  >
-                    {appointment?.serviceName}
-                  </Typography>
+              {groupAppointments.length > 1 ? (
+                <Box
+                  sx={{
+                    display: `flex`,
+                    flexDirection: `column`,
+                    gap: 3,
+                  }}
+                >
+                  {groupAppointments.map((apt, index) => (
+                    <Box
+                      key={apt.id}
+                      sx={{
+                        pb: index < groupAppointments.length - 1 ? 2 : 0,
+                        borderBottom: index < groupAppointments.length - 1 ? `1px solid ${theme.palette.divider}` : `none`,
+                      }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          mb: 1.5,
+                          fontWeight: 600,
+                          color: `primary.main`,
+                        }}
+                      >
+                        Service {index + 1}
+                      </Typography>
+                      <Box
+                        sx={{
+                          display: `flex`,
+                          flexDirection: `column`,
+                          gap: 1,
+                        }}
+                      >
+                        <Box>
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontWeight: 600,
+                              mr: 1,
+                              fontSize: `0.95rem`,
+                            }}
+                          >
+                            Service:
+                          </Typography>
+                          <Typography
+                            component="span"
+                            sx={{ fontSize: `0.95rem` }}
+                          >
+                            {apt.serviceName}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontWeight: 600,
+                              mr: 1,
+                              fontSize: `0.95rem`,
+                            }}
+                          >
+                            Datum:
+                          </Typography>
+                          <Typography
+                            component="span"
+                            sx={{ fontSize: `0.95rem` }}
+                          >
+                            {formatDate(apt.date)}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontWeight: 600,
+                              mr: 1,
+                              fontSize: `0.95rem`,
+                            }}
+                          >
+                            Uhrzeit:
+                          </Typography>
+                          <Typography
+                            component="span"
+                            sx={{ fontSize: `0.95rem` }}
+                          >
+                            {formatTime(apt.date)} Uhr
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  ))}
                 </Box>
+              ) : (
+                <Box
+                  sx={{
+                    display: `flex`,
+                    flexDirection: `column`,
+                    gap: 1,
+                  }}
+                >
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                        fontSize: `0.95rem`,
+                      }}
+                    >
+                      Service:
+                    </Typography>
+                    <Typography
+                      component="span"
+                      sx={{ fontSize: `0.95rem` }}
+                    >
+                      {appointment?.serviceName}
+                    </Typography>
+                  </Box>
 
-                <Box>
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontWeight: 600,
-                      mr: 1,
-                      fontSize: `0.95rem`,
-                    }}
-                  >
-                    Datum:
-                  </Typography>
-                  <Typography
-                    component="span"
-                    sx={{ fontSize: `0.95rem` }}
-                  >
-                    {appointment ? formatDate(appointment.date) : ``}
-                  </Typography>
-                </Box>
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                        fontSize: `0.95rem`,
+                      }}
+                    >
+                      Datum:
+                    </Typography>
+                    <Typography
+                      component="span"
+                      sx={{ fontSize: `0.95rem` }}
+                    >
+                      {appointment ? formatDate(appointment.date) : ``}
+                    </Typography>
+                  </Box>
 
-                <Box>
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontWeight: 600,
-                      mr: 1,
-                      fontSize: `0.95rem`,
-                    }}
-                  >
-                    Uhrzeit:
-                  </Typography>
-                  <Typography
-                    component="span"
-                    sx={{ fontSize: `0.95rem` }}
-                  >
-                    {appointment ? formatTime(appointment.timeStart) : ``} Uhr
-                  </Typography>
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                        fontSize: `0.95rem`,
+                      }}
+                    >
+                      Uhrzeit:
+                    </Typography>
+                    <Typography
+                      component="span"
+                      sx={{ fontSize: `0.95rem` }}
+                    >
+                      {appointment ? formatTime(appointment.timeStart) : ``} Uhr
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
+              )}
             </Box>
 
             <Typography
@@ -615,8 +721,20 @@ export default function AppointmentCancellation({ token }) {
                 fontSize: `1.1rem`,
               }}
             >
-              Termindetails
+              {groupAppointments.length > 1 ? `Termindetails (${groupAppointments.length} Services)` : `Termindetails`}
             </Typography>
+
+            {groupAppointments.length > 1 && (
+              <Alert
+                severity="info"
+                sx={{
+                  mb: 2,
+                  fontSize: `0.9rem`,
+                }}
+              >
+                Sie haben {groupAppointments.length} Services gebucht. Beide werden zusammen storniert.
+              </Alert>
+            )}
 
             <Box
               sx={{
@@ -625,20 +743,51 @@ export default function AppointmentCancellation({ token }) {
                 gap: 1.5,
               }}
             >
-              <Box>
-                <Typography
-                  component="span"
-                  sx={{
-                    fontWeight: 600,
-                    mr: 1,
-                  }}
-                >
-                  Service:
-                </Typography>
-                <Typography component="span">
-                  {appointment.serviceName}
-                </Typography>
-              </Box>
+              {groupAppointments.length > 1 ? (
+                groupAppointments.map((apt, index) => (
+                  <Box key={apt.id}>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                      }}
+                    >
+                      Service {index + 1}:
+                    </Typography>
+                    <Typography component="span">
+                      {apt.serviceName}
+                    </Typography>
+                    {apt.status === 1 && (
+                      <Typography
+                        component="span"
+                        sx={{
+                          ml: 1,
+                          color: `error.main`,
+                          fontSize: `0.9rem`,
+                        }}
+                      >
+                        (bereits storniert)
+                      </Typography>
+                    )}
+                  </Box>
+                ))
+              ) : (
+                <Box>
+                  <Typography
+                    component="span"
+                    sx={{
+                      fontWeight: 600,
+                      mr: 1,
+                    }}
+                  >
+                    Service:
+                  </Typography>
+                  <Typography component="span">
+                    {appointment.serviceName}
+                  </Typography>
+                </Box>
+              )}
 
               <Box>
                 <Typography
@@ -714,7 +863,7 @@ export default function AppointmentCancellation({ token }) {
                 }}
               >
                 Wir freuen uns auf Ihren Besuch! Falls sich Ihre Pläne geändert haben
-                und Sie den Termin nicht wahrnehmen können, können Sie ihn hier stornieren.
+                und Sie {groupAppointments.length > 1 ? `die Termine` : `den Termin`} nicht wahrnehmen können, können Sie {groupAppointments.length > 1 ? `sie` : `ihn`} hier stornieren.
               </Typography>
 
               <Box
@@ -734,7 +883,7 @@ export default function AppointmentCancellation({ token }) {
                     py: 1.5,
                   }}
                 >
-                  Termin stornieren
+                  {groupAppointments.length > 1 ? `Alle Termine stornieren` : `Termin stornieren`}
                 </Button>
               </Box>
             </>
@@ -747,7 +896,7 @@ export default function AppointmentCancellation({ token }) {
                   fontWeight: 600,
                 }}
               >
-                Möchten Sie uns mitteilen, warum Sie den Termin stornieren? (Optional)
+                Möchten Sie uns mitteilen, warum Sie {groupAppointments.length > 1 ? `die Termine` : `den Termin`} stornieren? (Optional)
               </Typography>
 
               <TextField
@@ -766,7 +915,7 @@ export default function AppointmentCancellation({ token }) {
                 severity="warning"
                 sx={{ mb: 3 }}
               >
-                Sie sind dabei, Ihren Termin zu stornieren. Diese Aktion kann nicht rückgängig gemacht werden.
+                Sie sind dabei, {groupAppointments.length > 1 ? `alle ${groupAppointments.length} Termine` : `Ihren Termin`} zu stornieren. Diese Aktion kann nicht rückgängig gemacht werden.
               </Alert>
 
               <Box
