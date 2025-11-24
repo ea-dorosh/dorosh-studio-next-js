@@ -404,7 +404,7 @@ export default function AppointmentCancellation({ token }) {
                             component="span"
                             sx={{ fontSize: `0.95rem` }}
                           >
-                            {formatTime(apt.date)} Uhr
+                            {formatTime(apt.timeStart)} Uhr
                           </Typography>
                         </Box>
                       </Box>
@@ -744,8 +744,100 @@ export default function AppointmentCancellation({ token }) {
               }}
             >
               {groupAppointments.length > 1 ? (
-                groupAppointments.map((apt, index) => (
-                  <Box key={apt.id}>
+                <>
+                  {groupAppointments.map((apt, index) => (
+                    <Box
+                      key={apt.id}
+                      sx={{
+                        display: `flex`,
+                        flexDirection: `column`,
+                        gap: 0.5,
+                        pb: index < groupAppointments.length - 1 ? 2 : 0,
+                        borderBottom: index < groupAppointments.length - 1 ? `1px solid` : `none`,
+                        borderColor: index < groupAppointments.length - 1 ? `grey.200` : `transparent`,
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          component="span"
+                          sx={{
+                            fontWeight: 600,
+                            mr: 1,
+                          }}
+                        >
+                          Service {index + 1}:
+                        </Typography>
+                        <Typography component="span">
+                          {apt.serviceName}
+                        </Typography>
+                        {apt.status === 1 && (
+                          <Typography
+                            component="span"
+                            sx={{
+                              ml: 1,
+                              color: `error.main`,
+                              fontSize: `0.9rem`,
+                            }}
+                          >
+                            (bereits storniert)
+                          </Typography>
+                        )}
+                      </Box>
+
+                      <Box
+                        sx={{
+                          pl: 2,
+                          display: `flex`,
+                          flexDirection: `column`,
+                          gap: 0.5,
+                        }}
+                      >
+                        <Box>
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontWeight: 500,
+                              mr: 1,
+                              fontSize: `0.95rem`,
+                            }}
+                          >
+                            Uhrzeit:
+                          </Typography>
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontSize: `0.95rem`,
+                            }}
+                          >
+                            {formatTime(apt.timeStart)} Uhr
+                          </Typography>
+                        </Box>
+
+                        <Box>
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontWeight: 500,
+                              mr: 1,
+                              fontSize: `0.95rem`,
+                            }}
+                          >
+                            Spezialist:
+                          </Typography>
+                          <Typography
+                            component="span"
+                            sx={{
+                              fontSize: `0.95rem`,
+                            }}
+                          >
+                            {apt.employee.firstName} {apt.employee.lastName}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  ))}
+
+                  <Box>
                     <Typography
                       component="span"
                       sx={{
@@ -753,101 +845,106 @@ export default function AppointmentCancellation({ token }) {
                         mr: 1,
                       }}
                     >
-                      Service {index + 1}:
+                      Datum:
                     </Typography>
                     <Typography component="span">
-                      {apt.serviceName}
+                      {formatDate(groupAppointments[0].date)}
                     </Typography>
-                    {apt.status === 1 && (
-                      <Typography
-                        component="span"
-                        sx={{
-                          ml: 1,
-                          color: `error.main`,
-                          fontSize: `0.9rem`,
-                        }}
-                      >
-                        (bereits storniert)
-                      </Typography>
-                    )}
                   </Box>
-                ))
+
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                      }}
+                    >
+                      Standort:
+                    </Typography>
+                    <Typography component="span">
+                      {appointment.location}
+                    </Typography>
+                  </Box>
+                </>
               ) : (
-                <Box>
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontWeight: 600,
-                      mr: 1,
-                    }}
-                  >
-                    Service:
-                  </Typography>
-                  <Typography component="span">
-                    {appointment.serviceName}
-                  </Typography>
-                </Box>
+                <>
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                      }}
+                    >
+                      Service:
+                    </Typography>
+                    <Typography component="span">
+                      {appointment.serviceName}
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                      }}
+                    >
+                      Datum:
+                    </Typography>
+                    <Typography component="span">
+                      {formatDate(appointment.date)}
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                      }}
+                    >
+                      Uhrzeit:
+                    </Typography>
+                    <Typography component="span">
+                      {formatTime(appointment.timeStart)} Uhr
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                      }}
+                    >
+                      Standort:
+                    </Typography>
+                    <Typography component="span">
+                      {appointment.location}
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography
+                      component="span"
+                      sx={{
+                        fontWeight: 600,
+                        mr: 1,
+                      }}
+                    >
+                      Spezialist:
+                    </Typography>
+                    <Typography component="span">
+                      {appointment.employee.firstName} {appointment.employee.lastName}
+                    </Typography>
+                  </Box>
+                </>
               )}
-
-              <Box>
-                <Typography
-                  component="span"
-                  sx={{
-                    fontWeight: 600,
-                    mr: 1,
-                  }}
-                >
-                  Datum:
-                </Typography>
-                <Typography component="span">
-                  {formatDate(appointment.date)}
-                </Typography>
-              </Box>
-
-              <Box>
-                <Typography
-                  component="span"
-                  sx={{
-                    fontWeight: 600,
-                    mr: 1,
-                  }}
-                >
-                  Uhrzeit:
-                </Typography>
-                <Typography component="span">
-                  {formatTime(appointment.timeStart)} Uhr
-                </Typography>
-              </Box>
-
-              <Box>
-                <Typography
-                  component="span"
-                  sx={{
-                    fontWeight: 600,
-                    mr: 1,
-                  }}
-                >
-                  Standort:
-                </Typography>
-                <Typography component="span">
-                  {appointment.location}
-                </Typography>
-              </Box>
-
-              <Box>
-                <Typography
-                  component="span"
-                  sx={{
-                    fontWeight: 600,
-                    mr: 1,
-                  }}
-                >
-                  Spezialist:
-                </Typography>
-                <Typography component="span">
-                  {appointment.employee.firstName} {appointment.employee.lastName}
-                </Typography>
-              </Box>
             </Box>
           </Box>
 
