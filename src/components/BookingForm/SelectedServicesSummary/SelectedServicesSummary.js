@@ -118,10 +118,10 @@ export default function SelectedServicesSummary({
       <Typography
         sx={{
           color: `text.secondary`,
-          fontWeight: 500,
+          fontWeight: 600,
           textTransform: `uppercase`,
           letterSpacing: `.05em`,
-          fontSize: `0.7rem`,
+          fontSize: `0.75rem`,
           display: `block`,
           mb: 0.75,
         }}
@@ -140,7 +140,7 @@ export default function SelectedServicesSummary({
               sx={{
                 color: `text.secondary`,
                 fontStyle: `italic`,
-                fontSize: `0.75rem`,
+                fontSize: `0.85rem`,
                 display: `block`,
                 mb: 0.25,
               }}
@@ -167,9 +167,9 @@ export default function SelectedServicesSummary({
               >
                 <Typography
                   sx={{
-                    fontWeight: 500,
+                    fontWeight: 600,
                     color: `text.primary`,
-                    fontSize: `0.875rem`,
+                    fontSize: `1rem`,
                   }}
                 >
                   {service.name}
@@ -177,8 +177,9 @@ export default function SelectedServicesSummary({
                 {employeeInfo && (
                   <Typography
                     sx={{
-                      fontSize: `0.8rem`,
+                      fontSize: `0.9rem`,
                       color: `text.secondary`,
+                      fontWeight: 500,
                       pl: 1,
                     }}
                   >

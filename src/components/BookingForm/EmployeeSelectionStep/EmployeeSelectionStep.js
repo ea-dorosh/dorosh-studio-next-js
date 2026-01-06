@@ -5,7 +5,14 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Checkbox from '@mui/material/Checkbox';
+import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
+import dayjs from 'dayjs';
+import { useEffect, useState, useRef } from 'react';
+import calendarService from '@/services/calendar.service';
+import 'dayjs/locale/de';
+
+dayjs.locale(`de`);
 
 /**
  * Determines if employee selection step should be shown.
@@ -18,12 +25,105 @@ export const shouldShowEmployeeSelection = (services) => {
   return services.some((service) => service?.employees?.length > 1);
 };
 
+/**
+ * Format nearest slot date/time for display
+ * @param {Object} slot - { date: string, time: string }
+ * @returns {string} - Formatted string like "Morgen, 10:00" or "Mi, 15. Jan, 14:30"
+ */
+const formatNearestSlot = (slot) => {
+  if (!slot) return null;
+
+  const slotDate = dayjs(slot.date);
+  const today = dayjs();
+  const tomorrow = today.add(1, `day`);
+
+  // Format time (remove seconds)
+  const timeParts = slot.time.split(`:`);
+  const formattedTime = `${timeParts[0]}:${timeParts[1]}`;
+
+  if (slotDate.isSame(today, `day`)) {
+    return `Heute, ${formattedTime}`;
+  }
+
+  if (slotDate.isSame(tomorrow, `day`)) {
+    return `Morgen, ${formattedTime}`;
+  }
+
+  // For other dates, show weekday and date
+  return `${slotDate.format(`dd, D. MMM`)}, ${formattedTime}`;
+};
+
 export default function EmployeeSelectionStep({
   services,
   serviceEmployees,
   setServiceEmployees,
   onNextStep,
 }) {
+  const [nearestSlots, setNearestSlots] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const hasFetchedRef = useRef(false);
+
+  const servicesWithMultipleEmployees = services.filter(
+    (service) => service?.employees?.length > 1
+  );
+
+  // Fetch nearest slots ONLY on first mount - not on checkbox changes
+  useEffect(() => {
+    // Only fetch once
+    if (hasFetchedRef.current) return;
+    if (servicesWithMultipleEmployees.length === 0) return;
+
+    hasFetchedRef.current = true;
+
+    const fetchNearestSlotsForAllServices = async () => {
+      setIsLoading(true);
+
+      try {
+        const results = {};
+
+        // For each service with multiple employees, fetch slots for each employee combination
+        for (const service of servicesWithMultipleEmployees) {
+          // Build combinations: "all" + each individual employee
+          const employeeCombinations = [
+            {
+              key: `all`,
+              employeeIds: service.employees.map((emp) => emp.id),
+            },
+            ...service.employees.map((employee) => ({
+              key: employee.id.toString(),
+              employeeIds: [employee.id],
+            })),
+          ];
+
+          // For 2 services scenario: pass other services with "all employees" default
+          const otherServicesData = services
+            .filter((s) => s.id !== service.id)
+            .map((s) => ({
+              serviceId: s.id,
+              employeeIds: s.employees.map((emp) => emp.id),
+            }));
+
+          const slotsResult = await calendarService.fetchNearestSlots(
+            service.id,
+            employeeCombinations,
+            otherServicesData
+          );
+
+          results[service.id] = slotsResult;
+        }
+
+        setNearestSlots(results);
+      } catch (error) {
+        console.error(`[EmployeeSelectionStep] Error fetching nearest slots:`, error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchNearestSlotsForAllServices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleEmployeeToggle = (serviceId, employeeId) => {
     const service = services.find((s) => s.id === serviceId);
     if (!service) return;
@@ -81,9 +181,70 @@ export default function EmployeeSelectionStep({
     return currentSelection.includes(employeeId.toString());
   };
 
-  const servicesWithMultipleEmployees = services.filter(
-    (service) => service?.employees?.length > 1
-  );
+  const getNearestSlotDisplay = (serviceId, employeeKey) => {
+    const serviceSlots = nearestSlots[serviceId];
+
+    if (isLoading) {
+      return (
+        <Skeleton
+          variant="text"
+          width={140}
+          height={18}
+          sx={{ mt: 0.25 }}
+        />
+      );
+    }
+
+    if (!serviceSlots || !serviceSlots[employeeKey]) {
+      return (
+        <Typography
+          sx={{
+            fontSize: `0.75rem`,
+            color: `text.disabled`,
+            fontStyle: `italic`,
+            height: 18,
+            mt: 0.25,
+            fontWeight: `bold`,
+          }}
+        >
+          Kein Termin verfügbar
+        </Typography>
+      );
+    }
+
+    const formattedSlot = formatNearestSlot(serviceSlots[employeeKey]);
+
+    if (!formattedSlot) {
+      return (
+        <Typography
+          sx={{
+            fontSize: `0.75rem`,
+            color: `text.disabled`,
+            fontStyle: `italic`,
+            height: 18,
+            mt: 0.25,
+            fontWeight: `bold`,
+          }}
+        >
+          Kein Termin verfügbar
+        </Typography>
+      );
+    }
+
+    return (
+      <Typography
+        sx={{
+          fontSize: `0.75rem`,
+          fontStyle: `italic`,
+          height: 18,
+          mt: 0.25,
+          fontWeight: `bold`,
+        }}
+      >
+        Nächster Termin: {formattedSlot}
+      </Typography>
+    );
+  };
 
   return (
     <Box sx={{ mt: 2 }}>
@@ -147,23 +308,18 @@ export default function EmployeeSelectionStep({
                 cursor: `pointer`,
                 backgroundColor: isEmployeeSelected(service.id, `all`)
                   ? `rgba(0, 171, 85, 0.08)`
-                  : `rgba(0, 0, 0, 0.02)`,
+                  : `transparent`,
                 border: isEmployeeSelected(service.id, `all`)
                   ? `1px solid rgba(0, 171, 85, 0.3)`
                   : `1px solid transparent`,
                 transition: `all 0.2s ease`,
-                '&:hover': {
-                  backgroundColor: isEmployeeSelected(service.id, `all`)
-                    ? `rgba(0, 171, 85, 0.12)`
-                    : `rgba(0, 0, 0, 0.04)`,
-                },
               }}
             >
               <Box
                 sx={{
                   display: `flex`,
                   alignItems: `center`,
-                  gap: 1, 
+                  gap: 1,
                 }}
               >
                 <Checkbox
@@ -176,16 +332,19 @@ export default function EmployeeSelectionStep({
                     },
                   }}
                 />
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    color: isEmployeeSelected(service.id, `all`)
-                      ? `success.main`
-                      : `text.primary`,
-                  }}
-                >
-                  Egal / Alle Mitarbeiter
-                </Typography>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      color: isEmployeeSelected(service.id, `all`)
+                        ? `success.main`
+                        : `text.primary`,
+                    }}
+                  >
+                    Egal / Alle Mitarbeiter
+                  </Typography>
+                  {getNearestSlotDisplay(service.id, `all`)}
+                </Box>
               </Box>
 
               <Typography
@@ -226,18 +385,13 @@ export default function EmployeeSelectionStep({
                     ? `1px solid rgba(0, 171, 85, 0.3)`
                     : `1px solid transparent`,
                   transition: `all 0.2s ease`,
-                  '&:hover': {
-                    backgroundColor: isEmployeeSelected(service.id, employee.id)
-                      ? `rgba(0, 171, 85, 0.12)`
-                      : `rgba(0, 0, 0, 0.04)`,
-                  },
                 }}
               >
                 <Box
                   sx={{
                     display: `flex`,
                     alignItems: `center`,
-                    gap: 1, 
+                    gap: 1,
                   }}
                 >
                   <Checkbox
@@ -250,16 +404,19 @@ export default function EmployeeSelectionStep({
                       },
                     }}
                   />
-                  <Typography
-                    sx={{
-                      fontWeight: isEmployeeSelected(service.id, employee.id) ? 500 : 400,
-                      color: isEmployeeSelected(service.id, employee.id)
-                        ? `success.main`
-                        : `text.primary`,
-                    }}
-                  >
-                    {employee.firstName} {employee.lastName}
-                  </Typography>
+                  <Box>
+                    <Typography
+                      sx={{
+                        fontWeight: isEmployeeSelected(service.id, employee.id) ? 500 : 400,
+                        color: isEmployeeSelected(service.id, employee.id)
+                          ? `success.main`
+                          : `text.primary`,
+                      }}
+                    >
+                      {employee.firstName} {employee.lastName}
+                    </Typography>
+                    {getNearestSlotDisplay(service.id, employee.id.toString())}
+                  </Box>
                 </Box>
 
                 <Typography
@@ -297,4 +454,3 @@ export default function EmployeeSelectionStep({
     </Box>
   );
 }
-
