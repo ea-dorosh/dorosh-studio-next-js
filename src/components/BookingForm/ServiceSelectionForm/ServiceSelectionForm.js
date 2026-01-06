@@ -19,7 +19,7 @@ import {
 import CategoryForm from '@/components/BookingForm/CategoryForm/CategoryForm';
 import ServicesList from '@/components/BookingForm/ServicesList/ServicesList';
 import SubCategoryForm from '@/components/BookingForm/SubCategoryForm/SubCategoryForm';
-import { formatTimeToString } from '@/utils/formatters';
+import { formatTimeToString, formatPriceRange } from '@/utils/formatters';
 
 const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
   categories,
@@ -377,7 +377,7 @@ const ServiceSelectionForm = forwardRef(function ServiceSelectionForm({
 
                         {serviceData?.employees && serviceData?.employees?.length > 0 && (
                           <Chip
-                            label={<>Preis: <b>{serviceData?.employees[0]?.price || 0}€</b></>}
+                            label={<>Preis: <b>{formatPriceRange(serviceData.employees)}</b></>}
                             size="small"
                             variant="filled"
                             sx={{ borderRadius: `9999px` }}

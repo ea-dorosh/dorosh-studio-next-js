@@ -217,12 +217,15 @@ export default function BookingFormContainer({ categories }) {
           <Step><StepLabel>Bestätigung</StepLabel></Step>
         </Stepper>
       </Box>
+
       {showCalendar && !showCalendarOverview && !appointmentConfirmation && (
         <Box
           sx={{
             mb: 2,
             display: `flex`,
-            justifyContent: `flex-start`,
+            flexDirection: `column`,
+            alignItems: `flex-start`,
+            gap: 1.5,
           }}
         >
           <Button
@@ -237,8 +240,97 @@ export default function BookingFormContainer({ categories }) {
           >
             Zurück zur Serviceauswahl
           </Button>
+
+          {/* Selected Services Summary */}
+          {selectedServices.length > 0 && (
+            <Box
+              sx={{
+                width: `100%`,
+                p: 1.5,
+                backgroundColor: `rgba(0, 171, 85, 0.06)`,
+                borderRadius: 1.5,
+                border: `1px solid rgba(0, 171, 85, 0.15)`,
+              }}
+            >
+              <Typography
+                sx={{
+                  color: `text.secondary`,
+                  fontWeight: 500,
+                  textTransform: `uppercase`,
+                  letterSpacing: `.05em`,
+                  fontSize: `0.7rem`,
+                  display: `block`,
+                  mb: 0.75,
+                }}
+              >
+                Ausgewählte Services
+              </Typography>
+
+              {(() => {
+                // Group services by category using categoryId to find categoryName
+                const groupedByCategory = selectedServices.reduce((accumulator, service) => {
+                  const category = categories.find(
+                    (cat) => cat.categoryId === service.categoryId
+                  );
+                  const categoryName = category?.categoryName || `Sonstiges`;
+                  if (!accumulator[categoryName]) {
+                    accumulator[categoryName] = [];
+                  }
+                  accumulator[categoryName].push(service);
+                  return accumulator;
+                }, {});
+
+                const categoryNames = Object.keys(groupedByCategory);
+                const isSingleCategory = categoryNames.length === 1;
+
+                return categoryNames.map((categoryName, categoryIndex) => (
+                  <Box
+                    key={categoryName}
+                    sx={{ mb: categoryIndex < categoryNames.length - 1 ? 1 : 0 }}
+                  >
+                    {!isSingleCategory && (
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: `text.secondary`,
+                          fontStyle: `italic`,
+                          fontSize: `0.75rem`,
+                          display: `block`,
+                          mb: 0.25,
+                        }}
+                      >
+                        {categoryName}
+                      </Typography>
+                    )}
+                    {groupedByCategory[categoryName].map((service) => (
+                      <Box
+                        key={service.id}
+                        sx={{
+                          display: `flex`,
+                          alignItems: `center`,
+                          gap: 1,
+                          py: 0.25,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: 500,
+                            color: `text.primary`,
+                            fontSize: `0.875rem`,
+                          }}
+                        >
+                          {service.name}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                ));
+              })()}
+            </Box>
+          )}
         </Box>
       )}
+
       {!showCalendarOverview && (
         <>
           {!showCalendar && (

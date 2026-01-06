@@ -26,7 +26,7 @@ export const formatTimeToString = (timeStr) => {
   let formattedTime = ``;
 
   if (hours > 0) {
-    formattedTime += hours === 1 ? `${hours} Stunde` : `${hours} Stunden`;
+    formattedTime += hours === 1 ? `${hours} Std.` : `${hours} Std.`;
   }
 
   if (minutes > 0) {
@@ -56,6 +56,35 @@ export const formatPrice = (price) => {
 };
 
 /**
+ * Formats a price range from employees array.
+ * If all prices are the same, returns single price. Otherwise returns range.
+ * @param {Array} employees - Array of employees with price property.
+ * @returns {string} - The formatted price range, e.g., '40€' or '40€ - 50€'.
+ */
+export const formatPriceRange = (employees) => {
+  if (!employees || employees.length === 0) {
+    return `0€`;
+  }
+
+  const prices = employees
+    .map((employee) => employee.price || 0)
+    .filter((price) => price > 0);
+
+  if (prices.length === 0) {
+    return `0€`;
+  }
+
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+
+  if (minPrice === maxPrice) {
+    return `${minPrice}€`;
+  }
+
+  return `${minPrice}€ - ${maxPrice}€`;
+};
+
+/**
  * Formats an ISO date string to a more readable format.
  * @param {string} dateString - The date in 'YYYY-MM-DD' format to format.
  * @returns {string} - The formatted date, e.g., '01. Jan 21'.
@@ -65,7 +94,7 @@ export const formatIsoDate = (dateString) => {
   const options = {
     month: `short`,
     year: `2-digit`,
-    day: `2-digit`, 
+    day: `2-digit`,
   };
   const formattedDate = date.toLocaleDateString(`en-GB`, options);
   const [day, month, year] = formattedDate.split(` `);

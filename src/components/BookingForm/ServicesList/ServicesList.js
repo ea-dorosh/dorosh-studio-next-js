@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { formatTimeToString } from '@/utils/formatters';
+import { formatTimeToString, formatPriceRange } from '@/utils/formatters';
 
 export default function ServicesList({
   services,
@@ -66,51 +66,35 @@ export default function ServicesList({
           <CardContent
             sx={{
               p: 2.5,
-              '&:last-child': { p: 2.5 },
+              px: 1.5,
+              '&:last-child': {
+                p: 2.5,
+                px: 1.5,
+              },
             }}
           >
             <Typography
               sx={{
-                mb: 1,
+                mb: 1.5,
                 fontWeight: 700,
                 letterSpacing: `.01em`,
                 fontSize: {
-                  xs: `1.2rem`,
-                  md: `1.4rem`,
+                  xs: `1.1rem`,
+                  md: `1.25rem`,
                 },
               }}
             >
               {service.name}
             </Typography>
 
-            <Box
-              sx={{
-                display: `flex`,
-                justifyContent: `space-between`,
-                mb: 1.5,
-                color: `text.secondary`,
-                fontSize: `0.9rem`,
-                fontWeight: 500,
-              }}
-            >
-              <Typography component="span">
-                Dauer: <b>{formatTimeToString(service.durationTime)}</b>
-              </Typography>
-              {service.employees && service.employees.length > 0 && (
-                <Typography component="span">
-                  Preis: <b>{service.employees[0].price || 0}€</b>
-                </Typography>
-              )}
-            </Box>
-
             {service.bookingNote && (
               <Typography
                 variant="body2"
                 color="text.secondary"
                 sx={{
-                  mb: 2,
+                  mb: 1.5,
                   lineHeight: 1.6,
-                  fontSize: `0.9rem`,
+                  fontSize: `0.85rem`,
                   fontStyle: `italic`,
                 }}
               >
@@ -118,32 +102,67 @@ export default function ServicesList({
               </Typography>
             )}
 
-            <Button
-              variant={selectedServicesIds.includes(service.id) ? `outlined` : `contained`}
-              color={selectedServicesIds.includes(service.id) ? `success` : `primary`}
-              size="medium"
-              onClick={() => onServiceSelect(service)}
+            <Box
               sx={{
-                borderRadius: `9999px`,
-                py: 0.75,
-                px: 3,
-                fontWeight: 600,
-                mt: 1,
-                mx: `auto`,
-                display: `block`,
-                textTransform: `none`,
-                minWidth: `140px`,
-                ...(selectedServicesIds.includes(service.id) && {
-                  backgroundColor: `rgba(0, 171, 85, 0.04)`,
-                }),
+                display: `flex`,
+                justifyContent: `space-between`,
+                alignItems: `center`,
+                gap: 2,
               }}
-              disabled={selectedServicesIds.includes(service.id) && selectedServiceId !== service.id}
             >
-              {selectedServiceId === service.id ?
-                `Ausgewählt` :
-                selectedServicesIds.includes(service.id) ? `Ausgewählt` : `Auswählen`
-              }
-            </Button>
+
+              <Box
+                sx={{
+                  display: `flex`,
+                  flexDirection: `column`,
+                  alignItems: `flex-start`,
+                  gap: 0.25,
+                  color: `text.secondary`,
+                  fontSize: `0.85rem`,
+                }}
+              >
+                <Typography
+                  component="span"
+                  sx={{ fontSize: `inherit` }}
+                >
+                  Dauer: <b>{formatTimeToString(service.durationTime)}</b>
+                </Typography>
+                {service.employees && service.employees.length > 0 && (
+                  <Typography
+                    component="span"
+                    sx={{ fontSize: `inherit` }}
+                  >
+                    Preis: <b>{formatPriceRange(service.employees)}</b>
+                  </Typography>
+                )}
+              </Box>
+
+              <Button
+                variant={selectedServicesIds.includes(service.id) ? `outlined` : `contained`}
+                color={selectedServicesIds.includes(service.id) ? `success` : `primary`}
+                size="medium"
+                onClick={() => onServiceSelect(service)}
+                sx={{
+                  borderRadius: `9999px`,
+                  py: 0.75,
+                  px: 3,
+                  fontWeight: 600,
+                  textTransform: `none`,
+                  minWidth: `120px`,
+                  maxWidth: `140px`,
+                  flexShrink: 0,
+                  ...(selectedServicesIds.includes(service.id) && {
+                    backgroundColor: `rgba(0, 171, 85, 0.04)`,
+                  }),
+                }}
+                disabled={selectedServicesIds.includes(service.id) && selectedServiceId !== service.id}
+              >
+                {selectedServiceId === service.id ?
+                  `Ausgewählt` :
+                  selectedServicesIds.includes(service.id) ? `Ausgewählt` : `Auswählen`
+                }
+              </Button>
+            </Box>
           </CardContent>
         </Card>
       ))}
