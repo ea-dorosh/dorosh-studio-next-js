@@ -14,6 +14,7 @@ const CalendarOverview = forwardRef(function CalendarOverview({
   services = [],
   selectedDay,
   selectedTimeSlot,
+  serviceEmployees = {},
 }, ref) {
   const getDateText = () => {
     if (!selectedDay?.day) return `Kein Datum ausgewählt`;
@@ -78,22 +79,42 @@ const CalendarOverview = forwardRef(function CalendarOverview({
       };
     }
 
-    // Filter employees based on selectedTimeSlot.employeeIds if available
-    let filteredEmployees = service.employees;
+    // Get selected employee IDs for this service from serviceEmployees
+    const selectedEmployeeIds = serviceEmployees[service.id] || [];
 
-    if (selectedTimeSlot?.employeeIds?.length > 0) {
-      // Filter employees that are in the selectedTimeSlot.employeeIds
-      filteredEmployees = service.employees.filter(emp =>
-        selectedTimeSlot.employeeIds.includes(emp.id)
-      );
+    // If "all" is selected or no selection, use all employees
+    if (selectedEmployeeIds.includes(`all`) || selectedEmployeeIds.length === 0) {
+      const prices = service.employees.map((emp) => emp.price || 0);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
 
-      // If no employees match (edge case), fall back to all employees
-      if (filteredEmployees.length === 0) {
-        filteredEmployees = service.employees;
-      }
+      return {
+        min: minPrice,
+        max: maxPrice,
+        isRange: minPrice !== maxPrice,
+      };
     }
 
-    const prices = filteredEmployees.map(emp => emp.price || 0);
+    // Filter employees based on selected IDs
+    const filteredEmployees = service.employees.filter((emp) =>
+      selectedEmployeeIds.includes(emp.id.toString()) ||
+      selectedEmployeeIds.includes(emp.id)
+    );
+
+    // If no employees match (edge case), fall back to all employees
+    if (filteredEmployees.length === 0) {
+      const prices = service.employees.map((emp) => emp.price || 0);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+
+      return {
+        min: minPrice,
+        max: maxPrice,
+        isRange: minPrice !== maxPrice,
+      };
+    }
+
+    const prices = filteredEmployees.map((emp) => emp.price || 0);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
 

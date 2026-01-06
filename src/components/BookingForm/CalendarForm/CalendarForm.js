@@ -25,6 +25,7 @@ const CalendarForm = forwardRef(function CalendarForm({
   setSelectedTimeSlot,
   serviceEmployees,
   setServiceEmployees,
+  hideEmployeeSelector = false,
   onNextStep,
 }, ref) {
   const [calendarDays, setCalendarDays] = useState([]);
@@ -250,14 +251,16 @@ const CalendarForm = forwardRef(function CalendarForm({
         Datum und Zeit auswählen
       </Typography>
 
-      {/* Employee Selection for each service */}
-      <EmployeeSelector
-        services={services}
-        serviceEmployees={serviceEmployees}
-        setServiceEmployees={setServiceEmployees}
-        openSelects={openSelects}
-        setOpenSelects={setOpenSelects}
-      />
+      {/* Employee Selection for each service (only if not selected on previous step) */}
+      {!hideEmployeeSelector && (
+        <EmployeeSelector
+          services={services}
+          serviceEmployees={serviceEmployees}
+          setServiceEmployees={setServiceEmployees}
+          openSelects={openSelects}
+          setOpenSelects={setOpenSelects}
+        />
+      )}
 
       {/* Calendar Grid */}
       <CalendarGrid

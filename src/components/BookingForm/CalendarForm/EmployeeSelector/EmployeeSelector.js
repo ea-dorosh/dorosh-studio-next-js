@@ -165,9 +165,19 @@ export default function EmployeeSelector({
     setServiceEmployees(newServiceEmployees);
   };
 
+  // Filter out services with only 1 employee - no selection needed for them
+  const servicesWithMultipleEmployees = services.filter(
+    (service) => service?.employees?.length > 1
+  );
+
+  // If no services need employee selection, don't render anything
+  if (servicesWithMultipleEmployees.length === 0) {
+    return null;
+  }
+
   return (
     <>
-      {services.map((service) => {
+      {servicesWithMultipleEmployees.map((service) => {
         if (!service) return null;
 
         return (
@@ -204,11 +214,11 @@ export default function EmployeeSelector({
                 onChange={(event) => handleEmployeeSelectionChange(service.id, event)}
                 onOpen={() => setOpenSelects(prev => ({
                   ...prev,
-                  [service.id]: true, 
+                  [service.id]: true,
                 }))}
                 onClose={() => setOpenSelects(prev => ({
                   ...prev,
-                  [service.id]: false, 
+                  [service.id]: false,
                 }))}
                 renderValue={() => getEmployeeLabel(service, serviceEmployees)}
                 sx={{
@@ -256,7 +266,7 @@ export default function EmployeeSelector({
                             sx={{
                               display: `flex`,
                               justifyContent: `space-between`,
-                              width: `100%`, 
+                              width: `100%`,
                             }}
                           >
                             <span>{`${employee.firstName} ${employee.lastName}`}</span>

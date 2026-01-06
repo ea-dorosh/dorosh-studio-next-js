@@ -20,6 +20,8 @@ import CalendarForm from '@/components/BookingForm/CalendarForm/CalendarForm';
 import CalendarOverview from '@/components/BookingForm/CalendarOverview/CalendarOverview';
 import Confirmation from '@/components/BookingForm/Confirmation/Confirmation';
 import CustomerForm from '@/components/BookingForm/CustomerForm/CustomerForm';
+import EmployeeSelectionStep, { shouldShowEmployeeSelection } from '@/components/BookingForm/EmployeeSelectionStep/EmployeeSelectionStep';
+import SelectedServicesSummary from '@/components/BookingForm/SelectedServicesSummary/SelectedServicesSummary';
 import ServiceSelectionForm from '@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm';
 import { sendGaEvent } from '@/lib/ga';
 import { trackBookingComplete, trackBookingStart } from '@/lib/gtm';
@@ -38,6 +40,7 @@ export default function BookingFormContainer({ categories }) {
 
   /** State */
   const [selectedServices, setSelectedServices] = useState([]);
+  const [showEmployeeSelection, setShowEmployeeSelection] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showCalendarOverview, setShowCalendarOverview] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
@@ -48,10 +51,32 @@ export default function BookingFormContainer({ categories }) {
   const [serviceEmployees, setServiceEmployees] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Determine if employee selection step should be shown
+  const needsEmployeeSelection = shouldShowEmployeeSelection(selectedServices);
+
+  // Calculate current step for stepper
+  // Steps without employee selection: Service(0) → Datum(1) → Details(2) → Bestätigung(3)
+  // Steps with employee selection: Service(0) → Mitarbeiter(1) → Datum(2) → Details(3) → Bestätigung(4)
+  const getCurrentStep = () => {
+    if (needsEmployeeSelection) {
+      if (appointmentConfirmation) return 4;
+      if (showCalendarOverview) return 3;
+      if (showCalendar) return 2;
+      if (showEmployeeSelection) return 1;
+      return 0;
+    }
+    // Without employee selection step
+    if (appointmentConfirmation) return 3;
+    if (showCalendarOverview) return 2;
+    if (showCalendar) return 1;
+    return 0;
+  };
+
   /** Watch */
   useEffect(() => {
     if (!formState.firstService) {
       setShowCalendar(false);
+      setShowEmployeeSelection(false);
     }
 
     const updatedServices = [];
@@ -187,9 +212,7 @@ export default function BookingFormContainer({ categories }) {
       >
         <Stepper
           alternativeLabel
-          activeStep={(
-            appointmentConfirmation ? 3 : (showCalendarOverview ? 2 : (showCalendar ? 1 : 0))
-          )}
+          activeStep={getCurrentStep()}
           sx={{
             '& .MuiStepIcon-root': {
               color: `rgba(0,0,0,0.2)`,
@@ -205,18 +228,69 @@ export default function BookingFormContainer({ categories }) {
             },
             minHeight: 0,
             py: 0,
-            // MuiStepLabel-label
             '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
               marginTop: `6px`,
             },
           }}
         >
           <Step><StepLabel>Service</StepLabel></Step>
+          {needsEmployeeSelection && <Step><StepLabel>Mitarbeiter</StepLabel></Step>}
           <Step><StepLabel>Datum</StepLabel></Step>
           <Step><StepLabel>Details</StepLabel></Step>
           <Step><StepLabel>Bestätigung</StepLabel></Step>
         </Stepper>
       </Box>
+
+      {/* Employee Selection Step */}
+      {showEmployeeSelection && !showCalendar && !showCalendarOverview && !appointmentConfirmation && (
+        <Box>
+          <Box
+            sx={{
+              mb: 2,
+              display: `flex`,
+              flexDirection: `column`,
+              alignItems: `flex-start`,
+              gap: 1.5,
+            }}
+          >
+            <Button
+              variant="outlined"
+              color="success"
+              startIcon={<ArrowBackIosNew fontSize="small" />}
+              sx={{
+                textTransform: `none`,
+                backgroundColor: `rgba(0, 171, 85, 0.04)`,
+              }}
+              onClick={() => setShowEmployeeSelection(false)}
+            >
+              Zurück zur Serviceauswahl
+            </Button>
+
+            <SelectedServicesSummary
+              services={selectedServices}
+              categories={categories}
+              serviceEmployees={serviceEmployees}
+              showEmployees={false}
+            />
+          </Box>
+
+          <EmployeeSelectionStep
+            services={selectedServices}
+            serviceEmployees={serviceEmployees}
+            setServiceEmployees={setServiceEmployees}
+            onNextStep={() => {
+              setShowEmployeeSelection(false);
+              setShowCalendar(true);
+              setTimeout(() => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: `smooth`,
+                });
+              }, 100);
+            }}
+          />
+        </Box>
+      )}
 
       {showCalendar && !showCalendarOverview && !appointmentConfirmation && (
         <Box
@@ -236,102 +310,28 @@ export default function BookingFormContainer({ categories }) {
               textTransform: `none`,
               backgroundColor: `rgba(0, 171, 85, 0.04)`,
             }}
-            onClick={() => setShowCalendar(false)}
+            onClick={() => {
+              if (needsEmployeeSelection) {
+                setShowCalendar(false);
+                setShowEmployeeSelection(true);
+              } else {
+                setShowCalendar(false);
+              }
+            }}
           >
-            Zurück zur Serviceauswahl
+            {needsEmployeeSelection ? `Zurück zur Mitarbeiterauswahl` : `Zurück zur Serviceauswahl`}
           </Button>
 
-          {/* Selected Services Summary */}
-          {selectedServices.length > 0 && (
-            <Box
-              sx={{
-                width: `100%`,
-                p: 1.5,
-                backgroundColor: `rgba(0, 171, 85, 0.06)`,
-                borderRadius: 1.5,
-                border: `1px solid rgba(0, 171, 85, 0.15)`,
-              }}
-            >
-              <Typography
-                sx={{
-                  color: `text.secondary`,
-                  fontWeight: 500,
-                  textTransform: `uppercase`,
-                  letterSpacing: `.05em`,
-                  fontSize: `0.7rem`,
-                  display: `block`,
-                  mb: 0.75,
-                }}
-              >
-                Ausgewählte Services
-              </Typography>
-
-              {(() => {
-                // Group services by category using categoryId to find categoryName
-                const groupedByCategory = selectedServices.reduce((accumulator, service) => {
-                  const category = categories.find(
-                    (cat) => cat.categoryId === service.categoryId
-                  );
-                  const categoryName = category?.categoryName || `Sonstiges`;
-                  if (!accumulator[categoryName]) {
-                    accumulator[categoryName] = [];
-                  }
-                  accumulator[categoryName].push(service);
-                  return accumulator;
-                }, {});
-
-                const categoryNames = Object.keys(groupedByCategory);
-                const isSingleCategory = categoryNames.length === 1;
-
-                return categoryNames.map((categoryName, categoryIndex) => (
-                  <Box
-                    key={categoryName}
-                    sx={{ mb: categoryIndex < categoryNames.length - 1 ? 1 : 0 }}
-                  >
-                    {!isSingleCategory && (
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: `text.secondary`,
-                          fontStyle: `italic`,
-                          fontSize: `0.75rem`,
-                          display: `block`,
-                          mb: 0.25,
-                        }}
-                      >
-                        {categoryName}
-                      </Typography>
-                    )}
-                    {groupedByCategory[categoryName].map((service) => (
-                      <Box
-                        key={service.id}
-                        sx={{
-                          display: `flex`,
-                          alignItems: `center`,
-                          gap: 1,
-                          py: 0.25,
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontWeight: 500,
-                            color: `text.primary`,
-                            fontSize: `0.875rem`,
-                          }}
-                        >
-                          {service.name}
-                        </Typography>
-                      </Box>
-                    ))}
-                  </Box>
-                ));
-              })()}
-            </Box>
-          )}
+          <SelectedServicesSummary
+            services={selectedServices}
+            categories={categories}
+            serviceEmployees={serviceEmployees}
+            showEmployees={needsEmployeeSelection}
+          />
         </Box>
       )}
 
-      {!showCalendarOverview && (
+      {!showCalendarOverview && !showEmployeeSelection && (
         <>
           {!showCalendar && (
             <>
@@ -418,7 +418,7 @@ export default function BookingFormContainer({ categories }) {
                   }}
                 />
               )}
-              {formState.firstService && !showCalendar && (
+              {formState.firstService && !showCalendar && !showEmployeeSelection && (
                 <Box
                   mt={2}
                   display="flex"
@@ -431,14 +431,19 @@ export default function BookingFormContainer({ categories }) {
                     onClick={() => {
                       sendGaEvent(`start_booking`, {
                         event_category: `booking`,
-                        event_label: `step:calendar`,
+                        event_label: needsEmployeeSelection ? `step:employee` : `step:calendar`,
                       });
 
                       // Google Ads: начало бронирования
                       const firstServiceName = selectedServices[0]?.name || `Service`;
                       trackBookingStart(firstServiceName);
 
-                      setShowCalendar(true);
+                      // If employee selection is needed, show that step first
+                      if (needsEmployeeSelection) {
+                        setShowEmployeeSelection(true);
+                      } else {
+                        setShowCalendar(true);
+                      }
                     }}
                     sx={{
                       px: 5,
@@ -467,6 +472,7 @@ export default function BookingFormContainer({ categories }) {
           setSelectedTimeSlot={setSelectedTimeSlot}
           serviceEmployees={serviceEmployees}
           setServiceEmployees={setServiceEmployees}
+          hideEmployeeSelector={needsEmployeeSelection}
           onNextStep={() => {
             setShowCalendarOverview(true);
             setShowCalendar(false);
@@ -500,6 +506,7 @@ export default function BookingFormContainer({ categories }) {
             services={selectedServices}
             selectedDay={selectedDay}
             selectedTimeSlot={selectedTimeSlot}
+            serviceEmployees={serviceEmployees}
             onChange={onEditCalendarClick}
           />
 
