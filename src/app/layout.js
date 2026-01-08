@@ -4,7 +4,7 @@ import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import Script from 'next/script';
+import AnalyticsScripts from '@/components/Analytics/AnalyticsScripts';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import CookieBanner from '@/components/CookieBanner/CookieBanner';
 import Header from '@/components/Header/Header';
@@ -84,53 +84,8 @@ export default function RootLayout({ children }) {
       >
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
-            <Script
-              id="consent-default"
-              strategy="afterInteractive"
-            >
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                // Consent Mode v2 defaults (deny all until user accepts)
-                gtag('consent', 'default', {
-                  'ad_storage': 'denied',
-                  'ad_user_data': 'denied',
-                  'ad_personalization': 'denied',
-                  'analytics_storage': 'denied'
-                });
-              `}
-            </Script>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=G-95J0ZJ44WD`}
-              strategy="afterInteractive"
-            />
-            <Script
-              id="ga4"
-              strategy="afterInteractive"
-            >
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-95J0ZJ44WD', { anonymize_ip: true });
-              `}
-            </Script>
-            {/* Google Ads */}
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=AW-11025863414`}
-              strategy="afterInteractive"
-            />
-            <Script
-              id="google-ads"
-              strategy="afterInteractive"
-            >
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'AW-11025863414');
-              `}
-            </Script>
+            {/* Analytics scripts only load on production (moodbeauty.de) */}
+            <AnalyticsScripts />
             <CssBaseline />
 
             <Header />

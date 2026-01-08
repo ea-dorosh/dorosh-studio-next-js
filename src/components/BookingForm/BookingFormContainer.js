@@ -24,7 +24,19 @@ import EmployeeSelectionStep, { shouldShowEmployeeSelection } from '@/components
 import SelectedServicesSummary from '@/components/BookingForm/SelectedServicesSummary/SelectedServicesSummary';
 import ServiceSelectionForm from '@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm';
 import { employeeSelectionTypeEnum } from '@/constants/enums';
-import { sendGaEvent } from '@/lib/ga';
+import {
+  sendGaEvent,
+  trackBookingOpened,
+  trackServiceSelected,
+  trackEmployeeSelected,
+  trackDateSelected,
+  trackTimeslotSelected,
+  trackCustomerFormShown,
+  trackBookingSuccess,
+  trackBookingError,
+  trackBookingBackStep,
+  trackBookingAbandoned,
+} from '@/lib/ga';
 import { trackBookingComplete, trackBookingStart } from '@/lib/gtm';
 import appointmentsService from '@/services/appointments.service';
 
@@ -54,6 +66,29 @@ export default function BookingFormContainer({ categories }) {
 
   // Determine if employee selection step should be shown
   const needsEmployeeSelection = shouldShowEmployeeSelection(selectedServices);
+
+  // Track booking form opened on mount
+  useEffect(() => {
+    trackBookingOpened();
+
+    // Track abandonment when user leaves the page
+    const handleBeforeUnload = () => {
+      if (!appointmentConfirmation && selectedServices.length > 0) {
+        let lastStep = `service`;
+        if (showCalendarOverview) lastStep = `customer_form`;
+        else if (showCalendar) lastStep = `calendar`;
+        else if (showEmployeeSelection) lastStep = `employee`;
+
+        trackBookingAbandoned({
+          lastStep,
+          serviceSelected: selectedServices.length > 0,
+        });
+      }
+    };
+
+    window.addEventListener(`beforeunload`, handleBeforeUnload);
+    return () => window.removeEventListener(`beforeunload`, handleBeforeUnload);
+  }, [appointmentConfirmation, selectedServices, showCalendarOverview, showCalendar, showEmployeeSelection]);
 
   // Calculate current step for stepper
   // Steps without employee selection: Service(0) → Datum(1) → Details(2) → Bestätigung(3)
@@ -117,6 +152,10 @@ export default function BookingFormContainer({ categories }) {
   };
 
   const onEditCalendarClick = () => {
+    trackBookingBackStep({
+      fromStep: `customer_form`,
+      toStep: `calendar`,
+    });
     setShowCalendarOverview(false);
     setShowCalendar(true);
   };
@@ -199,8 +238,16 @@ export default function BookingFormContainer({ categories }) {
 
       if (validationErrors) {
         setCreateAppointmentErrors(validationErrors);
+        trackBookingError({
+          errorMessage: `Validation errors`,
+          errorStep: `customer_form`,
+        });
       } else if (errorMessage) {
         setGeneralError(errorMessage);
+        trackBookingError({
+          errorMessage,
+          errorStep: `customer_form`,
+        });
       } else if (data) {
         sendGaEvent(`booking_submitted`, {
           event_category: `booking`,
@@ -216,6 +263,13 @@ export default function BookingFormContainer({ categories }) {
           price: totalPrice,
         });
 
+        // GA4 Funnel Tracking
+        trackBookingSuccess({
+          bookingId: data.id || Date.now().toString(),
+          serviceName: selectedServices.map(s => s.name).join(`, `),
+          totalPrice,
+        });
+
         setAppointmentConfirmation(data);
 
         setTimeout(() => {
@@ -226,7 +280,12 @@ export default function BookingFormContainer({ categories }) {
         }, 100);
       }
     } catch (error) {
-      setGeneralError(`Beim Erstellen des Datensatzes ist ein Fehler aufgetreten, bitte versuchen Sie es erneut oder versuchen Sie es später noch einmal.`);
+      const errorMsg = `Beim Erstellen des Datensatzes ist ein Fehler aufgetreten, bitte versuchen Sie es erneut oder versuchen Sie es später noch einmal.`;
+      setGeneralError(errorMsg);
+      trackBookingError({
+        errorMessage: error?.message || `Network error`,
+        errorStep: `customer_form_submit`,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -321,7 +380,13 @@ export default function BookingFormContainer({ categories }) {
                 textTransform: `none`,
                 backgroundColor: `rgba(0, 171, 85, 0.04)`,
               }}
-              onClick={() => setShowEmployeeSelection(false)}
+              onClick={() => {
+                trackBookingBackStep({
+                  fromStep: `employee`,
+                  toStep: `service`,
+                });
+                setShowEmployeeSelection(false);
+              }}
             >
               Zurück zur Serviceauswahl
             </Button>
@@ -339,6 +404,13 @@ export default function BookingFormContainer({ categories }) {
             serviceEmployees={serviceEmployees}
             setServiceEmployees={setServiceEmployees}
             onNextStep={() => {
+              // Track employee selection
+              const employeeSelectionInfo = getEmployeeSelectionInfo();
+              trackEmployeeSelected({
+                selectionType: employeeSelectionInfo.type || `unknown`,
+                employeeCount: employeeSelectionInfo.selectedIds?.length || 0,
+              });
+
               setShowEmployeeSelection(false);
               setShowCalendar(true);
               setTimeout(() => {
@@ -372,9 +444,17 @@ export default function BookingFormContainer({ categories }) {
             }}
             onClick={() => {
               if (needsEmployeeSelection) {
+                trackBookingBackStep({
+                  fromStep: `calendar`,
+                  toStep: `employee`,
+                });
                 setShowCalendar(false);
                 setShowEmployeeSelection(true);
               } else {
+                trackBookingBackStep({
+                  fromStep: `calendar`,
+                  toStep: `service`,
+                });
                 setShowCalendar(false);
               }
             }}
@@ -419,6 +499,11 @@ export default function BookingFormContainer({ categories }) {
                     ...prev,
                     firstService: service,
                   }));
+                  trackServiceSelected({
+                    serviceName: service?.name,
+                    serviceId: service?.id,
+                    serviceCount: 1,
+                  });
                 }}
                 getAvailableServices={getAvailableServices}
                 serviceData={formState.firstService}
@@ -444,6 +529,11 @@ export default function BookingFormContainer({ categories }) {
                         ...prev,
                         secondService: service,
                       }));
+                      trackServiceSelected({
+                        serviceName: service?.name,
+                        serviceId: service?.id,
+                        serviceCount: 2,
+                      });
                     }}
                     hasDeleteButton
                     deleteService={() => {
@@ -534,6 +624,24 @@ export default function BookingFormContainer({ categories }) {
           setServiceEmployees={setServiceEmployees}
           hideEmployeeSelector={needsEmployeeSelection}
           onNextStep={() => {
+            // Track date and timeslot selection
+            if (selectedDay) {
+              const today = new Date();
+              const selectedDate = new Date(selectedDay.day);
+              const daysFromToday = Math.ceil((selectedDate - today) / (1000 * 60 * 60 * 24));
+              trackDateSelected({
+                date: selectedDay.day,
+                daysFromToday,
+              });
+            }
+            if (selectedTimeSlot) {
+              trackTimeslotSelected({
+                time: selectedTimeSlot.startTime,
+              });
+            }
+            // Track customer form shown
+            trackCustomerFormShown();
+
             setShowCalendarOverview(true);
             setShowCalendar(false);
             setTimeout(() => {

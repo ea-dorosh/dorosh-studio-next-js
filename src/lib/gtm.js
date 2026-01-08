@@ -5,8 +5,26 @@
 // 1. Замените AW-XXXXXXXXX/XXXXXXXXXXX на реальные Conversion IDs (строки 22 и 41)
 // 2. Добавьте Google Ads script в src/app/layout.js (см. GOOGLE_ADS_STATUS.md → Шаг 4)
 
+const PRODUCTION_HOSTNAME = `moodbeauty.de`;
+
+/**
+ * Checks if the current environment is production
+ */
+function isProduction() {
+  if (typeof window === `undefined`) return false;
+  const hostname = window.location.hostname;
+  return hostname === PRODUCTION_HOSTNAME || hostname === `www.${PRODUCTION_HOSTNAME}`;
+}
+
 // Бронирование завершено - ГЛАВНАЯ КОНВЕРСИЯ ДЛЯ GOOGLE ADS
 export const trackBookingComplete = (data) => {
+  // Only send events on production
+  if (!isProduction()) {
+    // eslint-disable-next-line no-console
+    console.log(`[GTM Debug] trackBookingComplete:`, data);
+    return;
+  }
+
   if (typeof window !== `undefined` && window.gtag) {
     // 1. Google Analytics 4 событие (уже работает)
     window.gtag(`event`, `purchase`, {
@@ -32,6 +50,13 @@ export const trackBookingComplete = (data) => {
 
 // Клик на телефон - только для Google Analytics (не отслеживаем в Google Ads)
 export const trackPhoneClick = () => {
+  // Only send events on production
+  if (!isProduction()) {
+    // eslint-disable-next-line no-console
+    console.log(`[GTM Debug] trackPhoneClick`);
+    return;
+  }
+
   if (typeof window !== `undefined` && window.gtag) {
     // Google Analytics событие (для аналитики)
     window.gtag(`event`, `phone_call_click`, {
@@ -44,6 +69,13 @@ export const trackPhoneClick = () => {
 
 // Начало бронирования - для аналитики
 export const trackBookingStart = (serviceName) => {
+  // Only send events on production
+  if (!isProduction()) {
+    // eslint-disable-next-line no-console
+    console.log(`[GTM Debug] trackBookingStart:`, serviceName);
+    return;
+  }
+
   if (typeof window !== `undefined` && window.gtag) {
     window.gtag(`event`, `begin_checkout`, {
       service_name: serviceName,
@@ -52,4 +84,3 @@ export const trackBookingStart = (serviceName) => {
     });
   }
 };
-
