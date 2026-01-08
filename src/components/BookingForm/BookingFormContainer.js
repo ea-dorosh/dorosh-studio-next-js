@@ -23,6 +23,7 @@ import CustomerForm from '@/components/BookingForm/CustomerForm/CustomerForm';
 import EmployeeSelectionStep, { shouldShowEmployeeSelection } from '@/components/BookingForm/EmployeeSelectionStep/EmployeeSelectionStep';
 import SelectedServicesSummary from '@/components/BookingForm/SelectedServicesSummary/SelectedServicesSummary';
 import ServiceSelectionForm from '@/components/BookingForm/ServiceSelectionForm/ServiceSelectionForm';
+import { employeeSelectionTypeEnum } from '@/constants/enums';
 import { sendGaEvent } from '@/lib/ga';
 import { trackBookingComplete, trackBookingStart } from '@/lib/gtm';
 import appointmentsService from '@/services/appointments.service';
@@ -120,14 +121,73 @@ export default function BookingFormContainer({ categories }) {
     setShowCalendar(true);
   };
 
+  /**
+   * Determine how customer selected employee(s) for analytics tracking
+   * Returns: { type: EmployeeSelectionTypeEnum | null, selectedIds: number[] | null }
+   */
+  const getEmployeeSelectionInfo = () => {
+    // Only track for services that had multiple employees to choose from
+    const servicesWithChoice = selectedServices.filter(
+      (service) => service?.employees?.length > 1
+    );
+
+    if (servicesWithChoice.length === 0) {
+      // No choice was available - single employee per service
+      return {
+        type: null,
+        selectedIds: null,
+      };
+    }
+
+    // Check the selection for each service (use first service with choice)
+    for (const service of servicesWithChoice) {
+      const selection = serviceEmployees[service.id] || [`all`];
+
+      if (selection.includes(`all`)) {
+        // Customer chose "Egal / Alle Mitarbeiter" explicitly
+        return {
+          type: employeeSelectionTypeEnum.any,
+          selectedIds: null,
+        };
+      }
+
+      const selectedCount = selection.length;
+      const selectedIds = selection.map((id) => parseInt(id, 10));
+
+      if (selectedCount === 1) {
+        // Customer selected one specific employee
+        return {
+          type: employeeSelectionTypeEnum.specific,
+          selectedIds,
+        };
+      }
+
+      if (selectedCount > 1) {
+        // Customer selected multiple employees (even if all of them)
+        return {
+          type: employeeSelectionTypeEnum.multiple,
+          selectedIds,
+        };
+      }
+    }
+
+    return {
+      type: null,
+      selectedIds: null,
+    };
+  };
+
   const onSubmitCustomerFormClick = async (formData) => {
     setCreateAppointmentErrors(null);
     setGeneralError(null);
     setIsSubmitting(true);
+    const employeeSelectionInfo = getEmployeeSelectionInfo();
     const appointmentData = {
       ...formData,
       date: selectedDay.day,
       service: selectedTimeSlot,
+      employeeSelectionType: employeeSelectionInfo.type,
+      employeeSelectionIds: employeeSelectionInfo.selectedIds,
     };
 
     try {
