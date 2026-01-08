@@ -233,15 +233,22 @@ export default function EmployeeSelectionStep({
 
     return (
       <Typography
+        component="div"
         sx={{
           fontSize: `0.75rem`,
           fontStyle: `italic`,
-          height: 18,
+          minHeight: 18,
           mt: 0.25,
           fontWeight: `bold`,
         }}
       >
-        Nächster Termin: {formattedSlot}
+        Nächster Termin:{` `}
+        <Box
+          component="span"
+          sx={{ whiteSpace: `nowrap` }}
+        >
+          {formattedSlot}
+        </Box>
       </Typography>
     );
   };
@@ -299,8 +306,9 @@ export default function EmployeeSelectionStep({
               onClick={() => handleEmployeeToggle(service.id, `all`)}
               sx={{
                 display: `flex`,
-                alignItems: `center`,
+                alignItems: `flex-start`,
                 justifyContent: `space-between`,
+                gap: 1,
                 py: 1.25,
                 px: 1.5,
                 mb: 1,
@@ -318,21 +326,25 @@ export default function EmployeeSelectionStep({
               <Box
                 sx={{
                   display: `flex`,
-                  alignItems: `center`,
+                  alignItems: `flex-start`,
                   gap: 1,
+                  flex: 1,
+                  minWidth: 0,
                 }}
               >
                 <Checkbox
                   checked={isEmployeeSelected(service.id, `all`)}
                   sx={{
                     p: 0,
+                    mt: 0.25,
+                    flexShrink: 0,
                     color: `rgba(0, 0, 0, 0.3)`,
                     '&.Mui-checked': {
                       color: `success.main`,
                     },
                   }}
                 />
-                <Box>
+                <Box sx={{ minWidth: 0 }}>
                   <Typography
                     sx={{
                       fontWeight: 500,
@@ -351,6 +363,9 @@ export default function EmployeeSelectionStep({
                 sx={{
                   fontSize: `0.875rem`,
                   color: `text.secondary`,
+                  flexShrink: 0,
+                  textAlign: `right`,
+                  whiteSpace: `nowrap`,
                 }}
               >
                 {(() => {
@@ -371,8 +386,9 @@ export default function EmployeeSelectionStep({
                 onClick={() => handleEmployeeToggle(service.id, employee.id.toString())}
                 sx={{
                   display: `flex`,
-                  alignItems: `center`,
+                  alignItems: `flex-start`,
                   justifyContent: `space-between`,
+                  gap: 1,
                   py: 1.25,
                   px: 1.5,
                   mb: 0.5,
@@ -390,21 +406,25 @@ export default function EmployeeSelectionStep({
                 <Box
                   sx={{
                     display: `flex`,
-                    alignItems: `center`,
+                    alignItems: `flex-start`,
                     gap: 1,
+                    flex: 1,
+                    minWidth: 0,
                   }}
                 >
                   <Checkbox
                     checked={isEmployeeSelected(service.id, employee.id)}
                     sx={{
                       p: 0,
+                      mt: 0.25,
+                      flexShrink: 0,
                       color: `rgba(0, 0, 0, 0.3)`,
                       '&.Mui-checked': {
                         color: `success.main`,
                       },
                     }}
                   />
-                  <Box>
+                  <Box sx={{ minWidth: 0 }}>
                     <Typography
                       sx={{
                         fontWeight: isEmployeeSelected(service.id, employee.id) ? 500 : 400,
@@ -423,6 +443,8 @@ export default function EmployeeSelectionStep({
                   sx={{
                     fontSize: `0.875rem`,
                     fontWeight: 600,
+                    flexShrink: 0,
+                    whiteSpace: `nowrap`,
                     color: isEmployeeSelected(service.id, employee.id)
                       ? `success.main`
                       : `text.secondary`,
