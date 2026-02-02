@@ -13,27 +13,27 @@ import { useState, useCallback } from 'react';
 const MOSAIC_PATTERNS = [
   {
     gridColumn: `span 1`,
-    gridRow: `span 2`, 
+    gridRow: `span 2`,
   }, // Tall
   {
     gridColumn: `span 1`,
-    gridRow: `span 1`, 
+    gridRow: `span 1`,
   }, // Square
   {
     gridColumn: `span 1`,
-    gridRow: `span 1`, 
+    gridRow: `span 1`,
   }, // Square
   {
     gridColumn: `span 1`,
-    gridRow: `span 2`, 
+    gridRow: `span 2`,
   }, // Tall
   {
     gridColumn: `span 1`,
-    gridRow: `span 1`, 
+    gridRow: `span 1`,
   }, // Square
   {
     gridColumn: `span 1`,
-    gridRow: `span 1`, 
+    gridRow: `span 1`,
   }, // Square
 ];
 
@@ -88,7 +88,7 @@ export default function MosaicGallery({
     <Box
       sx={{
         marginTop: `48px`,
-        marginBottom: `32px`, 
+        marginBottom: `32px`,
       }}
     >
       {title && (
@@ -205,13 +205,10 @@ export default function MosaicGallery({
             onClick={closeLightbox}
             sx={{
               position: `absolute`,
-              top: {
-                xs: `16px`,
-                md: `24px`, 
-              },
+              top: `60px`,
               right: {
                 xs: `16px`,
-                md: `24px`, 
+                md: `24px`,
               },
               color: `white`,
               backgroundColor: `rgba(255, 255, 255, 0.1)`,
@@ -237,7 +234,7 @@ export default function MosaicGallery({
                   position: `absolute`,
                   left: {
                     xs: `8px`,
-                    md: `24px`, 
+                    md: `24px`,
                   },
                   top: `50%`,
                   transform: `translateY(-50%)`,
@@ -262,7 +259,7 @@ export default function MosaicGallery({
                   position: `absolute`,
                   right: {
                     xs: `8px`,
-                    md: `24px`, 
+                    md: `24px`,
                   },
                   top: `50%`,
                   transform: `translateY(-50%)`,
@@ -286,7 +283,7 @@ export default function MosaicGallery({
               position: `absolute`,
               bottom: {
                 xs: `16px`,
-                md: `24px`, 
+                md: `24px`,
               },
               left: `50%`,
               transform: `translateX(-50%)`,
@@ -305,11 +302,11 @@ export default function MosaicGallery({
               position: `relative`,
               width: {
                 xs: `90vw`,
-                md: `80vw`, 
+                md: `80vw`,
               },
               height: {
                 xs: `70vh`,
-                md: `80vh`, 
+                md: `80vh`,
               },
               maxWidth: `1200px`,
             }}
