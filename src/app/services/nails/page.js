@@ -1,7 +1,59 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import CategoryInfo from '@/components/CategoryInfo/CategoryInfo';
+import MosaicGallery from '@/components/MosaicGallery/MosaicGallery';
 import ParallaxHero from '@/components/Parallax/ParallaxHero';
+
+const GALLERY_IMAGES = [
+  {
+    src: `/images/services/nails/IMG_0189.avif`,
+    alt: `Professionelle Maniküre Ergebnis - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0196.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0198.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0200.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0201.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0202.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0204.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0209.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0213.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0329.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0374.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0375.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+];
 
 export const metadata = {
   title: `Maniküre und Pediküre München - MOOD BEAUTY | Professionelle Nagelpflege`,
@@ -55,6 +107,10 @@ export default async function NailsPage() {
       </Box>
 
       <Container>
+        <MosaicGallery
+          images={GALLERY_IMAGES}
+          title="Unsere Arbeiten"
+        />
 
         <CategoryInfo
           title="Maniküre und Pediküre in München"
