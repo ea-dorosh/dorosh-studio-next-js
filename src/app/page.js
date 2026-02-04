@@ -4,7 +4,6 @@ import Container from '@mui/material/Container';
 import Link from 'next/link';
 import ContactSection from '@/components/ContactSection/ContactSection';
 import HomeServices from '@/components/HomeServices/HomeServices';
-import MosaicGallery from '@/components/MosaicGallery/MosaicGallery';
 import ParallaxHero from '@/components/Parallax/ParallaxHero';
 import PerformanceMonitor from '@/components/PerformanceMonitor/PerformanceMonitor';
 import PricePreview from '@/components/PricePreview/PricePreview';
@@ -184,13 +183,6 @@ export default async function HomePage() {
       <HomeServices />
 
       <UberMoodSection />
-
-      <Container>
-        <MosaicGallery
-          images={GALLERY_IMAGES}
-          title="Unsere Maniküre Arbeiten"
-        />
-      </Container>
 
       <PricePreview categories={categories} />
 

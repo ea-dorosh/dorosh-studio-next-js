@@ -29,30 +29,6 @@ const GALLERY_IMAGES = [
     src: `/images/services/nails/IMG_0202.avif`,
     alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
   },
-  {
-    src: `/images/services/nails/IMG_0204.avif`,
-    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
-  },
-  {
-    src: `/images/services/nails/IMG_0209.avif`,
-    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
-  },
-  {
-    src: `/images/services/nails/IMG_0213.avif`,
-    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
-  },
-  {
-    src: `/images/services/nails/IMG_0329.avif`,
-    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
-  },
-  {
-    src: `/images/services/nails/IMG_0374.avif`,
-    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
-  },
-  {
-    src: `/images/services/nails/IMG_0375.avif`,
-    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
-  },
 ];
 
 export const metadata = {
