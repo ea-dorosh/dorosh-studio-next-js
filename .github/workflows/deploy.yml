@@ -1,4 +1,4 @@
-name: Build & Deploy Dorosh Studio
+name: Build & Deploy Mood Beauty
 
 on:
   push:
@@ -14,9 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Create production env file
         run: |
@@ -27,7 +27,7 @@ jobs:
         run: |
           npm ci
           npm run build
-          tar czf nextjs-app.tar.gz .next package.json package-lock.json public next.config.js src .env.production
+          tar czf nextjs-app.tar.gz .next package.json package-lock.json public next.config.ts tsconfig.json postcss.config.mjs src .env.production
 
       - name: Upload Next.js artifact
         uses: actions/upload-artifact@v4
@@ -98,7 +98,7 @@ jobs:
             rm -f nextjs-app.tar.gz
 
             # Send success notification
-            telegram-notify "Dorosh Studio deploy successful" "Application updated and restarted%0A• Commit: ${{ github.sha }}%0A• Branch: ${{ github.ref_name }}%0A• Actor: ${{ github.actor }}" "🚀" || echo "Notification failed"
+            telegram-notify "Mood Beauty deploy successful" "Application updated and restarted%0A• Commit: ${{ github.sha }}%0A• Branch: ${{ github.ref_name }}%0A• Actor: ${{ github.actor }}" "🚀" || echo "Notification failed"
 
       - name: Notify deployment failure
         if: failure()
@@ -108,4 +108,4 @@ jobs:
           username: ${{ secrets.STUDIO_EC2_USER }}
           key: ${{ secrets.STUDIO_EC2_SSH_KEY }}
           script: |
-            telegram-notify "Dorosh Studio deploy FAILED" "❌ Deployment error!%0A• Commit: ${{ github.sha }}%0A• Branch: ${{ github.ref_name }}%0A• Actor: ${{ github.actor }}%0A%0ACheck GitHub Actions logs" "🚨" || true
+            telegram-notify "Mood Beauty deploy FAILED" "Deployment error!%0A• Commit: ${{ github.sha }}%0A• Branch: ${{ github.ref_name }}%0A• Actor: ${{ github.actor }}%0A%0ACheck GitHub Actions logs" "🚨" || true
