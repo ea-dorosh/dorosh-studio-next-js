@@ -63,7 +63,17 @@ jobs:
           key: ${{ secrets.STUDIO_EC2_SSH_KEY }}
           script: |
             set -e
+
+            # Use Node 22 via nvm (required for Next.js 16)
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm use 22
+            node --version
+
             cd /var/www/dorosh-studio
+
+            # Clean old config files that may conflict with new TS-based project
+            rm -f next.config.js jsconfig.json .eslintrc.json .editorconfig
 
             # Extract the build files
             tar xzf nextjs-app.tar.gz

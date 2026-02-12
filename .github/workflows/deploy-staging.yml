@@ -63,6 +63,13 @@ jobs:
           key: ${{ secrets.STUDIO_EC2_STAGING_SSH_KEY }}
           script: |
             set -e
+
+            # Use Node 22 via nvm (required for Next.js 16)
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm use 22
+            node --version
+
             cd /var/www/dorosh-studio
 
             # Clean old config files that may conflict with new TS-based project
@@ -74,7 +81,7 @@ jobs:
             # Install production dependencies
             npm ci --omit=dev
 
-            # Create staging .env file (no leading spaces)
+            # Create staging .env file
             echo 'REACT_APP_API_URL=https://crm-staging.moodbeauty.de/' > .env
 
             # Create PM2 ecosystem config with timestamps
