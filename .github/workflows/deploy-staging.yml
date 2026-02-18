@@ -70,7 +70,7 @@ jobs:
             cd /var/www/dorosh-studio
             rm -f next.config.js jsconfig.json .eslintrc.json .editorconfig
             tar xzf nextjs-app.tar.gz
-            npm install --omit=dev
+            npm ci --omit=dev
             echo 'REACT_APP_API_URL=https://crm-staging.moodbeauty.de/' > .env
 
             pm2 delete dorosh-studio-staging || true
