@@ -1,4 +1,4 @@
-name: Build & Deploy Dorosh Studio (Staging)
+name: Build & Deploy Mood Beauty (Staging)
 
 on:
   push:
@@ -14,9 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Create staging env file
         run: |
@@ -27,7 +27,7 @@ jobs:
         run: |
           npm ci
           npm run build
-          tar czf nextjs-app.tar.gz .next package.json package-lock.json public next.config.js src .env.production
+          tar czf nextjs-app.tar.gz .next package.json package-lock.json public next.config.ts tsconfig.json postcss.config.mjs src .env.production
 
       - name: Upload Next.js artifact
         uses: actions/upload-artifact@v4
@@ -63,27 +63,18 @@ jobs:
           key: ${{ secrets.STUDIO_EC2_STAGING_SSH_KEY }}
           script: |
             set -e
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm use 22
+
             cd /var/www/dorosh-studio
-
-            # Extract the build files
+            rm -f next.config.js jsconfig.json .eslintrc.json .editorconfig
             tar xzf nextjs-app.tar.gz
-
-            # Install production dependencies
             npm ci --omit=dev
+            echo 'REACT_APP_API_URL=https://crm-staging.moodbeauty.de/' > .env
 
-            # Create staging .env file
-            cat > .env << 'ENVEOF'
-            REACT_APP_API_URL=https://crm-staging.moodbeauty.de/
-            ENVEOF
-
-            # Restart the Next.js staging application with PM2
             pm2 delete dorosh-studio-staging || true
             pm2 start npm --name dorosh-studio-staging -- start -- -p 3001
             pm2 save
-
-            # Clean up archive
             rm -f nextjs-app.tar.gz
-
-            echo "✅ Staging deployment completed!"
-            echo "Next.js Staging: https://staging.moodbeauty.de/"
 
