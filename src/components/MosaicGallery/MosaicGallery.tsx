@@ -78,7 +78,7 @@ export default function MosaicGallery({
   }
 
   return (
-    <div className="mt-12 mb-8">
+    <div className="mt-12 mb-8 px-4">
       {title && (
         <h4 className="heading-4 mb-6 text-[1.3rem] font-semibold text-center">
           {title}

@@ -5,6 +5,58 @@ import ParallaxHero from "@/components/Parallax/ParallaxHero";
 import PricePreview from "@/components/PricePreview/PricePreview";
 import UberMoodSection from "@/components/UberMoodSection/UberMoodSection";
 import servicesService from "@/services/services.service";
+import MosaicGallery from "@/components/MosaicGallery/MosaicGallery";
+
+const GALLERY_IMAGES = [
+  {
+    src: `/images/services/nails/IMG_0189.avif`,
+    alt: `Professionelle Maniküre Ergebnis - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0196.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0198.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0200.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0201.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0202.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0204.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0209.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0213.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0329.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0374.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+  {
+    src: `/images/services/nails/IMG_0375.avif`,
+    alt: `Gel-Lack Nägel Design - MOOD BEAUTY München`,
+  },
+];
 
 export default async function HomePage() {
   const categories = await servicesService.getServices();
@@ -44,6 +96,12 @@ export default async function HomePage() {
 
       {/* Services section */}
       <HomeServices />
+
+      {/* Gallery section */}
+      <MosaicGallery
+          images={GALLERY_IMAGES}
+          title="Nägel"
+        />
 
       {/* About section */}
       <UberMoodSection />

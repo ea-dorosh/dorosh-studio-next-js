@@ -9,6 +9,7 @@ interface ParallaxHeroProps {
   readonly headline?: string;
   readonly subHeadline?: string;
   readonly height?: string;
+  readonly maxWidth?: string;
   readonly children?: React.ReactNode;
 }
 
@@ -18,6 +19,7 @@ export default function ParallaxHero({
   headline,
   subHeadline,
   height = `80vh`,
+  maxWidth = `768px`,
   children,
 }: ParallaxHeroProps) {
   const imageLayerRef = useRef<HTMLDivElement>(null);
@@ -56,8 +58,8 @@ export default function ParallaxHero({
 
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ height }}
+      className="relative w-full overflow-hidden mx-auto"
+      style={{ height, maxWidth }}
     >
       {/* Image layer */}
       <div
@@ -76,7 +78,7 @@ export default function ParallaxHero({
           alt={alt}
           priority
           fill
-          sizes="100vw"
+          sizes="768px"
           quality={90}
           placeholder="empty"
           style={{

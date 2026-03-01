@@ -18,7 +18,7 @@ export default function HomeServices() {
             >
               <Link
                 href={service.href}
-                className="block w-full md:w-[400px] flex-shrink-0"
+                className="block w-full md:w-[360px] flex-shrink-0"
               >
                 <div className="service-card">
                   {/* Image */}
