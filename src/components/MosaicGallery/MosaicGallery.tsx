@@ -115,6 +115,7 @@ export default function MosaicGallery({
                 src={image.src}
                 alt={image.alt || `Gallery image ${index + 1}`}
                 fill
+                unoptimized
                 sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 33vw"
                 style={{
                   objectFit: `cover`,
@@ -224,6 +225,7 @@ export default function MosaicGallery({
                 src={images[currentIndex]?.src}
                 alt={images[currentIndex]?.alt || `Gallery image`}
                 fill
+                unoptimized
                 sizes="100vw"
                 style={{ objectFit: `contain` }}
                 priority
