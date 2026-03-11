@@ -10,6 +10,7 @@ interface AppointmentData {
   service: TimeSlot;
   employeeSelectionType: string | null;
   employeeSelectionIds: number[] | null;
+  trafficSource?: string | null;
 }
 
 interface TimeSlot {
