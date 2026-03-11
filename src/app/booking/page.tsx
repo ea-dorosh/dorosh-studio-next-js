@@ -72,6 +72,15 @@ async function trackQrScan(searchParams: { source?: string } | undefined) {
   }
 }
 
+const sourceToTrafficSource: Record<string, string> = {
+  public: `qr`,
+  coupon: `coupon`,
+  ga: `ga`,
+  ga1: `ga1`,
+  ga2: `ga2`,
+  instagram: `instagram`,
+};
+
 export default async function BookingPage({
   searchParams,
 }: {
@@ -81,7 +90,14 @@ export default async function BookingPage({
   const categories = await servicesService.getServices();
   await trackQrScan(resolvedSearchParams);
 
+  const trafficSource = resolvedSearchParams?.source
+    ? sourceToTrafficSource[resolvedSearchParams.source] || null
+    : null;
+
   return (
-    <BookingFormContainer categories={categories as unknown as import("@/types/booking").Category[]} />
+    <BookingFormContainer
+      categories={categories as unknown as import("@/types/booking").Category[]}
+      trafficSource={trafficSource}
+    />
   );
 }

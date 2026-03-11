@@ -43,9 +43,10 @@ import type {
 
 interface BookingFormContainerProps {
   categories: Category[];
+  trafficSource?: string | null;
 }
 
-export default function BookingFormContainer({ categories }: BookingFormContainerProps) {
+export default function BookingFormContainer({ categories, trafficSource = null }: BookingFormContainerProps) {
   const firstServiceRef = useRef<ServiceSelectionFormRef>(null);
 
   const [formState, setFormState] = useState<FormState>({
@@ -205,6 +206,7 @@ export default function BookingFormContainer({ categories }: BookingFormContaine
       service: selectedTimeSlot!,
       employeeSelectionType: employeeSelectionInfo.type,
       employeeSelectionIds: employeeSelectionInfo.selectedIds,
+      ...(trafficSource ? { trafficSource } : {}),
     };
 
     try {
